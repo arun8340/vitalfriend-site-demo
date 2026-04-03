@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+Disallow: /_next/
+
+# Host
+Host: https://vitalfriend.com
+
+# Sitemaps
+Sitemap: https://vitalfriend.com/sitemap.xml

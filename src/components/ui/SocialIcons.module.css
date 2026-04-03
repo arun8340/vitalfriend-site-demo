@@ -1,0 +1,25 @@
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.socialIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.socialIcon:hover {
+  background: #000000;
+}
+
+.socialIcon:hover svg {
+  fill: #ffffff;
+}
