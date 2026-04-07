@@ -16,7 +16,7 @@ const topBarLinks = [
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/alfs", label: "Facilities" },
+  { href: "/facilities", label: "Facilities" },
   { href: "/physicians", label: "Physicians" },
   { href: "/families", label: "Families" },
   { href: "/platform", label: "Platform" },

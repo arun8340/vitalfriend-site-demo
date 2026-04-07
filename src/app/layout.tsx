@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 export const metadata: Metadata = {
   title: {
@@ -79,7 +80,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} antialiased flex flex-col min-h-screen`}
+        className={`${inter.variable} ${manrope.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
       >
         <Header />
         <main className="flex-1 pt-27">{children}</main>

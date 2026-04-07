@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 import { benefitCards, stayConnectedContent, simpleTechnologyContent } from "./data";
 import s from "./families.module.css";
@@ -23,7 +22,9 @@ export default function FamiliesPage() {
           <div className={s.heroBadge}>
             <span className={s.heroBadgeText}>For Families & Caregivers</span>
           </div>
-          <h1 className={s.heroTitle}>Families</h1>
+          <h1 className={s.heroTitle}>
+            <span className={s.heroTitleGradient}>Families</span>
+          </h1>
           <p className={s.heroSubtitle}>
             Peace of mind for families. Continuous care for your loved ones.
             Stay connected to their health, no matter where you are.
@@ -33,30 +34,28 @@ export default function FamiliesPage() {
           </Button>
         </div>
       </section>
-
-      <Section background="white">
-        <h2 className={s.header}>
-          <span className="gradient-text block mb-2">
-            Why Families Trust VitalFriend
-          </span>
-        </h2>
-        <p className="text-xl text-[--color-muted] mb-12 mx-auto justify-center text-center max-w-3xl">
-          Because knowing sooner makes the difference.
-        </p>
-
-        <div className={s.grid}>
-          {benefitCards.map((card) => (
-            <div key={card.title} className={s.card}>
-              <div className={s.iconWrapper}>
-                <div className={s.iconInner}>{card.icon}</div>
+      <section className={s.sectionWhite}>
+        <div className={s.whyInner}>
+          <h2 className={s.sectionHeading}>
+            Why Clinicians Choose VitalFriend
+          </h2>
+          <p className={s.sectionSubtitle}>
+            Better data. Earlier action. Less noise.
+          </p>
+          <div className={s.cardsGrid}>
+            {benefitCards.map((card, i) => (
+              <div
+                key={i}
+                className={`${s.card}${card.last ? ` ${s.cardLast}` : ""}`}
+              >
+                <div className={s.cardIcon}>{card.icon}</div>
+                <h3 className={s.cardTitle}>{card.title}</h3>
+                <p className={s.cardDesc}>{card.description}</p>
               </div>
-              <h3 className={s.cardTitle}>{card.title}</h3>
-              <p className={s.cardDescription}>{card.description}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </Section>
-
+      </section>
       <section className={s.sectionWhite}>
         <div className={s.splitSectionInner}>
           <div
@@ -71,8 +70,9 @@ export default function FamiliesPage() {
             </h2>
             <p className="text-lg text-[--color-muted] mb-4">
               VitalFriend gives families the peace of mind that comes from
-              staying informed about their loved one's health. No more wondering
-              or worrying you'll know immediately if something changes.
+              staying informed about their loved one&apos;s health. No more
+              wondering or worrying you&apos;ll know immediately if something
+              changes.
             </p>
             <ul className={s.splitList}>
               {stayConnectedContent.map((point, i) => (
@@ -121,7 +121,6 @@ export default function FamiliesPage() {
           </div>
         </div>
       </section>
-
       <section className={s.sectionWhite}>
         <div className={s.splitSectionInner}>
           <div className={s.splitImageWrapper}>
@@ -184,6 +183,41 @@ export default function FamiliesPage() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+      
+      <section className={s.ctaSection}>
+        <div className={s.ctaCard}>
+          <div className={s.ctaInner}>
+            <p className={s.ctaQuote}>
+              &#34;VitalFriend has given our family incredible peace of mind. We
+              can check on Mom anytime and get alerts if something changes.
+              It&apos;s like having a guardian angel watching over her
+              24/7.&#34;
+            </p>
+            <span className={s.ctaSubtext}>Sarah Johnson</span>
+            <span className={s.ctaSubtext2}>
+              Daughter and Primary Caregiver
+            </span>
+            <Button href="/demo" variant="pill" size="md">
+              Get Started for ALFs
+            </Button>
+          </div>
+        </div>
+      </section>
+      <section className={s.sectionWhite}>
+        <h2 className={s.sectionHeading}>Ready to Protect Your Loved One?</h2>
+        <p className={s.sectionSubtitle}>
+          Join thousands of families who trust VitalFriend to keep their loved
+          ones safe and healthy
+        </p>
+        <div className={s.ctaBtns}>
+          <Button href="/contact" variant="pill" size="md">
+            Get Started Today
+          </Button>
+          <Button href="/contact" variant="pill" size="md">
+            Talk to an Expert
+          </Button>
         </div>
       </section>
     </>

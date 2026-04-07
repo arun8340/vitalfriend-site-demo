@@ -4,6 +4,7 @@ export interface BenefitCards {
     icon: ReactNode,
     title: string, 
     description: string,
+    last: boolean
 }
 
 export const benefitCards: BenefitCards[] = [
@@ -30,6 +31,7 @@ export const benefitCards: BenefitCards[] = [
     title: "24/7 Monitoring",
     description:
       "Keep everyone informed with continuous monitoring that never sleeps. Stay connected to your loved one's health around the clock.",
+    last: false
   },
   {
     icon: (
@@ -59,6 +61,7 @@ export const benefitCards: BenefitCards[] = [
     title: "Easy to Wear",
     description:
       "BUDDI is designed for comfort and simplicity. Easy to wear and care for, ensuring your loved one stays protected without hassle.",
+    last: false
   },
   {
     icon: (
@@ -97,6 +100,7 @@ export const benefitCards: BenefitCards[] = [
     title: "Immediate Alerts",
     description:
       "Get notified the moment health changes occur. Receive real-time alerts so you can act quickly when it matters most.",
+    last: false
   },
   {
     icon: (
@@ -150,6 +154,7 @@ export const benefitCards: BenefitCards[] = [
     title: "View Health Trends",
     description:
       "Track blood pressure, sleep, oxygen levels, heart rate, falls, and more. Understand long-term patterns to better support your loved one.",
+    last: false
   },
   {
     icon: (
@@ -190,6 +195,7 @@ export const benefitCards: BenefitCards[] = [
     title: "Always Vigilant",
     description:
       "Get the confidence that comes from knowing someone is always watching over your loved one, providing an extra layer of care and security.",
+    last: false
   },
   {
     icon: (
@@ -245,6 +251,7 @@ export const benefitCards: BenefitCards[] = [
     title: "Insurance Coverage",
     description:
       "The device and monitoring service are usually covered by insurance, making it accessible without adding financial burden to your family.",
+    last: true
   },
 ];
 
