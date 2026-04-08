@@ -34,7 +34,7 @@ export default function FacilitiesPage() {
             giving staff, families, and physicians the visibility they need, exactly when they need it.
           </p>
           <div className={s.heroBtns}>
-            <Link href="/contact" className={s.heroBtnPrimary}>
+            <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
               Schedule a Free Demo
             </Link>
             <Link href="#care-levels" className={s.heroBtnOutline}>
@@ -232,7 +232,7 @@ export default function FacilitiesPage() {
           experience, tailored to your facility type, and answer every question your team has.
         </p>
         <div className={s.finalCtaBtns}>
-          <Link href="/contact" className={s.finalCtaBtnPrimary}>
+          <Link href="/scheduleDemo" className={s.finalCtaBtnPrimary}>
             Schedule a Free Demo
           </Link>
           <Link href="/contact" className={s.finalCtaBtnOutline}>
