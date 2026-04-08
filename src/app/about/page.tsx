@@ -137,7 +137,7 @@ export default function AboutPage() {
             </p>
             <h2 className={s.ctaHeading}>Ready to bring smarter care to your facility?</h2>
             <p className={s.ctaSubtext}>Join 50+ care centers improving outcomes with VitalFriend.</p>
-            <Link href="/demo" className={s.ctaButton}>
+            <Link href="/scheduleDemo" className={s.ctaButton}>
               Book a Free Demo
               <span className={s.ctaButtonIcon}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E15D77" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

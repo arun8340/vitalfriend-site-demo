@@ -239,7 +239,7 @@ export default function DevicesVitalsPage() {
           data to life, reducing errors and saving you time, money, and man
           hours.
         </p>
-        <Button href="/demo" size="lg">
+        <Button href="/scheduleDemo" size="lg">
           Book a demo
         </Button>
       </Section>

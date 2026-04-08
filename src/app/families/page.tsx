@@ -29,7 +29,7 @@ export default function FamiliesPage() {
             Peace of mind for families. Continuous care for your loved ones.
             Stay connected to their health, no matter where you are.
           </p>
-          <Button href="/demo" variant="pill" size="md">
+          <Button href="/scheduleDemo" variant="pill" size="md">
             See How it Works
           </Button>
         </div>
@@ -199,7 +199,7 @@ export default function FamiliesPage() {
             <span className={s.ctaSubtext2}>
               Daughter and Primary Caregiver
             </span>
-            <Button href="/demo" variant="pill" size="md">
+            <Button href="/scheduleDemo" variant="pill" size="md">
               Get Started for ALFs
             </Button>
           </div>

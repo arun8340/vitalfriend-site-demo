@@ -44,7 +44,7 @@ export default function PlatformPage() {
               facilities and families, all enhanced with AI and covered by
               insurance.
             </p>
-            <Link href="/demo" className={s.heroBtn}>
+            <Link href="/scheduleDemo" className={s.heroBtn}>
               Watch How to Use
             </Link>
           </div>

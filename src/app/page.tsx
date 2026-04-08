@@ -387,7 +387,7 @@ export default function HomePage() {
           time, predict risks early, and share updates securely.
         </p>
         <div className="flex justify-center mb-8">
-          <Button href="/demo" variant="pill" size="md">
+          <Button href="/scheduleDemo" variant="pill" size="md">
             <span className="flex items-center">Watch Demo</span>
           </Button>
         </div>
