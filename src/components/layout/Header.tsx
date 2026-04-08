@@ -99,12 +99,21 @@ export default function Header() {
               );
             })}
 
+            {/* Book Demo button */}
+            <Link
+              href="/scheduleDemo"
+              className="ml-5 px-5 py-2 bg-[#E5476C] text-white rounded-md whitespace-nowrap transition-colors hover:bg-[#cc3a5d]"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
+            >
+              Book Demo
+            </Link>
+
             {/* Login button */}
             <a
-              href="https://app.vitalfriend.com"
+              href="https://devfrontend.vitalfrnd.com/FacilityLogin"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-5 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
+              className="ml-3 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
             >
               Login
@@ -158,8 +167,16 @@ export default function Header() {
             >
               Call: 1 (855) 742 7300
             </a>
+            <Link
+              href="/scheduleDemo"
+              className="bg-[#E5476C] text-white rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#cc3a5d]"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
+              onClick={() => setMenuOpen(false)}
+            >
+              Book Demo
+            </Link>
             <a
-              href="https://app.vitalfriend.com"
+              href="https://devfrontend.vitalfrnd.com/FacilityLogin"
               target="_blank"
               rel="noopener noreferrer"
               className="border border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
