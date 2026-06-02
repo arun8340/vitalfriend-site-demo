@@ -25,25 +25,31 @@ export default function FacilitiesPage() {
             <span className={s.heroBadgeText}>For Senior Care Facilities</span>
           </div>
           <h1 className={s.heroTitle}>
-            <span className={s.heroTitleGradient}>Seniors deserve care</span>
+            <span className={s.heroTitleGradient}>Continuous Health Monitoring</span>
             <br />
-            <span className={s.heroTitleGradient}>that</span> never sleeps.
+            <span className={s.heroTitleGradient}>Across Senior Care</span>
           </h1>
           <p className={s.heroSubtitle}>
-            The BUDDI wearable continuously monitors vitals across all levels of senior care,<br />
-            giving staff, families, and physicians the visibility they need, exactly when they need it.
+            The Vital Buddy wearable monitors vitals across all levels of senior care, giving staff, families, and physicians timely visibility into resident health data.
           </p>
           <div className={s.heroBtns}>
-            <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
+            <Link href="/contact" className={s.heroBtnPrimary}>
               Schedule a Free Demo
-            </Link>
-            <Link href="#care-levels" className={s.heroBtnOutline}>
-              Find Your Facility Type
             </Link>
           </div>
           <p className={s.heroFinePrint}>
-            Covered by insurance · FDA-cleared · HIPAA-secure · No upfront cost
+            Eligible for reimbursement under Medicare RPM codes
           </p>
+          <div className={s.heroImageWrapper}>
+            <Image
+              src="/images/facilities_sleepingWomen.png"
+              alt="Senior resident using Vital Buddy wearable"
+              width={1024}
+              height={440}
+              className={s.heroImage}
+              priority
+            />
+          </div>
         </div>
       </section>
 
@@ -63,57 +69,26 @@ export default function FacilitiesPage() {
       </section>
 
 
-      {/* ── Demonstrated Value (Stats) ── */}
-      <section className={s.statsSection}>
-        <h2 className={s.statsHeading}>Demonstrated Value</h2>
-        <p className={s.statsSubtitle}>
-          VitalFriend® unites care teams, physicians, and families on one platform, transforming data into insights that simplify care and improve outcomes.
-        </p>
-        <div className={s.statsInner}>
-          <div className={s.statItem}>
-            <p className={s.statNumber}>94%</p>
-            <p className={s.statLabel}>of facilities report improved resident safety in 90 days</p>
-          </div>
-          <div className={s.statItem}>
-            <p className={s.statNumber}>68%</p>
-            <p className={s.statLabel}>fewer after-hours emergency calls</p>
-          </div>
-          <div className={s.statItem}>
-            <p className={s.statNumber}>4.9★</p>
-            <p className={s.statLabel}>average family satisfaction rating on care quality</p>
-          </div>
-          <div className={s.statItem}>
-            <p className={s.statNumber}>2 hrs</p>
-            <p className={s.statLabel}>saved per nurse per shift through automation</p>
-          </div>
-        </div>
-      </section>
 
       {/* ── Testimonials ── */}
       <section className={s.testimonialsSection}>
         <div className={s.testimonialsInner}>
-          <div className={s.testimonialsHeader}>
-            <div className={s.testimonialsHeaderLeft}>
-              <span className={s.testimonialsBadge}>What Care Teams Are Saying</span>
-              <h2 className={s.testimonialsHeading}>
-                Real words from the people<br />who use it every day.
-              </h2>
-            </div>
-            <Link href="/contact" className={s.testimonialsBtn}>
-              Read More Stories
-            </Link>
+          <div className={s.testimonialsHeaderLeft}>
+            <span className={s.testimonialsBadge}>What Care Teams Are Saying</span>
+            <h2 className={s.testimonialsHeading}>
+              Real words from the people<br />who use it every day
+            </h2>
           </div>
           <div className={s.testimonialsGrid}>
             {testimonials.map((t, i) => (
-              <div key={i} className={`${s.testimonialCard}${i === 0 ? ` ${s.testimonialCardFirst}` : ""}`}>
+              <div key={i} className={`${s.testimonialCard} ${i === 0 ? s.testimonialCardGreen : i === 2 ? s.testimonialCardPink : s.testimonialCardNeutral}`}>
                 <p className={s.testimonialQuote}>{t.quote}</p>
                 <div className={s.testimonialAuthor}>
                   <div className={s.testimonialAvatar}>
-                    {t.avatar ? (
-                      <Image src={t.avatar} alt={t.name} width={48} height={48} style={{ objectFit: "cover", borderRadius: "50%" }} />
-                    ) : (
-                      t.name.split(" ").map(w => w[0]).slice(0, 2).join("")
-                    )}
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="8" r="4" fill="#fff" opacity="0.9"/>
+                      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.9"/>
+                    </svg>
                   </div>
                   <div>
                     <p className={s.testimonialName}>{t.name}</p>
@@ -134,7 +109,7 @@ export default function FacilitiesPage() {
           <div className={s.certLeft}>
             <div className={s.certImageWrapper}>
               <Image
-                src="/images/VFCertified.png"
+                src="/images/vitalfriend-badge.png"
                 alt="VF Certified™"
                 fill
                 style={{ objectFit: "contain" }}
@@ -149,29 +124,21 @@ export default function FacilitiesPage() {
               ))}
             </div>
           </div>
-          {/* Right: badge + heading + body + button */}
-          <div>
-            <div className={s.certBadge}>
-              <span className={s.certBadgeText}>VitalFriend Certified™</span>
-            </div>
+          {/* Right: heading + body */}
+          <div className={s.certRight}>
             <h2 className={s.certHeading}>
               <span className={s.certHeadingGradient}>Turn technology into a</span>
               <br />
-              competitive
-              <br />
-              advantage.
+              <strong>competitive advantage</strong>
             </h2>
             <p className={s.certBody}>
-              Families searching for senior care want proof of quality — not just a promise. VitalFriend
-              Certified™ is a trusted, recognized signal that your facility invests in the health and safety of every resident.
+              Families searching for senior care want proof of quality, not just a promise. VitalFriend Certified
+              is a trusted, recognized signal that your facility invests in the health and safety of every resident.
             </p>
-            <p className={s.certBody} style={{ marginBottom: 32 }}>
-              Whether you&apos;re an ALF, ILF, or SNF, early adopters gain a meaningful head start in reputation
-              and occupancy as more facilities adopt BUDDI.
+            <p className={s.certBody}>
+              Whether you&apos;re an Assisted Living, Independent Living, or Residential Home Facility, early adopters
+              gain a meaningful boost in reputation and occupancy by highlighting the program.
             </p>
-            <Link href="/contact" className={s.certBtn}>
-              Learn About Certification
-            </Link>
           </div>
         </div>
       </section>
@@ -183,9 +150,9 @@ export default function FacilitiesPage() {
             <span className={s.deployBadge}>Getting Started</span>
           </div>
           <h2 className={s.deployHeading}>
-            <span className={s.deployHeadingGradient}>From signup to full deployment</span>
+            <span className={s.deployHeadingGradient}>From demo to deployment in days,</span>
             <br />
-            <span className={s.deployHeadingGradient}>in</span>{" "}days, not months.
+            <strong>not months</strong>
           </h2>
           <div className={s.deploySteps}>
             {deploySteps.map((step, i) => (
@@ -225,23 +192,20 @@ export default function FacilitiesPage() {
         <h2 className={s.finalCtaHeading}>
           Ready to give your residents
           <br />
-          the care they <span className={s.finalCtaHeadingBlack}>deserve?</span>
+          the care they <strong className={s.finalCtaHeadingBlack}>deserve?</strong>
         </h2>
         <p className={s.finalCtaSubtitle}>
-          Schedule a 20-minute demo with a VitalFriend specialist. We&apos;ll walk you through the BUDDI
+          Schedule a 20-minute demo with a VitalFriend specialist. We&apos;ll walk you through the Vital Buddy
           experience, tailored to your facility type, and answer every question your team has.
         </p>
         <div className={s.finalCtaBtns}>
-          <Link href="/scheduleDemo" className={s.finalCtaBtnPrimary}>
+          <Link href="/contact" className={s.finalCtaBtnPrimary}>
             Schedule a Free Demo
-          </Link>
-          <Link href="/contact" className={s.finalCtaBtnOutline}>
-            Download the Facility Overview
           </Link>
         </div>
         <div className={s.finalCtaFinePrint}>
           <span>No commitment required</span>
-          <span>Insurance verification included</span>
+          <span>Insurance qualification included</span>
           <span>Onboarding in days</span>
         </div>
       </section>
