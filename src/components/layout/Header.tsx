@@ -5,14 +5,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const topBarLinks = [
-  { href: "/blog", label: "Blog" },
-  { href: "/research", label: "Research" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/news", label: "News" },
-  { href: "/certified-facilities", label: "Certified Facilities Directory" },
-  { href: "/calculators", label: "Calculators" },
-];
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -39,22 +31,17 @@ export default function Header() {
     <header className="w-full fixed top-0 left-0 right-0 z-50">
       {/* Top utility bar — always solid white */}
       <div className="bg-white border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-10">
-          <nav className="hidden md:flex items-center gap-6">
-            {topBarLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[#374151] hover:text-[#E5476C] transition-colors whitespace-nowrap"
-                style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-end gap-6 h-10">
+          <Link
+            href="/support"
+            className="text-[#374151] hover:text-[#E5476C] transition-colors whitespace-nowrap"
+            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
+          >
+            Support
+          </Link>
           <a
             href="tel:+18557427300"
-            className="text-[#111827] hover:text-[#E5476C] transition-colors whitespace-nowrap ml-auto md:ml-0"
+            className="text-[#111827] hover:text-[#E5476C] transition-colors whitespace-nowrap"
             style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
           >
             Call: 1 (855) 742 7300
@@ -99,25 +86,14 @@ export default function Header() {
               );
             })}
 
-            {/* Book Demo button */}
+            {/* Get a Vital Buddy button */}
             <Link
-              href="/scheduleDemo"
-              className="ml-5 px-5 py-2 bg-[#E5476C] text-white rounded-md whitespace-nowrap transition-colors hover:bg-[#cc3a5d]"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
-            >
-              Book Demo
-            </Link>
-
-            {/* Login button */}
-            <a
-              href="https://devfrontend.vitalfrnd.com/FacilityLogin"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/get-vital-buddy"
               className="ml-3 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
             >
-              Login
-            </a>
+              Get a Vital Buddy
+            </Link>
           </nav>
 
           {/* Mobile hamburger */}
@@ -168,23 +144,13 @@ export default function Header() {
               Call: 1 (855) 742 7300
             </a>
             <Link
-              href="/scheduleDemo"
-              className="bg-[#E5476C] text-white rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#cc3a5d]"
+              href="/get-vital-buddy"
+              className="border-2 border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
               onClick={() => setMenuOpen(false)}
             >
-              Book Demo
+              Get a Vital Buddy
             </Link>
-            <a
-              href="https://devfrontend.vitalfrnd.com/FacilityLogin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Login
-            </a>
           </div>
         </div>
       )}

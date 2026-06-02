@@ -2,18 +2,28 @@ import { ReactNode } from "react";
 
 export interface TabCard {
   icon: ReactNode;
+  iconSrc?: string;
   title: string;
   desc: string;
   tag: string;
 }
 
+export interface StatItem {
+  number: string;
+  label: string;
+}
+
 export interface TabData {
   label: string;
   cards: TabCard[];
+  ctaQuote: string;
+  ctaAuthor: string;
   ctaButtonText: string;
   insuranceBody: string;
   insuranceButtonText: string;
   insuranceImage: string;
+  statsSubtitle: string;
+  stats: StatItem[];
 }
 
 export interface Testimonial {
@@ -163,80 +173,104 @@ const iconSNF6 = ( // Insurance shield
 );
 
 const assistedCards: TabCard[] = [
-  { icon: iconALF1, title: "Comfortable, Continuous Monitoring", desc: "Residents can wear the BUDDI either a few hours each day or around the clock. No interruptions during meals, activities, or sleep, just continuous visibility into each resident's wellbeing.", tag: "24/7 Coverage" },
-  { icon: iconALF2, title: "Give Staff Their Time Back", desc: "Eliminate manual vital checks and paper logs. When your team spends less time gathering data, they spend more time with residents, building the human connections that truly define great care.", tag: "Staff Efficiency" },
-  { icon: iconALF3, title: "Catch Changes Before They Escalate", desc: "Smart alerts flag subtle vital changes at the earliest sign, giving your team the window they need to alert physicians to intervene before a concern becomes a costly emergency.", tag: "Early Intervention" },
-  { icon: iconALF4, title: "Stand Out with VitalFriend Certified™", desc: "Earn a credential that families actively look for. VitalFriend Certified™ signals that your facility goes above and beyond, with a genuine differentiator when families are comparing options.", tag: "Marketing Edge" },
-  { icon: iconALF5, title: "Compliance on Autopilot", desc: "Automated documentation, one-click regulatory submissions, and custom reports keep your facility audit-ready every day. No scrambling, no gaps, just clean, accurate records.", tag: "Always Compliant" },
-  { icon: iconALF6, title: "Covered by Insurance", desc: "Both the BUDDI device and the VitalFriend monitoring service are covered by most major insurance plans, making this level of care accessible to residents with no out-of-pocket cost in most cases.", tag: "Zero Cost Barrier" },
+  { icon: iconALF1, iconSrc: "/images/facilities/assisted-living/1.svg", title: "Comfortable, Continuous Monitoring", desc: "Residents can wear the BUDDI either a few hours each day or around the clock. No interruptions during meals, activities, or sleep, just continuous visibility into each resident's wellbeing.", tag: "24/7 Coverage" },
+  { icon: iconALF2, iconSrc: "/images/facilities/assisted-living/2.svg", title: "Give Staff Their Time Back", desc: "Eliminate manual vital checks and paper logs. When your team spends less time gathering data, they spend more time with residents, building the human connections that truly define great care.", tag: "Staff Efficiency" },
+  { icon: iconALF3, iconSrc: "/images/facilities/assisted-living/3.svg", title: "Catch Changes Before They Escalate", desc: "Smart alerts flag subtle vital changes at the earliest sign, giving your team the window they need to alert physicians to intervene before a concern becomes a costly emergency.", tag: "Early Intervention" },
+  { icon: iconALF4, iconSrc: "/images/facilities/assisted-living/4.svg", title: "Stand Out with VitalFriend Certified™", desc: "Earn a credential that families actively look for. VitalFriend Certified™ signals that your facility goes above and beyond, with a genuine differentiator when families are comparing options.", tag: "Marketing Edge" },
+  { icon: iconALF5, iconSrc: "/images/facilities/assisted-living/5.svg", title: "Compliance on Autopilot", desc: "Automated documentation, one-click regulatory submissions, and custom reports keep your facility audit-ready every day. No scrambling, no gaps, just clean, accurate records.", tag: "Always Compliant" },
+  { icon: iconALF6, iconSrc: "/images/facilities/assisted-living/6.svg", title: "Covered by Insurance", desc: "Both the BUDDI device and the VitalFriend monitoring service are covered by most major insurance plans, making this level of care accessible to residents with no out-of-pocket cost in most cases.", tag: "Zero Cost Barrier" },
 ];
 
 const independentCards: TabCard[] = [
-  { icon: iconILF1, title: "Monitoring That Empowers Independence", desc: "BUDDI gives residents proactive visibility into their own health so they feel informed, confident, and in control of their wellbeing without sacrificing the independence they value.", tag: "Resident Empowerment" },
-  { icon: iconILF2, title: "Monitoring Beyond Your Walls", desc: "BUDDI delivers medical-grade vitals monitoring even when residents leave the facility for errands, appointments, or visits with family so care doesn't stop at the front door.", tag: "On-the-Go Coverage" },
-  { icon: iconILF3, title: "Less Burden on Your Team", desc: "Independent living staff don't need to perform all medical monitoring manually anymore. BUDDI automatically monitors each residents' vitals, so your team can focus on providing better care.", tag: "Lighter Workload" },
-  { icon: iconILF4, title: "Families and Physicians Stay Informed", desc: "Alerts go directly to designated family members and physicians. This keeps everyone in the loop without requiring staff to relay every update. Fewer calls, less confusion, more confidence.", tag: "Direct Alerts" },
-  { icon: iconILF5, title: "Fewer Disruptions, Fewer Emergencies", desc: "Proactive monitoring means potential issues are identified and addressed early, reducing the disruptive, stressful emergencies that affect residents and staff alike.", tag: "Proactive Care" },
-  { icon: iconILF6, title: "Certified as Forward-Thinking", desc: "VitalFriend Certified™ distinguishes your facility as resident-focused and ahead of the curve. It's a powerful signal to prospective residents and families who prioritize quality and innovation.", tag: "Marketing Edge" },
+  { icon: iconILF1, iconSrc: "/images/facilities/independent-living/1.svg", title: "Confidence That Empowers Independence", desc: "Vital Buddy gives residents proactive visibility into their own health so they feel informed, confident, and in control of their wellbeing without sacrificing the independence they value.", tag: "Resident Empowerment" },
+  { icon: iconILF2, iconSrc: "/images/facilities/independent-living/2.svg", title: "Monitoring Beyond Your Walls", desc: "Vital Buddy delivers medical-grade vitals monitoring even when residents leave the facility for errands, appointments, or visits with family so care doesn't stop at the front door.", tag: "On-the-Go Coverage" },
+  { icon: iconILF3, iconSrc: "/images/facilities/independent-living/3.svg", title: "Less Burden on Your Team", desc: "Independent living staff don't need to perform all medical monitoring manually anymore. Vital Buddy automatically monitors each resident's vitals, so your team can focus on providing better care.", tag: "Lighter Workload" },
+  { icon: iconILF4, iconSrc: "/images/facilities/independent-living/4.svg", title: "Families and Physicians Stay Informed", desc: "Notifications go directly to designated family members and physicians. This keeps everyone in the loop without requiring staff to relay every update. Fewer calls, less confusion, more confidence.", tag: "Direct Alerts" },
+  { icon: iconILF5, iconSrc: "/images/facilities/independent-living/5.svg", title: "Fewer Disruptions, Fewer Emergencies", desc: "Proactive monitoring means potential issues are identified and addressed early, reducing the disruptive, stressful emergencies that affect residents and staff alike.", tag: "Proactive Care" },
+  { icon: iconILF6, iconSrc: "/images/facilities/independent-living/6.svg", title: "Certified as Forward-Thinking", desc: "VitalFriend Certified distinguishes your facility as resident-focused and ahead of the curve. It's a powerful signal to prospective residents and families who prioritize quality and innovation.", tag: "Marketing Edge" },
 ];
 
 const skilledCards: TabCard[] = [
-  { icon: iconSNF1, title: "Eliminate Rounding with Bulky Equipment", desc: "BUDDI automatically monitors vitals, eliminating the need for rounding with carts full of medical equipment. It simplifies workflows and frees nurses from time-consuming manual checks.", tag: "Streamlined Workflow" },
-  { icon: iconSNF2, title: "Less Disruptive for Post-Surgery Patients", desc: "Passive monitoring is far less disruptive than repeated check-ins. BUDDI reduces patient stress, supports better rest and facilitates faster, more comfortable recoveries.", tag: "Patient Comfort" },
-  { icon: iconSNF3, title: "Significant Labor Savings", desc: "Automating vitals monitoring creates measurable savings in staff hours across every shift. Using BUDDI has a meaningful impact on operational costs for facility owners and administrators.", tag: "Cost Efficiency" },
-  { icon: iconSNF4, title: "Attract and Retain Scarce Staff", desc: "In a tight recruiting market, lighter physical workloads are a real recruitment and retention advantage. Nurses and CNAs increasingly seek facilities where new technologies and methods support their efforts.", tag: "Staff Retention" },
-  { icon: iconSNF5, title: "FDA-Cleared Medical-Grade Vitals", desc: "BUDDI delivers FDA-cleared blood pressure and heart rate monitoring, which meets the clinical standards required for skilled nursing environments, including documentation.", tag: "Clinical Grade" },
-  { icon: iconSNF6, title: "Covered by Insurance", desc: "Both the BUDDI device and the VitalFriend monitoring service are covered by most major insurance plans, which removes cost as a barrier to implementing the highest standard of care.", tag: "Zero Cost Barrier" },
+  { icon: iconSNF1, iconSrc: "/images/facilities/residential-home/1.svg", title: "Eliminate Rounding with Bulky Equipment", desc: "Vital Buddy automatically monitors vitals, eliminating the need for rounding with carts full of medical equipment. It simplifies workflows and frees care givers from time-consuming manual checks.", tag: "Streamlined Workflow" },
+  { icon: iconSNF2, iconSrc: "/images/facilities/residential-home/2.svg", title: "Less Disruptive for Post-Surgery Patients", desc: "Passive monitoring is far less disruptive than repeated check-ins. Vital Buddy reduces patient stress, supports better rest and facilitates faster, more comfortable recoveries.", tag: "Patient Comfort" },
+  { icon: iconSNF3, iconSrc: "/images/facilities/residential-home/3.svg", title: "Significant Labor Savings", desc: "Automating vitals monitoring creates measurable savings in staff hours across every shift. Using Vital Buddy has a meaningful impact on operational costs for facility owners and administrators.", tag: "Cost Efficiency" },
+  { icon: iconSNF4, iconSrc: "/images/facilities/residential-home/4.svg", title: "Attract and Retain Scarce Staff", desc: "In a tight recruiting market, lighter physical workloads are a real recruitment and retention advantage. Top employees increasingly seek facilities where new technologies and methods support their efforts.", tag: "Staff Retention" },
+  { icon: iconSNF5, iconSrc: "/images/facilities/residential-home/5.svg", title: "Medical-Grade Vitals Monitoring", desc: "Vital Buddy delivers FDA-cleared blood pressure and heart rate monitoring, which meets the clinical standards required for clinical medical environments, including documentation.", tag: "Clinical Grade" },
+  { icon: iconSNF6, iconSrc: "/images/facilities/residential-home/6.svg", title: "Covered by Insurance", desc: "Both the Vital Buddy device and the VitalFriend monitoring service are covered by Medicare and most major insurance plans, removing cost as a barrier to providing the highest standard of care.", tag: "Zero Cost Barrier" },
 ];
 
 export const tabs: TabData[] = [
   {
     label: "Assisted Living",
     cards: assistedCards,
-    ctaButtonText: "Get Started for ALFs",
-    insuranceBody: "The BUDDI device and VitalFriend service are covered by Medicare and most major insurance providers. In other words, residents in your facility can get the most advanced continuous monitoring available to your facility with no out-of-pocket cost.",
+    ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
+    ctaButtonText: "Get Started for Assisted Living",
+    insuranceBody: "The Vital Buddy device and continuous monitoring service are covered by Medicare and most major insurance providers. In other words, residents in your facility can get the most advanced medical monitoring available with no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ALFs",
-    insuranceImage: "/images/facilites-assisted-Living-person-crop.png",
+    insuranceImage: "/images/facilites-assisted-Living-man-on-phone.png",
+    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by comparable legacy clinical data",
+    stats: [
+      { number: "78%", label: "Emergency Room visit avoidance due to remote vitals monitoring" },
+      { number: "71%", label: "Patients reporting that remote monitoring gives them greater peace of mind" },
+      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
+      { number: "51%", label: "Seniors living with and managing two or more chronic conditions" },
+    ],
   },
   {
     label: "Independent Living",
     cards: independentCards,
-    ctaButtonText: "Get Started for ILFs",
-    insuranceBody: "The BUDDI device and VitalFriend service are covered by most major insurance providers. The most advanced continuous monitoring is available to your residents at no out-of-pocket cost.",
+    ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
+    ctaButtonText: "Get Started for Independent Living",
+    insuranceBody: "The Vital Buddy device and VitalFriend service are covered by most major insurance providers. The most advanced continuous monitoring is available to your residents at no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ILFs",
-    insuranceImage: "/images/facilites-independent-living-person.png",
+    insuranceImage: "/images/facilites-independent-Living-person.png",
+    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
+    stats: [
+      { number: "71%", label: "Patients reporting that remote monitoring gives them greater peace of mind" },
+      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
+      { number: "81%", label: "Reduction in 30-day mortality among high-risk heart patients who used RPM" },
+      { number: "20%", label: "Increase in hypertension control among patients using RPM for blood pressure" },
+    ],
   },
   {
-    label: "Skilled Nursing",
+    label: "Residential Home",
     cards: skilledCards,
-    ctaButtonText: "Get Started for SNF's",
-    insuranceBody: "The BUDDI device and VitalFriend service are covered by most major insurance providers making the most advanced continuous monitoring available to your facility at no out-of-pocket cost.",
-    insuranceButtonText: "Get Started for Skilled Nursing",
+     ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
+    ctaButtonText: "Get Started for Residential Home",
+    insuranceBody: "The Vital Buddy device and VitalFriend service are covered by most major insurance providers making the most advanced continuous monitoring available to your facility at no out-of-pocket cost.",
+    insuranceButtonText: "Get Started for Residential Home",
     insuranceImage: "/images/facilites-snf-person.png",
+    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
+    stats: [
+      { number: "20%", label: "Increase in hypertension control among patients using RPM for blood pressure" },
+      { number: "51%", label: "Seniors living with and managing two or more chronic conditions" },
+      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
+      { number: "78%", label: "Emergency Room visit avoidance due to remote vitals monitoring" },
+    ],
   },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "Before BUDDI, we were doing manual vital checks three times a day. Now my staff actually has time to sit with residents, hold someone's hand, have a real conversation. The alerts have flagged two early cardiac events in four months. Both residents are still with us today.",
-    name: "Sandra K., RN",
-    role: "Director of Nursing · Assisted Living",
-    facility: "Sunrise Gardens ALF · Phoenix, AZ",
-    avatar: "/images/facilities-sandra.png",
+    quote: "My mom has been wearing her Vital Buddy for almost a year now. It takes her blood pressure every 4 hours every day. She tracks her BP and records her stats. If her BP is high, she tells me and then she initiates her relaxation techniques. We retake her blood pressure in 15 mins and it is always much lower.",
+    name: "Cleo",
+    role: "Family member and care provider",
+    facility: "Georgia",
   },
   {
-    quote: "Before BUDDI, we were doing manual vital checks three times a day. Now my staff actually has time to sit with residents, hold someone's hand, have a real conversation. The alerts have flagged two early cardiac events in four months. Both residents are still with us today.",
-    name: "Sandra K., RN",
-    role: "Director of Nursing · Assisted Living",
-    facility: "Sunrise Gardens ALF · Phoenix, AZ",
-    avatar: "/images/facilities-sandra.png",
+    quote: "I'm extremely happy with my Vital Buddy! I have it set to take my blood pressure every 4 hours and track my daily steps. It's a really convenient way for me to ensure I hit my health goals.",
+    name: "Steve",
+    role: "Independent living resident",
+    facility: "California",
   },
   {
-    quote: "Before BUDDI, we were doing manual vital checks three times a day. Now my staff actually has time to sit with residents, hold someone's hand, have a real conversation. The alerts have flagged two early cardiac events in four months. Both residents are still with us today.",
-    name: "Sandra K., RN",
-    role: "Director of Nursing · Assisted Living",
-    facility: "Sunrise Gardens ALF · Phoenix, AZ",
-    avatar: "/images/facilities-sandra.png",
+    quote: "My Vital Buddy has been very helpful for me every day. I check my blood pressure and other metrics, and really like that I have accurate time/date for every reading. Vital Buddy has made me more confident about my health.",
+    name: "Len",
+    role: "Independent Living Resident",
+    facility: "California",
   },
 ];
 
@@ -284,33 +318,33 @@ export const certPoints: CertPoint[] = [
 
 export const deploySteps: DeployStep[] = [
   {
-    step: "01",
+    step: "1",
     title: "Discovery Call",
-    desc: "We learn about your facility's size, care level, and workflow — and verify insurance coverage for your residents.",
+    desc: "We learn about your facility's size, care level, and workflow, and verify insurance coverage for your residents.",
     ringGradient: "linear-gradient(160.34deg, #E2A11A 13.16%, #D82108 95.03%)",
     circleColor: "#E4A321",
     shadowColor: "#CF9114",
   },
   {
-    step: "02",
-    title: "Device Fitting",
-    desc: "BUDDI devices are sized and fitted comfortably for each resident. Most find them more comfortable than a wristwatch.",
+    step: "2",
+    title: "Resident Enrollment",
+    desc: "Eligible residents are signed up for the VitalFriend service. Vital Buddy devices are sized and fitted comfortably for each participant.",
     ringGradient: "linear-gradient(148.34deg, #F97549 14.16%, #D82108 86.55%)",
     circleColor: "linear-gradient(140.02deg, #F6914F 15.24%, #F97549 92.51%)",
     shadowColor: "#EF4F19",
   },
   {
-    step: "03",
+    step: "3",
     title: "Staff Onboarding",
-    desc: "Our team trains your staff on the dashboard, alerts, and reports. Average training takes under 90 minutes.",
+    desc: "Our team trains your staff on the use, care and benefits of the Vital Buddy. Average training takes under 90 minutes.",
     ringGradient: "linear-gradient(154.02deg, #6BCDEE 12.26%, #1CC0CB 86.97%)",
     circleColor: "linear-gradient(146.23deg, #6BCDEE 14.63%, #1CC0CB 86.96%)",
     shadowColor: "#1AA8B5",
   },
   {
-    step: "04",
+    step: "4",
     title: "Go Live",
-    desc: "Continuous monitoring begins immediately. Your VitalFriend team stays available for ongoing support.",
+    desc: "Continuous monitoring begins immediately. Your VitalFriend team checks in regularly and is available for ongoing support.",
     ringGradient: "linear-gradient(142.32deg, #EC6271 13.79%, #F04149 85.48%)",
     circleColor: "linear-gradient(134.33deg, #EC6271 13.2%, #F13F47 85.45%)",
     shadowColor: "#D42F3A",
