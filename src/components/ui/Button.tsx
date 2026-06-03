@@ -4,7 +4,7 @@ import Link from "next/link";
 interface ButtonProps {
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "outline" | "pill";
+  variant?: "primary" | "outline" | "pill" | "pill-filled";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
   className?: string;
@@ -27,6 +27,7 @@ export default function Button({
     outline:
       "rounded-xl shadow-sm hover:shadow-lg border-2 border-[--color-primary] text-[--color-primary] hover:bg-[--color-primary] hover:text-white hover:-translate-y-0.5",
     pill: "rounded-full border bg-white hover:-translate-y-0.5",
+    "pill-filled": "rounded-full border hover:-translate-y-0.5",
   };
 
   const sizes = {
@@ -37,10 +38,9 @@ export default function Button({
 
   const pillStyle =
     variant === "pill"
-      ? {
-          borderColor: "#E15D77",
-          color: "#E15D77",
-        }
+      ? { borderColor: "#E15D77", color: "#E15D77" }
+      : variant === "pill-filled"
+      ? { borderColor: "#E15D77", backgroundColor: "#E15D77", color: "#ffffff" }
       : {};
 
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
@@ -48,17 +48,22 @@ export default function Button({
   const hoverHandlers =
     variant === "pill"
       ? {
-          onMouseEnter: (
-            e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-          ) => {
+          onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
             (e.currentTarget as HTMLElement).style.backgroundColor = "#E15D77";
             (e.currentTarget as HTMLElement).style.color = "white";
           },
-          onMouseLeave: (
-            e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-          ) => {
+          onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
             (e.currentTarget as HTMLElement).style.backgroundColor = "white";
             (e.currentTarget as HTMLElement).style.color = "#E15D77";
+          },
+        }
+      : variant === "pill-filled"
+      ? {
+          onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+            (e.currentTarget as HTMLElement).style.opacity = "0.88";
+          },
+          onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+            (e.currentTarget as HTMLElement).style.opacity = "1";
           },
         }
       : {};

@@ -2,13 +2,41 @@
    HERO SECTION
 ════════════════════════════════════════ */
 .heroSection {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(114.83deg, #FBF4F9 26.79%, #F0F6FE 76.53%);
 }
 
+.heroBlobRight {
+  pointer-events: none;
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: #D0E0F9;
+  filter: blur(90px);
+}
+
+.heroBlobLeft {
+  pointer-events: none;
+  position: absolute;
+  top: 80px;
+  left: 40px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: #DFFFEE;
+  filter: blur(70px);
+}
+
 .heroInner {
+  position: relative;
+  z-index: 10;
   max-width: 903px;
   margin: 0 auto;
-  padding: 120px 24px 180px;
+  padding: 120px 24px 140px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -20,8 +48,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  background: #DCFAFF;
+  padding: 10px 24px;
+  background: linear-gradient(90deg, #2F5FF3 0%, #14AE5C 100%);
   border-radius: 60px;
 }
 
@@ -31,10 +59,7 @@
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.25px;
-  background: #4D9AF1;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .heroTitle {
@@ -42,7 +67,7 @@
   font-size: 60px;
   font-weight: 800;
   line-height: 1.1;
-  background: linear-gradient(90deg, #DF4D99 60%, #4680FA 100%);
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -57,6 +82,28 @@
   color: #393939;
   margin: 0;
   max-width: 780px;
+}
+
+.heroBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  background: #E15D77;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+
+.heroBtn:hover {
+  opacity: 0.88;
 }
 
 /* ════════════════════════════════════════
@@ -180,7 +227,7 @@
 
 .submitBtn {
   width: 100%;
-  background: #C8506A;
+  background: #E15D77;
   color: #ffffff;
   border: none;
   border-radius: 9999px;
@@ -347,12 +394,12 @@
    OTHER WAYS TO GET SUPPORT SECTION
 ════════════════════════════════════════ */
 .otherSection {
-  background: #F8F9FA;
+  background: #FAFBFC;
   padding: 80px 24px;
 }
 
 .otherInner {
-  max-width: 1400px;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
 }
@@ -380,26 +427,20 @@
 
 .otherCards {
   display: grid;
-  grid-template-columns: repeat(3, 434.5px);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   justify-content: center;
 }
 
-@media (max-width: 1100px) {
-  .otherCards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .otherCards {
     grid-template-columns: 1fr;
   }
 }
 
 .otherCard {
-  background: #ffffff;
-  border: 1px solid #A4A4A4;
+  background: linear-gradient(248.18deg, #FFF3F8 -1.14%, #F2F7FE 98.56%);
+  border: none;
   border-top-left-radius: 50.63px;
   border-top-right-radius: 21.09px;
   border-bottom-right-radius: 21.09px;
@@ -413,10 +454,11 @@
 }
 
 .otherCardIcon {
-  width: 76px;
-  height: 76px;
+  width: 86px;
+  height: 86px;
   border-radius: 50%;
-  background: #EDF5FD;
+  background: linear-gradient(133.92deg, rgba(110, 112, 255, 0.08) 14.29%, rgba(211, 147, 241, 0.08) 85.29%);
+  border: 1.5px solid rgba(110, 112, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -427,7 +469,7 @@
 .otherCardTitle {
   font-family: 'Inter', sans-serif;
   font-size: 26px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 32px;
   letter-spacing: 0px;
   color: #111827;
@@ -450,8 +492,8 @@
   justify-content: center;
   width: fit-content;
   padding: 9px 22px;
-  border: 1.5px solid #E5476C;
-  color: #E5476C;
+  border: 1.5px solid #E15D77;
+  color: #E15D77;
   background: transparent;
   border-radius: 9999px;
   font-family: 'Inter', sans-serif;
@@ -463,9 +505,10 @@
 }
 
 .otherCardBtn:hover {
-  background: #E5476C;
+  background: #E15D77;
   color: #ffffff;
 }
+
 
 /* ════════════════════════════════════════
    FAQ SECTION

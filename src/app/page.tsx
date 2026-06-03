@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Button from "@/components/ui/Button";
-import Section from "@/components/ui/Section";
+import Link from "next/link";
+import {
+  workSteps,
+  audienceSections,
+  comparisonRows,
+  differenceItems,
+} from "./data";
+import styles from "./homepage.module.css";
+import HeroCarousel from "./hero_carousel";
+
 
 export const metadata: Metadata = {
   title: "Continuous Vitals Intelligence for Better Senior Care",
@@ -11,415 +19,638 @@ export const metadata: Metadata = {
   openGraph: { url: "https://vitalfriend.com" },
 };
 
-const differentiators = [
-  "The ONLY integrated wearable, online, monitoring, billing, support platform designed to optimize senior care facility efficiency and patient care",
-  "Revolutionary, comfortable BUDDI® increases adherence, eliminates the need for expensive services and medical equipment",
-  "We manage support, monitoring, clinical notes and insurance billing",
-  "Monitor and manage patient data, individually and collectively, to drive better outcomes at lower costs",
-];
+/* ─── Reusable CheckIcon ─── */
+function CheckIcon({ checked }: { checked: boolean }) {
+  if (checked) {
+    return (
+      <span
+        className={`${styles["hp-compare__check-icon"]} ${styles["hp-compare__check-icon--yes"]}`}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+            fill="rgba(77,154,241,0.4)"
+            stroke="#4D9AF1"
+            strokeWidth="1.5"
+          />
+          <path
+            d="M8 12l2.5 2.5L16 9"
+            stroke="#4D9AF1"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    );
+  }
+  return (
+    <span
+      className={`${styles["hp-compare__check-icon"]} ${styles["hp-compare__check-icon--no"]}`}
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          fill="rgba(176,176,176,0.4)"
+          stroke="#B0B0B0"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M9 9l6 6M15 9l-6 6"
+          stroke="#B0B0B0"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+/* ─── Feature check icon (audience sections) ─── */
+function FeatureCheck() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        fill="rgba(110,112,255,0.15)"
+        stroke="url(#check-grad)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M8.5 12l2.5 2.5L15.5 9"
+        stroke="url(#check-grad)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="check-grad"
+          x1="0"
+          y1="0"
+          x2="24"
+          y2="24"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#6E70FF" />
+          <stop offset="1" stopColor="#D393F1" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+/* ─── Step icon helper ─── */
+function StepIcon({ gradient }: { gradient: string }) {
+  return (
+    <div
+      className={styles["hp-step-card__icon-wrap"]}
+      style={{ background: gradient }}
+      aria-hidden="true"
+    >
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect
+          x="4"
+          y="4"
+          width="24"
+          height="24"
+          rx="4"
+          stroke="white"
+          strokeWidth="2.5"
+          fill="none"
+          opacity="0.9"
+        />
+        <path
+          d="M16 10v12M10 16h12"
+          stroke="white"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+      </svg>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
-    <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-linear-to-br from-blue-50 via-white pt-24 pb-20">
+    <div className={styles["hp-root"]}>
+      {/* ═══════════════════════════════
+          HERO
+      ═══════════════════════════════ */}
+      <section className={styles["hp-hero"]}>
         {/* Decorative blobs */}
-        <div className="blob-shape blob-primary w-120 h-120 absolute top-20 right-50 -translate-y-1/2 translate-x-1/2" />
-        <div className="blob-shape blob-accent w-120 h-120 absolute top-0 left-75 translate-y-1/2 -translate-x-1/2" />
+        <div
+          className={`${styles["hp-hero__blob"]} ${styles["hp-hero__blob--blue"]}`}
+          aria-hidden="true"
+        />
+        <div
+          className={`${styles["hp-hero__blob"]} ${styles["hp-hero__blob--green"]}`}
+          aria-hidden="true"
+        />
+        <div
+          className={`${styles["hp-hero__blob"]} ${styles["hp-hero__blob--lightgreen"]}`}
+          aria-hidden="true"
+        />
+        <div
+          className={`${styles["hp-hero__blob"]} ${styles["hp-hero__blob--peach"]}`}
+          aria-hidden="true"
+        />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-0">
-            <div className="flex-[1.75] text-center lg:text-left">
-              <div className="inline-block px-4 py-2 bg-blue-100 rounded-full text-[--color-primary] font-semibold text-sm mb-4">
-                FDA-Cleared & Insurance-Covered
-              </div>
-              <h1 className="text-5xl sm:text-7xl font-extrabold leading-tight mb-4">
-                <span className="gradient-text block mb-2">
-                  The New Era of Senior Care is Here
-                </span>
+        <div className={styles["hp-hero__inner"]}>
+          {/* Text column */}
+          <div className={styles["hp-hero__content"]}>
+            <span className={styles["hp-hero__badge"]}>
+              FDA-Cleared &amp; Insurance-Covered
+            </span>
+
+            <div>
+              <h1 className={styles["hp-hero__heading-gradient"]}>
+                The Era of Continuous Care is Here
               </h1>
-              <h2 className="text-4xl sm:text-6xl font-black leading-snug mb-4 text-[--color-foreground]">
+              <h2 className={styles["hp-hero__heading-black"]}>
                 Smarter Care.
-                <br />
-                Smoother Ops.
-                <br />
-                Safer Seniors.
               </h2>
-              <p className="text-lg text-[#393939] mb-6 max-w-2xl mx-auto lg:mx-0">
-                VitalFriend continuously monitors blood pressure and 10+ vital
-                signs, shifting senior care from reactive treatment to proactive
-                care, with Al-powered insights and clinical monitoring.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button href="/contact" variant="pill" size="md">
-                  Get Started Today
-                </Button>
-                <Button href="/platform" variant="pill" size="md">
-                  Explore the Platform
-                </Button>
-              </div>
+              <h2 className={styles["hp-hero__heading-black"]}>
+                Smoother Ops.
+              </h2>
+              <h2 className={styles["hp-hero__heading-black"]}>
+                Always Connected.
+              </h2>
             </div>
-            <div className="flex-1 flex relative">
-              <div
-                className="relative w-full max-w-lg"
-                style={{ height: "400px" }}
-              >
-                <div
-                  className="absolute inset-0"
-                  style={{ aspectRatio: "1 / 1.3" }}
+
+            <p className={styles["hp-hero__description"]}>
+              Vital Buddy is the first medical-grade wearable that automatically
+              monitors blood pressure + multiple vital signs and biomarkers.
+              Wearing it provides continuous, effortless protection for seniors
+              or anyone with common medical conditions.
+            </p>
+            <p className={styles["hp-hero__description"]}>
+              Behind the scenes, clinicians use our AI-native platform to
+              analyze more than 1,000 health data points every day, spotting
+              subtle changes before they become emergencies. Care teams and
+              families get a real-time picture of each senior&apos;s health, so
+              they know what&apos;s happening and can step in early.
+            </p>
+            <p className={styles["hp-hero__description"]}>
+              Automated Proactive Care. Because the best care doesn&apos;t wait
+              for a crisis. It sees it coming.
+            </p>
+
+            <div className={styles["hp-hero__ctas"]}>
+              <Link href="/contact" className={styles["hp-btn-primary"]}>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
                 >
-                  {/* Background: entire photo visible, rounded corners */}
-                  <Image
-                    src="/images/senior-with-doctor.png"
-                    alt="Senior with doctor and family"
-                    fill
-                    className="rounded-3xl"
-                    style={{
-                      objectFit: "cover",
-                      opacity: 0.2,
-                      transform: "translate(15px, 30px)",
-                      clipPath: "inset(0% 0% 25% 25% round 24px)",
-                      filter: "blur(3px)",
-                    }}
-                    unoptimized
+                  <rect
+                    x="3"
+                    y="4"
+                    width="18"
+                    height="16"
+                    rx="2"
+                    stroke="white"
+                    strokeWidth="2"
+                    fill="rgba(255,255,255,0.2)"
                   />
+                  <path
+                    d="M8 4V2M16 4V2M3 9h18"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                Schedule a Demo
+              </Link>
+              <Link href="/platform" className={styles["hp-btn-outline"]}>
+                Explore the Platform
+              </Link>
+            </div>
+          </div>
+          <HeroCarousel />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          Medical Equipment Has Never Been This Comfortable (and Fun)
+      ═══════════════════════════════ */}
+
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <h2 className={styles["hp-section-header__title-gradient"]}>
+              Medical Equipment Has Never Been This Comfortable (and Fun)
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              You&apos;ve never seen a medical device like it. Vital Buddy is
+              lightweight, comfortable, and effortless to wear day and night. No
+              cuffs, no buttons, no readings to remember. Just slip it on, and
+              it tracks your blood pressure and heart rate automatically while
+              keeping your caregivers in the loop, so sudden changes never go
+              unnoticed.
+            </p>
+            <p className={styles["hp-section-header__subtitle"]}>
+              Behind that simplicity is serious medical technology: FDA-cleared
+              monitoring, patented medical-grade sensors, and the VitalFriend
+              platform that lets care givers communicate directly with seniors
+              through their Vital Buddy.
+            </p>
+            <p className={styles["hp-section-header__subtitle"]}>
+              Our patented medical-grade technology is reimbursable by Medicare
+              and most insurance plans*.
+            </p>
+            <div className={styles["hp-platform__image-wrap"]}>
+              <Image
+                src="images/BUDDI-series.png"
+                alt="VitalFriend platform product snapshot"
+                width={1200}
+                height={800}
+                style={{ maxWidth: "100%", height: "auto", borderRadius: 12 }}
+                unoptimized
+              />
+              <Image
+                src="/images/hipaa-badge.png"
+                alt="HIPAA Compliant"
+                width={160}
+                height={96}
+                className={styles["hp-platform__hipaa-badge"]}
+                unoptimized
+              />
+            </div>
+            <Link href="/contactUs" className={styles["hp-btn-outline"]}>
+              Get a Vital BUDDI
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          HOW VITAL BUDDY WORKS
+      ═══════════════════════════════ */}
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <h2 className={styles["hp-section-header__title-black"]}>
+              How Vital Buddy Works
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              Clear, five-step process: From BUDDI on the wrist to care
+              delivered — it&apos;s completely managed by our teams to
+              streamline the process and close the loop on care.
+            </p>
+          </div>
+
+          {/* Step cards */}
+          <div className={styles["hp-how-it-works__steps"]}>
+            {workSteps.map((step) => (
+              <div className={styles["hp-step-card"]} key={step.step}>
+                {/* Gradient top bar */}
+                <div
+                  className={styles["hp-step-card__top-line"]}
+                  style={{
+                    background: `linear-gradient(90deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`,
+                  }}
+                />
+                <StepIcon
+                  gradient={`linear-gradient(135deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`}
+                />
+                <div className={styles["hp-step-card__step-label"]}>
+                  {step.step}
                 </div>
-                <div
-                  className="absolute inset-0"
-                  style={{ aspectRatio: "1 / 1" }}
-                >
-                  {/* Foreground: hero-shot */}
-                  <Image
-                    src="/images/hero-shot.png"
-                    alt="Senior checking smartwatch"
-                    fill
-                    className="object-cover"
-                    style={{
-                      clipPath: "inset(0% 12.5% 2.5% 15% round 24px)",
-                    }}
-                    priority
-                    unoptimized
-                  />
+                <div className={styles["hp-step-card__title"]}>
+                  {step.title}
+                </div>
+                <div className={styles["hp-step-card__description"]}>
+                  {step.description}
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Tagline banner */}
+          <div className={styles["hp-tagline-banner"]}>
+            <p className={styles["hp-tagline-banner__sub"]}>
+              Integrated monitoring platform delivers
+            </p>
+            <p className={styles["hp-tagline-banner__main"]}>
+              Fewer Surprises + Fewer Risks = Health Transparency
+            </p>
+          </div>
+
+          {/* CTA inside this section */}
+          <div className={styles["hp-cta-banner"]}>
+            <div className={styles["hp-cta-banner__inner"]}>
+              <h3 className={styles["hp-cta-banner__heading"]}>
+                Ready to transform the senior experience?
+              </h3>
+              <p className={styles["hp-cta-banner__sub"]}>
+                Join healthcare providers who are catching critical vitals
+                changes before they become emergencies.
+              </p>
+              <Link href="/contact" className={styles["hp-cta-banner__btn"]}>
+                Get Started with Vital Buddy
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* BUDDI */}
-      <Section background="white">
-        <h2 className="text-5xl sm:text-6xl font-extrabold leading-tight mb-4 justify-center text-center">
-          <span className="gradient-text block mb-2">
-            Monitor criticals vitals in real time.
-          </span>
-        </h2>
-        <p className="text-xl text-[--color-muted] mb-4 mx-auto justify-center text-center max-w-3xl">
-          Meet BUDDI - the world&apos;s only FDA-cleared blood pressure watch.
-        </p>
-        <p className="text-xl text-[--color-muted] mb-8 mx-auto justify-center text-center">
-          BUDDI enables comfortable, continuous vitals monitoring that eases
-          staff workload, improves resident outcomes, keeps physicians and
-          families informed and is fully covered by insurance*.
-        </p>
-        <div className="flex flex-col items-center">
-          <Image
-            src="/images/buddi-no-bg.png"
-            alt="BUDDI smartwatch"
-            width={600}
-            height={600}
-            className="w-150 h-150 object-contain relative z-10"
-            unoptimized
-          />
-          {/* Elliptical shadow */}
-          <div
-            style={{
-              width: "35%",
-              height: "75px",
-              background:
-                "radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, transparent 70%)",
-              marginTop: "-75px",
-              borderRadius: "50%",
-              filter: "blur(8px)",
-            }}
-          />
-        </div>
-      </Section>
-
-      {/* Primary Target: ALFs/ILFs/SNIFs */}
-      <Section background="white">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-2 flex justify-center">
-            <Image
-              src="/images/caring-patient.png"
-              alt="Caring for patient"
-              width={1000}
-              height={667}
-              className="rounded-3xl shadow-2xl w-full"
-              priority
-              unoptimized
-            />
-          </div>
-          <div className="flex-2 px-4 sm:px-6 lg:px-8">
+      {/* ═══════════════════════════════
+          AUDIENCE SECTIONS
+      ═══════════════════════════════ */}
+      {audienceSections.map((section, idx) => (
+        <section
+          key={idx}
+          className={styles["hp-section"]}
+          style={{ background: section.bgColor }}
+        >
+          <div className={styles["hp-section__inner"]}>
             <div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-white font-semibold text-lg mb-5"
-              style={{
-                background: "linear-gradient(90deg, #2F5FF3 0%, #14AE5C 100%)",
-              }}
+              className={`${styles["hp-audience"]}${section.imageLeft ? ` ${styles["hp-audience--reverse"]}` : ""}`}
             >
-              For Assisted Living & Senior Care Facilities
-            </div>
-            <h2 className="font-extrabold mb-4">
-              <span className="gradient-text block text-4xl sm:text-6xl mb-5">
-                Deliver Better Care
-              </span>
-              <span className="text-[--color-foreground] block text-2xl sm:text-4xl">
-                and More Efficient Operations
-              </span>
-            </h2>
-            <p className="text-lg text-[--color-muted] mb-4">
-              We bring care teams, physicians, and families together on one
-              platform, turning millions of data points into clear insights that
-              simplify care, lighten workloads, and improve outcomes.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {[
-                "Reduce staff workload with automated monitoring",
-                "Improve resident outcomes with early alerts",
-                "Keep families and physicians informed",
-                "Fully covered by Medicare/insurance*",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Image
-                    src="/images/check-circle.png"
-                    alt="check"
-                    width={20}
-                    height={20}
-                    className="shrink-0"
-                    unoptimized
-                  />
-                  <span className="text-[--color-muted]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Button href="/alfs" variant="pill" size="md">
-              Learn More
-            </Button>
-          </div>
-        </div>
-      </Section>
+              {/* Image */}
+              <div className={styles["hp-audience__image"]}>
+                <Image
+                  src={section.imageSrc}
+                  alt={section.imageAlt}
+                  width={607}
+                  height={477}
+                  style={{ objectFit: "cover" }}
+                  unoptimized
+                />
+              </div>
 
-      {/* Secondary Target: Physicians */}
-      <Section background="#f9fef9">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-2 px-4 sm:px-6 lg:px-8">
-            <div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-white font-semibold text-lg mb-5"
-              style={{
-                background: "linear-gradient(90deg, #4FC560 0%, #35976A 100%)",
-              }}
-            >
-              For Physicians & Clinicians
-            </div>
-            <h2 className="font-extrabold mb-4">
-              <span className="gradient-text block text-4xl sm:text-6xl mb-5 leading-tight">
-                Clinical Insight
-              </span>
-              <span className="text-[--color-foreground] block text-2xl sm:text-4xl">
-                Without Clinical Overload
-              </span>
-            </h2>
-            <p className="text-lg text-[--color-muted] mb-4">
-              VitalFriend provides continuous monitoring of blood pressure and
-              key vitals, delivering timely, actionable insights without adding
-              to documentation or rounding burden.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {[
-                "Continuous vitals visibility between visits",
-                "Early alerts for faster intervention",
-                "Reduced reliance on manual measurements",
-                "Seamless care team coordination",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Image
-                    src="/images/check-circle.png"
-                    alt="check"
-                    width={20}
-                    height={20}
-                    className="shrink-0"
-                    unoptimized
-                  />
-                  <span className="text-[--color-muted]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Button href="/physicians" variant="pill" size="md">
-              Learn More
-            </Button>
-          </div>
-          <div className="flex-2 flex justify-center">
-            <Image
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80"
-              alt="Healthcare professional viewing patient data on tablet"
-              width={800}
-              height={600}
-              className="rounded-3xl shadow-2xl w-full"
-              priority
-              unoptimized
-            />
-          </div>
-        </div>
-      </Section>
-
-      {/* Tertiary Target: Families */}
-      <Section background="white">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-2 flex justify-center">
-            <Image
-              src="https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?w=800&q=80"
-              alt="Family spending time with senior loved one"
-              width={1000}
-              height={667}
-              className="rounded-3xl shadow-2xl w-full"
-              priority
-              unoptimized
-            />
-          </div>
-          <div className="flex-2 px-4 sm:px-6 lg:px-8">
-            <div
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-white font-semibold text-lg mb-5"
-              style={{
-                background: "linear-gradient(90deg, #A14DFB 0%, #D12779 100%)",
-              }}
-            >
-              For Patients & Families
-            </div>
-            <h2 className="font-extrabold mb-4">
-              <span className="gradient-text block text-4xl sm:text-6xl mb-5">
-                Peace of Mind
-              </span>
-              <span className="text-[--color-foreground] block text-2xl sm:text-4xl">
-                Even When You&apos;re Not There
-              </span>
-            </h2>
-            <p className="text-lg text-[--color-muted] mb-4">
-              We keep a constant eye on your loved one&apos;s health,
-              continuously monitoring their vital signs, sharing important
-              changes with caregivers and clinicians so issues are caught early.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {[
-                "24/7 monitoring keeps everyone informed",
-                "BUDDI® is easy to wear and care for",
-                "Immediate alerts when health changes occur",
-                "View trends for blood pressure, sleep, oxygen, heart rate",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <Image
-                    src="/images/check-circle.png"
-                    alt="check"
-                    width={20}
-                    height={20}
-                    className="shrink-0"
-                    unoptimized
-                  />
-                  <span className="text-[--color-muted]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Button href="/families" variant="pill" size="md">
-              Learn More
-            </Button>
-          </div>
-        </div>
-      </Section>
-
-      {/* VitalFriend Difference */}
-      <Section background="#f9fef9">
-        <div className="text-center max-w-5xl mx-auto">
-          <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            <span className="gradient-text">The VitalFriend Difference</span>
-          </h2>
-          <p className="text-xl text-[--color-muted] mb-12">
-            The only platform with all the pieces for next-level senior care
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            {differentiators.map((item, idx) => (
-              <div
-                key={idx}
-                className="p-px rounded-2xl"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #5D9FD2 0%, #56B099 100%)",
-                }}
-              >
-                <div
-                  className="flex gap-4 items-start p-6 rounded-2xl h-full"
-                  style={{
-                    background:
-                      "linear-gradient(248.18deg, #FFF4F9 -1.14%, #C4D8F9 98.56%)",
-                  }}
+              {/* Content */}
+              <div className={styles["hp-audience__content"]}>
+                <span
+                  className={styles["hp-audience__badge"]}
+                  style={{ background: section.badgeGradient }}
                 >
-                  <span
-                    className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg"
-                    style={{ background: "#F1EDFC", color: "#6B4FC8" }}
-                  >
-                    {idx + 1}
+                  {section.badge}
+                </span>
+
+                <div className={styles["hp-audience__heading"]}>
+                  <h2 className={styles["hp-audience__heading-gradient"]}>
+                    {section.headingGradient}
+                  </h2>
+                  <h3 className={styles["hp-audience__heading-black"]}>
+                    {section.headingBlack}
+                  </h3>
+                </div>
+
+                <p className={styles["hp-audience__description"]}>
+                  {section.description}
+                </p>
+
+                <ul className={styles["hp-audience__features"]}>
+                  {section.features.map((f, fi) => (
+                    <li key={fi} className={styles["hp-audience__feature"]}>
+                      <span className={styles["hp-audience__feature-icon"]}>
+                        <FeatureCheck />
+                      </span>
+                      <span className={styles["hp-audience__feature-text"]}>
+                        {f.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href={section.href} className={styles["hp-btn-outline"]}>
+                  Learn More
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* ═══════════════════════════════
+          COMPARISON TABLE
+      ═══════════════════════════════ */}
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]} ${styles["hp-compare"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <span className={styles["hp-compare__badge"]}>
+              Vital BUDDI vs. Conventional Equipment
+            </span>
+            <h2 className={styles["hp-section-header__title-black"]}>
+              Head-to-Head We&apos;re Better.
+            </h2>
+            <h2 className={styles["hp-section-header__title-black"]}>
+              One Wrist.
+            </h2>
+            <h2 className={styles["hp-section-header__title-black"]}>
+              Nine Ways It Wins.
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              Vital Buddy gives care teams, physicians, and families access to
+              all the data they need, all at one wrist.
+            </p>
+          </div>
+
+          <div className={styles["hp-compare__table"]}>
+            {/* Header row */}
+            <div className={styles["hp-compare__thead-row"]}>
+              <div
+                className={`${styles["hp-compare__th"]} ${styles["hp-compare__th--feature"]}`}
+              >
+                <div className={styles["hp-compare__th-value"]}>Dimension</div>
+              </div>
+              <div
+                className={`${styles["hp-compare__th"]} ${styles["hp-compare__th--vf"]}`}
+              >
+                <div className={styles["hp-compare__th-label"]}>Featured</div>
+                <div className={styles["hp-compare__th-value"]}>
+                  <Image
+                    src="/images/watch-02.svg"
+                    alt="Watch icon representing Vital Buddy"
+                    width={30}
+                    height={30}
+                    style={{
+                      marginRight: 8,
+                      display: "inline",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                  Vital BUDDI
+                </div>
+              </div>
+              <div
+                className={`${styles["hp-compare__th"]} ${styles["hp-compare__th--competitors"]}`}
+              >
+                <div className={styles["hp-compare__th-label"]}>Baseline</div>
+                <div className={styles["hp-compare__th-value"]}>
+                  <Image
+                    src="/images/cardiogram-01.svg"
+                    alt="Cardiogram icon representing conventional medical equipment"
+                    width={30}
+                    height={30}
+                    style={{
+                      marginRight: 8,
+                      display: "inline",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                  Conventional Medical Equipment
+                </div>
+              </div>
+            </div>
+
+            {/* Data rows */}
+            {comparisonRows.map((row, i) => (
+              <div className={styles["hp-compare__tbody-row"]} key={i}>
+                <div
+                  className={`${styles["hp-compare__td"]} ${styles["hp-compare__td--feature"]}`}
+                >
+                  <span className={styles["hp-compare__td-feature-label"]}>
+                    {row.feature}
                   </span>
-                  <p className="text-[--color-foreground] pt-2 font-medium leading-relaxed">
-                    {item}
-                  </p>
+                </div>
+                <div
+                  className={`${styles["hp-compare__td"]} ${styles["hp-compare__td--vf"]}`}
+                >
+                  <CheckIcon checked={true} />
+                  <span className={styles["hp-compare__td-text"]}>
+                    {row.vitalBuddy === true
+                      ? "Included"
+                      : (row.vitalBuddy as string)}
+                  </span>
+                </div>
+                <div
+                  className={`${styles["hp-compare__td"]} ${styles["hp-compare__td--competitors"]}`}
+                >
+                  <CheckIcon checked={false} />
+                  <span
+                    className={`${styles["hp-compare__td-text"]} ${styles["hp-compare__td-text--no"]}`}
+                  >
+                    {row.competitors === false
+                      ? "Not available"
+                      : (row.competitors as string)}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Product Snapshot */}
-      <Section background="white">
-        <h2 className="text-5xl sm:text-6xl font-extrabold leading-tight mb-4 justify-center text-center">
-          <span className="gradient-text block mb-2">Product Snapshot</span>
-        </h2>
-        <p className="text-lg text-[--color-muted] mb-4 mx-auto justify-center text-center max-w-4xl">
-          VitalFriend® helps care teams track residents&apos; health in real
-          time, predict risks early, and share updates securely.
-        </p>
-        <div className="flex justify-center mb-8">
-          <Button href="/scheduleDemo" variant="pill" size="md">
-            <span className="flex items-center">Watch Demo</span>
-          </Button>
-        </div>
-        <div className="flex flex-col items-center">
-          <Image
-            src="/images/product-snapshot.png"
-            alt="Product snapshot of VitalFriend platform"
-            width={600}
-            height={600}
-            className="w-150 h-150 object-contain relative z-10"
-            unoptimized
-          />
-        </div>
-      </Section>
+      {/* ═══════════════════════════════
+          THE VITALFRIEND DIFFERENCE
+      ═══════════════════════════════ */}
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <h2 className={styles["hp-section-header__title-gradient"]}>
+              The VitalFriend Difference
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              The only platform with all the pieces for next-level senior care.
+            </p>
+          </div>
 
-      {/* CTA */}
-      <Section background="#f9fef9">
-        <h2 className="text-5xl sm:text-6xl font-extrabold leading-tight mb-4 justify-center text-center">
-          <span className="gradient-text block mb-2">
-            Ready to Transform Senior Care?
-          </span>
-        </h2>
-        <p className="text-lg text-[--color-muted] mb-10 mx-auto justify-center text-center max-w-3xl">
-          Discover how VitalFriend can help your facility deliver better care
-          with continuous vitals monitoring.
-        </p>
-        <div className="flex justify-center mb-8">
-          <Button href="/platform" variant="pill" size="md">
-            Explore the Platform
-          </Button>
+          <div className={styles["hp-difference__grid"]}>
+            {differenceItems.map((item) => (
+              <div className={styles["hp-difference__card"]} key={item.number}>
+                <div className={styles["hp-difference__number-badge"]}>
+                  {item.number}
+                </div>
+                <p className={styles["hp-difference__text"]}>
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </Section>
-    </>
+      </section>
+
+      {/* ═══════════════════════════════
+          PLATFORM / PRODUCT SNAPSHOT
+      ═══════════════════════════════ */}
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <h2 className={styles["hp-section-header__title-gradient"]}>
+              A Platform to Keep Seniors Healthy &amp; Connected
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              VitalFriend&apos;s unique ability to collect a steady stream of
+              real-time vitals, day and night, is unparalleled in its ability to
+              provide a comprehensive health picture of a senior or patient
+              anywhere in the world.
+            </p>
+            <Link href="/scheduleDemo" className={styles["hp-btn-outline"]}>
+              Watch a Demo
+            </Link>
+          </div>
+
+          <div className={styles["hp-platform__image-wrap"]}>
+            <Image
+              src="/images/product-snapshot.png"
+              alt="VitalFriend platform product snapshot"
+              width={1200}
+              height={800}
+              className={styles["hp-platform__main-image"]}
+              unoptimized
+            />
+            <Image
+              src="/images/hipaa-badge.png"
+              alt="HIPAA Compliant"
+              width={160}
+              height={96}
+              className={styles["hp-platform__hipaa-badge"]}
+              unoptimized
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════
+          CTA BANNER
+      ═══════════════════════════════ */}
+
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]}`}
+      >
+        <div className={styles["hp-section__inner"]}>
+          <div className={styles["hp-section-header"]}>
+            <h2 className={styles["hp-section-header__title-gradient"]}>
+              Ready to Transform Senior Care?
+            </h2>
+            <p className={styles["hp-section-header__subtitle"]}>
+              Discover how VitalFriend can help your facility deliver better
+              care with less effort and risk.
+            </p>
+            <Link href="/platform" className={styles["hp-btn-outline"]}>
+              Explore the Platform
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

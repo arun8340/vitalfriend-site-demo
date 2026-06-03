@@ -19,6 +19,8 @@ export default function ContactPage() {
     <>
       {/* ── Hero ── */}
       <section className={s.heroSection}>
+        <div className={s.heroBlobRight} />
+        <div className={s.heroBlobLeft} />
         <div className={s.heroInner}>
           <div className={s.heroBadge}>
             <span className={s.heroBadgeText}>We&apos;re Here to Help</span>
@@ -27,6 +29,9 @@ export default function ContactPage() {
           <p className={s.heroSubtitle}>
             Have questions about VitalFriend? We&apos;re here to help. Reach out to our team and we&apos;ll get back to you as soon as possible.
           </p>
+          <Link href="/get-vital-buddy" className={s.heroBtn}>
+            Get a Vital Buddy
+          </Link>
         </div>
       </section>
 
@@ -48,7 +53,7 @@ export default function ContactPage() {
               professional, or facility administrator, we&apos;re here to help.
             </p>
             <div className={s.infoBlocks}>
-              {infoBlocks.map((block, i) => (
+              {infoBlocks.slice(0, 2).map((block, i) => (
                 <div key={i} className={s.infoBlock}>
                   <div
                     className={s.infoIconWrap}

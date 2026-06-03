@@ -99,7 +99,7 @@ export default function ContactForm() {
           <input
             type="text"
             className={`${s.formInput}${errors.firstName ? ` ${s.inputError}` : ""}`}
-            placeholder="Input First Name"
+            placeholder="First Name"
             value={form.firstName}
             onChange={(e) => update("firstName", e.target.value)}
           />
@@ -112,7 +112,7 @@ export default function ContactForm() {
           <input
             type="text"
             className={`${s.formInput}${errors.lastName ? ` ${s.inputError}` : ""}`}
-            placeholder="Input last Name"
+            placeholder="Last Name"
             value={form.lastName}
             onChange={(e) => update("lastName", e.target.value)}
           />
@@ -199,7 +199,7 @@ export default function ContactForm() {
         </label>
         <textarea
           className={`${s.formTextarea}${errors.message ? ` ${s.inputError}` : ""}`}
-          placeholder="Tell us more about your Inquiries"
+          placeholder="Tell us more about your inquiry?"
           value={form.message}
           onChange={(e) => update("message", e.target.value)}
         />
