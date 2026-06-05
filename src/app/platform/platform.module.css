@@ -21,20 +21,6 @@
   z-index: 0;
 }
 
-/* Green blob — right side, below pink, shifted inward */
-.blobGreenRight {
-  pointer-events: none;
-  position: absolute;
-  top: 38%;
-  right: -180px;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: #DFFFEE;
-  filter: blur(110px);
-  z-index: 0;
-}
-
 /* Green blob — left side, full height */
 .blobGreenLeft {
   pointer-events: none;
@@ -55,12 +41,12 @@
 .heroSection {
   position: relative;
   z-index: 1;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 .heroInner {
-  max-width: 720px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;
@@ -68,11 +54,15 @@
 
 .heroTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 72px;
+  font-size: 74px;
   font-weight: 800;
-  line-height: 1.1;
-  color: #000000;
-  margin-bottom: 20px;
+  line-height: 87px;
+  letter-spacing: -0.25px;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
 }
 
 .heroSubtitle {
@@ -81,301 +71,49 @@
   font-weight: 400;
   line-height: 35px;
   color: #393939;
-  margin-bottom: 36px;
-}
-
-.heroBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 32px;
-  background: transparent;
-  border: 1.5px solid #E5476C;
-  color: #E5476C;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-}
-
-.heroBtn:hover {
-  background: #E5476C;
-  color: #ffffff;
-}
-
-/* ════════════════════════════════════════
-   BUDDI SECTION
-════════════════════════════════════════ */
-.buddiSection {
-  position: relative;
-  z-index: 1;
-  padding: 20px 0 100px;
-}
-
-.buddiInner {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 0px;
-  align-items: center;
-}
-
-@media (max-width: 900px) {
-  .buddiInner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 0 24px;
-  }
-}
-
-.watchCol {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Elliptical drop shadow beneath the watch */
-.watchWrapper {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.watchWrapper::after {
-  content: '';
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 55%;
-  height: 38px;
-  background: rgba(0, 0, 0, 0.38);
-  filter: blur(28px);
-  border-radius: 50%;
-}
-
-.buddiHeading {
-  font-family: 'Inter', sans-serif;
-  font-size: 45px;
-  font-weight: 800;
-  line-height: 1.2;
-  color: #000000;
-  margin-bottom: 24px;
-}
-
-.buddiSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 35px;
-  letter-spacing: 0;
-  color: #000000;
-  margin-bottom: 12px;
-}
-
-.buddiBody {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 35px;
-  letter-spacing: 0;
-  color: #000000;
-  margin-bottom: 36px;
-  max-width: 640px;
-}
-
-/* ════════════════════════════════════════
-   SHARED SECTION LAYOUTS
-════════════════════════════════════════ */
-.sectionWhite {
-  background: #ffffff;
-  padding: 80px 0;
-}
-
-.sectionGray {
-  background: #F8F9FA;
-  padding: 80px 0;
-}
-
-.sectionInner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-@media (max-width: 900px) {
-  .sectionInner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 0 24px;
-  }
-}
-
-.imageCol {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Push image toward the text (right side) */
-.imageColRight {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 24px;
-}
-
-.phoneWrapper {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  filter: drop-shadow(0px 24px 60px rgba(0, 0, 0, 0.45));
-}
-
-/* ════════════════════════════════════════
-   SHARED TYPOGRAPHY
-════════════════════════════════════════ */
-.discoverBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 11px 30px;
-  background: #E5476C;
-  color: #ffffff;
-  border-radius: 9999px;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.discoverBtn:hover {
-  opacity: 0.88;
-}
-
-/* Securely Sharing — fixed text width + auto phone column */
-.sectionInnerPhone {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 80px;
-  display: grid;
-  grid-template-columns: 600px auto;
-  gap: 80px;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (max-width: 900px) {
-  .sectionInnerPhone {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 0 24px;
-  }
-}
-
-/* Securely Sharing heading — 40px so each br-forced line fits in 600px */
-.sharingHeading {
-  font-family: 'Inter', sans-serif;
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.15;
-  color: #000000;
-  margin-bottom: 24px;
-}
-
-/* Body text sized for 4-line wrap in the VitalInsights column */
-.vitalBody {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.75;
-  color: #374151;
-  margin-bottom: 32px;
-}
-
-.sectionHeading {
-  font-family: 'Inter', sans-serif;
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #111827;
-  margin-bottom: 16px;
-}
-
-.sectionSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #3BBFA0;
-  margin-bottom: 16px;
-}
-
-.sectionBody {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.75;
-  color: #6B7280;
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 
 /* ════════════════════════════════════════
    HEALTHCARE PROFESSIONALS SECTION
 ════════════════════════════════════════ */
-/* Wider text column so 52px heading fits in 3 lines */
-.proSectionInner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 60px;
-  align-items: stretch;
-}
-
-@media (max-width: 900px) {
-  .proSectionInner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 0 24px;
-  }
-}
-.proHeading {
-  font-family: 'Inter', sans-serif;
-  font-size: 52px;
-  font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -0.5px;
-  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 32px;
-}
-
-.proImageWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-  border-radius: 16px;
+.proSection {
+  background: #ffffff;
+  padding: 160px 0;
   overflow: hidden;
 }
 
-.proImage {
-  object-fit: cover;
-  object-position: center center;
+.proInner {
+  max-width: 1346px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  gap: 62px;
+}
+
+.proImgCol {
+  flex: 0 0 606px;
+  min-height: 999px;
+  overflow: hidden;
+}
+
+.proContentCol {
+  flex: 0 0 681px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 60px 40px 60px 0;
+  justify-content: center;
+}
+
+.proTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+  color: #000000;
+  margin: 0;
 }
 
 .proList {
@@ -384,7 +122,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .proItem {
@@ -392,105 +130,1060 @@
   align-items: flex-start;
   gap: 12px;
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 1.65;
-  color: #1F2937;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+}
+
+.proItemItalic {
+  font-style: italic;
 }
 
 .proCheckIcon {
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
-/* ════════════════════════════════════════
-   FAQ SECTION
-════════════════════════════════════════ */
-.faqSection {
-  background: #ffffff;
-  padding: 80px 24px;
-}
-
-.faqInner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  align-items: flex-start;
-}
-
-@media (min-width: 900px) {
-  .faqInner {
-    flex-direction: row;
-    align-items: flex-start;
+@media (max-width: 1100px) {
+  .proInner {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .proImgCol {
+    flex: unset;
+    width: 100%;
+    min-height: 400px;
+  }
+  .proContentCol {
+    flex: unset;
+    padding: 0 24px 40px;
   }
 }
 
-.faqLeft {
-  flex: 0 0 380px;
-  max-width: 380px;
-  display: flex;
-  flex-direction: column;
+/* ════════════════════════════════════════
+   TAKE THE NEXT STEP SECTION
+════════════════════════════════════════ */
+.nextStepSection {
+  background: #ffffff;
+  padding: 160px 24px;
 }
 
-@media (max-width: 900px) {
-  .faqLeft {
+.nextStepInner {
+  max-width: 1116px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.nextStepBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 60px;
+  background: #DEEAFD;
+}
+
+.nextStepBadgeText {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -0.25px;
+  color: #000000;
+}
+
+.nextStepTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 64px;
+  letter-spacing: -0.25px;
+  text-align: center;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.nextStepBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  text-align: center;
+  color: #393939;
+  margin: 0;
+}
+
+.nextStepBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 154px;
+  height: 53px;
+  padding: 7px 16px;
+  border-radius: 32px;
+  border: 1px solid #E15D77;
+  background: #E15D77;
+  font-family: 'Work Sans', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.nextStepBtn:hover {
+  opacity: 0.88;
+}
+
+.nextStepTrust {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-top: 8px;
+}
+
+.nextStepTrustItem {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: -0.25px;
+  text-align: center;
+  color: #6A6969;
+}
+
+/* ════════════════════════════════════════
+   DATA FLOW SECTION
+════════════════════════════════════════ */
+.dataFlowSection {
+  background: #F9FBFF;
+  padding: 100px 0 120px;
+}
+
+.dataFlowInner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFE5EA;
+  border-radius: 9999px;
+  padding: 4px 14px;
+  margin-bottom: 28px;
+}
+
+.techDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #000000;
+  flex-shrink: 0;
+}
+
+.techBadgeText {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.15px;
+  color: #E15D77;
+}
+
+.dataFlowTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: 0.35px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  white-space: nowrap;
+}
+
+.dataFlowSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 64px;
+}
+
+.flowDiagram {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Row 1: three cards + two arrows */
+.flowRow1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.flowCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 0 0 384px;
+}
+
+.arrowWrap {
+  display: flex;
+  align-items: center;
+  padding-top: 48px;
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+
+.arrowLine {
+  width: 154px;
+  height: 4px;
+  border-radius: 16777200px;
+  background: linear-gradient(90deg, #00D5BE 0%, #00BBA7 100%);
+}
+
+.arrowTipRight {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 14px solid #BAD1CE;
+}
+
+/* Step badge */
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFE5EA;
+  border-radius: 9999px;
+  padding: 4px 12px;
+}
+
+.stepDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00BBA7;
+  flex-shrink: 0;
+}
+
+.stepLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #E15D77;
+  text-transform: uppercase;
+}
+
+/* Flow card */
+.flowCard {
+  width: 384px;
+  min-height: 137.5px;
+  padding: 26px 26px 20px;
+  border-radius: 16px;
+  border: 2px solid #96F7E4;
+  background: #ffffff;
+  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.cardIconBox {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #00BBA7 0%, #009689 100%);
+  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #00A896;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.cardBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #374151;
+}
+
+/* Vertical connector: center of row 1 → Vital Insights */
+.vArrowCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4px auto 0;
+}
+
+.vArrowLine {
+  width: 4px;
+  height: 40px;
+  border-radius: 16777200px;
+  background: linear-gradient(180deg, #00D5BE 0%, #00BBA7 100%);
+}
+
+.vArrowTipDown {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 14px solid #BAD1CE;
+}
+
+/* Row 2: Vital Insights */
+.flowRow2 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.flowInsightsCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Wrapper holding the Vital Link connector + the Integrations overlay SVG */
+.connectorsSection {
+  position: relative;
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Integrations → Vital Insights connector (absolutely overlaid, 1520 px wide).
+   Taller than connectorsSection so it reaches VI card mid-height.
+   flowRow2 is later in the DOM so it renders on top automatically. */
+.intConnSvg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Ensure VI card renders above the connector SVG */
+.flowRow2 {
+  position: relative;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════
+   VITAL LINK CONNECTION SECTION
+════════════════════════════════════════ */
+.vitalLinkSection {
+  background: #F9FBFF;
+  padding: 120px 0 120px;
+}
+
+.vitalLinkInner {
+  max-width: 1217px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 62px;
+}
+
+.vitalLinkContent {
+  flex: 0 0 683px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vitalLinkTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+  color: #000000;
+  margin: 0;
+}
+
+.vitalLinkSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
+}
+
+.vitalLinkPoints {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vitalLinkIntro {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
+}
+
+.vitalLinkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.vitalLinkItemText {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+}
+
+.vitalLinkImageCol {
+  flex: 0 0 345px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(-24px 24px 60px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 1100px) {
+  .vitalLinkInner {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .vitalLinkContent,
+  .vitalLinkImageCol {
     flex: unset;
-    max-width: 100%;
     width: 100%;
   }
 }
 
-.faqTitle {
+/* ════════════════════════════════════════
+   VITAL INSIGHTS SECTION
+════════════════════════════════════════ */
+.vitalInsightsSection {
+  background: #F9FBFF;
+  padding: 160px 0;
+}
+
+.vitalInsightsInner {
+  max-width: 1217px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 62px;
+}
+
+.vitalInsightsImageCol {
+  flex: 0 0 468px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vitalInsightsContent {
+  flex: 0 0 683px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.vitalInsightsTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 56px;
+  font-size: 50px;
   font-weight: 800;
-  color: #111827;
-  line-height: 1;
-  margin-bottom: 12px;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+  color: #000000;
+  margin: 0;
 }
 
-.faqSubtext {
+.vitalInsightsGradient {
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.vitalInsightsSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #15171C;
-  letter-spacing: 0.02em;
-  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
 }
 
-.faqReadMore {
+.vitalInsightsBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
+}
+
+.vitalInsightsBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
-  padding: 10px 32px;
-  border: 1.5px solid #E5476C;
-  color: #E5476C;
-  background: transparent;
-  border-radius: 9999px;
+  width: 165px;
+  height: 53px;
+  padding: 7px 16px;
+  border-radius: 32px;
+  border: 1px solid #E15D77;
+  background: #E15D77;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  margin-bottom: 28px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.faqReadMore:hover {
-  background: #E5476C;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0%;
   color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
 }
 
-.faqImageWrapper {
-  position: relative;
+.vitalInsightsBtn:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 1100px) {
+  .vitalInsightsInner {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .vitalInsightsImageCol,
+  .vitalInsightsContent {
+    flex: unset;
+    width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════
+   MEET VITAL BUDDY SECTION
+════════════════════════════════════════ */
+.meetBuddySection {
+  background: #ffffff;
+  padding: 160px 0;
+}
+
+.meetBuddyInner {
+  max-width: 1344px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 62px;
+}
+
+.meetBuddyImageCol {
+  flex: 0 0 599px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meetBuddyContent {
+  flex: 0 0 683px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.meetBuddyTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.25px;
+  color: #000000;
+  margin: 0;
+}
+
+.meetBuddySubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
+}
+
+.meetBuddyBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0px;
+  color: #000000;
+  margin: 0;
+}
+
+.meetBuddyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 187px;
+  height: 53px;
+  padding: 7px 16px;
+  border-radius: 32px;
+  border: 1px solid #E15D77;
+  background: #E15D77;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0%;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.meetBuddyBtn:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 1100px) {
+  .meetBuddyInner {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .meetBuddyImageCol {
+    flex: unset;
+    width: 100%;
+  }
+  .meetBuddyContent {
+    flex: unset;
+    width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════
+   HOW VITAL BUDDY WORKS SECTION
+════════════════════════════════════════ */
+.howSection {
+  background: #F9FBFF;
+  padding: 160px 0;
+}
+
+.howInner {
+  max-width: 1338px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+}
+
+.howHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.howTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.25px;
+  text-align: center;
+  color: #15171C;
+  margin: 0;
+}
+
+.howSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* 5 cards + 4 connectors in a row — CSS Grid guarantees exact column sizes */
+.howCards {
+  display: grid;
+  grid-template-columns: 240px 20px 240px 20px 240px 20px 240px 20px 240px;
+  justify-content: center;
+  align-items: stretch;
   width: 100%;
-  height: 240px;
-  border-radius: 16px;
-  overflow: hidden;
 }
 
-.faqRight {
-  flex: 1;
+.howCard {
+  width: 240px;
+  min-height: 240px;
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+/* Small connecting line — aligns with icon centre (25px top + 32px half = 57px) */
+.howConnector {
+  align-self: start;
+  width: 20px;
+  height: 2px;
+  margin-top: 57px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2B7FFF 0%, #00B8DB 100%);
+}
+
+.howIconBox {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.howStep {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+  color: #6A7282;
+  text-transform: uppercase;
+}
+
+.howCardTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  color: #101828;
+  margin: 0;
+}
+
+.howCardBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22.75px;
+  letter-spacing: -0.15px;
+  color: #4A5565;
+  margin: 0;
+}
+
+/* Outcomes banner */
+.howBanner {
+  width: 100%;
+  max-width: 1296px;
+  min-height: 140px;
+  border-radius: 16px;
+  border: 2px solid #DDDDDD;
+  border-top: 2px solid #DDDDDD;
+  background: #ffffff;
+  padding: 34px 34px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.howBannerLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.31px;
+  text-align: center;
+  color: #4A5565;
+  margin: 0;
+}
+
+.howBannerHighlight {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0.37px;
+  text-align: center;
+  background: linear-gradient(90deg, #E60076 0%, #EC003F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+/* CTA block */
+.howCta {
+  width: 100%;
+  max-width: 1306px;
+  min-height: 242px;
+  border-radius: 24px;
+  background: linear-gradient(90deg, #E15D77 0%, #E85370 100%);
+  box-shadow: 0px 25px 50px -12px rgba(246, 51, 154, 0.20);
+  padding: 29px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.howCtaTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0.37px;
+  text-align: center;
+  color: #ffffff;
+  margin: 0;
+}
+
+.howCtaBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.45px;
+  text-align: center;
+  color: #FDF2F8;
+  margin: 0;
+}
+
+.howCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 316px;
+  height: 60px;
+  padding: 16px 40px;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0px 8px 10px -6px rgba(0,0,0,0.10), 0px 20px 25px -5px rgba(0,0,0,0.10);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.44px;
+  text-align: center;
+  color: #E60076;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.howCtaBtn:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 1300px) {
+  .howCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .howConnector {
+    display: none;
+  }
+  .howCard {
+    width: 240px;
+    min-width: 0;
+  }
+}
+
+/* ════════════════════════════════════════
+   NEXT-LEVEL CARE SECTION
+════════════════════════════════════════ */
+.nextLevelSection {
+  background: #ffffff;
+  padding: 120px 0 80px;
+}
+
+.nextLevelInner {
+  max-width: 1344px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 116px;
+}
+
+.nextLevelText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.nextLevelTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 66px;
+  text-align: center;
+  color: #15171C;
+  margin: 0;
+}
+
+.nextLevelBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #000000;
+  max-width: 860px;
+  margin: 0;
+}
+
+/* T-connector SVG */
+.tConnSvg {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Row 3: three blue cards */
+.flowRow3 {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.blueCard {
+  width: 384px;
+  height: 220px;
+  padding: 32px 32px 0;
+  border-radius: 16px;
+  background: linear-gradient(110.5deg, #94C1FF 21.84%, #4D9AF1 94.48%);
+  box-shadow: 0px 8px 10px -6px rgba(0,0,0,0.10), 0px 20px 25px -5px rgba(0,0,0,0.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.blueCardIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.blueCardTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.blueCardSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.85);
+}
+
+@media (max-width: 1200px) {
+  .flowRow1 {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .arrowWrap {
+    transform: rotate(90deg);
+    padding-top: 0;
+    margin: -8px 0;
+  }
+  .flowRow3 {
+    flex-direction: column;
+    align-items: center;
+  }
+  .blueCard {
+    width: 100%;
+    max-width: 384px;
+    height: auto;
+    padding-bottom: 32px;
+  }
 }

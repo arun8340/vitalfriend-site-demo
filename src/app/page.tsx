@@ -210,7 +210,7 @@ export default function HomePage() {
             </p>
 
             <div className={styles["hp-hero__ctas"]}>
-              <Link href="/contact" className={styles["hp-btn-primary"]}>
+              <Link href="/scheduleDemo" className={styles["hp-btn-primary"]}>
                 <svg
                   width="20"
                   height="20"

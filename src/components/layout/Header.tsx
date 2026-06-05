@@ -88,7 +88,7 @@ export default function Header() {
 
             {/* Get a Vital Buddy button */}
             <Link
-              href="/get-vital-buddy"
+              href="/"
               className="ml-3 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
             >
@@ -144,7 +144,7 @@ export default function Header() {
               Call: 1 (855) 742 7300
             </a>
             <Link
-              href="/get-vital-buddy"
+              href="/"
               className="border-2 border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
               onClick={() => setMenuOpen(false)}
