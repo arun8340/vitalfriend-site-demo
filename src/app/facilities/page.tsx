@@ -33,7 +33,7 @@ export default function FacilitiesPage() {
             The Vital Buddy wearable monitors vitals across all levels of senior care, giving staff, families, and physicians timely visibility into resident health data.
           </p>
           <div className={s.heroBtns}>
-            <Link href="/contact" className={s.heroBtnPrimary}>
+            <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
               Schedule a Free Demo
             </Link>
           </div>
@@ -199,7 +199,7 @@ export default function FacilitiesPage() {
           experience, tailored to your facility type, and answer every question your team has.
         </p>
         <div className={s.finalCtaBtns}>
-          <Link href="/contact" className={s.finalCtaBtnPrimary}>
+          <Link href="/scheduleDemo" className={s.finalCtaBtnPrimary}>
             Schedule a Free Demo
           </Link>
         </div>

@@ -40,10 +40,10 @@ export default function DemoPage() {
       {/* ── Hero ── */}
       <section className={s.heroSection}>
         <div className={s.heroBadge}>
-          <span className={s.heroBadgeText}>Schedule Your Demo</span>
+          <span className={s.heroBadgeText}>Book a 30-Minute Demo</span>
         </div>
         <h1 className={s.heroTitle}>
-          Watch our product with the VitalFriend team.
+          Schedule a Demo
         </h1>
         <p className={s.heroSubtitle}>
           See VitalFriend in action. Schedule a personalized demo with our team and discover how we can help you provide better care.
