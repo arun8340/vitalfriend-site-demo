@@ -1,34 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import s from "./buddy.module.css";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 8;
 
 const steps = [
-  { label: "Personal", subtitle: "Your basic information" },
-  { label: "Address", subtitle: "Where you live" },
-  { label: "Medical", subtitle: "Health history" },
-  { label: "Insurance", subtitle: "Coverage details" },
-  { label: "Documents", subtitle: "Upload files" },
-  { label: "Review", subtitle: "Confirm & submit" },
+  { label: "Personal",      subtitle: "Your basic information" },
+  { label: "Address",       subtitle: "Where you live" },
+  { label: "Medical",       subtitle: "Health history" },
+  { label: "Insurance",     subtitle: "Coverage details" },
+  { label: "Emergency",     subtitle: "Emergency contact" },
+  { label: "Documents",     subtitle: "Upload files" },
+  { label: "Authorization", subtitle: "RPM agreement" },
+  { label: "Review",        subtitle: "Confirm & submit" },
 ];
 
 // ── Form data shape ──────────────────────────────────────────────────────────
 interface FormData {
   firstName: string; lastName: string; dateOfBirth: string;
-  email: string; phone: string;
+  email: string; phone: string; gender: string; referredBy: string;
   street: string; city: string; state: string; zip: string;
   primaryCarePhysician: string; medicalConditions: string;
   medications: string; allergies: string;
   insuranceProvider: string; policyNumber: string; groupNumber: string;
+  memberId: string; primaryPolicyHolder: string; relationshipToPolicyHolder: string;
+  emergencyContactName: string; emergencyContactPhone: string; emergencyContactRelationship: string;
+  printName: string; signatureDate: string;
+  poaName: string; witnessName: string;
 }
 
+interface ConsentState {
+  rpmConsent: boolean;
+  hipaaConsent: boolean;
+  billingConsent: boolean;
+  infoAccuracy: boolean;
+}
+
+interface DocItem {
+  type: string;
+  file: File | null;
+}
+
+const DOC_TYPES = [
+  "Insurance Card (Front)",
+  "Insurance Card (Back)",
+  "Government-Issued ID",
+  "Insurance Coverage Document",
+  "Other",
+];
+
+const REQUIRED_DOC_TYPES = [
+  "Insurance Card (Front)",
+  "Insurance Card (Back)",
+  "Government-Issued ID",
+];
+
 const initialForm: FormData = {
-  firstName: "", lastName: "", dateOfBirth: "", email: "", phone: "",
+  firstName: "", lastName: "", dateOfBirth: "", email: "", phone: "", gender: "", referredBy: "",
   street: "", city: "", state: "", zip: "",
   primaryCarePhysician: "", medicalConditions: "", medications: "", allergies: "",
   insuranceProvider: "", policyNumber: "", groupNumber: "",
+  memberId: "", primaryPolicyHolder: "", relationshipToPolicyHolder: "",
+  emergencyContactName: "", emergencyContactPhone: "", emergencyContactRelationship: "",
+  printName: "", signatureDate: new Date().toISOString().split("T")[0],
+  poaName: "", witnessName: "",
 };
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
@@ -50,8 +86,14 @@ function validateStep(step: number, form: FormData): FormErrors {
     if (!form.zip.trim()) e.zip = "ZIP is required";
   }
   if (step === 4) {
-    if (!form.insuranceProvider.trim()) e.insuranceProvider = "Insurance provider is required";
+    if (!form.insuranceProvider.trim()) e.insuranceProvider = "Insurance company is required";
     if (!form.policyNumber.trim()) e.policyNumber = "Policy number is required";
+    if (!form.memberId.trim()) e.memberId = "Member ID is required";
+  }
+  if (step === 5) {
+    if (!form.emergencyContactName.trim()) e.emergencyContactName = "Emergency contact name is required";
+    if (!form.emergencyContactPhone.trim()) e.emergencyContactPhone = "Emergency contact phone is required";
+    if (!form.emergencyContactRelationship.trim()) e.emergencyContactRelationship = "Relationship is required";
   }
   return e;
 }
@@ -111,8 +153,8 @@ const MailIcon = () => (
     <rect x="2" y="4" width="20" height="16" rx="2" /><path d="M2 7l10 7 10-7" />
   </svg>
 );
-const PhoneIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+const PhoneIcon = ({ size = 18, color = "currentColor" }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5">
     <path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1L6.6 10.8z" />
   </svg>
 );
@@ -134,6 +176,32 @@ const ArrowLeft = () => (
 const ArrowRight = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+const SpinnerIcon = () => (
+  <svg className={s.spinner} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+    <circle cx="12" cy="12" r="10" strokeOpacity="0.3" />
+    <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
+  </svg>
+);
+const ContactIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
+    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+  </svg>
+);
+const ContactIconDark = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.8">
+    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+  </svg>
+);
+const PenIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
   </svg>
 );
 
@@ -169,14 +237,29 @@ function PersonalStep({ form, onChange, errors }: { form: FormData; onChange: On
         </div>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Date of Birth <span className={s.required}>*</span></label>
-        <div className={s.inputWrapper}>
-          <CalendarIcon />
-          <input className={s.input} type="date"
-            value={form.dateOfBirth} onChange={e => onChange("dateOfBirth", e.target.value)} />
+      <div className={s.fieldRow}>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Date of Birth <span className={s.required}>*</span></label>
+          <div className={s.inputWrapper}>
+            <CalendarIcon />
+            <input className={s.input} type="date"
+              value={form.dateOfBirth} onChange={e => onChange("dateOfBirth", e.target.value)} />
+          </div>
+          {errors.dateOfBirth ? <p style={errStyle}>{errors.dateOfBirth}</p> : <p className={s.hint}>Must be 18 years or older</p>}
         </div>
-        {errors.dateOfBirth ? <p style={errStyle}>{errors.dateOfBirth}</p> : <p className={s.hint}>Must be 18 years or older</p>}
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Gender</label>
+          <div className={s.inputWrapperNoIcon}>
+            <select className={s.select}
+              value={form.gender} onChange={e => onChange("gender", e.target.value)}>
+              <option value="">Prefer not to say</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Non-binary">Non-binary</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div className={s.fieldGroup}>
@@ -197,6 +280,16 @@ function PersonalStep({ form, onChange, errors }: { form: FormData; onChange: On
             value={form.phone} onChange={e => onChange("phone", e.target.value)} />
         </div>
         {errors.phone ? <p style={errStyle}>{errors.phone}</p> : <p className={s.hint}>Include area code</p>}
+      </div>
+
+      <div className={s.fieldGroup}>
+        <label className={s.label}>Referred By</label>
+        <div className={s.inputWrapper}>
+          <UserIcon />
+          <input className={s.input} type="text" placeholder="e.g. John Smith"
+            value={form.referredBy} onChange={e => onChange("referredBy", e.target.value)} />
+        </div>
+        <p className={s.hint}>Optional - Who referred you to this program?</p>
       </div>
     </div>
   );
@@ -233,13 +326,13 @@ function AddressStep({ form, onChange, errors }: { form: FormData; onChange: OnC
         <div className={s.fieldGroup}>
           <label className={s.label}>State <span className={s.required}>*</span></label>
           <div className={s.inputWrapperNoIcon}>
-            <input className={s.input} type="text" placeholder="California"
+            <input className={s.input} type="text" placeholder="CA"
               value={form.state} onChange={e => onChange("state", e.target.value)} />
           </div>
           {errors.state && <p style={errStyle}>{errors.state}</p>}
         </div>
         <div className={s.fieldGroup}>
-          <label className={s.label}>ZIP <span className={s.required}>*</span></label>
+          <label className={s.label}>ZIP Code <span className={s.required}>*</span></label>
           <div className={s.inputWrapperNoIcon}>
             <input className={s.input} type="text" placeholder="94101"
               value={form.zip} onChange={e => onChange("zip", e.target.value)} />
@@ -303,89 +396,207 @@ function InsuranceStep({ form, onChange, errors }: { form: FormData; onChange: O
         <span>Please have your insurance card ready. You&apos;ll need the information from both sides.</span>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Insurance Provider <span className={s.required}>*</span></label>
-        <div className={s.inputWrapper}>
-          <BuildingIcon />
-          <input className={s.input} type="text" placeholder="Blue Cross Blue Shield"
-            value={form.insuranceProvider} onChange={e => onChange("insuranceProvider", e.target.value)} />
+      <div className={s.fieldRow}>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Insurance Company <span className={s.required}>*</span></label>
+          <div className={s.inputWrapper}>
+            <BuildingIcon />
+            <input className={s.input} type="text" placeholder="Blue Cross Blue Shield"
+              value={form.insuranceProvider} onChange={e => onChange("insuranceProvider", e.target.value)} />
+          </div>
+          {errors.insuranceProvider ? <p style={errStyle}>{errors.insuranceProvider}</p> : <p className={s.hint}>As shown on your insurance card</p>}
         </div>
-        {errors.insuranceProvider ? <p style={errStyle}>{errors.insuranceProvider}</p> : <p className={s.hint}>Company name as shown on your card</p>}
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Policy Number <span className={s.required}>*</span></label>
+          <div className={s.inputWrapperNoIcon}>
+            <input className={s.input} type="text" placeholder="ABC123456789"
+              value={form.policyNumber} onChange={e => onChange("policyNumber", e.target.value)} />
+          </div>
+          {errors.policyNumber && <p style={errStyle}>{errors.policyNumber}</p>}
+        </div>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Policy Number <span className={s.required}>*</span></label>
-        <div className={s.inputWrapperNoIcon}>
-          <input className={s.input} type="text" placeholder="ABC123456789"
-            value={form.policyNumber} onChange={e => onChange("policyNumber", e.target.value)} />
+      <div className={s.fieldRow}>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Group Number</label>
+          <div className={s.inputWrapperNoIcon}>
+            <input className={s.input} type="text" placeholder="GRP789456"
+              value={form.groupNumber} onChange={e => onChange("groupNumber", e.target.value)} />
+          </div>
+          <p className={s.hint}>Optional - Found on your insurance card</p>
         </div>
-        {errors.policyNumber ? <p style={errStyle}>{errors.policyNumber}</p> : <p className={s.hint}>Also called Member ID or Subscriber ID</p>}
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Member ID <span className={s.required}>*</span></label>
+          <div className={s.inputWrapperNoIcon}>
+            <input className={s.input} type="text" placeholder="MEM123456"
+              value={form.memberId} onChange={e => onChange("memberId", e.target.value)} />
+          </div>
+          {errors.memberId ? <p style={errStyle}>{errors.memberId}</p> : <p className={s.hint}>Found on your insurance card</p>}
+        </div>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Group Number</label>
-        <div className={s.inputWrapperNoIcon}>
-          <input className={s.input} type="text" placeholder="GRP789456"
-            value={form.groupNumber} onChange={e => onChange("groupNumber", e.target.value)} />
+      <div className={s.fieldRow}>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Primary Policy Holder</label>
+          <div className={s.inputWrapper}>
+            <UserIcon />
+            <input className={s.input} type="text" placeholder="If different from patient"
+              value={form.primaryPolicyHolder} onChange={e => onChange("primaryPolicyHolder", e.target.value)} />
+          </div>
+          <p className={s.hint}>Optional - Leave blank if you are the policy holder</p>
         </div>
-        <p className={s.hint}>Optional - If applicable, found on insurance card</p>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Relationship to Policy Holder</label>
+          <div className={s.inputWrapperNoIcon}>
+            <select className={s.select}
+              value={form.relationshipToPolicyHolder} onChange={e => onChange("relationshipToPolicyHolder", e.target.value)}>
+              <option value="">Select relationship</option>
+              <option value="Self">Self</option>
+              <option value="Spouse">Spouse</option>
+              <option value="Child">Child</option>
+              <option value="Parent">Parent</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function DocumentsStep({ files, setFiles }: { files: File[]; setFiles: (f: File[]) => void }) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setFiles([...files, ...Array.from(e.target.files)]);
+function EmergencyContactStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
+  return (
+    <div className={s.stepContent}>
+      <div className={s.infoBannerAmber}>
+        <InfoIcon />
+        <span>Please provide someone we can contact in case of an emergency. This person should not be yourself.</span>
+      </div>
+
+      <div className={s.fieldGroup}>
+        <label className={s.label}>Emergency Contact Name <span className={s.required}>*</span></label>
+        <div className={s.inputWrapper}>
+          <UserIcon />
+          <input className={s.input} type="text" placeholder="Jane Doe"
+            value={form.emergencyContactName} onChange={e => onChange("emergencyContactName", e.target.value)} />
+        </div>
+        {errors.emergencyContactName && <p style={errStyle}>{errors.emergencyContactName}</p>}
+      </div>
+
+      <div className={s.fieldRow}>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Phone Number <span className={s.required}>*</span></label>
+          <div className={s.inputWrapper}>
+            <PhoneIcon />
+            <input className={s.input} type="tel" placeholder="(555) 987-6543"
+              value={form.emergencyContactPhone} onChange={e => onChange("emergencyContactPhone", e.target.value)} />
+          </div>
+          {errors.emergencyContactPhone ? <p style={errStyle}>{errors.emergencyContactPhone}</p> : <p className={s.hint}>Include area code</p>}
+        </div>
+        <div className={s.fieldGroup}>
+          <label className={s.label}>Relationship <span className={s.required}>*</span></label>
+          <div className={s.inputWrapperNoIcon}>
+            <select className={s.select}
+              value={form.emergencyContactRelationship} onChange={e => onChange("emergencyContactRelationship", e.target.value)}>
+              <option value="">Select relationship</option>
+              <option value="Spouse">Spouse</option>
+              <option value="Parent">Parent</option>
+              <option value="Child">Child</option>
+              <option value="Sibling">Sibling</option>
+              <option value="Friend">Friend</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          {errors.emergencyContactRelationship && <p style={errStyle}>{errors.emergencyContactRelationship}</p>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DocumentsStep({ docItems, setDocItems, docError }: { docItems: DocItem[]; setDocItems: (items: DocItem[]) => void; docError: string }) {
+  const renameFile = (file: File, type: string): File => {
+    const ext = file.name.includes(".") ? "." + file.name.split(".").pop() : "";
+    return new File([file], `${type}${ext}`, { type: file.type });
   };
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    const dropped = Array.from(e.dataTransfer.files);
-    setFiles([...files, ...dropped]);
+  const updateType = (index: number, type: string) => {
+    const next = [...docItems];
+    const existing = next[index].file;
+    next[index] = {
+      type,
+      file: existing && type ? renameFile(existing, type) : existing,
+    };
+    setDocItems(next);
   };
 
-  const removeFile = (idx: number) => setFiles(files.filter((_, i) => i !== idx));
+  const updateFile = (index: number, file: File) => {
+    const next = [...docItems];
+    const type = next[index].type;
+    next[index] = { ...next[index], file: type ? renameFile(file, type) : file };
+    setDocItems(next);
+  };
+
+  const removeRow = (index: number) => setDocItems(docItems.filter((_, i) => i !== index));
+
+  const addRow = () => setDocItems([...docItems, { type: "", file: null }]);
 
   return (
     <div className={s.stepContent}>
       <div className={s.infoBannerPurple}>
         <UploadIcon size={16} color="#7c3aed" />
         <div>
-          <p className={s.infoBannerTitle}>Upload copies of the following documents (if available):</p>
+          <p className={s.infoBannerTitle}>Required documents to upload:</p>
           <ul className={s.infoBannerList}>
-            <li>Insurance card (front and back)</li>
-            <li>Photo identification (driver&apos;s license or passport)</li>
-            <li>Previous medical records (optional)</li>
+            <li>Insurance Card (Front &amp; Back) — required</li>
+            <li>Government-Issued ID (Driver&apos;s License, State ID, or Passport) — required</li>
+            <li>Insurance Coverage Document — optional</li>
           </ul>
         </div>
       </div>
 
-      <label
-        className={s.uploadZone}
-        onDragOver={e => e.preventDefault()}
-        onDrop={handleDrop}
-      >
-        <input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-          className={s.uploadInput} onChange={handleChange} />
-        <UploadIcon size={40} color="#9ca3af" />
-        <p className={s.uploadText}>
-          <span className={s.uploadLink}>Click to upload</span> or drag and drop
-        </p>
-        <p className={s.uploadSub}>PDF, JPG, PNG, DOC up to 10MB each</p>
-      </label>
-
-      {files.length > 0 && (
-        <div className={s.fileList}>
-          {files.map((file, i) => (
-            <div key={i} className={s.fileItem}>
-              <span className={s.fileName}>{file.name}</span>
-              <span className={s.fileSize}>{(file.size / 1024).toFixed(0)} KB</span>
-              <button className={s.fileRemove} onClick={() => removeFile(i)} type="button">✕</button>
+      <div className={s.docList}>
+        {docItems.map((item, i) => (
+          <div key={i} className={s.docRow}>
+            <div className={s.inputWrapperNoIcon} style={{ flex: 1 }}>
+              <select
+                className={s.select}
+                value={item.type}
+                onChange={e => updateType(i, e.target.value)}
+              >
+                <option value="">Select document type</option>
+                {DOC_TYPES.map(t => (
+                  <option key={t} value={t}>
+                    {t}{REQUIRED_DOC_TYPES.includes(t) ? " *" : ""}
+                  </option>
+                ))}
+              </select>
             </div>
-          ))}
-        </div>
-      )}
+
+            <label className={`${s.docUploadBtn} ${item.file ? s.docUploadBtnDone : ""}`}>
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                className={s.uploadInput}
+                onChange={e => e.target.files?.[0] && updateFile(i, e.target.files[0])}
+              />
+              <UploadIcon size={14} color={item.file ? "#16a34a" : "#7c3aed"} />
+              <span className={s.docUploadLabel}>
+                {item.file
+                  ? (item.file.name.length > 22 ? item.file.name.slice(0, 20) + "…" : item.file.name)
+                  : "Upload File"}
+              </span>
+            </label>
+
+            <button className={s.fileRemove} onClick={() => removeRow(i)} type="button" title="Remove">✕</button>
+          </div>
+        ))}
+      </div>
+
+      <button className={s.addDocBtn} type="button" onClick={addRow}>
+        + Add Document
+      </button>
+
+      {docError && <p style={{ color: "#ef4444", fontSize: "13px", marginTop: "4px" }}>{docError}</p>}
     </div>
   );
 }
@@ -417,11 +628,30 @@ function ReviewSection({ icon, title, children }: { icon: React.ReactNode; title
   );
 }
 
-function ReviewStep({ form, files, agreed, setAgreed }: { form: FormData; files: File[]; agreed: boolean; setAgreed: (v: boolean) => void }) {
+function ConsentCheckbox({ id, checked, onChange, children }: {
+  id: string; checked: boolean; onChange: (v: boolean) => void; children: React.ReactNode;
+}) {
+  return (
+    <div className={s.certifyRow}>
+      <input id={id} type="checkbox" className={s.certifyCheck}
+        checked={checked} onChange={e => onChange(e.target.checked)} />
+      <label htmlFor={id} className={s.certifyLabel}>{children}</label>
+    </div>
+  );
+}
+
+function ReviewStep({
+  form, onChange, docItems, consents, setConsents, signatureDataUrl, setSignatureDataUrl,
+}: {
+  form: FormData; onChange: OnChange; docItems: DocItem[];
+  consents: ConsentState; setConsents: (v: ConsentState) => void;
+  signatureDataUrl: string; setSignatureDataUrl: (v: string) => void;
+}) {
   const openFile = (file: File) => {
     const url = URL.createObjectURL(file);
     window.open(url, "_blank");
   };
+  const uploadedDocs = docItems.filter(d => d.file !== null);
   const fullName = [form.firstName, form.lastName].filter(Boolean).join(" ");
   const fullAddress = [form.city, form.state, form.zip].filter(Boolean).join(", ");
 
@@ -435,6 +665,7 @@ function ReviewStep({ form, files, agreed, setAgreed }: { form: FormData; files:
       <ReviewSection icon={<PersonIconDark />} title="Personal Information">
         <ReviewRow label="Name" value={fullName} fallback="—" />
         <ReviewRow label="Date of Birth" value={form.dateOfBirth} fallback="—" />
+        <ReviewRow label="Gender" value={form.gender} fallback="Not specified" />
         <ReviewRow label="Email" value={form.email} fallback="—" />
         <ReviewRow label="Phone" value={form.phone} fallback="—" />
       </ReviewSection>
@@ -452,23 +683,34 @@ function ReviewStep({ form, files, agreed, setAgreed }: { form: FormData; files:
       </ReviewSection>
 
       <ReviewSection icon={<ShieldIcon size={24} />} title="Insurance">
-        <ReviewRow label="Provider" value={form.insuranceProvider} fallback="—" />
+        <ReviewRow label="Insurance Company" value={form.insuranceProvider} fallback="—" />
         <ReviewRow label="Policy Number" value={form.policyNumber} fallback="—" />
         <ReviewRow label="Group Number" value={form.groupNumber} fallback="Not provided" />
+        <ReviewRow label="Member ID" value={form.memberId} fallback="—" />
+        <ReviewRow label="Primary Policy Holder" value={form.primaryPolicyHolder} fallback="Self" />
+        <ReviewRow label="Relationship to Policy Holder" value={form.relationshipToPolicyHolder} fallback="Not specified" />
+      </ReviewSection>
+
+      <ReviewSection icon={<ContactIconDark />} title="Emergency Contact">
+        <ReviewRow label="Name" value={form.emergencyContactName} fallback="—" />
+        <ReviewRow label="Phone" value={form.emergencyContactPhone} fallback="—" />
+        <ReviewRow label="Relationship" value={form.emergencyContactRelationship} fallback="—" />
       </ReviewSection>
 
       <ReviewSection icon={<UploadIcon size={24} color="#7c3aed" />} title="Documents">
-        {files.length === 0 ? (
+        {uploadedDocs.length === 0 ? (
           <p className={s.reviewEmpty}>No documents uploaded</p>
         ) : (
           <div className={s.reviewFileList}>
-            {files.map((file, i) => (
-              <button key={i} className={s.reviewFileItem} onClick={() => openFile(file)} type="button">
+            {uploadedDocs.map((doc, i) => (
+              <button key={i} className={s.reviewFileItem} onClick={() => openFile(doc.file!)} type="button">
                 <span className={s.reviewFileIcon}>
                   <UploadIcon size={14} color="#7c3aed" />
                 </span>
-                <span className={s.reviewFileName}>{file.name}</span>
-                <span className={s.reviewFileSize}>{(file.size / 1024).toFixed(0)} KB</span>
+                <span className={s.reviewFileName}>
+                  {doc.type ? `${doc.type} — ` : ""}{doc.file!.name}
+                </span>
+                <span className={s.reviewFileSize}>{(doc.file!.size / 1024).toFixed(0)} KB</span>
                 <span className={s.reviewFileView}>View →</span>
               </button>
             ))}
@@ -476,19 +718,247 @@ function ReviewStep({ form, files, agreed, setAgreed }: { form: FormData; files:
         )}
       </ReviewSection>
 
-      <div className={s.certifyRow}>
-        <input id="certify" type="checkbox" className={s.certifyCheck}
-          checked={agreed} onChange={e => setAgreed(e.target.checked)} />
-        <label htmlFor="certify" className={s.certifyLabel}>
-          I certify that all information provided is accurate and complete to the best of my knowledge. I authorize the healthcare provider to use this information for processing my patient intake and to contact me using the provided contact information.
+      <div className={s.consentSection}>
+        <h4 className={s.consentTitle}>Consent and Authorization</h4>
+        <p className={s.consentSubtitle}>All four items below must be acknowledged before submitting.</p>
+
+        <ConsentCheckbox id="rpmConsent" checked={consents.rpmConsent}
+          onChange={v => setConsents({ ...consents, rpmConsent: v })}>
+          <strong>RPM Consent:</strong> I consent to participate in the Remote Patient Monitoring program and understand that my health data will be monitored and transmitted to my healthcare provider.
+        </ConsentCheckbox>
+
+        <ConsentCheckbox id="hipaaConsent" checked={consents.hipaaConsent}
+          onChange={v => setConsents({ ...consents, hipaaConsent: v })}>
+          <strong>HIPAA Authorization:</strong> I authorize the sharing of my protected health information (PHI) for remote patient monitoring purposes.
+        </ConsentCheckbox>
+
+        <ConsentCheckbox id="billingConsent" checked={consents.billingConsent}
+          onChange={v => setConsents({ ...consents, billingConsent: v })}>
+          <strong>Billing Authorization:</strong> I authorize my healthcare provider to bill my insurance for RPM services and understand my financial responsibilities.
+        </ConsentCheckbox>
+
+        <ConsentCheckbox id="infoAccuracy" checked={consents.infoAccuracy}
+          onChange={v => setConsents({ ...consents, infoAccuracy: v })}>
+          <strong>Information Accuracy:</strong> I certify that all information provided is accurate and complete to the best of my knowledge.
+        </ConsentCheckbox>
+      </div>
+
+      <div className={s.signatureSection}>
+        <h4 className={s.consentTitle}>Signature</h4>
+        <div className={s.fieldRow} style={{ padding: "0 20px" }}>
+          <div className={s.fieldGroup}>
+            <label className={s.label}>Print Name <span className={s.required}>*</span></label>
+            <div className={s.inputWrapper}>
+              <PenIcon />
+              <input className={s.input} type="text" placeholder="Full legal name"
+                value={form.printName} onChange={e => onChange("printName", e.target.value)} />
+            </div>
+            <p className={s.hint}>Type your full name to sign electronically</p>
+          </div>
+          <div className={s.fieldGroup}>
+            <label className={s.label}>Date <span className={s.required}>*</span></label>
+            <div className={s.inputWrapper}>
+              <CalendarIcon />
+              <input className={s.input} type="date"
+                value={form.signatureDate} onChange={e => onChange("signatureDate", e.target.value)} />
+            </div>
+          </div>
+        </div>
+        <div className={s.sigFieldGroup}>
+          <label className={s.label}>
+            Patient Signature <span className={s.required}>*</span>
+          </label>
+          <SignaturePad value={signatureDataUrl} onChange={setSignatureDataUrl} />
+          {!signatureDataUrl && (
+            <p className={s.hint}>Please draw your signature above to enable submission</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Authorization terms ───────────────────────────────────────────────────────
+const FileTextIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
+    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <line x1="10" y1="9" x2="8" y2="9" />
+  </svg>
+);
+
+const AUTHORIZATION_TERMS = [
+  { text: "I am permitted to use the remote monitoring device(s) (a.k.a. BUDDI®).", bold: false },
+  { text: "I will use the RPM device(s) as instructed; I will not use the RPM device(s) for any reason other than for my health to be monitored.", bold: false },
+  { text: "I will keep the RPM device(s) always sanitized and clean before wearing it.", bold: false },
+  { text: "I understand if any rash or skin itchiness has occurred because of sweat and not keeping hygiene standards then I take full 100% responsibility.", bold: false },
+  { text: "I will not alter, throw or tamper with the RPM device(s). If the device(s) is not maintained as per the standards, then I understand that VitalFriend Inc. can take back the RPM device(s) and terminate this program.", bold: false },
+  { text: "I understand that if I fall or slip and the device(s) breaks, it can hurt my hand as any other wearable.", bold: false },
+  { text: "My data will be electronically transmitted from the RPM device(s) to VitalFriend's platform in a safe and secure manner.", bold: false },
+  { text: "I will assist the staff or, if doing myself, will ensure that my measurements are taken at least 2 times a day. If I fail to maintain minimum usage requirements, the program administrators will provide an initial reminder. If non-compliance continues, additional follow-up reminders will be issued. Failure to maintain minimum usage requirements for more than 5 consecutive days despite these reminders may result in device(s) retrieval.", bold: false },
+  { text: "I permit that my data can be used for additional research and development purposes by VitalFriend Inc. for providing better health statistics, benchmarks, predictive AI etc. for myself. If my data is used for other research, then it has to be in an unidentified manner.", bold: false },
+  { text: "A qualified healthcare professional, from VitalFriend Inc. / Equicare / Medical Solutions Consultants LLC (MSC), will view my remote patient monitoring every seven (15) days. I may be contacted through a secure communication channel to review and discuss health details, as necessary.", bold: false },
+  { text: "The RPM device(s) is not designed for an emergency response unit and is not monitored 24/7. I will call 911 for any medical emergencies. Any delay in seeking emergency care is the sole responsibility of the patient. Alerts and notifications may experience delays and should not be relied upon for immediate emergency response.", bold: true },
+  { text: "I may withdraw my consent to participate in the remote monitoring program and stop participating at any time by notifying VitalFriend Inc. Upon doing so, I would ship back the device(s) (a.k.a BUDDI®) to VitalFriend Inc. All shipping charges will be incurred by me and not VitalFriend Inc.", bold: false },
+  { text: "I understand that the medication reminder feature is provided solely as a convenience tool. This feature does not create any obligation for me to take medication, nor does it transfer any responsibility to VitalFriend Inc. for missed medications. I acknowledge that I should only follow medication instructions as recommended by my healthcare provider, who maintains full responsibility for my medication management.", bold: false },
+  { text: "I acknowledge that any readings from this device(s), including elevated or abnormal values, are not diagnostic in nature and do not automatically indicate a need for medication changes. I understand that all device(s) readings must be reviewed by a qualified healthcare professional before making any medical decisions or changes to my treatment plan. VitalFriend Inc. provides monitoring tools only and does not offer medical advice or medication recommendations.", bold: false },
+  { text: "I understand that RPM device(s) may experience technical malfunctions, connectivity issues, or measurement inaccuracies. I will not rely solely on RPM device(s) readings for medical decisions and will continue all prescribed treatments and medications as directed by my healthcare provider.", bold: false },
+  { text: "I acknowledge that remote patient monitoring supplements but does not replace regular medical care, routine appointments, or direct communication with my healthcare provider. RPM data does not constitute medical advice, diagnosis, or treatment recommendations.", bold: false },
+  { text: "I am responsible for ensuring proper device(s) connectivity and will promptly report any technical issues, connectivity problems, or suspected device(s) malfunctions to VitalFriend Inc. I understand that data transmission failures or platform downtime may occur and that VitalFriend Inc. is not liable for such technical interruptions. Inaccurate data due to improper use is not the responsibility of VitalFriend Inc. or Equicare/MSC.", bold: false },
+  { text: "I understand that I should contact my primary healthcare provider or seek immediate medical attention if I experience concerning symptoms, regardless of RPM device(s) readings. I will not delay seeking medical care based on RPM data.", bold: true },
+  { text: "I acknowledge that while VitalFriend Inc. and its partners strive to provide reliable monitoring services, no medical technology is 100% accurate or foolproof. I understand the limitations of remote monitoring technology and agree not to hold VitalFriend Inc., Equicare/Medical Solutions Consultants LLC, or their employees liable for device(s) limitations, technical failures, or any adverse outcomes related to my participation in this program.", bold: false },
+  { text: "I agree to notify VitalFriend Inc. and my healthcare provider within 48 hours of any diagnosis changes, new medical conditions, medication changes, or hospitalizations that may affect remote monitoring protocols.", bold: false },
+  { text: "Patient is responsible for maintaining current contact information for themselves, their designated emergency contacts, primary care physician, and authorized caregivers. If VitalFriend Inc. or Equicare/MSC detects critical vital sign anomalies and cannot reach the patient, emergency contacts, or healthcare provider using the contact information on file, the patient assumes full responsibility for any adverse outcomes resulting from the inability to establish contact.", bold: false },
+  { text: "Repeated non-compliance with program requirements, including failure to take measurements, failure to update health information, or failure to maintain device(s) properly, may result in termination from the program and device(s) retrieval without refund.", bold: false },
+  { text: "Patient acknowledges that their primary care physician and Equicare/MSC providers are responsible for medical decisions and treatment recommendations. VitalFriend Inc. provides technology platform services only and does not provide medical advice or treatment.", bold: false },
+  { text: "If any provision of this Agreement is found to be unenforceable or invalid by a court of competent authority, the remaining provisions shall continue in full force and effect.", bold: false },
+  { text: "I agree to indemnify and hold harmless VitalFriend Inc., Equicare/Medical Solutions Consultants LLC, and their respective officers, directors, employees, agents, contractors, and affiliates from and against any and all claims, demands, damages, liabilities, costs, expenses or losses (including reasonable attorneys' fees and court costs) arising from my use of the RPM device(s) or participation in the monitoring program, except in cases of gross negligence or willful misconduct. This indemnification obligation shall survive termination of my participation in the program.", bold: false },
+  { text: "This Authorization Agreement constitutes the entire agreement between the parties regarding remote patient monitoring services and supersedes all prior discussions, representations, or agreements.", bold: false },
+];
+
+function AuthorizationStep({
+  agreed, setAgreed, form, onChange,
+  poaSignatureDataUrl, setPoaSignatureDataUrl,
+  witnessSignatureDataUrl, setWitnessSignatureDataUrl,
+  authError,
+}: {
+  agreed: boolean; setAgreed: (v: boolean) => void;
+  form: FormData; onChange: OnChange;
+  poaSignatureDataUrl: string; setPoaSignatureDataUrl: (v: string) => void;
+  witnessSignatureDataUrl: string; setWitnessSignatureDataUrl: (v: string) => void;
+  authError: string;
+}) {
+  const [hasPOA, setHasPOA] = useState(false);
+  const [hasWitness, setHasWitness] = useState(false);
+
+  return (
+    <div className={s.stepContent}>
+      <div className={s.infoBannerAmber}>
+        <InfoIcon />
+        <span>Please read all 26 terms carefully, then check the box to agree before continuing.</span>
+      </div>
+
+      {/* Scrollable terms box */}
+      <div className={s.authTermsBox}>
+        <h3 className={s.authTermsTitle}>AUTHORIZATION AGREEMENT / RELEASE OF LIABILITY</h3>
+        <p className={s.authTermsIntro}>By signing this form, I agree that I have read and understood the following:</p>
+        <ol className={s.authTermsList}>
+          {AUTHORIZATION_TERMS.map((t, i) => (
+            <li key={i} className={t.bold ? s.authTermBold : s.authTerm}>{t.text}</li>
+          ))}
+        </ol>
+        <p className={s.authTermsPara}>
+          I hereby authorize VitalFriend Inc. and Equicare/Medical Solutions Consultants LLC to provide
+          device(s) and services related to remote monitoring. My provider will direct the details and
+          frequency of the remote monitoring services that have been discussed with me. I further state
+          that I have read and understood the above authorization; and any questions I have on the device(s)
+          or the use of the device(s) for my medical care have been answered to my satisfaction. I hereby
+          agree to participate in the remote monitoring program as explained, under the terms as described herein.
+        </p>
+        <p className={s.authTermsPara}>
+          <strong>LIMITATION OF LIABILITY:</strong> To the maximum extent permitted by law, VitalFriend Inc.
+          and Equicare/Medical Solutions Consultants LLC shall not be liable for any indirect, incidental,
+          special, consequential, or punitive damages arising from or related to the remote patient monitoring
+          program, including but not limited to device(s) malfunctions, data transmission errors, or any
+          medical outcomes.
+        </p>
+      </div>
+
+      {/* Agree checkbox */}
+      <div className={s.authAgreeRow}>
+        <input
+          id="authAgreed"
+          type="checkbox"
+          className={s.certifyCheck}
+          checked={agreed}
+          onChange={e => setAgreed(e.target.checked)}
+        />
+        <label htmlFor="authAgreed" className={s.certifyLabel}>
+          <strong>I have read and agree to all terms</strong> of the Authorization Agreement above.
         </label>
+      </div>
+      {authError && <p style={{ color: "#ef4444", fontSize: "13px", marginTop: "4px" }}>{authError}</p>}
+
+      {/* Optional POA section */}
+      <div className={s.authOptionalSection}>
+        <div className={s.authOptionalHeader} onClick={() => setHasPOA(v => !v)}>
+          <span className={s.authOptionalToggle}>{hasPOA ? "▾" : "▸"}</span>
+          <span className={s.authOptionalTitle}>Power of Attorney (Optional)</span>
+        </div>
+        {hasPOA && (
+          <div className={s.authOptionalBody}>
+            <div className={s.fieldGroup}>
+              <label className={s.label}>POA Full Name</label>
+              <div className={s.inputWrapper}>
+                <UserIcon />
+                <input className={s.input} type="text" placeholder="Power of Attorney name"
+                  value={form.poaName} onChange={e => onChange("poaName", e.target.value)} />
+              </div>
+            </div>
+            {form.poaName.trim() && (
+              <div className={s.fieldGroup}>
+                <label className={s.label}>POA Signature</label>
+                <SignaturePad value={poaSignatureDataUrl} onChange={setPoaSignatureDataUrl} />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Optional Witness section */}
+      <div className={s.authOptionalSection}>
+        <div className={s.authOptionalHeader} onClick={() => setHasWitness(v => !v)}>
+          <span className={s.authOptionalToggle}>{hasWitness ? "▾" : "▸"}</span>
+          <span className={s.authOptionalTitle}>Witness (Optional)</span>
+        </div>
+        {hasWitness && (
+          <div className={s.authOptionalBody}>
+            <div className={s.fieldGroup}>
+              <label className={s.label}>Witness Full Name</label>
+              <div className={s.inputWrapper}>
+                <UserIcon />
+                <input className={s.input} type="text" placeholder="Witness name"
+                  value={form.witnessName} onChange={e => onChange("witnessName", e.target.value)} />
+              </div>
+            </div>
+            {form.witnessName.trim() && (
+              <div className={s.fieldGroup}>
+                <label className={s.label}>Witness Signature</label>
+                <SignaturePad value={witnessSignatureDataUrl} onChange={setWitnessSignatureDataUrl} />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 // ── Success screen ────────────────────────────────────────────────────────────
-function SuccessScreen({ email, refId }: { email: string; refId: string }) {
+function SuccessScreen({ email, refId, pdfBase64, pdfName, pdfAuthBase64, pdfAuthName }: {
+  email: string; refId: string;
+  pdfBase64?: string; pdfName?: string;
+  pdfAuthBase64?: string; pdfAuthName?: string;
+}) {
+  const triggerDownload = (b64: string, filename: string) => {
+    const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    const blob  = new Blob([bytes], { type: "application/pdf" });
+    const url   = URL.createObjectURL(blob);
+    const a     = document.createElement("a");
+    a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const DownloadIcon = () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+
   return (
     <div className={s.successWrapper}>
       <div className={s.successIcon}>
@@ -516,8 +986,115 @@ function SuccessScreen({ email, refId }: { email: string; refId: string }) {
       </div>
 
       <p className={s.successRefId}>Reference ID: {refId}</p>
+
+      <div className={s.downloadGroup}>
+        {pdfBase64 && (
+          <button className={s.downloadBtn} onClick={() => triggerDownload(pdfBase64, pdfName ?? "RPM_Intake_Form.pdf")} type="button">
+            <DownloadIcon /> Download Intake Form
+          </button>
+        )}
+        {pdfAuthBase64 && (
+          <button className={`${s.downloadBtn} ${s.downloadBtnSecondary}`} onClick={() => triggerDownload(pdfAuthBase64, pdfAuthName ?? "RPM_Authorization.pdf")} type="button">
+            <DownloadIcon /> Download Authorization Agreement
+          </button>
+        )}
+      </div>
     </div>
   );
+}
+
+// ── Signature pad ────────────────────────────────────────────────────────────
+function SignaturePad({ value, onChange }: { value: string; onChange: (dataUrl: string) => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const drawing = useRef(false);
+  const [isEmpty, setIsEmpty] = useState(!value);
+
+  const getPos = (canvas: HTMLCanvasElement, src: MouseEvent | Touch) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: (src.clientX - rect.left) * (canvas.width / rect.width),
+      y: (src.clientY - rect.top) * (canvas.height / rect.height),
+    };
+  };
+
+  const startDraw = (e: React.MouseEvent | React.TouchEvent) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    drawing.current = true;
+    const src = "touches" in e ? e.touches[0] : (e as React.MouseEvent).nativeEvent;
+    const { x, y } = getPos(canvas, src as MouseEvent | Touch);
+    const ctx = canvas.getContext("2d")!;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    setIsEmpty(false);
+  };
+
+  const continueDraw = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!drawing.current) return;
+    e.preventDefault();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const src = "touches" in e ? e.touches[0] : (e as React.MouseEvent).nativeEvent;
+    const { x, y } = getPos(canvas, src as MouseEvent | Touch);
+    const ctx = canvas.getContext("2d")!;
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = "#1a1a2e";
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+  };
+
+  const stopDraw = () => {
+    if (!drawing.current) return;
+    drawing.current = false;
+    const canvas = canvasRef.current;
+    if (canvas) onChange(canvas.toDataURL("image/png"));
+  };
+
+  const clear = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.getContext("2d")!.clearRect(0, 0, canvas.width, canvas.height);
+    setIsEmpty(true);
+    onChange("");
+  };
+
+  return (
+    <div className={s.sigPadWrapper}>
+      <div className={s.sigPadContainer}>
+        {isEmpty && <p className={s.sigPadPlaceholder}>Draw your signature here</p>}
+        <canvas
+          ref={canvasRef}
+          width={600}
+          height={180}
+          className={s.sigPadCanvas}
+          onMouseDown={startDraw}
+          onMouseMove={continueDraw}
+          onMouseUp={stopDraw}
+          onMouseLeave={stopDraw}
+          onTouchStart={startDraw}
+          onTouchMove={continueDraw}
+          onTouchEnd={stopDraw}
+        />
+      </div>
+      <div className={s.sigPadFooter}>
+        <p className={s.sigPadLine} />
+        <button type="button" className={s.sigClearBtn} onClick={clear}>
+          ✕ Clear
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function dataUrlToFile(dataUrl: string, filename: string): File {
+  const [header, data] = dataUrl.split(",");
+  const mime = header.match(/:(.*?);/)![1];
+  const bytes = atob(data);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new File([arr], filename, { type: mime });
 }
 
 function generateRefId() {
@@ -527,12 +1104,28 @@ function generateRefId() {
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function GetAVitalBuddyPage() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [agreed, setAgreed] = useState(false);
+  const [consents, setConsents] = useState<ConsentState>({
+    rpmConsent: false,
+    hipaaConsent: false,
+    billingConsent: false,
+    infoAccuracy: false,
+  });
   const [form, setForm] = useState<FormData>(initialForm);
-  const [files, setFiles] = useState<File[]>([]);
+  const [docItems, setDocItems] = useState<DocItem[]>([{ type: "", file: null }]);
+  const [signatureDataUrl, setSignatureDataUrl] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [refId] = useState(generateRefId);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [docError, setDocError] = useState("");
+  const [pdfBase64, setPdfBase64] = useState("");
+  const [pdfName, setPdfName] = useState("");
+  const [pdfAuthBase64, setPdfAuthBase64] = useState("");
+  const [pdfAuthName, setPdfAuthName] = useState("");
+  const [authAgreed, setAuthAgreed] = useState(false);
+  const [authError, setAuthError] = useState("");
+  const [poaSignatureDataUrl, setPoaSignatureDataUrl] = useState("");
+  const [witnessSignatureDataUrl, setWitnessSignatureDataUrl] = useState("");
 
   const onChange: OnChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -540,6 +1133,22 @@ export default function GetAVitalBuddyPage() {
   };
 
   const goNext = () => {
+    if (currentStep === 6) {
+      const uploadedTypes = docItems.filter(d => d.file).map(d => d.type);
+      const missing = REQUIRED_DOC_TYPES.filter(t => !uploadedTypes.includes(t));
+      if (missing.length > 0) {
+        setDocError(`Please upload: ${missing.join(", ")}`);
+        return;
+      }
+      setDocError("");
+    }
+    if (currentStep === 7) {
+      if (!authAgreed) {
+        setAuthError("You must read and agree to all terms before continuing.");
+        return;
+      }
+      setAuthError("");
+    }
     const stepErrors = validateStep(currentStep, form);
     if (Object.keys(stepErrors).length > 0) {
       setErrors(stepErrors);
@@ -554,29 +1163,84 @@ export default function GetAVitalBuddyPage() {
     setCurrentStep(s => Math.max(s - 1, 1));
   };
 
+  const allConsentsChecked = Object.values(consents).every(Boolean);
+  const canSubmit = allConsentsChecked && form.printName.trim() !== "" && signatureDataUrl !== "";
+
   const handleSubmit = async () => {
+    setSubmitting(true);
     let driveFolderName = "";
     let driveFolderUrl = "";
+    let driveFolderId = "";
 
-    // Upload documents to Drive if any files selected
-    if (files.length > 0) {
+    // 1. Upload documents + signature to Drive
+    const uploadableFiles = docItems.filter(d => d.file !== null).map(d => d.file as File);
+    const hasAnything = uploadableFiles.length > 0 || signatureDataUrl !== "";
+    if (hasAnything) {
       const fd = new FormData();
       fd.append("patientName", `${form.firstName} ${form.lastName}`.trim());
       fd.append("refId", refId);
-      files.forEach(f => fd.append("files", f));
+      uploadableFiles.forEach(f => fd.append("files", f));
+      if (signatureDataUrl) {
+        fd.append("files", dataUrlToFile(signatureDataUrl, `Signature_${form.firstName}_${form.lastName}.png`));
+      }
 
       const driveRes = await fetch("/api/upload-documents", { method: "POST", body: fd });
       const driveData = await driveRes.json();
       driveFolderName = driveData.folderName ?? "";
-      driveFolderUrl = driveData.folderUrl ?? "";
+      driveFolderUrl  = driveData.folderUrl  ?? "";
+      driveFolderId   = driveData.folderId   ?? "";
     }
 
-    // Save to Google Sheet
+    // 2. Generate filled intake PDF and save to the same Drive folder
+    if (driveFolderId) {
+      const pdfRes  = await fetch("/api/generate-intake-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form,
+          consents,
+          refId,
+          signatureDataUrl,
+          folderId: driveFolderId,
+        }),
+      });
+      const pdfData = await pdfRes.json();
+      if (pdfData.pdfBase64) setPdfBase64(pdfData.pdfBase64);
+      if (pdfData.pdfName)   setPdfName(pdfData.pdfName);
+    }
+
+    // 3. Generate authorization PDF and save to Drive
+    if (driveFolderId) {
+      const authRes = await fetch("/api/generate-authorization-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form,
+          signatureDataUrl,
+          poaSignatureDataUrl,
+          witnessSignatureDataUrl,
+          refId,
+          folderId: driveFolderId,
+        }),
+      });
+      const authData = await authRes.json();
+      if (authData.pdfBase64) setPdfAuthBase64(authData.pdfBase64);
+      if (authData.pdfName)   setPdfAuthName(authData.pdfName);
+    }
+
+    // 4. Save form data to Google Sheet
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     await fetch("/api/submit-application", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, refId, driveFolderName, driveFolderUrl, timezone: userTimezone }),
+      body: JSON.stringify({
+        ...form,
+        refId,
+        driveFolderName,
+        driveFolderUrl,
+        timezone: userTimezone,
+        consents,
+      }),
     });
 
     setSubmitted(true);
@@ -588,7 +1252,11 @@ export default function GetAVitalBuddyPage() {
     return (
       <main className={s.page}>
         <div className={s.card}>
-          <SuccessScreen email={form.email} refId={refId} />
+          <SuccessScreen
+            email={form.email} refId={refId}
+            pdfBase64={pdfBase64} pdfName={pdfName}
+            pdfAuthBase64={pdfAuthBase64} pdfAuthName={pdfAuthName}
+          />
         </div>
       </main>
     );
@@ -608,8 +1276,10 @@ export default function GetAVitalBuddyPage() {
               {currentStep === 2 && <MapPinIcon size={20} color="white" />}
               {currentStep === 3 && <HeartIcon size={20} color="white" />}
               {currentStep === 4 && <ShieldIcon size={20} color="white" />}
-              {currentStep === 5 && <UploadIcon size={20} color="white" />}
-              {currentStep === 6 && <CircleCheckIcon />}
+              {currentStep === 5 && <ContactIcon />}
+              {currentStep === 6 && <UploadIcon size={20} color="white" />}
+              {currentStep === 7 && <FileTextIcon />}
+              {currentStep === 8 && <CircleCheckIcon />}
             </div>
             <div>
               <p className={s.stepLabel}>{step.label}</p>
@@ -634,23 +1304,43 @@ export default function GetAVitalBuddyPage() {
         {currentStep === 2 && <AddressStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 3 && <MedicalStep form={form} onChange={onChange} />}
         {currentStep === 4 && <InsuranceStep form={form} onChange={onChange} errors={errors} />}
-        {currentStep === 5 && <DocumentsStep files={files} setFiles={setFiles} />}
-        {currentStep === 6 && <ReviewStep form={form} files={files} agreed={agreed} setAgreed={setAgreed} />}
+        {currentStep === 5 && <EmergencyContactStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 6 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} />}
+        {currentStep === 7 && (
+          <AuthorizationStep
+            agreed={authAgreed} setAgreed={setAuthAgreed}
+            form={form} onChange={onChange}
+            poaSignatureDataUrl={poaSignatureDataUrl} setPoaSignatureDataUrl={setPoaSignatureDataUrl}
+            witnessSignatureDataUrl={witnessSignatureDataUrl} setWitnessSignatureDataUrl={setWitnessSignatureDataUrl}
+            authError={authError}
+          />
+        )}
+        {currentStep === 8 && (
+          <ReviewStep
+            form={form} onChange={onChange} docItems={docItems}
+            consents={consents} setConsents={setConsents}
+            signatureDataUrl={signatureDataUrl} setSignatureDataUrl={setSignatureDataUrl}
+          />
+        )}
 
         <div className={s.nav}>
           <button
-            className={`${s.navBtn} ${s.prevBtn} ${currentStep === 1 ? s.navBtnDisabled : ""}`}
-            onClick={goPrev} disabled={currentStep === 1}
+            className={`${s.navBtn} ${s.prevBtn} ${currentStep === 1 || submitting ? s.navBtnDisabled : ""}`}
+            onClick={goPrev} disabled={currentStep === 1 || submitting}
           >
             <ArrowLeft /> Previous
           </button>
           <button
-            className={`${s.navBtn} ${s.nextBtn} ${currentStep === TOTAL_STEPS && !agreed ? s.navBtnDisabled : ""}`}
+            className={`${s.navBtn} ${s.nextBtn} ${(currentStep === TOTAL_STEPS && !canSubmit) || submitting ? s.navBtnDisabled : ""}`}
             onClick={currentStep === TOTAL_STEPS ? handleSubmit : goNext}
-            disabled={currentStep === TOTAL_STEPS && !agreed}
+            disabled={(currentStep === TOTAL_STEPS && !canSubmit) || submitting}
           >
-            {currentStep === TOTAL_STEPS ? "Submit Application" : "Continue"}
-            {currentStep === TOTAL_STEPS ? <CircleCheckIcon /> : <ArrowRight />}
+            {currentStep === TOTAL_STEPS
+              ? submitting ? "Submitting…" : "Submit Application"
+              : "Continue"}
+            {currentStep === TOTAL_STEPS
+              ? submitting ? <SpinnerIcon /> : <CircleCheckIcon />
+              : <ArrowRight />}
           </button>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Section from "@/components/ui/Section";
 import s from "./support.module.css";
+import FaqGrid from "./FaqGrid";
 
 function CheckIcon() {
   return (
@@ -22,58 +22,6 @@ export const metadata: Metadata = {
   openGraph: { url: "https://vitalfriend.com/support" },
 };
 
-const faqs = [
-  {
-    category: "Getting Started",
-    items: [
-      {
-        q: "How do I create a VitalFriend account?",
-        a: "Your account is typically created by your healthcare provider or care organization. Once enrolled, you'll receive an email or SMS with instructions to download the app and log in.",
-      },
-      {
-        q: "Which devices does VitalFriend support?",
-        a: "VitalFriend supports FDA-cleared remote monitoring devices including blood pressure monitors, pulse oximeters, weight scales, and other connected health devices, depending on your care plan.",
-      },
-    ],
-  },
-  {
-    category: "Using the App",
-    items: [
-      {
-        q: "How do I add or pair a device?",
-        a: "Open the VitalFriend mobile app, go to Devices, and follow the step-by-step pairing instructions. Make sure Bluetooth is enabled on your phone.",
-      },
-      {
-        q: "What if my vitals are not syncing?",
-        a: "Check that Bluetooth is turned on, your device is charged, and the app is up to date. If the issue continues, contact support.",
-      },
-      {
-        q: "Can caregivers or family members access my data?",
-        a: "Yes. With your consent, caregivers and family members can be granted limited access to view vitals and receive alerts.",
-      },
-    ],
-  },
-  {
-    category: "Data, Privacy & Security",
-    items: [
-      {
-        q: "Is my health data secure?",
-        a: "Yes. VitalFriend is HIPAA-compliant and uses industry-standard encryption to protect your personal and health information.",
-      },
-      {
-        q: "Who can see my health data?",
-        a: "Only you, authorized caregivers, and your healthcare team can access your data, based on permissions you approve.",
-      },
-    ],
-  },
-];
-
-const troubleshooting = [
-  "Ensure your app is updated to the latest version",
-  "Restart the app or your device",
-  "Check internet or cellular connectivity",
-  "Re-pair your monitoring device if needed",
-];
 
 export default function SupportPage() {
   return (
@@ -133,15 +81,7 @@ export default function SupportPage() {
             </p>
           </div>
           <div className={s.helpSearchBox}>
-            <svg
-              className={s.helpSearchIcon}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-              <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
+            <Image src="/images/support/Help%20SVGs/search.svg" alt="Search" width={24} height={24} className={s.helpSearchIcon} />
             <input
               className={s.helpSearchInput}
               type="text"
@@ -150,28 +90,24 @@ export default function SupportPage() {
           </div>
           <div className={s.helpBadgesWrapper}>
             <div className={s.helpBadgesRow}>
-              {["Getting Started", "Common Issues", "How Vital Buddy works"].map((label) => (
-                <button key={label} className={s.helpBadge}>{label}</button>
-              ))}
+              <Link href="#getting-started" className={s.helpBadge}>Getting Started</Link>
+              <Link href="#common-issues" className={s.helpBadge}>Common Issues</Link>
+              <Link href="#charging-care" className={s.helpBadge}>How Vital Buddy works</Link>
             </div>
             <div className={s.helpBadgesRow}>
-              {["Charging & Care", "Contact Support"].map((label) => (
-                <button key={label} className={s.helpBadge}>{label}</button>
-              ))}
+              <Link href="#charging-care" className={s.helpBadge}>Charging & Care</Link>
+              <Link href="#faq" className={s.helpBadge}>Contact Support</Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Getting Started in 3 Simple Steps */}
-      <section className={s.stepsSection}>
+      <section id="getting-started" className={s.stepsSection}>
         <div className={s.stepsInner}>
           <div className={s.stepsHeadingGroup}>
             <span className={s.stepsBadge}>
-              <svg className={s.stepsBadgeIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <Image src="/images/support/Help%20SVGs/Quick%20Start%20Guide.svg" alt="Quick Start Guide" width={24} height={24} className={s.stepsBadgeIcon} />
               Quick Start Guide
             </span>
             <h2 className={s.stepsTitle}>Getting Started in 3 Simple Steps</h2>
@@ -184,12 +120,7 @@ export default function SupportPage() {
             <div className={s.stepCard}>
               <div className={s.stepIconCircle}>
                 <div className={s.stepIconCircleBg} />
-                <svg className={s.stepIconSvg} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="9" y="4" width="26" height="36" rx="6" stroke="currentColor" strokeWidth="1.5"/>
-                  <rect x="14" y="1" width="16" height="6" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-                  <circle cx="22" cy="26" r="5" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M22 21v-4M22 31v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
+                <Image src="/images/support/Help%20SVGs/Fitting%20Your%20Vital%20Buddy.svg" alt="Fitting Your Vital Buddy" width={44} height={44} className={s.stepIconSvg} />
               </div>
               <div className={s.stepNumRow}>
                 <span className={s.stepNum}>1</span>
@@ -209,12 +140,7 @@ export default function SupportPage() {
             <div className={s.stepCard}>
               <div className={s.stepIconCircle}>
                 <div className={s.stepIconCircleBg} />
-                <svg className={s.stepIconSvg} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="22" cy="22" r="4" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M22 2v4M22 38v4M2 22h4M38 22h4M7.05 7.05l2.83 2.83M34.12 34.12l2.83 2.83M34.12 9.88l-2.83 2.83M9.88 34.12l-2.83 2.83" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  <circle cx="34" cy="34" r="6" fill="#54B589" fillOpacity="0.2" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M31.5 34l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <Image src="/images/support/Help%20SVGs/Setting%20Up.svg" alt="Setting Up" width={44} height={44} className={s.stepIconSvg} />
               </div>
               <div className={s.stepNumRow}>
                 <span className={s.stepNum}>2</span>
@@ -234,10 +160,7 @@ export default function SupportPage() {
             <div className={s.stepCard}>
               <div className={s.stepIconCircle}>
                 <div className={s.stepIconCircleBg} />
-                <svg className={s.stepIconSvg} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6 8C6 8 10 6 22 6s16 2 16 2v28s-4-2-16-2S6 36 6 36V8z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                  <path d="M22 6v28" stroke="currentColor" strokeWidth="1.5"/>
-                </svg>
+                <Image src="/images/support/Help%20SVGs/Your%20First%20Reading.svg" alt="Your First Reading" width={44} height={44} className={s.stepIconSvg} />
               </div>
               <div className={s.stepNumRow}>
                 <span className={s.stepNum}>3</span>
@@ -258,15 +181,11 @@ export default function SupportPage() {
       </section>
 
       {/* Charging & Care */}
-      <section className={s.chargingSection}>
+      <section id="charging-care" className={s.chargingSection}>
         <div className={s.chargingInner}>
           <div className={s.chargingHeadingGroup}>
             <span className={s.chargingBadge}>
-              <svg className={s.chargingBadgeIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="7" width="18" height="10" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M20 10.5v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <rect x="4" y="9" width="10" height="6" rx="1" fill="currentColor" fillOpacity="0.3"/>
-              </svg>
+              <Image src="/images/support/Help%20SVGs/Device%20Maintenance.svg" alt="Device Maintenance" width={24} height={24} className={s.chargingBadgeIcon} />
               Device Maintenance
             </span>
             <h2 className={s.chargingTitle}>Charging &amp; Care</h2>
@@ -278,11 +197,7 @@ export default function SupportPage() {
             <div className={s.chargingCard}>
               <div className={s.chargingCardHeader}>
                 <div className={s.chargingCardTitleRow}>
-                  <svg className={s.chargingCardIcon} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="10" width="22" height="12" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-                    <path d="M25 14v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <rect x="5" y="12" width="14" height="8" rx="1.5" fill="currentColor" fillOpacity="0.25"/>
-                  </svg>
+                  <Image src="/images/support/Help%20SVGs/Version%201-%20Magnetic%20Cable.svg" alt="Magnetic Cable" width={32} height={32} className={s.chargingCardIcon} />
                   <h3 className={s.chargingCardTitle}>Version 1: Magnetic Cable</h3>
                 </div>
                 <p className={s.chargingCardSubtitle}>If your charger snaps directly onto the back of the watch:</p>
@@ -325,11 +240,7 @@ export default function SupportPage() {
             <div className={s.chargingCard}>
               <div className={s.chargingCardHeader}>
                 <div className={s.chargingCardTitleRow}>
-                  <svg className={s.chargingCardIcon2} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 6l4-4 4 4-4 4-4-4zM20 6l4-4 4 4-4 4-4-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                    <path d="M16 10v6M10 22h12M13 16h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    <rect x="8" y="22" width="16" height="4" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                  </svg>
+                  <Image src="/images/support/Help%20SVGs/Version%202-%20Charging%20Dock.svg" alt="Charging Dock" width={32} height={32} className={s.chargingCardIcon2} />
                   <h3 className={s.chargingCardTitle}>Version 2: Charging Dock</h3>
                 </div>
                 <p className={s.chargingCardSubtitle}>If your watch came with a small charging dock:</p>
@@ -449,11 +360,7 @@ export default function SupportPage() {
         <div className={s.fittingInner}>
           <div className={s.fittingHeadingGroup}>
             <span className={s.fittingBadge}>
-              <svg className={s.fittingBadgeIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="6" y="2" width="12" height="20" rx="4" stroke="currentColor" strokeWidth="1.5"/>
-                <circle cx="12" cy="15" r="2" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M9 7h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              <Image src="/images/support/Help%20SVGs/Fitting%20Your%20Vital%20Buddy.svg" alt="Fitting" width={24} height={24} className={s.fittingBadgeIcon} />
               Proper Fit Guide
             </span>
             <h2 className={s.fittingTitle}>Fitting Your Vital Buddy</h2>
@@ -541,10 +448,7 @@ export default function SupportPage() {
         <div className={s.setupInner}>
           <div className={s.setupHeadingGroup}>
             <span className={s.setupBadge}>
-              <svg className={s.setupBadgeIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
+              <Image src="/images/support/Help%20SVGs/Device%20Setup-badge.svg" alt="Device Setup" width={24} height={24} className={s.setupBadgeIcon} />
               Device Setup
             </span>
             <h2 className={s.setupTitle}>Setting Up Your Vital Buddy</h2>
@@ -567,18 +471,15 @@ export default function SupportPage() {
               />
               <div className={s.setupActions}>
                 {[
-                  { label: "Press & hold 3 sec", desc: "Turn on device", badge: "3s", style: s.setupRowGreen },
-                  { label: "Press & hold + slide", desc: "Power off", badge: "3s", style: s.setupRowRed },
-                  { label: "Press once", desc: "Return to home", badge: "1x", style: s.setupRowBlue },
-                  { label: "Press again", desc: "Display off", badge: "1x", style: s.setupRowPurple },
-                  { label: "Hold 10 seconds", desc: "Force restart", badge: "10s", style: s.setupRowYellow },
-                ].map(({ label, desc, badge, style }) => (
+                  { label: "Press & hold 3 sec", desc: "Turn on device", badge: "3s", style: s.setupRowGreen, iconSrc: '/images/support/Help%20SVGs/On/press%20%26%20hold.svg' },
+                  { label: "Press & hold + slide", desc: "Power off", badge: "3s", style: s.setupRowRed, iconSrc: '/images/support/Help%20SVGs/On/press%20%26%20hold%20%2B%20slide.svg' },
+                  { label: "Press once", desc: "Return to home", badge: "1x", style: s.setupRowBlue, iconSrc: '/images/support/Help%20SVGs/On/press%20once.svg' },
+                  { label: "Press again", desc: "Display off", badge: "1x", style: s.setupRowPurple, iconSrc: '/images/support/Help%20SVGs/On/press%20again.png' },
+                  { label: "Hold 10 seconds", desc: "Force restart", badge: "10s", style: s.setupRowYellow, iconSrc: '/images/support/Help%20SVGs/On/hold%2010%20seconds.svg' },
+                ].map(({ label, desc, badge, style, iconSrc }) => (
                   <div key={label} className={`${s.setupRow} ${style}`}>
                     <span className={s.setupRowIconBg}>
-                      <svg className={s.setupRowIcon} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="7" y="2" width="8" height="18" rx="4" stroke="currentColor" strokeWidth="1.5"/>
-                        <path d="M11 8v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
+                      <Image src={iconSrc} alt={label} width={22} height={22} className={s.setupRowIcon} />
                     </span>
                     <div className={s.setupRowText}>
                       <p className={s.setupRowLabel}>{label}</p>
@@ -605,16 +506,12 @@ export default function SupportPage() {
               />
               <div className={s.setupActions}>
                 {[
-                  { label: "Press once", desc: "Open main menu", badge: "1x", style: s.setupRowGreen },
-                  { label: "Press again", desc: "View features", badge: "1x", style: s.setupRowRed },
-                ].map(({ label, desc, badge, style }) => (
+                  { label: "Press once", desc: "Open main menu", badge: "1x", style: s.setupRowGreen, iconSrc: '/images/support/Help%20SVGs/menu%20button/press%20once.svg' },
+                  { label: "Press again", desc: "View features", badge: "1x", style: s.setupRowRed, iconSrc: '/images/support/Help%20SVGs/menu%20button/press%20again.svg' },
+                ].map(({ label, desc, badge, style, iconSrc }) => (
                   <div key={label} className={`${s.setupRow} ${style}`}>
                     <span className={s.setupRowIconBg}>
-                      <svg className={s.setupRowIcon} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3" y="5" width="16" height="2" rx="1" fill="currentColor"/>
-                        <rect x="3" y="10" width="16" height="2" rx="1" fill="currentColor"/>
-                        <rect x="3" y="15" width="16" height="2" rx="1" fill="currentColor"/>
-                      </svg>
+                      <Image src={iconSrc} alt={label} width={22} height={22} className={s.setupRowIcon} />
                     </span>
                     <div className={s.setupRowText}>
                       <p className={s.setupRowLabel}>{label}</p>
@@ -629,35 +526,20 @@ export default function SupportPage() {
               <div className={s.setupTouchCard}>
                 <h4 className={s.setupTouchTitle}>
                   <span className={s.setupTouchTitleIconBg}>
-                    <svg className={s.setupTouchTitleIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2c1.47 0 2.865.32 4.112.892" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                    </svg>
+                    <Image src="/images/support/Help%20SVGs/menu%20button/touchscreen.png" alt="Touchscreen" width={24} height={24} className={s.setupTouchTitleIcon} />
                   </span>
                   Touchscreen Navigation
                 </h4>
                 <div className={s.setupSwipeGrid}>
                   {[
-                    {
-                      dir: "← Swipe left", action: "Blood pressure",
-                      icon: <path d="M12 21C12 21 4 13.5 4 8.5a4 4 0 0 1 8 0 4 4 0 0 1 8 0C20 13.5 12 21 12 21z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>,
-                    },
-                    {
-                      dir: "→ Swipe right", action: "Sidebar",
-                      icon: <><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5"/><path d="M9 3v18" stroke="currentColor" strokeWidth="1.5"/></>,
-                    },
-                    {
-                      dir: "↑ Swipe up", action: "Messages",
-                      icon: <><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></>,
-                    },
-                    {
-                      dir: "↓ Swipe down", action: "Settings",
-                      icon: <><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" strokeWidth="1.5"/></>,
-                    },
-                  ].map(({ dir, action, icon }) => (
+                    { dir: "← Swipe left", action: "Blood pressure", iconSrc: '/images/support/Help%20SVGs/menu%20button/bp.svg' },
+                    { dir: "→ Swipe right", action: "Sidebar", iconSrc: '/images/support/Help%20SVGs/menu%20button/sidebar.svg' },
+                    { dir: "↑ Swipe up", action: "Messages", iconSrc: '/images/support/Help%20SVGs/bubble-chat.svg' },
+                    { dir: "↓ Swipe down", action: "Settings", iconSrc: '/images/support/Help%20SVGs/menu%20button/settings.svg' },
+                  ].map(({ dir, action, iconSrc }) => (
                     <div key={action} className={s.setupSwipeCard}>
                       <p className={s.setupSwipeDir}>
-                        <svg className={s.setupSwipeDirIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">{icon}</svg>
+                        <Image src={iconSrc} alt={action} width={24} height={24} className={s.setupSwipeDirIcon} />
                         {dir}
                       </p>
                       <p className={s.setupSwipeAction}>{action}</p>
@@ -665,10 +547,7 @@ export default function SupportPage() {
                   ))}
                   <div className={`${s.setupSwipeCard} ${s.setupSwipeCardFull}`}>
                     <p className={s.setupSwipeDir}>
-                      <svg className={s.setupSwipeDirIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="5" y="2" width="14" height="20" rx="4" stroke="currentColor" strokeWidth="1.5"/>
-                        <circle cx="12" cy="16" r="2" stroke="currentColor" strokeWidth="1.5"/>
-                      </svg>
+                      <Image src="/images/support/Help%20SVGs/menu%20button/change%20watch%20face.svg" alt="Change watch face" width={24} height={24} className={s.setupSwipeDirIcon} />
                       Press &amp; hold screen
                     </p>
                     <p className={s.setupSwipeAction}>Change watch face</p>
@@ -680,97 +559,410 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* Contact */}
-      <Section background="surface">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4">Contact Support</h2>
-          <p className="text-[--color-muted] mb-4">
-            Our support team is available to assist you with technical issues,
-            account questions, and general inquiries.
-          </p>
-          <div className="space-y-2">
-            <p>
-              <strong>Email:</strong>{" "}
-              <a
-                href="mailto:support@vitalfriend.com"
-                className="text-[--color-primary] hover:underline"
-              >
-                support@vitalfriend.com
-              </a>
-            </p>
-            <p>
-              <strong>Support Hours:</strong> Monday – Friday, 9:00 AM – 6:00
-              PM (EST)
-            </p>
-          </div>
-          <p className="text-sm text-[--color-muted] mt-4">
-            For urgent clinical or device-related issues, please contact your
-            healthcare provider directly.
-          </p>
-        </div>
-      </Section>
+      {/* Taking a Blood Pressure Reading */}
+      <section className={s.bpSection}>
+        <div className={s.bpInner}>
 
-      {/* FAQs */}
-      <Section background="white">
-        <h2 className="text-3xl font-bold mb-10 text-center">
-          Frequently Asked Questions
-        </h2>
-        <div className="max-w-3xl mx-auto space-y-10">
-          {faqs.map((section) => (
-            <div key={section.category}>
-              <h3 className="text-xl font-bold text-[--color-primary] mb-4">
-                {section.category}
-              </h3>
-              <div className="space-y-6">
-                {section.items.map((item) => (
-                  <div key={item.q}>
-                    <p className="font-semibold mb-1">{item.q}</p>
-                    <p className="text-[--color-muted]">{item.a}</p>
+          {/* Heading */}
+          <div className={s.bpHeadingGroup}>
+            <span className={s.bpBadge}>
+              <Image src="/images/support/Help%20SVGs/Blood%20Pressure%20Monitoring-badge.svg" alt="Blood Pressure" width={24} height={24} className={s.bpBadgeIcon} />
+              Blood Pressure Reading
+            </span>
+            <h2 className={s.bpTitle}>Taking a Blood Pressure Reading</h2>
+            <p className={s.bpSubtitle}>Follow these simple steps for accurate measurements</p>
+          </div>
+
+          {/* Quick Swipe */}
+          <div className={s.bpSubSection}>
+            <div className={s.bpSubHeadingLeft}>
+              <h3 className={s.bpSubTitle}>Quick Swipe</h3>
+              <p className={s.bpSubDesc}>Fastest method from home screen</p>
+            </div>
+
+            <div className={`${s.bpStepCards} ${s.bpQuickSwipeCards}`}>
+              {[
+                { num: "1", img: "/images/support/card1.png", text: "Swipe left from the home screen" },
+                { num: "2", img: "/images/support/card2.png", text: "Tap Blood Pressure" },
+                { num: "3", img: "/images/support/card3.png", text: "Tap Start" },
+              ].map(({ num, img, text }) => (
+                <div key={num} className={s.bpStepCard}>
+                  <div className={s.bpStepImgBg}>
+                    <Image src={img} alt={`Step ${num}`} width={193} height={256} className={s.bpStepImg} />
+                  </div>
+                  <div className={s.bpStepNumRow}>
+                    <span className={s.bpStepNum}>{num}</span>
+                    <p className={s.bpStepText}>{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={s.bpInfoRows}>
+              {[
+                "Fastest method - Just 3 taps!",
+              ].map((text) => (
+                <div key={text} className={s.bpInfoRow}>
+                  <span className={s.bpInfoIconBg}>
+                    <Image src="/images/support/Help%20SVGs/fatest%20method%20icon%20badge1.svg" alt="Fastest method" width={24} height={24} className={s.bpInfoIcon} />
+                  </span>
+                  <p className={s.bpInfoText}>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Menu Navigation */}
+          <div className={s.bpSubSection}>
+            <div className={s.bpSubHeadingLeft}>
+              <h3 className={s.bpSubTitle}>Menu Navigation</h3>
+              <p className={s.bpSubDesc}>Navigate through menu</p>
+            </div>
+
+            <div className={s.bpStepCards}>
+              {[
+                { num: "1", img: "/images/support/card4.png", text: "Press Menu button" },
+                { num: "2", img: "/images/support/card5.png", text: "Select Blood Pressure" },
+                { num: "3", img: "/images/support/card6.png", text: "Tap Start" },
+              ].map(({ num, img, text }) => (
+                <div key={`menu-${num}`} className={s.bpStepCard}>
+                  <div className={s.bpStepImgBg}>
+                    <Image src={img} alt={`Menu step ${num}`} width={193} height={256} className={s.bpStepImg} />
+                  </div>
+                  <div className={s.bpStepNumRow}>
+                    <span className={s.bpStepNum}>{num}</span>
+                    <p className={s.bpStepText}>{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={s.bpInfoRows}>
+              {[
+                "Fastest method - Just 3 taps!",
+              ].map((text) => (
+                <div key={text} className={s.bpInfoRow}>
+                  <span className={s.bpInfoIconBg}>
+                    <Image src="/images/support/Help%20SVGs/fatest%20method%20icon%20badge1.svg" alt="Fastest method" width={24} height={24} className={s.bpInfoIcon} />
+                  </span>
+                  <p className={s.bpInfoText}>{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* During Measurement */}
+          <div className={s.bpMeasureCard}>
+            <div className={s.bpMeasureLeft}>
+              <Image
+                src="/images/support/bp-buddy.png"
+                alt="Vital Buddy watch"
+                width={478}
+                height={652}
+                className={s.bpMeasureBuddyImg}
+              />
+            </div>
+            <div className={s.bpMeasureRight}>
+              <h3 className={s.bpMeasureTitle}>During Measurement</h3>
+              <Image
+                src="/images/support/During-Measurement.png"
+                alt="During measurement positions"
+                width={756}
+                height={339}
+                className={s.bpMeasureImg}
+              />
+              <p className={s.bpMeasureDesc}>
+                The Vital Buddy device and VitalFriend service are covered by most major insurance providers making the most advanced continuous monitoring available to your facility at no out-of-pocket cost.
+              </p>
+              <Link href="#get-started" className={s.bpMeasureBtn}>
+                Measurement takes 30–60 seconds
+              </Link>
+            </div>
+          </div>
+
+          {/* Bottom cards */}
+          <div className={s.bpBottomCards}>
+            {/* Stop Anytime */}
+            <div className={s.bpBottomCard}>
+              <div className={s.bpBottomCardTitleRow}>
+                <svg className={s.bpBottomCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
+                  <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor"/>
+                </svg>
+                <h4 className={s.bpBottomCardTitle}>Stop Anytime</h4>
+              </div>
+              <div className={s.bpBottomCardPoints}>
+                {['Tap "Stop" button', "Press On/Off button", "Loosen the band"].map((text) => (
+                  <div key={text} className={s.bpBottomCardPoint}>
+                    <svg className={s.bpBottomCardPointIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 13l4 4L19 7" stroke="#6E70FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p className={s.bpBottomCardPointText}>{text}</p>
                   </div>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </Section>
 
-      {/* Troubleshooting */}
-      <Section background="surface">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4">Troubleshooting</h2>
-          <ul className="space-y-2">
-            {troubleshooting.map((tip) => (
-              <li key={tip} className="flex gap-3">
-                <span className="text-[--color-primary] font-bold">•</span>
-                <span className="text-[--color-muted]">{tip}</span>
-              </li>
+            {/* For Accuracy */}
+            <div className={s.bpBottomCard}>
+              <div className={s.bpBottomCardTitleRow}>
+                <svg className={s.bpBottomCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <h4 className={s.bpBottomCardTitle}>For Accuracy</h4>
+              </div>
+              <div className={s.bpBottomCardPoints}>
+                {["Bare skin contact", "Band snug, not tight", "Stay completely still", "Wrist at heart level", "Wait 2 min between"].map((text) => (
+                  <div key={text} className={s.bpBottomCardPoint}>
+                    <svg className={s.bpBottomCardPointIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 13l4 4L19 7" stroke="#6E70FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p className={s.bpBottomCardPointText}>{text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Understanding */}
+            <div className={s.bpBottomCard}>
+              <div className={s.bpBottomCardTitleRow}>
+                <svg className={s.bpBottomCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M12 8v4M12 16v.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                <h4 className={s.bpBottomCardTitle}>Understanding</h4>
+              </div>
+              <div className={s.bpReadingItems}>
+                {[
+                  { label: "SYS (Systolic)", value: "Top number - pressure when heart beats" },
+                  { label: "DIA (Diastolic)", value: "Bottom number - pressure between beats" },
+                  { label: "Storage", value: "Stores up to 50 readings" },
+                ].map(({ label, value }) => (
+                  <div key={label} className={s.bpReadingItem}>
+                    <p className={s.bpReadingLabel}>{label}</p>
+                    <p className={s.bpReadingValue}>{value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Common Issues */}
+      <section id="common-issues" className={s.issuesSection}>
+        <div className={s.issuesInner}>
+          <div className={s.issuesHeadingGroup}>
+            <span className={s.issuesBadge}>
+              <Image src="/images/support/Help%20SVGs/Common%20Issues/troubleshooting-badge.svg" alt="Troubleshooting" width={24} height={24} className={s.issuesBadgeIcon} />
+              Troubleshooting
+            </span>
+            <h2 className={s.issuesTitle}>Common Issues</h2>
+            <p className={s.issuesSubtitle}>Quick fixes for the most common problems</p>
+          </div>
+
+          <div className={s.issuesGrid}>
+            {[
+              { title: "Not Charging", happening: "Charger may not be properly connected", todo: "Check alignment • Ensure cables connected • Try different outlet", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/not%20charging.png' },
+              { title: "Feels Uncomfortable", happening: "The fit may not be correct", todo: "Adjust band (snug, not tight) • Wear on bare skin", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/feels%20uncomfortable%20card2.svg' },
+              { title: "Screen Frozen", happening: "Device needs to be restarted", todo: "Press and hold button for 10 seconds", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/screen%20frozen%20card3.svg' },
+              { title: "Got Wet", happening: "Vital Buddy is not waterproof", todo: "Remove immediately • Dry completely • Report to care team", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/got%20wet.svg' },
+              { title: "Wrong Language", happening: "Settings changed accidentally", todo: "Swipe down → Tap globe icon → Select correct language", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/feels%20uncomfortable%20card5.svg' },
+              { title: "Not Syncing", happening: "Sync delays due to connectivity", todo: "Wait a few minutes • Check Wi-Fi • Restart app", iconSrc: '/images/support/Help%20SVGs/Common%20Issues/screen%20frozen%20card6.svg' },
+            ].map(({ title, happening, todo, iconSrc }) => (
+              <div key={title + happening} className={s.issueCard}>
+                <div className={s.issueIconCircle}>
+                  <div className={s.issueIconCircleBg} />
+                  <Image src={iconSrc} alt={title} width={48} height={48} className={s.issueIconSvg} />
+                </div>
+                <h3 className={s.issueCardTitle}>{title}</h3>
+                <div className={s.issueCardBody}>
+                  <p className={s.issueCardLabel}>What&apos;s Happening</p>
+                  <p className={s.issueCardText}>{happening}</p>
+                </div>
+                <div className={s.issueCardBody}>
+                  <p className={s.issueCardLabel}>What To Do</p>
+                  <p className={s.issueCardText}>{todo}</p>
+                </div>
+              </div>
             ))}
-          </ul>
-          <p className="text-[--color-muted] mt-4">
-            If problems persist, please contact our support team.
-          </p>
+          </div>
         </div>
-      </Section>
+      </section>
 
-      {/* Feedback */}
-      <Section background="white" className="text-center">
-        <h2 className="text-2xl font-bold mb-3">Feedback</h2>
-        <p className="text-[--color-muted]">
-          We&apos;re always improving VitalFriend. If you have suggestions or
-          feedback, email us at{" "}
-          <a
-            href="mailto:care@vitalfriend.com"
-            className="text-[--color-primary] hover:underline"
-          >
-            care@vitalfriend.com
-          </a>
-          .
-        </p>
-        <p className="text-[--color-muted] mt-4">
-          Thank you for trusting VitalFriend as your partner in proactive,
-          connected care.
-        </p>
-      </Section>
+      {/* On-Screen Warning Messages */}
+      <section className={s.warningSection}>
+        <div className={s.warningInner}>
+          <div className={s.warningHeadingGroup}>
+            <h2 className={s.warningTitle}>On-Screen Warning Messages</h2>
+            <p className={s.warningSubtitle}>
+              These messages appear on your Vital Buddy screen. Each links to helpful support.
+            </p>
+          </div>
+          <table className={s.warningTable}>
+            <thead>
+              <tr>
+                <th>Message</th>
+                <th>What It Means</th>
+                <th>What To Do</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { message: "Wearing too loose", means: "Band not snug", todo: "Adjust band → Fit section" },
+                { message: "Wearing too tight", means: "Too tight", todo: "Loosen band slightly" },
+                { message: "Body Motion", means: "Movement detected", todo: "Stay still during reading" },
+                { message: "Measurement Timeout", means: "Reading failed", todo: "Reposition and try again" },
+                { message: "Low Battery", means: "Needs charging", todo: "Charge device now" },
+              ].map(({ message, means, todo }) => (
+                <tr key={message}>
+                  <td>{message}</td>
+                  <td>{means}</td>
+                  <td>{todo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Taking Your Vitals */}
+      <section className={s.vitalsSection}>
+        <div className={s.vitalsInner}>
+          <div className={s.vitalsLeft}>
+            <Image
+              src="/images/support/health-monitoring.png"
+              alt="Health monitoring"
+              width={642}
+              height={854}
+              className={s.vitalsImg}
+            />
+          </div>
+          <div className={s.vitalsRight}>
+            <div className={s.vitalsTop}>
+              <div className={s.vitalsBadge}>
+                <Image src="/images/support/Help%20SVGs/Health%20Monitoring/Health%20Monitoring-badge.svg" alt="Health Monitoring" width={24} height={24} />
+                <span className={s.vitalsBadgeText}>Health Monitoring</span>
+              </div>
+              <h2 className={s.vitalsTitle}>Taking Your Vitals</h2>
+            </div>
+            <div className={s.vitalsList}>
+              {[
+                { iconSrc: '/images/support/Help%20SVGs/Health%20Monitoring/Blood%20Pressure.svg', title: 'Blood Pressure', text: 'Navigate to BP screen • Tap to begin • Keep wrist still at heart level' },
+                { iconSrc: '/images/support/Help%20SVGs/Health%20Monitoring/Blood%20Oxygen.svg', title: 'Blood Oxygen', text: 'Navigate to Blood Oxygen • Tap to begin\nKeep wrist still, avoid movement/talking\nEnsure band is fitted properly' },
+                { iconSrc: '/images/support/Help%20SVGs/Health%20Monitoring/Heart%20Rate.svg', title: 'Heart Rate', text: 'Navigate to Heart Rate • Tap to start\nStay still during measurement\nCan be manual or automatic' },
+                { iconSrc: '/images/support/Help%20SVGs/Health%20Monitoring/Activity.svg', title: 'Activity', text: 'Tracked automatically throughout the day\nNo action required\nView daily steps on device' },
+                { iconSrc: '/images/support/Help%20SVGs/Health%20Monitoring/Sleep.svg', title: 'Sleep', text: 'Tracked automatically when worn overnight\nNo setup required\nView data on device or connected app' },
+              ].map(({ iconSrc, title, text }) => (
+                <div key={title} className={s.vitalsItem}>
+                  <div className={s.vitalsItemHeader}>
+                    <Image src={iconSrc} alt={title} width={24} height={24} className={s.vitalsItemIcon} />
+                    <span className={s.vitalsItemTitle}>{title}</span>
+                  </div>
+                  <p className={s.vitalsItemText}>{text}</p>
+                </div>
+              ))}
+            </div>
+            <button className={s.vitalsWatchBtn}>Watch How to Use</button>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className={s.faqSection}>
+        <div className={s.faqInner}>
+          <div className={s.faqHeadingBlock}>
+            <div className={s.faqBadge}>
+              <Image src="/images/support/Help%20SVGs/Knowledge%20Base-badge.svg" alt="Knowledge Base" width={24} height={24} />
+              <span className={s.faqBadgeText}>Knowledge Base</span>
+            </div>
+            <h2 className={s.faqTitle}>Frequently Asked Questions</h2>
+            <p className={s.faqSubtitle}>Find quick answers to common questions about your Vital Buddy device</p>
+          </div>
+          <FaqGrid />
+        </div>
+      </section>
+
+      {/* Watch How To Use */}
+      <section className={s.watchSection}>
+        <div className={s.watchInner}>
+          <div className={s.watchHeadingBlock}>
+            <h2 className={s.watchTitle}>Watch How To Use</h2>
+            <p className={s.watchSubtitle}>Video tutorials coming soon</p>
+          </div>
+          <div className={s.watchVideoContainer}>
+            <Image
+              src="/images/support/tutorial-placeholder.png"
+              alt="Tutorial placeholder"
+              width={849}
+              height={566}
+              className={s.watchVideoImg}
+            />
+            <div className={s.watchPlayBtn}>
+              <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+                <path
+                  d="M20.83 18.75L20.83 81.25L79.16 50Z"
+                  fill="#8CC6F8"
+                  stroke="#8CC6F8"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Advanced Features */}
+      <section className={s.advSection}>
+        <div className={s.advInner}>
+          <div className={s.advHeadingBlock}>
+            <div className={s.advBadge}>
+              <Image src="/images/support/Help%20SVGs/Advanced%20Settings/adv-badge.svg" alt="Advanced Settings" width={24} height={24} />
+              <span className={s.advBadgeText}>Advanced Settings</span>
+            </div>
+            <h2 className={s.advTitle}>Advanced Features</h2>
+            <p className={s.advSubtitle}>Additional settings and customization options</p>
+          </div>
+          <div className={s.advGrid}>
+            {([
+              {
+                title: 'Language Settings',
+                text: 'Swipe down from home screen → Tap globe icon → Select preferred language',
+                iconSrc: '/images/support/Help%20SVGs/Advanced%20Settings/Language%20Settings.svg',
+              },
+              {
+                title: 'Time Settings',
+                text: 'Set manually, OR sync automatically when connected to the app',
+                iconSrc: '/images/support/Help%20SVGs/Advanced%20Settings/Time%20Settings.svg',
+              },
+              {
+                title: 'Reboot & Reset',
+                text: 'Reboot: Restarts the watch • Restore Factory Settings: Resets all settings • Found under: Settings → General',
+                iconSrc: '/images/support/Help%20SVGs/Advanced%20Settings/Reboot%20%26%20Reset.svg',
+              },
+              {
+                title: 'Bluetooth & Connectivity',
+                text: 'Vital Buddy connects to tablet or app via Bluetooth to sync data.\n• Keep device within range\n• Ensure Bluetooth is enabled on connected device',
+                iconSrc: '/images/support/Help%20SVGs/Advanced%20Settings/Bluetooth%20%26%20Connectivity.svg',
+              },
+            ] as { title: string; text: string; iconSrc: string }[]).map(({ title, text, iconSrc }) => (
+              <div key={title} className={s.advCard}>
+                <div className={s.advCardIconWrapper}>
+                  <div className={s.advCardIconBg} />
+                  <div className={s.advCardIconInner}>
+                    <Image src={iconSrc} alt={title} width={36} height={36} />
+                  </div>
+                </div>
+                <h3 className={s.advCardTitle}>{title}</h3>
+                <p className={s.advCardText}>{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }

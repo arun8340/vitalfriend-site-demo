@@ -33,7 +33,7 @@ export default function FamiliesPage() {
             one wearing Vital Buddy closes that gap and gives the whole family
             peace of mind.
           </p>
-          <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
+          <Link href="/physicians" className={s.heroBtnPrimary}>
             See How It Works
           </Link>
           <div className={s.heroImageWrapper}>
@@ -100,7 +100,7 @@ export default function FamiliesPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/contact" className={s.dataDrivenLearnBtn}>
+            <Link href="/physicians" className={s.dataDrivenLearnBtn}>
               Learn more
             </Link>
           </div>
@@ -312,8 +312,8 @@ export default function FamiliesPage() {
           Join hundreds of families who trust VitalFriend to keep their loved ones safe and healthy
         </p>
         <div className={s.ctaBtns}>
-          <Button href="/contact" variant="pill-filled" size="md">
-            Get Started Today
+          <Button href="/physicians" className={s.dataDrivenLearnBtn}>
+            Learn More
           </Button>
         </div>
       </section>

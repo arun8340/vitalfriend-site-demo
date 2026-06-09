@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     }
 
     const folderUrl = `https://drive.google.com/drive/folders/${folderId}`;
-    return NextResponse.json({ success: true, folderName, folderUrl });
+    return NextResponse.json({ success: true, folderName, folderUrl, folderId });
   } catch (err) {
     console.error("Drive upload error:", err);
     return NextResponse.json({ success: false, error: String(err) }, { status: 500 });

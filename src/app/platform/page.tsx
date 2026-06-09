@@ -343,7 +343,7 @@ export default function PlatformPage() {
           <div className={s.howCta}>
             <h2 className={s.howCtaTitle}>Ready to transform patient care?</h2>
             <p className={s.howCtaBody}>Join healthcare providers who are catching critical events before they <br />become emergencies</p>
-            <Link href="/scheduleDemo" className={s.howCtaBtn}>Get Started with Vital Buddy</Link>
+            <Link href="/contactUs" className={s.howCtaBtn}>Chat with Us</Link>
           </div>
         </div>
       </section>
@@ -375,7 +375,7 @@ export default function PlatformPage() {
               SPo2 and multiple bio markers automatically. Data from Vital Buddy flows to authorized
               recipients including doctors, care providers and families.
             </p>
-            <Link href="/buddi" className={s.meetBuddyBtn}>Discover more</Link>
+            <Link href="/contactUs" className={s.meetBuddyBtn}>Discover more</Link>
           </div>
         </div>
       </section>
@@ -481,7 +481,7 @@ export default function PlatformPage() {
                 </div>
               ))}
             </div>
-            <Link href="/families" className={s.meetBuddyBtn}>Discover more</Link>
+            <Link href="/scheduleDemo" className={s.meetBuddyBtn}>Discover more</Link>
           </div>
 
           {/* Right image */}
@@ -517,7 +517,7 @@ export default function PlatformPage() {
           </p>
 
           {/* CTA button */}
-          <Link href="/scheduleDemo" className={s.nextStepBtn}>Let&apos;s Chat</Link>
+          <Link href="/contactUs" className={s.nextStepBtn}>Let&apos;s Chat</Link>
 
           {/* Trust badges */}
           <div className={s.nextStepTrust}>

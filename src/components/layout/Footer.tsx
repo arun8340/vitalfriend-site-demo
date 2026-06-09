@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const informationLinks = [
   { href: "/support", label: "Support" },
-  { href: "/faq", label: "FAQ" },
+  // { href: "/faq", label: "FAQ" },
 ];
 
 const companyLinks = [
   { href: "/about", label: "About us" },
-  { href: "/careers", label: "Careers" },
+  // { href: "/careers", label: "Careers" },
   { href: "/contactUs", label: "Contact us" },
 ];
 
@@ -37,15 +37,15 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/vitalfriend",
-    svg: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-      </svg>
-    ),
-  },
+  // {
+  //   label: "Facebook",
+  //   href: "https://www.facebook.com/vitalfriend",
+  //   svg: (
+  //     <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+  //       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  //     </svg>
+  //   ),
+  // },
 ];
 
 const linkStyle: React.CSSProperties = {
@@ -206,7 +206,7 @@ export default function Footer() {
       <div className="border-t border-border">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 pt-5 pb-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p style={bottomTextStyle}>Copyright &copy; {new Date().getFullYear()} - VitalFriend</p>
-          <div className="flex items-center gap-6">
+          {/* <div className="flex items-center gap-6">
             {["Terms", "Privacy", "Cookies"].map((label) => (
               <Link
                 key={label}
@@ -217,7 +217,7 @@ export default function Footer() {
                 {label}
               </Link>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

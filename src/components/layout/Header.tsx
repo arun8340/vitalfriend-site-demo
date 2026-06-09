@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import BookingModal from "./BookingModal";
 
 
 const navLinks = [
@@ -19,6 +20,7 @@ const navLinks = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -87,13 +89,13 @@ export default function Header() {
             })}
 
             {/* Get a Vital Buddy button */}
-            <Link
-              href="/"
+            <button
+              onClick={() => setModalOpen(true)}
               className="ml-3 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
             >
               Get a Vital Buddy
-            </Link>
+            </button>
           </nav>
 
           {/* Mobile hamburger */}
@@ -143,17 +145,18 @@ export default function Header() {
             >
               Call: 1 (855) 742 7300
             </a>
-            <Link
-              href="/"
+            <button
               className="border-2 border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
-              onClick={() => setMenuOpen(false)}
+              onClick={() => { setMenuOpen(false); setModalOpen(true); }}
             >
               Get a Vital Buddy
-            </Link>
+            </button>
           </div>
         </div>
       )}
+
+      <BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </header>
   );
 }

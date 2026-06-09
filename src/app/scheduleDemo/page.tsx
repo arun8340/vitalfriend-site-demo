@@ -75,7 +75,7 @@ export default function DemoPage() {
           {/* Right: Calendly embed */}
           <div className={s.bookingRight}>
             <iframe
-              src="https://calendly.com/welcomevitalfriend/30min"
+              src="https://calendly.com/raj-vitalfriend/30min"
               title="Schedule a Demo"
             />
           </div>

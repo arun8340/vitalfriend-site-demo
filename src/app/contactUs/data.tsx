@@ -77,7 +77,7 @@ export const supportCards: SupportCard[] = [
     title: "Support Center",
     desc: "Browse our comprehensive knowledge base and FAQs for quick answers.",
     btnLabel: "Visit help Center",
-    href: "/support",
+    href: "/",
   },
   {
     icon: (
@@ -90,7 +90,7 @@ export const supportCards: SupportCard[] = [
     title: "Schedule a Demo",
     desc: "Book a time to speak with one of our product specialists.",
     btnLabel: "Schedule Now",
-    href: "/schedule-demo",
+    href: "/scheduleDemo",
   },
 ];
 
