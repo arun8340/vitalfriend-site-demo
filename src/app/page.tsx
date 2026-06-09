@@ -114,32 +114,14 @@ function FeatureCheck() {
 }
 
 /* ─── Step icon helper ─── */
-function StepIcon({ gradient }: { gradient: string }) {
+function StepIcon({ gradient, iconSrc }: { gradient: string; iconSrc: string }) {
   return (
     <div
       className={styles["hp-step-card__icon-wrap"]}
       style={{ background: gradient }}
       aria-hidden="true"
     >
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect
-          x="4"
-          y="4"
-          width="24"
-          height="24"
-          rx="4"
-          stroke="white"
-          strokeWidth="2.5"
-          fill="none"
-          opacity="0.9"
-        />
-        <path
-          d="M16 10v12M10 16h12"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-      </svg>
+      <Image src={iconSrc} alt="" width={32} height={32} unoptimized />
     </div>
   );
 }
@@ -294,8 +276,8 @@ export default function HomePage() {
                 unoptimized
               />
             </div>
-            <Link href="/contactUs" className={styles["hp-btn-outline"]}>
-              Get a Vital BUDDI
+            <Link href="/contactUs" className={styles["hp-btn-primary"]}>
+              Chat with Us
             </Link>
           </div>
         </div>
@@ -332,6 +314,7 @@ export default function HomePage() {
                 />
                 <StepIcon
                   gradient={`linear-gradient(135deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`}
+                  iconSrc={step.iconSrc}
                 />
                 <div className={styles["hp-step-card__step-label"]}>
                   {step.step}
@@ -366,7 +349,7 @@ export default function HomePage() {
                 Join healthcare providers who are catching critical vitals
                 changes before they become emergencies.
               </p>
-              <Link href="/contact" className={styles["hp-cta-banner__btn"]}>
+              <Link href="/contactUs" className={styles["hp-cta-banner__btn"]}>
                 Get Started with Vital Buddy
               </Link>
             </div>
@@ -603,9 +586,9 @@ export default function HomePage() {
               provide a comprehensive health picture of a senior or patient
               anywhere in the world.
             </p>
-            <Link href="/scheduleDemo" className={styles["hp-btn-outline"]}>
+            {/* <Link href="/scheduleDemo" className={styles["hp-btn-outline"]}>
               Watch a Demo
-            </Link>
+            </Link> */}
           </div>
 
           <div className={styles["hp-platform__image-wrap"]}>

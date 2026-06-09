@@ -41,7 +41,7 @@ export default function AboutPage() {
               clinical experts with AI-assisted tools to make better decisions. We&apos;re revolutionizing senior
               health and we&apos;re just getting started.
             </p>
-            <Link href="/platform" className={s.heroButton}>Learn More</Link>
+            <Link href="/scheduleDemo" className={s.heroButton}>Learn More</Link>
           </div>
           <div className={s.heroImageCol}>
             <Image
@@ -165,7 +165,7 @@ export default function AboutPage() {
             We are revolutionizing health monitoring with a wearable device that captures vital data. Explore
             our vision and upcoming products.
           </p>
-          <button className={s.earlyAccessButton}>Get Early Access &amp; Updates</button>
+          <Link className={s.earlyAccessButton} href="/contactUs">Get Early Access &amp; Updates</Link>
           <div className={s.earlyAccessEmailWrapper}>
             <input type="email" placeholder="Enter your email address" className={s.earlyAccessInput} />
             <p className={s.earlyAccessEmailNote}>Be the first to see our device prototypes</p>

@@ -1,16 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
+import { DateTime } from "luxon";
 
 const SHEET_ID = process.env.GOOGLE_SHEET_ID!;
 const SHEET_NAME = "Submissions";
 
 const HEADERS = [
   "Submitted At", "Reference ID",
-  "First Name", "Last Name", "Date of Birth", "Email", "Phone",
+  "First Name", "Last Name", "Date of Birth", "Email", "Phone", "Gender", "Referred By",
   "Street Address", "City", "State", "ZIP",
   "Primary Care Physician", "Medical Conditions",
   "Current Medications", "Allergies",
-  "Insurance Provider", "Policy Number", "Group Number",
+  "Insurance Company", "Policy Number", "Group Number", "Member ID",
+  "Primary Policy Holder", "Relationship to Policy Holder",
+  "Emergency Contact Name", "Emergency Contact Phone", "Emergency Contact Relationship",
+  "Print Name", "Signature Date",
+  "RPM Consent", "HIPAA Authorization", "Billing Authorization", "Info Accuracy",
   "Documents Folder", "Drive Folder URL",
 ];
 
@@ -54,30 +59,19 @@ export async function POST(req: NextRequest) {
       requestBody: {
         values: [[
           (() => {
-            const now = new Date();
             const tz = body.timezone || "UTC";
-            const parts = new Intl.DateTimeFormat("en-US", {
-              timeZone: tz,
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-              hour12: true,
-            }).formatToParts(now).reduce<Record<string, string>>((acc, p) => {
-              acc[p.type] = p.value;
-              return acc;
-            }, {});
-            // Node.js returns "GMT+5:30" for IST; map known offsets to abbreviations
-            const ianaToAbbr: Record<string, string> = {
+            const dt = DateTime.now().setZone(tz);
+            const rawAbbr = dt.offsetNameShort ?? tz;
+            const offsetToAbbr: Record<string, string> = {
               "Asia/Kolkata": "IST", "Asia/Calcutta": "IST",
-              "America/New_York": "ET", "America/Chicago": "CT",
-              "America/Denver": "MT", "America/Los_Angeles": "PT",
+              "Asia/Colombo": "SLST", "Asia/Kathmandu": "NPT",
+              "Asia/Dhaka": "BST", "Asia/Karachi": "PKT",
+              "Asia/Dubai": "GST", "Asia/Riyadh": "AST",
             };
-            const tzAbbr = ianaToAbbr[tz] ?? new Intl.DateTimeFormat("en-US", {
-              timeZone: tz, timeZoneName: "short",
-            }).formatToParts(now).find(p => p.type === "timeZoneName")?.value ?? tz;
-            return `${parts.month} ${parts.day}, ${parts.year} ${parts.hour}:${parts.minute} ${parts.dayPeriod} ${tzAbbr}`;
+            const tzAbbr = (rawAbbr.startsWith("GMT") || rawAbbr.startsWith("UTC"))
+              ? (offsetToAbbr[tz] ?? rawAbbr)
+              : rawAbbr;
+            return dt.toFormat("MMM d, yyyy h:mm a") + " " + tzAbbr;
           })(),
           body.refId ?? "",
           body.firstName ?? "",
@@ -85,6 +79,8 @@ export async function POST(req: NextRequest) {
           body.dateOfBirth ?? "",
           body.email ?? "",
           body.phone ?? "",
+          body.gender ?? "",
+          body.referredBy ?? "",
           body.street ?? "",
           body.city ?? "",
           body.state ?? "",
@@ -96,6 +92,18 @@ export async function POST(req: NextRequest) {
           body.insuranceProvider ?? "",
           body.policyNumber ?? "",
           body.groupNumber ?? "",
+          body.memberId ?? "",
+          body.primaryPolicyHolder ?? "",
+          body.relationshipToPolicyHolder ?? "",
+          body.emergencyContactName ?? "",
+          body.emergencyContactPhone ?? "",
+          body.emergencyContactRelationship ?? "",
+          body.printName ?? "",
+          body.signatureDate ?? "",
+          body.consents?.rpmConsent ? "Yes" : "No",
+          body.consents?.hipaaConsent ? "Yes" : "No",
+          body.consents?.billingConsent ? "Yes" : "No",
+          body.consents?.infoAccuracy ? "Yes" : "No",
           body.driveFolderName ?? "",
           body.driveFolderUrl ?? "",
         ]],

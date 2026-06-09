@@ -55,7 +55,7 @@ export default function FacilitiesTabs() {
             <p className={s.ctaBannerQuote}>&ldquo;{tab.ctaQuote}&rdquo;</p>
             <p className={s.ctaBannerAuthor}>• {tab.ctaAuthor}</p>
           </div>
-          <Link href="/contact" className={s.ctaBannerBtn}>
+          <Link href="/contactUs" className={s.ctaBannerBtn}>
             {tab.ctaButtonText}
           </Link>
         </div>
@@ -111,7 +111,7 @@ export default function FacilitiesTabs() {
               <strong>nothing</strong>
             </h2>
             <p className={s.insuranceBody}>{tab.insuranceBody}</p>
-            <Link href="/contact" className={s.insuranceBtn}>
+            <Link href="/contactUs" className={s.insuranceBtn}>
               {tab.insuranceButtonText}
             </Link>
           </div>

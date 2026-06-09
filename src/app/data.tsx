@@ -7,6 +7,7 @@ export interface WorkStep {
   description: string;
   gradientFrom: string;
   gradientTo: string;
+  iconSrc: string;
 }
 
 export const workSteps: WorkStep[] = [
@@ -16,6 +17,7 @@ export const workSteps: WorkStep[] = [
     description: "Key vitals and biomarkers, continuously on the wrist.",
     gradientFrom: "#2B7FFF",
     gradientTo: "#00B8DB",
+    iconSrc: "/images/platform/vital-buddy-works/vital buddy captures.svg",
   },
   {
     step: "STEP 2",
@@ -23,6 +25,7 @@ export const workSteps: WorkStep[] = [
     description: "Via VitalLink, our HIPAA-compliant data layer.",
     gradientFrom: "#00B8DB",
     gradientTo: "#00BBA7",
+    iconSrc: "/images/platform/vital-buddy-works/data uploads.svg",
   },
   {
     step: "STEP 3",
@@ -30,6 +33,7 @@ export const workSteps: WorkStep[] = [
     description: "AI-assisted tools help clinicians identify issues.",
     gradientFrom: "#AD46FF",
     gradientTo: "#F6339A",
+    iconSrc: "/images/platform/vital-buddy-works/clinicians interpret.svg",
   },
   {
     step: "STEP 4",
@@ -37,6 +41,7 @@ export const workSteps: WorkStep[] = [
     description: "Notifications go to key players on the care team.",
     gradientFrom: "#F6339A",
     gradientTo: "#FF2056",
+    iconSrc: "/images/platform/vital-buddy-works/caregivers notified.svg",
   },
   {
     step: "STEP 5",
@@ -44,6 +49,7 @@ export const workSteps: WorkStep[] = [
     description: "Documented in EHR; CPT code billed.",
     gradientFrom: "#F6339A",
     gradientTo: "#7920FF",
+    iconSrc: "/images/platform/vital-buddy-works/care provided.svg",
   },
 ];
 
@@ -84,7 +90,7 @@ export const audienceSections: AudienceSection[] = [
     imageAlt: "Nurse caring for senior patient",
     imageLeft: false,
     bgColor: "#FFFFFF",
-    href: "/assisted-living",
+    href: "/facilities",
   },
   {
     badge: "For Physicians & Clinicians",

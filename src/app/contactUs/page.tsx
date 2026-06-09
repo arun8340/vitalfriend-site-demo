@@ -29,9 +29,9 @@ export default function ContactPage() {
           <p className={s.heroSubtitle}>
             Have questions about VitalFriend? We&apos;re here to help. Reach out to our team and we&apos;ll get back to you as soon as possible.
           </p>
-          <Link href="/get-vital-buddy" className={s.heroBtn}>
+          {/* <Link href="/get-vital-buddy" className={s.heroBtn}>
             Get a Vital Buddy
-          </Link>
+          </Link> */}
         </div>
       </section>
 
@@ -105,9 +105,9 @@ export default function ContactPage() {
           <div className={s.faqLeft}>
             <h2 className={s.faqTitle}>FAQ</h2>
             <p className={s.faqSubtext}>HAVE A QUESTION? Ask here to get answer</p>
-            <Link href="/support" className={s.faqReadMore}>
+            {/* <Link href="/support" className={s.faqReadMore}>
               Read More
-            </Link>
+            </Link> */}
             <div className={s.faqImageWrapper}>
               <Image
                 src="/images/aboutUs-faqs.png"
