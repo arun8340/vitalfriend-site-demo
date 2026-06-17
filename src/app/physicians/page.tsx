@@ -398,7 +398,7 @@ export default function PhysiciansPage() {
                 <div className={s.gapCardDotChartLegend}>
                   <div className={s.gapCardDotChartLegendItem}>
                     <div className={s["gapCardDotChartLegendDot--bio"]} />
-                    Continuous biomarkers
+                    Continuous vital signs
                   </div>
                   <div className={s.gapCardDotChartLegendItem}>
                     <div className={s["gapCardDotChartLegendDot--bp"]} />
@@ -585,10 +585,10 @@ export default function PhysiciansPage() {
           {/* CTA Banner */}
           <div className={s.virtualCta}>
             <p className={s.virtualCtaLabel}>
-              Important from a regulatory/AI perspective:
+              Important from a regulatory perspective:
             </p>
             <h3 className={s.virtualCtaHeading}>
-              AI-assisted prioritization, not diagnosis
+              Threshold-based prioritization, not diagnosis
             </h3>
             <p className={s.virtualCtaDesc}>
               Vital Buddy does not replace clinical judgment or make diagnoses.

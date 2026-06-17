@@ -138,7 +138,7 @@ export const insightCards: InsightCard[] = [
       </svg>
     ),
     title: "Insurance Covered",
-    desc: "Both device and service are covered by insurance, making it accessible for your patients without additional financial burden.",
+    desc: "Both device and service may be eligible for reimbursement, making it accessible for your patients without additional financial burden.",
   },
   {
     icon: (
@@ -177,7 +177,7 @@ export const proPoints: string[] = [
 export const stats: { number: string; label: string }[] = [
   { number: "Key", label: "Vital Signs Monitored" },
   { number: "24/7", label: "Continuous Monitoring" },
-  { number: "100%", label: "Insurance Coverage" },
+  { number: "100%", label: "Reimbursement Eligible" },
 ];
 
 /* ─── Comparison Table ─── */
@@ -238,12 +238,12 @@ export const virtualAssistantItems: VirtualAssistantItem[] = [
   {
     imageSrc: "images/va-trend.svg",
     title: "Flag concerning trends",
-    desc: "AI surfaces anomalies before they become emergencies.",
+    desc: "The platform surfaces data deviations and vital sign trends for care team review.",
   },
   {
     imageSrc: "images/va-patient.svg",
     title: "Surface deteriorating patients early",
-    desc: "Catch the 2:30 AM blood pressure spike before crisis.",
+    desc: "Track the 2:30 AM blood pressure spike for care team review.",
   },
   {
     imageSrc: "images/va-med.svg",
@@ -315,7 +315,7 @@ export const dataReportingItems: string[] = [
   "Automated monthly reporting",
   "Cross functional trend analysis",
   "Treatment review by a clinician",
-  "Holistic view of key vitals and biomarkers over time",
+  "Holistic view of key vitals and health data over time",
 ];
 
 
@@ -337,7 +337,7 @@ export const traditionalLimitations: string[] = [
 export const vitalBuddyBenefits: string[] = [
   "Catches the 2:30 AM blood pressure spike",
   "Tracks medication intake adherence",
-  "Builds baseline for AI-assisted insights",
+  "Builds baseline for vital trend review",
 ];
 
 /* ─── Holistic / Tab content ─── */
@@ -387,7 +387,10 @@ export const dashboardTabs: DashboardTab[] = [
     title: "Notification",
     panelHeading: "Alert Type",
     rows: [
-      { left: "AI-powered predictive models", right: "Non-activity alerts" },
+      {
+        left: "Threshold-based notification models",
+        right: "Non-activity alerts",
+      },
     ],
   },
   {

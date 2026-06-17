@@ -29,7 +29,7 @@ export const benefitCards: BenefitCards[] = [
     ),
     title: "24/7 Monitoring",
     description:
-      "Keep everyone informed with continuous monitoring that never sleeps. Stay connected to your loved one's health around the clock.",
+      "Keep everyone informed with continuous monitoring continuous monitoring around the clock. Stay connected to your loved one's health data at any time, from anywhere.",
   },
   {
     icon: (
@@ -58,7 +58,7 @@ export const benefitCards: BenefitCards[] = [
     ),
     title: "Easy to Use & Wear",
     description:
-      "BUDDI is designed for comfort and simplicity. Easy to wear and care for, ensuring your loved one stays protected without hassle.",
+      "Vital Buddy is designed for comfort and simplicity. Easy to wear and care for, supporting your loved one's monitoring without hassle.",
   },
   {
     icon: (
@@ -96,7 +96,7 @@ export const benefitCards: BenefitCards[] = [
     ),
     title: "Immediate Notifications",
     description:
-      "Get notified the moment health changes occur. Receive real-time alerts so you can act quickly when it matters most.",
+      "Receive threshold-based notifications when health data changes. Stay informed so care teams can follow up in a timely manner.",
   },
   {
     icon: (
@@ -189,7 +189,7 @@ export const benefitCards: BenefitCards[] = [
     ),
     title: "Peace of Mind",
     description:
-      "Get the confidence that comes from knowing someone is always watching over your loved one, providing an extra layer of care and security.",
+      "Stay informed about your loved one's health data with continuous remote monitoring, supporting visibility and care team coordination",
   },
   {
     icon: (
@@ -242,9 +242,9 @@ export const benefitCards: BenefitCards[] = [
         />
       </svg>
     ),
-    title: "Insurance Covered",
+    title: "Reimbursement Eligible",
     description:
-      "The device and monitoring service are usually covered by insurance, making it accessible without adding financial burden to your family.",
+      "The device and monitoring service may be eligible for reimbursement, making it accessible without adding financial burden to your family.",
   },
 ];
 

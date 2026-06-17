@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 import {
   workSteps,
   audienceSections,
@@ -8,8 +9,8 @@ import {
   differenceItems,
 } from "./data";
 import styles from "./homepage.module.css";
+import platformStyles from "./platform/platform.module.css";
 import HeroCarousel from "./hero_carousel";
-
 
 export const metadata: Metadata = {
   title: "Continuous Vitals Intelligence for Better Senior Care",
@@ -113,19 +114,6 @@ function FeatureCheck() {
   );
 }
 
-/* ─── Step icon helper ─── */
-function StepIcon({ gradient, iconSrc }: { gradient: string; iconSrc: string }) {
-  return (
-    <div
-      className={styles["hp-step-card__icon-wrap"]}
-      style={{ background: gradient }}
-      aria-hidden="true"
-    >
-      <Image src={iconSrc} alt="" width={32} height={32} unoptimized />
-    </div>
-  );
-}
-
 export default function HomePage() {
   return (
     <div className={styles["hp-root"]}>
@@ -155,7 +143,8 @@ export default function HomePage() {
           {/* Text column */}
           <div className={styles["hp-hero__content"]}>
             <span className={styles["hp-hero__badge"]}>
-              FDA-Cleared &amp; Insurance-Covered
+              FDA-Cleared (510(k)) | Eligible for Medicare & Most Private
+              Insurance*
             </span>
 
             <div>
@@ -166,7 +155,7 @@ export default function HomePage() {
                 Smarter Care.
               </h2>
               <h2 className={styles["hp-hero__heading-black"]}>
-                Smoother Ops.
+                Safer Patients.
               </h2>
               <h2 className={styles["hp-hero__heading-black"]}>
                 Always Connected.
@@ -174,21 +163,21 @@ export default function HomePage() {
             </div>
 
             <p className={styles["hp-hero__description"]}>
-              Vital Buddy is the first medical-grade wearable that automatically
-              monitors blood pressure + multiple vital signs and biomarkers.
-              Wearing it provides continuous, effortless protection for seniors
-              or anyone with common medical conditions.
+              VitalBuddy is a revolutionary monitoring device that tracks blood
+              pressure and selected vital signs for review by care teams. It
+              enables continuous, hassle-free vital signs tracking for seniors
+              and individuals with chronic health conditions.
             </p>
             <p className={styles["hp-hero__description"]}>
-              Behind the scenes, clinicians use our AI-native platform to
-              analyze more than 1,000 health data points every day, spotting
-              subtle changes before they become emergencies. Care teams and
-              families get a real-time picture of each senior&apos;s health, so
-              they know what&apos;s happening and can step in early.
+              Clinicians utilize our platform to review over 1,000 daily health
+              data points and view deviations from personal health baselines.
+              Care teams and families get a real-time picture of each
+              senior&apos;s health, so they know what&apos;s happening and can
+              step in early.
             </p>
             <p className={styles["hp-hero__description"]}>
-              Automated Proactive Care. Because the best care doesn&apos;t wait
-              for a crisis. It sees it coming.
+              Automated Continuous Monitoring. Support timely care with ongoing
+              vital signs tracking.
             </p>
 
             <div className={styles["hp-hero__ctas"]}>
@@ -238,47 +227,47 @@ export default function HomePage() {
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
             <h2 className={styles["hp-section-header__title-gradient"]}>
-              Medical Equipment Has Never Been This Comfortable (and Fun)
+              A Comfortable Wearable Medical <br /> Device for Daily Use
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
-              You&apos;ve never seen a medical device like it. Vital Buddy is
-              lightweight, comfortable, and effortless to wear day and night. No
-              cuffs, no buttons, no readings to remember. Just slip it on, and
-              it tracks your blood pressure and heart rate automatically while
-              keeping your caregivers in the loop, so sudden changes never go
-              unnoticed.
+              Designed for all-day wear, Vital Buddy stands out among
+              traditional monitoring devices. Vital Buddy is lightweight,
+              comfortable, and effortless to wear day and night. No cuffs, no
+              buttons, no readings to remember. Simply wear the device for
+              automatic tracking of blood pressure and heart rate, with data
+              shared to keep caregivers informed of vital signs changes.
             </p>
             <p className={styles["hp-section-header__subtitle"]}>
-              Behind that simplicity is serious medical technology: FDA-cleared
-              monitoring, patented medical-grade sensors, and the VitalFriend
-              platform that lets care givers communicate directly with seniors
-              through their Vital Buddy.
+              Beneath its simple design lies professional medical technology:
+              FDA- Cleared (510(k)) monitoring functions, patented medical-grade
+              sensors, plus a platform enabling communication between caregivers
+              and users. <br /> Our patented medical-grade technology is
+              eligible for reimbursement via Medicare and most private insurance
+              plans*.
             </p>
-            <p className={styles["hp-section-header__subtitle"]}>
-              Our patented medical-grade technology is reimbursable by Medicare
-              and most insurance plans*.
-            </p>
-            <div className={styles["hp-platform__image-wrap"]}>
+            <div className={styles["hp-buddi__image-wrap"]}>
               <Image
                 src="images/BUDDI-series.png"
                 alt="VitalFriend platform product snapshot"
-                width={1200}
-                height={800}
+                width={693}
+                height={525}
                 style={{ maxWidth: "100%", height: "auto", borderRadius: 12 }}
                 unoptimized
               />
+            </div>
+            <div className={styles["hp-buddi__cta-row"]}>
+              <Link href="/contactUs" className={styles["hp-btn-primary"]}>
+                Get a Vital Buddy
+              </Link>
               <Image
                 src="/images/hipaa-badge.png"
                 alt="HIPAA Compliant"
-                width={160}
-                height={96}
-                className={styles["hp-platform__hipaa-badge"]}
+                width={120}
+                height={72}
+                className={styles["hp-buddi__hipaa-badge"]}
                 unoptimized
               />
             </div>
-            <Link href="/contactUs" className={styles["hp-btn-primary"]}>
-              Chat with Us
-            </Link>
           </div>
         </div>
       </section>
@@ -286,73 +275,70 @@ export default function HomePage() {
       {/* ═══════════════════════════════
           HOW VITAL BUDDY WORKS
       ═══════════════════════════════ */}
-      <section
-        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
-      >
-        <div className={styles["hp-section__inner"]}>
-          <div className={styles["hp-section-header"]}>
-            <h2 className={styles["hp-section-header__title-black"]}>
-              How Vital Buddy Works
-            </h2>
-            <p className={styles["hp-section-header__subtitle"]}>
-              Clear, five-step process: From BUDDI on the wrist to care
+      <section className={styles["howSection"]}>
+        <div className={platformStyles.howInner}>
+          <div className={platformStyles.howHeader}>
+            <h2 className={platformStyles.howTitle}>How Vital Buddy Works</h2>
+            <p className={platformStyles.howSubtitle}>
+              Clear, five-step process: From Vital Buddy on the wrist to care
               delivered — it&apos;s completely managed by our teams to
-              streamline the process and close the loop on care.
+              streamline <br />
+              the process and close the loop on care.
             </p>
           </div>
 
-          {/* Step cards */}
-          <div className={styles["hp-how-it-works__steps"]}>
-            {workSteps.map((step) => (
-              <div className={styles["hp-step-card"]} key={step.step}>
-                {/* Gradient top bar */}
-                <div
-                  className={styles["hp-step-card__top-line"]}
-                  style={{
-                    background: `linear-gradient(90deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`,
-                  }}
-                />
-                <StepIcon
-                  gradient={`linear-gradient(135deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`}
-                  iconSrc={step.iconSrc}
-                />
-                <div className={styles["hp-step-card__step-label"]}>
-                  {step.step}
+          <div className={platformStyles.howCards}>
+            {workSteps.map((step, index) => (
+              <Fragment key={step.step}>
+                <div className={platformStyles.howCard}>
+                  <div
+                    className={platformStyles.howIconBox}
+                    style={{
+                      background: `linear-gradient(135deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`,
+                    }}
+                  >
+                    <Image
+                      src={step.iconSrc}
+                      width={32}
+                      height={32}
+                      alt=""
+                      unoptimized
+                    />
+                  </div>
+                  <span className={platformStyles.howStep}>{step.step}</span>
+                  <h3 className={platformStyles.howCardTitle}>{step.title}</h3>
+                  <p className={platformStyles.howCardBody}>
+                    {step.description}
+                  </p>
                 </div>
-                <div className={styles["hp-step-card__title"]}>
-                  {step.title}
-                </div>
-                <div className={styles["hp-step-card__description"]}>
-                  {step.description}
-                </div>
-              </div>
+                {index < workSteps.length - 1 && (
+                  <div className={platformStyles.howConnector} />
+                )}
+              </Fragment>
             ))}
           </div>
 
-          {/* Tagline banner */}
-          <div className={styles["hp-tagline-banner"]}>
-            <p className={styles["hp-tagline-banner__sub"]}>
+          <div className={platformStyles.howBanner}>
+            <p className={platformStyles.howBannerLabel}>
               Integrated monitoring platform delivers
             </p>
-            <p className={styles["hp-tagline-banner__main"]}>
-              Fewer Surprises + Fewer Risks = Health Transparency
+            <p className={platformStyles.howBannerHighlight}>
+              More Organized Data + Ongoing Review = Greater Health Data
+              Transparency
             </p>
           </div>
 
-          {/* CTA inside this section */}
-          <div className={styles["hp-cta-banner"]}>
-            <div className={styles["hp-cta-banner__inner"]}>
-              <h3 className={styles["hp-cta-banner__heading"]}>
-                Ready to transform the senior experience?
-              </h3>
-              <p className={styles["hp-cta-banner__sub"]}>
-                Join healthcare providers who are catching critical vitals
-                changes before they become emergencies.
-              </p>
-              <Link href="/contactUs" className={styles["hp-cta-banner__btn"]}>
-                Get Started with Vital Buddy
-              </Link>
-            </div>
+          <div className={platformStyles.howCta}>
+            <h2 className={platformStyles.howCtaTitle}>
+              Ready to enhance senior care?
+            </h2>
+            <p className={platformStyles.howCtaBody}>
+              Trusted by healthcare providers for ongoing tracking of vital
+              signs changes.
+            </p>
+            <Link href="/contactUs" className={platformStyles.howCtaBtn}>
+              Get Started with Vital Buddy
+            </Link>
           </div>
         </div>
       </section>
@@ -435,16 +421,13 @@ export default function HomePage() {
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
             <span className={styles["hp-compare__badge"]}>
-              Vital BUDDI vs. Conventional Equipment
+              Vital Buddy vs. Conventional Monitoring Equipment
             </span>
             <h2 className={styles["hp-section-header__title-black"]}>
-              Head-to-Head We&apos;re Better.
+              Side-by-Side Comparison.
             </h2>
             <h2 className={styles["hp-section-header__title-black"]}>
-              One Wrist.
-            </h2>
-            <h2 className={styles["hp-section-header__title-black"]}>
-              Nine Ways It Wins.
+              All-in-One Wrist-Worn Design
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
               Vital Buddy gives care teams, physicians, and families access to
@@ -476,7 +459,7 @@ export default function HomePage() {
                       verticalAlign: "middle",
                     }}
                   />
-                  Vital BUDDI
+                  Vital Buddy
                 </div>
               </div>
               <div
@@ -582,9 +565,8 @@ export default function HomePage() {
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
               VitalFriend&apos;s unique ability to collect a steady stream of
-              real-time vitals, day and night, is unparalleled in its ability to
-              provide a comprehensive health picture of a senior or patient
-              anywhere in the world.
+              real-time vitals, day and night, providing a comprehensive health
+              picture of a senior or patient anywhere in the world.
             </p>
             {/* <Link href="/scheduleDemo" className={styles["hp-btn-outline"]}>
               Watch a Demo
@@ -593,7 +575,7 @@ export default function HomePage() {
 
           <div className={styles["hp-platform__image-wrap"]}>
             <Image
-              src="/images/product-snapshot.png"
+              src="/images/product-snapshot.jpg"
               alt="VitalFriend platform product snapshot"
               width={1200}
               height={800}
@@ -634,6 +616,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <section
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+      ></section>
     </div>
   );
 }

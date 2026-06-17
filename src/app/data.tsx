@@ -14,10 +14,10 @@ export const workSteps: WorkStep[] = [
   {
     step: "STEP 1",
     title: "Vital Buddy Captures",
-    description: "Key vitals and biomarkers, continuously on the wrist.",
+    description: "Key vitals continuously on the wrist.",
     gradientFrom: "#2B7FFF",
     gradientTo: "#00B8DB",
-    iconSrc: "/images/platform/vital-buddy-works/vital buddy captures.svg",
+    iconSrc: "/images/platform/Vital-Buddy-Works/vital-buddy-captures.svg",
   },
   {
     step: "STEP 2",
@@ -25,15 +25,15 @@ export const workSteps: WorkStep[] = [
     description: "Via VitalLink, our HIPAA-compliant data layer.",
     gradientFrom: "#00B8DB",
     gradientTo: "#00BBA7",
-    iconSrc: "/images/platform/vital-buddy-works/data uploads.svg",
+    iconSrc: "/images/platform/Vital-Buddy-Works/data-uploads.svg",
   },
   {
     step: "STEP 3",
-    title: "Clinicians Interpret",
-    description: "AI-assisted tools help clinicians identify issues.",
+    title: "Clinicians Review",
+    description: "Platform tools help clinicians review vital signs trends and data deviations.",
     gradientFrom: "#AD46FF",
     gradientTo: "#F6339A",
-    iconSrc: "/images/platform/vital-buddy-works/clinicians interpret.svg",
+    iconSrc: "/images/platform/Vital-Buddy-Works/clinicians-interpret.svg",
   },
   {
     step: "STEP 4",
@@ -41,7 +41,7 @@ export const workSteps: WorkStep[] = [
     description: "Notifications go to key players on the care team.",
     gradientFrom: "#F6339A",
     gradientTo: "#FF2056",
-    iconSrc: "/images/platform/vital-buddy-works/caregivers notified.svg",
+    iconSrc: "/images/platform/Vital-Buddy-Works/caregivers-notified.svg",
   },
   {
     step: "STEP 5",
@@ -49,7 +49,7 @@ export const workSteps: WorkStep[] = [
     description: "Documented in EHR; CPT code billed.",
     gradientFrom: "#F6339A",
     gradientTo: "#7920FF",
-    iconSrc: "/images/platform/vital-buddy-works/care provided.svg",
+    iconSrc: "/images/platform/Vital-Buddy-Works/care-provided.svg",
   },
 ];
 
@@ -78,13 +78,12 @@ export const audienceSections: AudienceSection[] = [
     badgeGradient: "linear-gradient(90deg, #2F5FF3 0%, #14AE5C 100%)",
     headingGradient: "Deliver Better Care",
     headingBlack: "and More Efficient Operations",
-    description:
-      "We bring care teams, physicians, and families together on one platform, turning millions of data points into clear insights that simplify care, lighten workloads, and mitigate risks.",
+    description: "We connect care teams, physicians and families on one unified platform, converting massive volumes of data into actionable insights to simplify workflows and support routine risk management.",
     features: [
       { text: "Save hours of staff workload with automated monitoring" },
       { text: "Improve resident care with early notifications" },
       { text: "Keep families and physicians informed" },
-      { text: "Vital Buddy is covered by Medicare/insurance*" },
+      { text: "Vital Buddy is eligible for Medicare and private insurance reimbursement*" },
     ],
     imageSrc: "/images/caring-patient.png",
     imageAlt: "Nurse caring for senior patient",
@@ -100,8 +99,8 @@ export const audienceSections: AudienceSection[] = [
     description:
       "Monitor a steady stream of key vitals data on patients at risk when they’re not in the hospital, without adding to documentation or rounding burden.",
     features: [
-      { text: "Continuous visibility of vitals and biomarkers between visits" },
-      { text: "Early alerts for faster intervention" },
+      { text: "Continuous visibility of vitals between visits" },
+      { text: "Threshold-based notifications to support timely follow-up" },
       { text: "Reduced reliance on manual measurements" },
       { text: "Facilitates seamless care team coordination" },
     ],
@@ -117,12 +116,12 @@ export const audienceSections: AudienceSection[] = [
     headingGradient: "Get Peace of Mind",
     headingBlack: "Even When You're Not There",
     description:
-      "We keep a constant eye on your loved ones' health, continuously monitoring their health, sharing important changes with caregivers and clinicians so issues are caught early.",
+      "We deliver 24/7 vital signs tracking for your loved ones, sharing notable data changes with caregivers and clinicians for timely review.",
     features: [
       { text: "24/7 monitoring keeps everyone informed" },
-      { text: "BUDDI® is easy to wear and care for" },
+      { text: "Vital Buddy® is easy to wear and care for" },
       {
-        text: "Smart notifications for family members and the care team when health changes occur",
+        text: "Threshold-based notifications for family and care teams when vital signs change",
       },
       {
         text: "View trends for blood pressure, sleep, oxygen, heart rate and more",
@@ -209,12 +208,12 @@ export const differenceItems: DifferenceItem[] = [
   {
     number: "1",
     description:
-      "The ONLY integrated wearable, online, monitoring, billing, support platform designed to optimize senior care facility efficiency and patient care",
+      "An all-in-one platform integrating wearable devices, remote monitoring, billing and support services to improve efficiency for senior care facilities and patient care",
   },
   {
     number: "2",
     description:
-      "Revolutionary, comfortable BUDDI® increases adherence, eliminates the need for expensive services and medical equipment",
+      "Revolutionary, comfortable Vital Buddy® increases adherence, eliminates the need for expensive services and medical equipment",
   },
   {
     number: "3",
@@ -364,11 +363,11 @@ export interface FAQ {
 export const faqs: FAQ[] = [
   {
     q: "My readings are off",
-    a: "If your readings seem off, make sure the BUDDI wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
+    a: "If your readings seem off, make sure the Vital Buddy wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
   },
   {
-    q: "What if Buddi isn't worn?",
-    a: "If BUDDI is not worn, the platform will notify the care team and flag the patient as non-compliant. Alerts can be configured so staff can follow up with residents to re-engage monitoring.",
+    q: "What if Vital Buddy isn't worn?",
+    a: "If Vital Buddy is not worn, the platform will notify the care team and flag the patient as non-compliant. Alerts can be configured so staff can follow up with residents to re-engage monitoring.",
   },
   {
     q: "Who sees the data?",

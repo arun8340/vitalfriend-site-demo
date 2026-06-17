@@ -19,80 +19,79 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (!menuOpen) return;
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMenuOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [menuOpen]);
 
   return (
-    <header className="w-full fixed top-0 left-0 right-0 z-50">
-      {/* Top utility bar — always solid white */}
-      <div className="bg-white border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-end gap-6 h-10">
+    <header className="fixed left-0 right-0 top-0 z-50 w-full">
+      <div className="h-[50px] bg-white">
+        <div className="mx-auto flex h-[50px] w-full max-w-[1344px] items-center justify-end gap-[41px] px-5 lg:px-12">
           <Link
             href="/support"
-            className="text-[#374151] hover:text-[#E5476C] transition-colors whitespace-nowrap"
-            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
+            className="flex h-[50px] w-[54px] items-center text-[#18181B] transition-colors hover:text-[#E15D77]"
+            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px", letterSpacing: 0 }}
           >
             Support
           </Link>
           <a
             href="tel:+18557427300"
-            className="text-[#111827] hover:text-[#E5476C] transition-colors whitespace-nowrap"
-            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
+            className="flex h-[50px] w-[146px] items-center whitespace-nowrap text-[#18181B] transition-colors hover:text-[#E15D77]"
+            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px", letterSpacing: 0 }}
           >
             Call: 1 (855) 742 7300
           </a>
         </div>
       </div>
 
-      {/* Main nav bar — solid white at top, transparent + blur when scrolled */}
-      <div className={`transition-all duration-500 ${scrolled ? "bg-white/10 backdrop-blur-md" : "bg-white shadow-[0_1px_0_0_#e2e8f0]"}`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center gap-8 h-17">
+      <div className="rounded-b-lg bg-[#FFFFFFE3] px-2.5 py-4 backdrop-blur-[10px]">
+        <div className="mx-auto flex h-[65.510902px] w-full max-w-[1344px] items-center justify-between px-5 lg:px-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex h-[65.510902px] w-[220px] shrink-0 items-center lg:w-[300px]">
             <Image
-              src="http://vitalfriend.com/wp-content/uploads/2025/07/cropped-Group-561.png"
+              src="/images/full-logo.svg"
               alt="VitalFriend"
-              width={160}
-              height={36}
+              width={300}
+              height={66}
+              className="h-auto w-full"
               priority
-              unoptimized
             />
           </Link>
 
-          {/* Desktop nav — pushed to right */}
-          <nav className="hidden lg:flex items-center gap-0 ml-auto">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 flex items-center h-17 whitespace-nowrap transition-colors ${
-                    isActive ? "text-[#E5476C]" : "text-[#111827] hover:text-[#E5476C]"
-                  }`}
-                  style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-[#E5476C] rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
+          {/* Desktop nav */}
+          <nav className="hidden h-[50px] w-[834px] items-center justify-between gap-11 lg:flex">
+            <div className="flex h-[50px] w-[608px] items-center gap-6">
+              {navLinks.map((link) => {
+                const isActive =
+                  link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`relative flex h-[50px] items-center whitespace-nowrap border-b-2 transition-colors ${
+                      isActive ? "border-[#E15D77] text-[#E15D77]" : "border-transparent text-[#18181B] hover:text-[#E15D77]"
+                    }`}
+                    style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px", letterSpacing: 0 }}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
 
             {/* Get a Vital Buddy button */}
             <button
               onClick={() => setModalOpen(true)}
-              className="ml-3 px-5 py-2 border-2 border-[#E5476C] text-[#E5476C] rounded-md whitespace-nowrap transition-colors hover:bg-[#E5476C] hover:text-white"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}
+              className="flex h-[50px] w-[182px] items-center justify-center whitespace-nowrap rounded-lg border-2 border-[#E15D77] px-5 py-4 text-[#E15D77] transition-colors hover:bg-[#E15D77] hover:text-white"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px", letterSpacing: 0 }}
             >
               Get a Vital Buddy
             </button>
@@ -100,16 +99,16 @@ export default function Header() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden ml-auto p-2"
+            className="ml-auto p-2 lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
             {menuOpen ? (
-              <svg className="w-6 h-6 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-6 h-6 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -119,7 +118,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-border bg-white px-6 pb-5 pt-3 flex flex-col">
+        <div className="absolute left-2.5 right-2.5 top-[147.510902px] flex flex-col rounded-b-lg border-t border-border bg-white px-6 pb-5 pt-3 shadow-lg lg:hidden">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -138,6 +137,14 @@ export default function Header() {
             );
           })}
           <div className="mt-4 flex flex-col gap-3">
+            <Link
+              href="/support"
+              className="text-[#374151]"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
+              onClick={() => setMenuOpen(false)}
+            >
+              Support
+            </Link>
             <a
               href="tel:+18557427300"
               className="text-[#374151]"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import s from "./buddy.module.css";
 
 const TOTAL_STEPS = 8;
@@ -78,6 +78,7 @@ function validateStep(step: number, form: FormData): FormErrors {
     if (!form.email.trim()) e.email = "Email address is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address";
     if (!form.phone.trim()) e.phone = "Phone number is required";
+    if (!form.referredBy.trim()) e.referredBy = "Referred by is required";
   }
   if (step === 2) {
     if (!form.street.trim()) e.street = "Street address is required";
@@ -205,12 +206,200 @@ const PenIcon = () => (
   </svg>
 );
 
+// ── OCR Widget ───────────────────────────────────────────────────────────────
+type OcrState = "idle" | "scanning" | "done" | "error";
+
+interface OcrWidgetProps {
+  docType: "id" | "insurance";
+  onFill: (fields: Record<string, string>) => void;
+  onFileReady?: (file: File, docTypeName: string) => void;
+}
+
+const FIELD_LABELS: Record<string, string> = {
+  firstName: "First name", lastName: "Last name", dateOfBirth: "Date of birth",
+  gender: "Gender", street: "Street", city: "City", state: "State", zip: "ZIP",
+  insuranceProvider: "Insurance company", policyNumber: "Policy #",
+  groupNumber: "Group #", memberId: "Member ID", primaryPolicyHolder: "Policy holder",
+};
+
+const ScanIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+    <path d="M3 7V5a2 2 0 012-2h2M17 3h2a2 2 0 012 2v2M21 17v2a2 2 0 01-2 2h-2M7 21H5a2 2 0 01-2-2v-2" />
+    <rect x="8" y="8" width="8" height="8" rx="1" />
+  </svg>
+);
+
+
+
+const CameraIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+    <circle cx="12" cy="13" r="4" />
+  </svg>
+);
+
+const UploadFileIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+    <polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
+  </svg>
+);
+
+const DownloadIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
+);
+
+function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
+  const [state, setState] = useState<OcrState>("idle");
+  const [filledFields, setFilledFields] = useState<string[]>([]);
+  const [idType, setIdType] = useState("Driving License");
+  const [insSide, setInsSide] = useState("Front");
+
+  const handleFile = useCallback(async (file: File, fileDocTypeName: string) => {
+    setState("scanning");
+    try {
+      const fd = new globalThis.FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/extract-document", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("extraction failed");
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const raw: Record<string, string> = data.fields ?? {};
+      const allowed = docType === "id"
+        ? new Set(["firstName", "lastName", "dateOfBirth", "gender", "street", "city", "state", "zip"])
+        : new Set(["insuranceProvider", "policyNumber", "groupNumber", "memberId", "primaryPolicyHolder"]);
+      const fields = Object.fromEntries(Object.entries(raw).filter(([k]) => allowed.has(k)));
+      const filled = Object.entries(fields).filter(([, v]) => v?.trim()).map(([k]) => k);
+      if (filled.length === 0) throw new Error("no fields found");
+      onFill(fields);
+      setFilledFields(filled);
+      setState("done");
+      onFileReady?.(file, fileDocTypeName);
+    } catch {
+      setState("error");
+    }
+  }, [docType, onFill, onFileReady]);
+
+  const reset = () => { setState("idle"); setFilledFields([]); };
+
+  const isId = docType === "id";
+
+  return (
+    <div className={s.ocrWidget}>
+      <div className={s.ocrWidgetHeader}>
+        <div className={s.ocrWidgetIcon}><ScanIcon /></div>
+        <div>
+          <p className={s.ocrWidgetTitle}>Auto-fill from document</p>
+          <p className={s.ocrWidgetSubtitle}>Upload a file or use your camera</p>
+        </div>
+      </div>
+
+      {state === "idle" && (
+        <div className={s.ocrWidgetBody}>
+          {isId ? (
+            <div className={s.ocrInsSection}>
+              <div className={s.ocrInsTabs}>
+                {["Driving License", "State ID", "Passport"].map(t => (
+                  <button key={t} type="button"
+                    className={`${s.ocrInsTab} ${idType === t ? s.ocrInsTabActive : ""}`}
+                    onClick={() => setIdType(t)}>
+                    {t}
+                  </button>
+                ))}
+              </div>
+              <div className={s.ocrInsSideRow}>
+                <label className={s.ocrTileSmall}>
+                  <input type="file" accept="image/jpeg,image/png,image/webp"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Government-Issued ID")} />
+                  <UploadFileIcon /> Upload
+                </label>
+                <label className={s.ocrTileSmallGreen}>
+                  <input type="file" accept="image/*" capture="environment"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Government-Issued ID")} />
+                  <CameraIcon /> Scan
+                </label>
+              </div>
+            </div>
+          ) : (
+            <div className={s.ocrInsSection}>
+              <div className={s.ocrInsTabs}>
+                {["Front", "Back"].map(side => (
+                  <button key={side} type="button"
+                    className={`${s.ocrInsTab} ${insSide === side ? s.ocrInsTabActive : ""}`}
+                    onClick={() => setInsSide(side)}>
+                    {side}
+                  </button>
+                ))}
+              </div>
+              <div className={s.ocrInsSideRow}>
+                <label className={s.ocrTileSmall}>
+                  <input type="file" accept="image/jpeg,image/png,image/webp"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], `Insurance Card (${insSide})`)} />
+                  <UploadFileIcon /> Upload
+                </label>
+                <label className={s.ocrTileSmallGreen}>
+                  <input type="file" accept="image/*" capture="environment"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], `Insurance Card (${insSide})`)} />
+                  <CameraIcon /> Scan
+                </label>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {state === "scanning" && (
+        <div className={s.ocrScanning}>
+          <div className={s.ocrDots}>
+            <div className={s.ocrDot} /><div className={s.ocrDot} /><div className={s.ocrDot} />
+          </div>
+          Scanning document…
+        </div>
+      )}
+
+      {state === "done" && (
+        <div className={s.ocrSuccess}>
+          <div className={s.ocrSuccessIcon}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div className={s.ocrSuccessText}>
+            <p className={s.ocrSuccessTitle}>{filledFields.length} field{filledFields.length !== 1 ? "s" : ""} auto-filled</p>
+            <div className={s.ocrSuccessTags}>
+              {filledFields.map(f => (
+                <span key={f} className={s.ocrTag}>{FIELD_LABELS[f] ?? f}</span>
+              ))}
+            </div>
+          </div>
+          <button className={s.ocrResetBtn} onClick={reset} type="button">↺ Scan again</button>
+        </div>
+      )}
+
+      {state === "error" && (
+        <div className={s.ocrError}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
+          </svg>
+          Couldn&apos;t read the document — try a clearer photo.
+          <button className={s.ocrErrorRetry} onClick={reset} type="button">Try again</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Step components ──────────────────────────────────────────────────────────
 type OnChange = (field: keyof FormData, value: string) => void;
 
-function PersonalStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
+function PersonalStep({ form, onChange, errors, onFill, onFileReady }: { form: FormData; onChange: OnChange; errors: FormErrors; onFill: (fields: Record<string, string>) => void; onFileReady?: (file: File, docTypeName: string) => void }) {
   return (
     <div className={s.stepContent}>
+      <OcrWidget docType="id" onFill={onFill} onFileReady={onFileReady} />
       <div className={s.infoBanner}>
         <InfoIcon />
         <span>Please provide your personal information exactly as it appears on your identification documents.</span>
@@ -283,13 +472,13 @@ function PersonalStep({ form, onChange, errors }: { form: FormData; onChange: On
       </div>
 
       <div className={s.fieldGroup}>
-        <label className={s.label}>Referred By</label>
+        <label className={s.label}>Referred By <span className={s.required}>*</span></label>
         <div className={s.inputWrapper}>
           <UserIcon />
           <input className={s.input} type="text" placeholder="e.g. John Smith"
             value={form.referredBy} onChange={e => onChange("referredBy", e.target.value)} />
         </div>
-        <p className={s.hint}>Optional - Who referred you to this program?</p>
+        {errors.referredBy && <p style={errStyle}>{errors.referredBy}</p>}
       </div>
     </div>
   );
@@ -388,9 +577,10 @@ function MedicalStep({ form, onChange }: { form: FormData; onChange: OnChange })
   );
 }
 
-function InsuranceStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
+function InsuranceStep({ form, onChange, errors, onFill, onFileReady }: { form: FormData; onChange: OnChange; errors: FormErrors; onFill: (fields: Record<string, string>) => void; onFileReady?: (file: File, docTypeName: string) => void }) {
   return (
     <div className={s.stepContent}>
+      <OcrWidget docType="insurance" onFill={onFill} onFileReady={onFileReady} />
       <div className={s.infoBannerGreen}>
         <ShieldIcon size={16} color="#16a34a" />
         <span>Please have your insurance card ready. You&apos;ll need the information from both sides.</span>
@@ -513,81 +703,112 @@ function EmergencyContactStep({ form, onChange, errors }: { form: FormData; onCh
   );
 }
 
+const OPTIONAL_DOC_TYPES = DOC_TYPES.filter(t => !REQUIRED_DOC_TYPES.includes(t));
+
 function DocumentsStep({ docItems, setDocItems, docError }: { docItems: DocItem[]; setDocItems: (items: DocItem[]) => void; docError: string }) {
   const renameFile = (file: File, type: string): File => {
     const ext = file.name.includes(".") ? "." + file.name.split(".").pop() : "";
     return new File([file], `${type}${ext}`, { type: file.type });
   };
 
-  const updateType = (index: number, type: string) => {
+  const updateRequiredFile = (type: string, file: File) => {
+    const renamed = renameFile(file, type);
+    setDocItems(docItems.map(d => d.type === type ? { type, file: renamed } : d));
+  };
+
+  const updateOptionalType = (index: number, type: string) => {
     const next = [...docItems];
-    const existing = next[index].file;
-    next[index] = {
-      type,
-      file: existing && type ? renameFile(existing, type) : existing,
-    };
+    next[index] = { type, file: next[index].file && type ? renameFile(next[index].file!, type) : next[index].file };
     setDocItems(next);
   };
 
-  const updateFile = (index: number, file: File) => {
-    const next = [...docItems];
-    const type = next[index].type;
-    next[index] = { ...next[index], file: type ? renameFile(file, type) : file };
-    setDocItems(next);
+  const updateOptionalFile = (index: number, file: File) => {
+    const type = docItems[index].type;
+    setDocItems(docItems.map((d, i) => i === index ? { ...d, file: type ? renameFile(file, type) : file } : d));
   };
 
-  const removeRow = (index: number) => setDocItems(docItems.filter((_, i) => i !== index));
+  const removeOptional = (index: number) => setDocItems(docItems.filter((_, i) => i !== index));
 
   const addRow = () => setDocItems([...docItems, { type: "", file: null }]);
 
+  const requiredItems = REQUIRED_DOC_TYPES.map(type => docItems.find(d => d.type === type) ?? { type, file: null });
+  const optionalItems = docItems.map((d, i) => ({ ...d, i })).filter(d => !REQUIRED_DOC_TYPES.includes(d.type));
+
   return (
     <div className={s.stepContent}>
-      <div className={s.infoBannerPurple}>
-        <UploadIcon size={16} color="#7c3aed" />
-        <div>
-          <p className={s.infoBannerTitle}>Required documents to upload:</p>
-          <ul className={s.infoBannerList}>
-            <li>Insurance Card (Front &amp; Back) — required</li>
-            <li>Government-Issued ID (Driver&apos;s License, State ID, or Passport) — required</li>
-            <li>Insurance Coverage Document — optional</li>
-          </ul>
-        </div>
-      </div>
-
       <div className={s.docList}>
-        {docItems.map((item, i) => (
-          <div key={i} className={s.docRow}>
-            <div className={s.inputWrapperNoIcon} style={{ flex: 1 }}>
-              <select
-                className={s.select}
-                value={item.type}
-                onChange={e => updateType(i, e.target.value)}
-              >
-                <option value="">Select document type</option>
-                {DOC_TYPES.map(t => (
-                  <option key={t} value={t}>
-                    {t}{REQUIRED_DOC_TYPES.includes(t) ? " *" : ""}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <label className={`${s.docUploadBtn} ${item.file ? s.docUploadBtnDone : ""}`}>
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                className={s.uploadInput}
-                onChange={e => e.target.files?.[0] && updateFile(i, e.target.files[0])}
-              />
-              <UploadIcon size={14} color={item.file ? "#16a34a" : "#7c3aed"} />
-              <span className={s.docUploadLabel}>
+        {requiredItems.map(item => (
+          <div key={item.type} className={`${s.docCard} ${item.file ? s.docCardDone : ""}`}>
+            <div className={s.docCardLeft}>
+              <div className={s.docCardIconWrap}>
                 {item.file
-                  ? (item.file.name.length > 22 ? item.file.name.slice(0, 20) + "…" : item.file.name)
-                  : "Upload File"}
-              </span>
-            </label>
+                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
+                  : <UploadIcon size={14} color="#7c3aed" />}
+              </div>
+              <div>
+                <p className={s.docCardName}>{item.type} <span className={s.required}>*</span></p>
+                {item.file && <p className={s.docCardFileName}>{item.file.name.length > 28 ? item.file.name.slice(0, 26) + "…" : item.file.name}</p>}
+              </div>
+            </div>
+            {item.file ? (
+              <label className={s.docChangeBtn}>
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
+                  onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
+                Replace
+              </label>
+            ) : (
+              <div className={s.docBtnGroup}>
+                <label className={s.docUploadBtnNew}>
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
+                    onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
+                  <UploadFileIcon /> Upload
+                </label>
+                <label className={s.docCameraBtn}>
+                  <input type="file" accept="image/*" capture="environment" className={s.uploadInput}
+                    onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
+                  <CameraIcon /> Camera
+                </label>
+              </div>
+            )}
+          </div>
+        ))}
 
-            <button className={s.fileRemove} onClick={() => removeRow(i)} type="button" title="Remove">✕</button>
+        {optionalItems.map(item => (
+          <div key={item.i} className={s.docCard}>
+            <div className={s.docCardLeft} style={{ flex: 1 }}>
+              <div className={s.docCardIconWrap}>
+                {item.file
+                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
+                  : <UploadIcon size={14} color="#9ca3af" />}
+              </div>
+              <div className={s.inputWrapperNoIcon} style={{ flex: 1 }}>
+                <select className={s.select} value={item.type} onChange={e => updateOptionalType(item.i, e.target.value)}>
+                  <option value="">Select document type</option>
+                  {OPTIONAL_DOC_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+            {item.file ? (
+              <label className={s.docChangeBtn}>
+                <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
+                  onChange={e => e.target.files?.[0] && updateOptionalFile(item.i, e.target.files[0])} />
+                Replace
+              </label>
+            ) : (
+              <div className={s.docBtnGroup}>
+                <label className={s.docUploadBtnNew}>
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
+                    onChange={e => e.target.files?.[0] && updateOptionalFile(item.i, e.target.files[0])} />
+                  <UploadFileIcon /> Upload
+                </label>
+                <label className={s.docCameraBtn}>
+                  <input type="file" accept="image/*" capture="environment" className={s.uploadInput}
+                    onChange={e => e.target.files?.[0] && updateOptionalFile(item.i, e.target.files[0])} />
+                  <CameraIcon /> Camera
+                </label>
+              </div>
+            )}
+            <button className={s.fileRemove} onClick={() => removeOptional(item.i)} type="button" title="Remove">✕</button>
           </div>
         ))}
       </div>
@@ -832,16 +1053,24 @@ function AuthorizationStep({
 }) {
   const [hasPOA, setHasPOA] = useState(false);
   const [hasWitness, setHasWitness] = useState(false);
+  const [hasReadAll, setHasReadAll] = useState(false);
+  const termsRef = useRef<HTMLDivElement>(null);
+
+  const handleTermsScroll = () => {
+    const el = termsRef.current;
+    if (!el || hasReadAll) return;
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) setHasReadAll(true);
+  };
 
   return (
     <div className={s.stepContent}>
       <div className={s.infoBannerAmber}>
         <InfoIcon />
-        <span>Please read all 26 terms carefully, then check the box to agree before continuing.</span>
+        <span>Please scroll through and read all terms — the checkbox will unlock once you reach the bottom.</span>
       </div>
 
       {/* Scrollable terms box */}
-      <div className={s.authTermsBox}>
+      <div className={s.authTermsBox} ref={termsRef} onScroll={handleTermsScroll}>
         <h3 className={s.authTermsTitle}>AUTHORIZATION AGREEMENT / RELEASE OF LIABILITY</h3>
         <p className={s.authTermsIntro}>By signing this form, I agree that I have read and understood the following:</p>
         <ol className={s.authTermsList}>
@@ -866,16 +1095,21 @@ function AuthorizationStep({
         </p>
       </div>
 
+      {!hasReadAll && (
+        <p className={s.authScrollHint}>↓ Scroll to the bottom to unlock the agreement checkbox</p>
+      )}
+
       {/* Agree checkbox */}
-      <div className={s.authAgreeRow}>
+      <div className={`${s.authAgreeRow} ${!hasReadAll ? s.authAgreeRowLocked : ""}`}>
         <input
           id="authAgreed"
           type="checkbox"
           className={s.certifyCheck}
           checked={agreed}
+          disabled={!hasReadAll}
           onChange={e => setAgreed(e.target.checked)}
         />
-        <label htmlFor="authAgreed" className={s.certifyLabel}>
+        <label htmlFor="authAgreed" className={s.certifyLabel} style={!hasReadAll ? { opacity: 0.45, cursor: "not-allowed" } : undefined}>
           <strong>I have read and agree to all terms</strong> of the Authorization Agreement above.
         </label>
       </div>
@@ -950,14 +1184,6 @@ function SuccessScreen({ email, refId, pdfBase64, pdfName, pdfAuthBase64, pdfAut
     a.href = url; a.download = filename; a.click();
     URL.revokeObjectURL(url);
   };
-
-  const DownloadIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
-  );
 
   return (
     <div className={s.successWrapper}>
@@ -1111,7 +1337,7 @@ export default function GetAVitalBuddyPage() {
     infoAccuracy: false,
   });
   const [form, setForm] = useState<FormData>(initialForm);
-  const [docItems, setDocItems] = useState<DocItem[]>([{ type: "", file: null }]);
+  const [docItems, setDocItems] = useState<DocItem[]>(REQUIRED_DOC_TYPES.map(type => ({ type, file: null })));
   const [signatureDataUrl, setSignatureDataUrl] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -1131,6 +1357,52 @@ export default function GetAVitalBuddyPage() {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
   };
+
+  const handleOcrFill = useCallback((fields: Record<string, string>) => {
+    setForm(prev => {
+      const next = { ...prev };
+      for (const [k, v] of Object.entries(fields)) {
+        if (v?.trim() && k in prev) {
+          (next as Record<string, string>)[k] = v.trim();
+        }
+      }
+      // Auto-set "Self" when the policy holder name matches the patient's own name
+      if (fields.primaryPolicyHolder && prev.firstName && prev.lastName) {
+        const norm = (s: string) => s.toLowerCase().replace(/[^a-z]/g, " ").trim();
+        const holder = norm(fields.primaryPolicyHolder);
+        const first  = norm(prev.firstName);
+        const last   = norm(prev.lastName);
+        const isSelf = last.length > 2 && holder.includes(last) &&
+                       (first.length <= 2 || holder.includes(first));
+        if (isSelf && !next.relationshipToPolicyHolder) {
+          next.relationshipToPolicyHolder = "Self";
+        }
+      }
+      return next;
+    });
+  }, []);
+
+  const handleDocFileReady = useCallback((file: File, docTypeName: string) => {
+    setDocItems(prev => {
+      const ext = file.name.includes(".") ? "." + file.name.split(".").pop() : "";
+      const renamed = new File([file], `${docTypeName}${ext}`, { type: file.type });
+      // Replace existing slot with same type
+      const idx = prev.findIndex(d => d.type === docTypeName);
+      if (idx !== -1) {
+        const next = [...prev];
+        next[idx] = { type: docTypeName, file: renamed };
+        return next;
+      }
+      // Fill first empty slot
+      const emptyIdx = prev.findIndex(d => !d.type && !d.file);
+      if (emptyIdx !== -1) {
+        const next = [...prev];
+        next[emptyIdx] = { type: docTypeName, file: renamed };
+        return next;
+      }
+      return [...prev, { type: docTypeName, file: renamed }];
+    });
+  }, []);
 
   const goNext = () => {
     if (currentStep === 6) {
@@ -1191,44 +1463,55 @@ export default function GetAVitalBuddyPage() {
       driveFolderId   = driveData.folderId   ?? "";
     }
 
-    // 2. Generate filled intake PDF and save to the same Drive folder
-    if (driveFolderId) {
-      const pdfRes  = await fetch("/api/generate-intake-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          form,
-          consents,
-          refId,
-          signatureDataUrl,
-          folderId: driveFolderId,
-        }),
-      });
-      const pdfData = await pdfRes.json();
-      if (pdfData.pdfBase64) setPdfBase64(pdfData.pdfBase64);
-      if (pdfData.pdfName)   setPdfName(pdfData.pdfName);
-    }
+    const generatePdfs = async () => {
+      if (!driveFolderId) return;
 
-    // 3. Generate authorization PDF and save to Drive
-    if (driveFolderId) {
-      const authRes = await fetch("/api/generate-authorization-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          form,
-          signatureDataUrl,
-          poaSignatureDataUrl,
-          witnessSignatureDataUrl,
-          refId,
-          folderId: driveFolderId,
-        }),
-      });
-      const authData = await authRes.json();
-      if (authData.pdfBase64) setPdfAuthBase64(authData.pdfBase64);
-      if (authData.pdfName)   setPdfAuthName(authData.pdfName);
-    }
+      const [pdfResult, authResult] = await Promise.allSettled([
+        fetch("/api/generate-intake-pdf", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form,
+            consents,
+            refId,
+            signatureDataUrl,
+            folderId: driveFolderId,
+          }),
+        }).then(res => res.json()),
+        fetch("/api/generate-authorization-pdf", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form,
+            signatureDataUrl,
+            poaSignatureDataUrl,
+            witnessSignatureDataUrl,
+            refId,
+            folderId: driveFolderId,
+          }),
+        }).then(res => res.json()),
+      ]);
 
-    // 4. Save form data to Google Sheet
+      if (pdfResult.status === "fulfilled") {
+        if (pdfResult.value.pdfBase64) setPdfBase64(pdfResult.value.pdfBase64);
+        if (pdfResult.value.pdfName) setPdfName(pdfResult.value.pdfName);
+      } else {
+        console.error("Intake PDF generation failed:", pdfResult.reason);
+      }
+
+      if (authResult.status === "fulfilled") {
+        if (authResult.value.pdfBase64) setPdfAuthBase64(authResult.value.pdfBase64);
+        if (authResult.value.pdfName) setPdfAuthName(authResult.value.pdfName);
+      } else {
+        console.error("Authorization PDF generation failed:", authResult.reason);
+      }
+    };
+
+    void generatePdfs().catch(err => {
+      console.error("PDF generation failed:", err);
+    });
+
+    // 2. Save form data to Google Sheet
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     await fetch("/api/submit-application", {
       method: "POST",
@@ -1300,10 +1583,10 @@ export default function GetAVitalBuddyPage() {
           ))}
         </div>
 
-        {currentStep === 1 && <PersonalStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 1 && <PersonalStep form={form} onChange={onChange} errors={errors} onFill={handleOcrFill} onFileReady={handleDocFileReady} />}
         {currentStep === 2 && <AddressStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 3 && <MedicalStep form={form} onChange={onChange} />}
-        {currentStep === 4 && <InsuranceStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 4 && <InsuranceStep form={form} onChange={onChange} errors={errors} onFill={handleOcrFill} onFileReady={handleDocFileReady} />}
         {currentStep === 5 && <EmergencyContactStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 6 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} />}
         {currentStep === 7 && (

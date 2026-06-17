@@ -26,7 +26,7 @@ export default function Section({
       className={`py-16 lg:py-24 ${isPreset ? presets[background] : ""} ${className}`}
       style={!isPreset ? { backgroundColor: background } : undefined}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 relative z-10">{children}</div>
+      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 lg:px-0 relative z-10">{children}</div>
     </section>
   );
 }

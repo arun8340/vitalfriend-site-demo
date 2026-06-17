@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     const folderId = folder.data.id!;
 
     // Upload each file into the patient folder
-    for (const file of files) {
+    await Promise.all(files.map(async file => {
       const buffer = Buffer.from(await file.arrayBuffer());
       const stream = Readable.from(buffer);
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
         },
         fields: "id",
       });
-    }
+    }));
 
     const folderUrl = `https://drive.google.com/drive/folders/${folderId}`;
     return NextResponse.json({ success: true, folderName, folderUrl, folderId });

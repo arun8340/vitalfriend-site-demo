@@ -34,12 +34,21 @@ export const metadata: Metadata = {
     title: "VitalFriend® | Remote Health Monitoring for Senior Care",
     description:
       "AI-powered vitals monitoring platform built for Assisted Living Facilities.",
+    images: [
+      {
+        url: "/images/full-logo.svg",
+        width: 800,
+        height: 200,
+        alt: "VitalFriend®",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "VitalFriend® | Remote Health Monitoring for Senior Care",
     description:
       "AI-powered vitals monitoring platform built for Assisted Living Facilities.",
+    images: ["/images/full-logo.svg",],
   },
 };
 
@@ -48,7 +57,7 @@ const orgJsonLd = {
   "@type": "Organization",
   name: "VitalFriend, Inc",
   url: "https://vitalfriend.com",
-  logo: "https://vitalfriend.com/wp-content/uploads/2025/07/cropped-Group-561.png",
+  logo: "/images/full-logo.svg",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+1-855-742-7300",
@@ -83,7 +92,7 @@ export default function RootLayout({
         className={`${inter.variable} ${manrope.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
       >
         <Header />
-        <main className="flex-1 pt-27">{children}</main>
+        <main className="flex-1 pt-[147.510902px]">{children}</main>
         <Footer />
       </body>
     </html>

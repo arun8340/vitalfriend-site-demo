@@ -173,12 +173,48 @@ const iconSNF6 = ( // Insurance shield
 );
 
 const assistedCards: TabCard[] = [
-  { icon: iconALF1, iconSrc: "/images/facilities/assisted-living/1.svg", title: "Comfortable, Continuous Monitoring", desc: "Residents can wear the BUDDI either a few hours each day or around the clock. No interruptions during meals, activities, or sleep, just continuous visibility into each resident's wellbeing.", tag: "24/7 Coverage" },
-  { icon: iconALF2, iconSrc: "/images/facilities/assisted-living/2.svg", title: "Give Staff Their Time Back", desc: "Eliminate manual vital checks and paper logs. When your team spends less time gathering data, they spend more time with residents, building the human connections that truly define great care.", tag: "Staff Efficiency" },
-  { icon: iconALF3, iconSrc: "/images/facilities/assisted-living/3.svg", title: "Catch Changes Before They Escalate", desc: "Smart alerts flag subtle vital changes at the earliest sign, giving your team the window they need to alert physicians to intervene before a concern becomes a costly emergency.", tag: "Early Intervention" },
-  { icon: iconALF4, iconSrc: "/images/facilities/assisted-living/4.svg", title: "Stand Out with VitalFriend Certified™", desc: "Earn a credential that families actively look for. VitalFriend Certified™ signals that your facility goes above and beyond, with a genuine differentiator when families are comparing options.", tag: "Marketing Edge" },
-  { icon: iconALF5, iconSrc: "/images/facilities/assisted-living/5.svg", title: "Compliance on Autopilot", desc: "Automated documentation, one-click regulatory submissions, and custom reports keep your facility audit-ready every day. No scrambling, no gaps, just clean, accurate records.", tag: "Always Compliant" },
-  { icon: iconALF6, iconSrc: "/images/facilities/assisted-living/6.svg", title: "Covered by Insurance", desc: "Both the BUDDI device and the VitalFriend monitoring service are covered by most major insurance plans, making this level of care accessible to residents with no out-of-pocket cost in most cases.", tag: "Zero Cost Barrier" },
+  {
+    icon: iconALF1,
+    iconSrc: "/images/facilities/assisted-living/1.svg",
+    title: "Comfortable, Continuous Monitoring",
+    desc: "Residents can wear the Vital Buddy either a few hours each day or around the clock. No interruptions during meals, activities, or sleep, just continuous visibility into each resident's wellbeing.",
+    tag: "24/7 Coverage",
+  },
+  {
+    icon: iconALF2,
+    iconSrc: "/images/facilities/assisted-living/2.svg",
+    title: "Give Staff Their Time Back",
+    desc: "Eliminate manual vital checks and paper logs. When your team spends less time gathering data, they spend more time with residents, building the human connections that truly define great care.",
+    tag: "Staff Efficiency",
+  },
+  {
+    icon: iconALF3,
+    iconSrc: "/images/facilities/assisted-living/3.svg",
+    title: "Catch Changes Before They Escalate",
+    desc: "Smart alerts flag subtle vital changes at the earliest sign, giving your team the window they need to alert physicians to intervene before a concern becomes a costly emergency.",
+    tag: "Early Intervention",
+  },
+  {
+    icon: iconALF4,
+    iconSrc: "/images/facilities/assisted-living/4.svg",
+    title: "Stand Out with VitalFriend Certified™",
+    desc: "Earn a credential that families actively look for. VitalFriend Certified™ signals that your facility goes above and beyond, with a genuine differentiator when families are comparing options.",
+    tag: "Marketing Edge",
+  },
+  {
+    icon: iconALF5,
+    iconSrc: "/images/facilities/assisted-living/5.svg",
+    title: "Compliance on Autopilot",
+    desc: "Automated documentation, one-click regulatory submissions, and custom reports keep your facility audit-ready every day. No scrambling, no gaps, just clean, accurate records.",
+    tag: "Always Compliant",
+  },
+  {
+    icon: iconALF6,
+    iconSrc: "/images/facilities/assisted-living/6.svg",
+    title: "May Be Reimbursement Eligible",
+    desc: "Both the Vital Buddy device and the VitalFriend monitoring service may be eligible for reimbursement, making this level of care accessible to residents with more accessible to residents in many case",
+    tag: "Reimbursement Eligibility",
+  },
 ];
 
 const independentCards: TabCard[] = [
@@ -191,64 +227,148 @@ const independentCards: TabCard[] = [
 ];
 
 const skilledCards: TabCard[] = [
-  { icon: iconSNF1, iconSrc: "/images/facilities/residential-home/1.svg", title: "Eliminate Rounding with Bulky Equipment", desc: "Vital Buddy automatically monitors vitals, eliminating the need for rounding with carts full of medical equipment. It simplifies workflows and frees care givers from time-consuming manual checks.", tag: "Streamlined Workflow" },
-  { icon: iconSNF2, iconSrc: "/images/facilities/residential-home/2.svg", title: "Less Disruptive for Post-Surgery Patients", desc: "Passive monitoring is far less disruptive than repeated check-ins. Vital Buddy reduces patient stress, supports better rest and facilitates faster, more comfortable recoveries.", tag: "Patient Comfort" },
-  { icon: iconSNF3, iconSrc: "/images/facilities/residential-home/3.svg", title: "Significant Labor Savings", desc: "Automating vitals monitoring creates measurable savings in staff hours across every shift. Using Vital Buddy has a meaningful impact on operational costs for facility owners and administrators.", tag: "Cost Efficiency" },
-  { icon: iconSNF4, iconSrc: "/images/facilities/residential-home/4.svg", title: "Attract and Retain Scarce Staff", desc: "In a tight recruiting market, lighter physical workloads are a real recruitment and retention advantage. Top employees increasingly seek facilities where new technologies and methods support their efforts.", tag: "Staff Retention" },
-  { icon: iconSNF5, iconSrc: "/images/facilities/residential-home/5.svg", title: "Medical-Grade Vitals Monitoring", desc: "Vital Buddy delivers FDA-cleared blood pressure and heart rate monitoring, which meets the clinical standards required for clinical medical environments, including documentation.", tag: "Clinical Grade" },
-  { icon: iconSNF6, iconSrc: "/images/facilities/residential-home/6.svg", title: "Covered by Insurance", desc: "Both the Vital Buddy device and the VitalFriend monitoring service are covered by Medicare and most major insurance plans, removing cost as a barrier to providing the highest standard of care.", tag: "Zero Cost Barrier" },
+  {
+    icon: iconSNF1,
+    iconSrc: "/images/facilities/residential-home/1.svg",
+    title: "Eliminate Rounding with Bulky Equipment",
+    desc: "Vital Buddy automatically monitors vitals, eliminating the need for rounding with carts full of medical equipment. It simplifies workflows and frees care givers from time-consuming manual checks.",
+    tag: "Streamlined Workflow",
+  },
+  {
+    icon: iconSNF2,
+    iconSrc: "/images/facilities/residential-home/2.svg",
+    title: "Less Disruptive for Post-Surgery Patients",
+    desc: "Passive monitoring is far less disruptive than repeated check-ins. Vital Buddy reduces patient stress, supports better rest and facilitates faster, more comfortable recoveries.",
+    tag: "Patient Comfort",
+  },
+  {
+    icon: iconSNF3,
+    iconSrc: "/images/facilities/residential-home/3.svg",
+    title: "Significant Labor Savings",
+    desc: "Automating vitals monitoring creates measurable savings in staff hours across every shift. Using Vital Buddy has a meaningful impact on operational costs for facility owners and administrators.",
+    tag: "Cost Efficiency",
+  },
+  {
+    icon: iconSNF4,
+    iconSrc: "/images/facilities/residential-home/4.svg",
+    title: "Attract and Retain Scarce Staff",
+    desc: "In a tight recruiting market, lighter physical workloads are a real recruitment and retention advantage. Top employees increasingly seek facilities where new technologies and methods support their efforts.",
+    tag: "Staff Retention",
+  },
+  {
+    icon: iconSNF5,
+    iconSrc: "/images/facilities/residential-home/5.svg",
+    title: "May Be Reimbursement Eligible",
+    desc: "Both the Vital Buddy device and the VitalFriend monitoring service may be eligible for reimbursement, removing cost as a barrier to providing a high standard of care.",
+    tag: "Reimbursement Eligibility",
+  },
 ];
 
 export const tabs: TabData[] = [
   {
     label: "Assisted Living",
     cards: assistedCards,
-    ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaQuote:
+      "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Assisted Living",
-    insuranceBody: "The Vital Buddy device and continuous monitoring service are covered by Medicare and most major insurance providers. In other words, residents in your facility can get the most advanced medical monitoring available with no out-of-pocket cost.",
+    insuranceBody:
+      "The Vital Buddy device and continuous monitoring service may be eligible for reimbursement. In other words, residents in your facility can get the an advanced medical monitoring available with little or no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ALFs",
     insuranceImage: "/images/facilites-assisted-Living-man-on-phone.png",
-    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by comparable legacy clinical data",
+    statsSubtitle:
+      "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by comparable legacy clinical data",
     stats: [
-      { number: "78%", label: "Emergency Room visit avoidance due to remote vitals monitoring" },
-      { number: "71%", label: "Patients reporting that remote monitoring gives them greater peace of mind" },
-      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
-      { number: "51%", label: "Seniors living with and managing two or more chronic conditions" },
+      {
+        number: "78%",
+        label: "Emergency Room visit avoidance due to remote vitals monitoring",
+      },
+      {
+        number: "71%",
+        label:
+          "Patients reporting that remote monitoring gives them greater peace of mind",
+      },
+      {
+        number: "30 mins",
+        label:
+          "Average time saved per patient due to automated vitals monitoring",
+      },
+      {
+        number: "51%",
+        label:
+          "Seniors living with and managing two or more chronic conditions",
+      },
     ],
   },
   {
     label: "Independent Living",
     cards: independentCards,
-    ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaQuote:
+      "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Independent Living",
-    insuranceBody: "The Vital Buddy device and VitalFriend service are covered by most major insurance providers. The most advanced continuous monitoring is available to your residents at no out-of-pocket cost.",
+    insuranceBody:
+      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement. An advanced continuous monitoring is available to your residents at little or no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ILFs",
     insuranceImage: "/images/facilites-independent-Living-person.png",
-    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
+    statsSubtitle:
+      "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
     stats: [
-      { number: "71%", label: "Patients reporting that remote monitoring gives them greater peace of mind" },
-      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
-      { number: "81%", label: "Reduction in 30-day mortality among high-risk heart patients who used RPM" },
-      { number: "20%", label: "Increase in hypertension control among patients using RPM for blood pressure" },
+      {
+        number: "71%",
+        label:
+          "Patients reporting that remote monitoring gives them greater peace of mind",
+      },
+      {
+        number: "30 mins",
+        label:
+          "Average time saved per patient due to automated vitals monitoring",
+      },
+      {
+        number: "81%",
+        label:
+          "Reduction in 30-day mortality among high-risk heart patients who used RPM",
+      },
+      {
+        number: "20%",
+        label:
+          "Increase in hypertension control among patients using RPM for blood pressure",
+      },
     ],
   },
   {
     label: "Residential Home",
     cards: skilledCards,
-     ctaQuote: "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
+    ctaQuote:
+      "My husband's in IT, so he's always pushing digital. We started with Vital Buddy last July, and it was a game-changer. No more manual blood pressure readings before and after every med because when you're doing it solo, that time really adds up.",
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Residential Home",
-    insuranceBody: "The Vital Buddy device and VitalFriend service are covered by most major insurance providers making the most advanced continuous monitoring available to your facility at no out-of-pocket cost.",
+    insuranceBody:
+      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement and making an advanced continuous monitoring available to your facility at little orno out-of-pocket cost.",
     insuranceButtonText: "Get Started for Residential Home",
     insuranceImage: "/images/facilites-snf-person.png",
-    statsSubtitle: "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
+    statsSubtitle:
+      "The benefits of VitalFriend RPM monitoring on patient outcomes are clearly demonstrated by the data",
     stats: [
-      { number: "20%", label: "Increase in hypertension control among patients using RPM for blood pressure" },
-      { number: "51%", label: "Seniors living with and managing two or more chronic conditions" },
-      { number: "30 mins", label: "Average time saved per patient due to automated vitals monitoring" },
-      { number: "78%", label: "Emergency Room visit avoidance due to remote vitals monitoring" },
+      {
+        number: "20%",
+        label:
+          "Increase in hypertension control among patients using RPM for blood pressure",
+      },
+      {
+        number: "51%",
+        label:
+          "Seniors living with and managing two or more chronic conditions",
+      },
+      {
+        number: "30 mins",
+        label:
+          "Average time saved per patient due to automated vitals monitoring",
+      },
+      {
+        number: "78%",
+        label: "Emergency Room visit avoidance due to remote vitals monitoring",
+      },
     ],
   },
 ];
@@ -320,7 +440,7 @@ export const deploySteps: DeployStep[] = [
   {
     step: "1",
     title: "Discovery Call",
-    desc: "We learn about your facility's size, care level, and workflow, and verify insurance coverage for your residents.",
+    desc: "We learn about your facility's size, care level, and workflow, and verify reimbursement eligibility for your residents.",
     ringGradient: "linear-gradient(160.34deg, #E2A11A 13.16%, #D82108 95.03%)",
     circleColor: "#E4A321",
     shadowColor: "#CF9114",
