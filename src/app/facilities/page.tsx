@@ -53,14 +53,14 @@ export default function FacilitiesPage() {
         </div>
       </section>
 
-      {/* ── BUDDI Works Across ── */}
+      {/* ── Vital Buddy Works Across ── */}
       <section className={s.tabsSection} id="care-levels">
         <div className={s.tabsInner}>
           <div className={s.tabsBadgeWrapper}>
             <span className={s.tabsBadge}>Find Your Facility Type</span>
           </div>
           <h2 className={s.tabsHeading}>
-            <span className={s.tabsHeadingGradient}>BUDDI works across</span><span className={s.tabsHeadingBlack}> every</span>
+            <span className={s.tabsHeadingGradient}>Vital Buddy works across</span><span className={s.tabsHeadingBlack}> every</span>
             <br />
             <span className={s.tabsHeadingBlack}> level of care.</span>
           </h2>

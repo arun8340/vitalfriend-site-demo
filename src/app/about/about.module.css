@@ -37,7 +37,7 @@
   max-width: 1295px;
   min-height: 653px;
   margin: 0 auto;
-  padding: 160px 40px 60px;
+  padding: 60px 40px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,7 +157,7 @@
 .statsSection {
   background: linear-gradient(248.18deg, #FFF3F8 -1.14%, #E3FEE9 98.56%);
   padding: 96px 91px;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 
 .statsInner {
@@ -302,11 +302,6 @@
 /* ════════════════════════════════════════
    EXECUTIVE TEAM
 ════════════════════════════════════════ */
-.teamSection {
-  background: #f8fafc;
-  padding: 80px 16px;
-}
-
 .teamEyebrow {
   font-family: 'Inter', sans-serif;
   font-size: 18px;
@@ -340,48 +335,81 @@
   margin: 0 auto;
 }
 
+/* ── Team card grid ── */
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1, 394px);
   gap: 24px;
-  margin-top: 120px;
+  margin-top: 64px;
+  justify-content: center;
 }
 
-@media (min-width: 640px) {
-  .teamGrid { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 860px) {
+  .teamGrid { grid-template-columns: repeat(2, 394px); }
 }
 
-@media (min-width: 1024px) {
-  .teamGrid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 1270px) {
+  .teamGrid { grid-template-columns: repeat(3, 394px); }
 }
 
+/* ── Team card ── */
 .teamCard {
-  background: #ffffff;
-  border-radius: 20px;
-  border: 1px solid #e8e8e8;
-  padding: 16px;
+  position: relative;
+  width: 394px;
+  height: 540px;
+  border-radius: 25px;
+  padding: 9px 9px 35px 9px;
+  background: #F6F6F6;
+  overflow: hidden;
+  cursor: default;
+}
+
+/* Curtain that sweeps from bottom to top on hover */
+.teamCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  background: var(--card-hover-color, #D5FF9B);
+  transform: translateY(102%);
+  transition: transform 0.62s cubic-bezier(0.2, 0.82, 0.35, 1);
+  z-index: 0;
+}
+
+.teamCard:hover::before {
+  transform: translateY(0);
+}
+
+/* Front face — visible by default */
+.cardFront {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: 24px;
+  height: 100%;
+  transition: opacity 0.25s ease 0.05s, transform 0.4s cubic-bezier(0.2, 0.82, 0.35, 1);
 }
 
-.teamCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-  background: linear-gradient(314.97deg, #EE9CE8 0%, #FDCCD2 50.5%, #FCF8F5 100%);
+.teamCard:hover .cardFront {
+  opacity: 0;
+  transform: translateY(-16px);
+  pointer-events: none;
 }
 
-.teamPhotoWrapper {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
-  border: 2.5px solid #5F9AE2;
+.cardPhotoWrapper {
+  flex: 1;
+  border-radius: 20px;
   overflow: hidden;
-  background: #e9eef4;
+  min-height: 0;
+  background: #C4C4C4;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.teamPhoto {
+.cardPhoto {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -389,23 +417,123 @@
   display: block;
 }
 
-.teamCardBody {
-  padding: 0 4px 4px;
+.cardPhotoDefault {
+  width: 308px;
+  height: 379px;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+  flex-shrink: 0;
 }
 
-.teamName {
+.cardNameRow {
+  flex-shrink: 0;
+  height: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 13px;
+  justify-content: center;
+}
+
+.cardName {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 110%;
+  letter-spacing: -0.04em;
+  color: #15171C;
+  margin: 0;
 }
 
-.teamRole {
+.cardRole {
   font-family: 'Lexend Deca', sans-serif;
-  font-size: 15px;
   font-weight: 400;
-  color: #64748b;
+  font-size: 18px;
+  line-height: 170%;
+  color: #6A758E;
+  margin: 0;
+}
+
+/* Back face — slides up from bottom on hover */
+.cardBack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 23px 18px 35px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.3s ease 0.12s, transform 0.55s cubic-bezier(0.2, 0.82, 0.35, 1) 0.08s;
+  pointer-events: none;
+}
+
+.teamCard:hover .cardBack {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cardBackTop {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.linkedinBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #000000;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.linkedinBtn:hover {
+  background: #0A66C2;
+}
+
+.linkedinBtnStatic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #000000;
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+
+.cardBio {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 170%;
+  color: #000000;
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+}
+
+.cardBackNameRow {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  margin-bottom: 60px;
 }
 
 /* ════════════════════════════════════════
@@ -439,12 +567,25 @@
   margin: 0 auto;
 }
 
+@keyframes advisorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .advisorsGrid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 48px;
+  align-items: stretch;
+  gap: 40px;
   margin-top: 56px;
+  animation: advisorFadeIn 0.45s cubic-bezier(0.2, 0.82, 0.35, 1) both;
 }
 
 .paginationDots {
@@ -456,19 +597,18 @@
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 20px;
   border: none;
   cursor: pointer;
   background: #D9D9D9;
   padding: 0;
-  transition: background 0.2s, width 0.2s, border-radius 0.2s;
+  transition: background 0.2s, width 0.2s;
 }
 
 .dotActive {
-  width: 36px;
-  border-radius: 6px;
+  width: 50px;
   background: #4D9AF1;
 }
 
@@ -476,24 +616,48 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
+  width: 250px;
   text-align: center;
 }
 
 .advisorPhoto {
-  width: 160px;
-  height: 160px;
+  width: 232px;
+  height: 232px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
+  display: block;
+  flex-shrink: 0;
+}
+
+.advisorPhotoCircle {
+  width: 232px;
+  height: 232px;
+  border-radius: 50%;
+  background: #C4C4C4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.advisorPhotoDefault {
+  width: 130px;
+  height: 145px;
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 
 .advisorInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   align-items: center;
+  width: 250px;
+  flex: 1;
 }
 
 .advisorName {
@@ -503,15 +667,37 @@
   line-height: 110%;
   letter-spacing: -0.04em;
   color: #15171C;
-  white-space: nowrap;
 }
 
 .advisorRole {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 13.05px;
-  font-weight: 500;
-  line-height: 130%;
-  color: rgba(13, 23, 59, 0.7);
+  font-family: 'Lexend Deca', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: 0%;
+  color: #6A758E;
+  text-align: center;
+}
+
+.advisorLinkedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F0F0F0;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.advisorLinkedin:hover {
+  background: #0A66C2;
+}
+
+.advisorLinkedin:hover svg path {
+  fill: #ffffff;
 }
 
 /* ════════════════════════════════════════
@@ -730,7 +916,7 @@
    TALK TO AN EXPERT
 ════════════════════════════════════════ */
 .talkSection {
-  padding: 180px 40px;
+  padding: 60px 40px;
   background: #ffffff;
 }
 
@@ -844,7 +1030,7 @@
 ════════════════════════════════════════ */
 .earlyAccessSection {
   background: #F9FBFF;
-  padding: 100px 40px;
+  padding: 100px 40px 60px;
   display: flex;
   justify-content: center;
 }

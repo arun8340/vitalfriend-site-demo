@@ -6,7 +6,7 @@ import s from "./faq.module.css";
 const faqs = [
   {
     q: "What services/products do you offer?",
-    a: "VitalFriend offers AI-powered continuous vitals monitoring solutions designed for Assisted Living Facilities, physicians, and families. Our flagship product BUDDI® is a wearable device that tracks key health metrics in real time.",
+    a: "VitalFriend offers continuous vital signs monitoring solutions designed for Assisted Living Facilities, physicians, and families. Our flagship product Vital Buddy® is a wearable device that tracks key health metrics in real time.",
   },
   {
     q: "Can I track my order or service progress?",

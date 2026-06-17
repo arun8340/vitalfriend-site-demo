@@ -33,14 +33,23 @@ export default function FacilitiesTabs() {
             className={`${s.tabCard}${i === tab.cards.length - 1 ? ` ${s.tabCardLast}` : ""}`}
           >
             <div className={s.tabCardIcon}>
-              {card.iconSrc
-                ? <Image src={card.iconSrc} alt={card.title} width={40} height={40} />
-                : card.icon}
+              {card.iconSrc ? (
+                <Image
+                  src={card.iconSrc}
+                  alt={card.title}
+                  width={40}
+                  height={40}
+                />
+              ) : (
+                card.icon
+              )}
             </div>
             <h3 className={s.tabCardTitle}>{card.title}</h3>
             <p className={s.tabCardDesc}>{card.desc}</p>
             <div className={s.tabCardTagWrapper}>
-              <span className={`${s.tabCardTag}${i === tab.cards.length - 1 ? ` ${s.tabCardTagGreen}` : ""}`}>
+              <span
+                className={`${s.tabCardTag}${i === tab.cards.length - 1 ? ` ${s.tabCardTagGreen}` : ""}`}
+              >
                 {card.tag}
               </span>
             </div>
@@ -66,31 +75,88 @@ export default function FacilitiesTabs() {
         <div className={s.vitalsBlobLeft} />
         <div className={s.vitalsBlobRight} />
         <div className={s.vitalsInner}>
-          <h2 className={s.vitalsHeading}>Critical Vitals are Automatically<br />Monitored Every Day &amp; Night</h2>
-          <p className={s.vitalsSubtitle}>Vital Buddy automatically monitors multiple vitals and biomarkers while providing critical health reminders and notifications:</p>
+          <h2 className={s.vitalsHeading}>
+            Critical Vitals are Automatically
+            <br />
+            Monitored Every Day &amp; Night
+          </h2>
+          <p className={s.vitalsSubtitle}>
+            Vital Buddy automatically monitors multiple vital signs and health
+            data while providing health reminders and threshold-based
+            notifications:
+          </p>
           <div className={s.vitalsGrid}>
             {[
-              { label: "Blood Pressure", src: "/images/facilities/critical-vitals/blood-pressure.svg" },
-              { label: "Heart Rate", src: "/images/facilities/critical-vitals/heart-rate.svg" },
-              { label: "Blood Oxygen", src: "/images/facilities/critical-vitals/blood-oxygen.svg" },
-              { label: "Pulse", src: "/images/facilities/critical-vitals/pulse.svg" },
-              { label: "Sleep Monitoring", src: "/images/facilities/critical-vitals/sleep-monitoring.svg" },
-              { label: "Daily Steps", src: "/images/facilities/critical-vitals/daily-steps.svg" },
-              { label: "Sedentary Alerts", src: "/images/facilities/critical-vitals/sedentary-alerts.svg" },
-              { label: "Calories", src: "/images/facilities/critical-vitals/calories.svg" },
-              { label: "Hydration Reminders", src: "/images/facilities/critical-vitals/hydration-reminders.svg" },
-              { label: "Heart Rate Variability\n(Coming soon)", src: "/images/facilities/critical-vitals/heart-rate-variablility.svg", comingSoon: true },
-              { label: "Temperature\n(Coming soon)", src: "/images/facilities/critical-vitals/temperature.svg", comingSoon: true },
+              {
+                label: "Blood Pressure",
+                src: "/images/facilities/critical-vitals/blood-pressure.svg",
+              },
+              {
+                label: "Heart Rate",
+                src: "/images/facilities/critical-vitals/heart-rate.svg",
+              },
+              {
+                label: "Blood Oxygen",
+                src: "/images/facilities/critical-vitals/blood-oxygen.svg",
+              },
+              {
+                label: "Pulse",
+                src: "/images/facilities/critical-vitals/pulse.svg",
+              },
+              {
+                label: "Sleep Monitoring",
+                src: "/images/facilities/critical-vitals/sleep-monitoring.svg",
+              },
+              {
+                label: "Daily Steps",
+                src: "/images/facilities/critical-vitals/daily-steps.svg",
+              },
+              {
+                label: "Sedentary Alerts",
+                src: "/images/facilities/critical-vitals/sedentary-alerts.svg",
+              },
+              {
+                label: "Calories",
+                src: "/images/facilities/critical-vitals/calories.svg",
+              },
+              {
+                label: "Hydration Reminders",
+                src: "/images/facilities/critical-vitals/hydration-reminders.svg",
+              },
+              {
+                label: "Heart Rate Variability\n(Coming soon)",
+                src: "/images/facilities/critical-vitals/heart-rate-variablility.svg",
+                comingSoon: true,
+              },
+              {
+                label: "Temperature\n(Coming soon)",
+                src: "/images/facilities/critical-vitals/temperature.svg",
+                comingSoon: true,
+              },
             ].map((vital, i) => (
               <div key={i} className={s.vitalItem}>
-                <div className={`${s.vitalIconRing}${vital.comingSoon ? ` ${s.vitalIconRingMuted}` : ""}`}>
+                <div
+                  className={`${s.vitalIconRing}${vital.comingSoon ? ` ${s.vitalIconRingMuted}` : ""}`}
+                >
                   <div className={s.vitalIconCircle}>
-                    {vital.src && <Image src={vital.src} alt={vital.label} width={36} height={36} />}
+                    {vital.src && (
+                      <Image
+                        src={vital.src}
+                        alt={vital.label}
+                        width={36}
+                        height={36}
+                      />
+                    )}
                   </div>
                 </div>
-                <p className={`${s.vitalLabel}${vital.comingSoon ? ` ${s.vitalLabelMuted}` : ""}`}>
+                <p
+                  className={`${s.vitalLabel}${vital.comingSoon ? ` ${s.vitalLabelMuted}` : ""}`}
+                >
                   {vital.label.split("\n").map((line, j) => (
-                    <span key={j}>{line}{j < vital.label.split("\n").length - 1 && <br />}</span>
+                    <span key={j}>
+                      {line}
+                      {j < vital.label.split("\n").length - 1 && <br />}
+                    </span>
                   ))}
                 </p>
               </div>
@@ -104,11 +170,14 @@ export default function FacilitiesTabs() {
         <div className={s.insuranceCard}>
           <div className={s.insuranceContent}>
             <div className={s.insuranceBadge}>
-              <span className={s.insuranceBadgeText}>Insurance Coverage</span>
+              <span className={s.insuranceBadgeText}>
+                Reimbursement Eligibility
+              </span>
             </div>
             <h2 className={s.insuranceHeading}>
-              <span className={s.insuranceHeadingGradient}>Vital Buddy costs your residents</span>{" "}
-              <strong>nothing</strong>
+              <span className={s.insuranceHeadingGradient}>
+                Vital Buddy may be eligible for reimbursement{" "}
+              </span>
             </h2>
             <p className={s.insuranceBody}>{tab.insuranceBody}</p>
             <Link href="/contactUs" className={s.insuranceBtn}>

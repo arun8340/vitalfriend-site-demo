@@ -103,10 +103,10 @@ export interface FAQ {
 export const faqs: FAQ[] = [
   {
     q: "my readings are off",
-    a: "If your readings seem off, make sure the BUDDI wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
+    a: "If your readings seem off, make sure the Vital Buddy wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
   },
   {
-    q: "what if Buddi isn't worn?",
+    q: "what if Vital Buddy isn't worn?",
     a: "Yes, you can conveniently monitor the status of your order or service progress within a few hours. Your order will track.",
   },
   {
