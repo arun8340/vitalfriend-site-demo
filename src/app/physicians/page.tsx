@@ -434,18 +434,20 @@ export default function PhysiciansPage() {
       ══════════════════════════ */}
       <section className={s.compareSection}>
         <div className={s.compareInner}>
-          <h2 className={s.compareHeading}>
-            Most Monitoring Solutions Create Noise,
-            <br />
-            Friction, or Poor Adherence
-          </h2>
-          <p className={s.compareSubtitle}>
-            Vital Buddy is unlike any other traditional RPM program as it is
-            comfortable and convenient to use every day. It&apos;s also a
-            medical-grade device that provides clinically-relevant data streams
-            to care teams throughout the day and night. There&apos;s never been
-            anything like it available to a broad population of patients.
-          </p>
+          <div className={s.compareHeadingGroup}>
+            <h2 className={s.compareHeading}>
+              Most Monitoring Solutions Create Noise,
+              <br />
+              Friction, or Poor Adherence
+            </h2>
+            <p className={s.compareSubtitle}>
+              Vital Buddy is unlike any other traditional RPM program as it is
+              comfortable and convenient to use every day. It&apos;s also a
+              medical-grade device that provides clinically-relevant data streams
+              to care teams throughout the day and night. There&apos;s never been
+              anything like it available to a broad population of patients.
+            </p>
+          </div>
           <div className={s.compareTable}>
             <div className={s.compareThead}>
               <div className={`${s.compareTh} ${s.compareThFeature}`}>
