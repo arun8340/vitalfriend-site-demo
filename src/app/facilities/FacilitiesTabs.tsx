@@ -12,6 +12,8 @@ export default function FacilitiesTabs() {
 
   return (
     <>
+      {/* Tabs + Cards */}
+      <div className={s.tabsTabsAndCards}>
       {/* Tab pills */}
       <div className={s.tabPills}>
         {tabs.map((t, i) => (
@@ -32,30 +34,35 @@ export default function FacilitiesTabs() {
             key={i}
             className={`${s.tabCard}${i === tab.cards.length - 1 ? ` ${s.tabCardLast}` : ""}`}
           >
-            <div className={s.tabCardIcon}>
-              {card.iconSrc ? (
-                <Image
-                  src={card.iconSrc}
-                  alt={card.title}
-                  width={40}
-                  height={40}
-                />
-              ) : (
-                card.icon
-              )}
-            </div>
-            <h3 className={s.tabCardTitle}>{card.title}</h3>
-            <p className={s.tabCardDesc}>{card.desc}</p>
-            <div className={s.tabCardTagWrapper}>
-              <span
-                className={`${s.tabCardTag}${i === tab.cards.length - 1 ? ` ${s.tabCardTagGreen}` : ""}`}
-              >
-                {card.tag}
-              </span>
+            <div className={s.tabCardContent}>
+              <div className={s.tabCardTopGroup}>
+                <div className={s.tabCardIcon}>
+                  {card.iconSrc ? (
+                    <Image
+                      src={card.iconSrc}
+                      alt={card.title}
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    card.icon
+                  )}
+                </div>
+                <h3 className={s.tabCardTitle}>{card.title}</h3>
+                <p className={s.tabCardDesc}>{card.desc}</p>
+              </div>
+              <div className={s.tabCardTagWrapper}>
+                <span
+                  className={`${s.tabCardTag}${i === tab.cards.length - 1 ? ` ${s.tabCardTagGreen}` : ""}`}
+                >
+                  {card.tag}
+                </span>
+              </div>
             </div>
           </div>
         ))}
       </div>
+      </div>{/* end tabsTabsAndCards */}
 
       {/* CTA Banner — changes per tab */}
       <div className={s.ctaBannerOuter} style={{ padding: "40px 0 40px" }}>
@@ -75,16 +82,14 @@ export default function FacilitiesTabs() {
         <div className={s.vitalsBlobLeft} />
         <div className={s.vitalsBlobRight} />
         <div className={s.vitalsInner}>
-          <h2 className={s.vitalsHeading}>
-            Critical Vitals are Automatically
-            <br />
-            Monitored Every Day &amp; Night
-          </h2>
-          <p className={s.vitalsSubtitle}>
-            Vital Buddy automatically monitors multiple vital signs and health
-            data while providing health reminders and threshold-based
-            notifications:
-          </p>
+          <div className={s.vitalsHeadingGroup}>
+            <h2 className={s.vitalsHeading}>
+              Critical Vitals are Automatically Monitored Every Day &amp; Night
+            </h2>
+            <p className={s.vitalsSubtitle}>
+              Vital Buddy automatically monitors multiple vitals and biomarkers while providing critical health reminders and notifications:
+            </p>
+          </div>
           <div className={s.vitalsGrid}>
             {[
               {
@@ -166,7 +171,7 @@ export default function FacilitiesTabs() {
       </div>
 
       {/* Insurance Section — changes per tab */}
-      <div className={s.insuranceOuter} style={{ padding: "80px 0 40px" }}>
+      <div className={s.insuranceOuter} style={{ padding: "16px 0 0" }}>
         <div className={s.insuranceCard}>
           <div className={s.insuranceContent}>
             <div className={s.insuranceBadge}>
@@ -175,9 +180,8 @@ export default function FacilitiesTabs() {
               </span>
             </div>
             <h2 className={s.insuranceHeading}>
-              <span className={s.insuranceHeadingGradient}>
-                Vital Buddy may be eligible for reimbursement{" "}
-              </span>
+              Vital Buddy costs your residents{" "}
+              <strong style={{ color: "#000000" }}>nothing</strong>
             </h2>
             <p className={s.insuranceBody}>{tab.insuranceBody}</p>
             <Link href="/contactUs" className={s.insuranceBtn}>
@@ -197,15 +201,20 @@ export default function FacilitiesTabs() {
 
       {/* Stats Section — changes per tab */}
       <div className={s.statsSection}>
-        <h2 className={s.statsHeading}>Demonstrated Value</h2>
-        <p className={s.statsSubtitle}>{tab.statsSubtitle}</p>
         <div className={s.statsInner}>
-          {tab.stats.map((stat, i) => (
-            <div key={i} className={s.statItem}>
-              <p className={s.statNumber}>{stat.number}</p>
-              <p className={s.statLabel}>{stat.label}</p>
-            </div>
-          ))}
+          <div className={s.statsHeadingGroup}>
+            <h2 className={s.statsHeading}>Demonstrated Value</h2>
+            <p className={s.statsSubtitle}>{tab.statsSubtitle}</p>
+          </div>
+          <div className={s.statsData}>
+            {tab.stats.flatMap((stat, i) => [
+              i > 0 ? <div key={`div-${i}`} className={s.statDivider} /> : null,
+              <div key={`stat-${i}`} className={s.statItem}>
+                <p className={s.statNumber}>{stat.number}</p>
+                <p className={s.statLabel}>{stat.label}</p>
+              </div>,
+            ]).filter(Boolean)}
+          </div>
         </div>
       </div>
     </>

@@ -41,7 +41,7 @@ export default function AboutPage() {
               Buddy is a sophisticated medical device disguised as an attractive
               smart watch, and unlocks a care team&apos;s ability to deliver
               real-time, proactive care that generates better outcomes for
-              everyone. Our Vital Insights platform delivers structured health
+              everyone. Our VitalFriend monitoring platform delivers structured health
               data to clinical experts, supported by vital trend review tools to
               help review trends and deviations. We&apos;re revolutionizing
               senior health and we&apos;re just getting started.

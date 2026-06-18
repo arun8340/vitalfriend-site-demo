@@ -9,7 +9,6 @@ import {
   differenceItems,
 } from "./data";
 import styles from "./homepage.module.css";
-import platformStyles from "./platform/platform.module.css";
 import HeroCarousel from "./hero_carousel";
 
 export const metadata: Metadata = {
@@ -163,14 +162,14 @@ export default function HomePage() {
             </div>
 
             <p className={styles["hp-hero__description"]}>
-              VitalBuddy is a revolutionary monitoring device that tracks blood
-              pressure and selected vital signs for review by care teams. It
-              enables continuous, hassle-free vital signs tracking for seniors
-              and individuals with chronic health conditions.
+              Vital Buddy is a wearable monitoring device that tracks blood pressure
+              and selected vital signs for review by care teams.
+              Vital Buddy supports ongoing vital signs tracking for
+              seniors and individuals managing chronic health conditions.
             </p>
             <p className={styles["hp-hero__description"]}>
-              Clinicians utilize our platform to review over 1,000 daily health
-              data points and view deviations from personal health baselines.
+              Clinicians can review daily health data, vital sign trends,
+              and deviations from personal baselines through the VitalFriend platform.
               Care teams and families get a real-time picture of each
               senior&apos;s health, so they know what&apos;s happening and can
               step in early.
@@ -209,7 +208,7 @@ export default function HomePage() {
                 Schedule a Demo
               </Link>
               <Link href="/platform" className={styles["hp-btn-outline"]}>
-                Explore the Platform
+                Explore Platform
               </Link>
             </div>
           </div>
@@ -222,12 +221,12 @@ export default function HomePage() {
       ═══════════════════════════════ */}
 
       <section
-        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]} ${styles["hp-section--no-pb"]}`}
       >
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
             <h2 className={styles["hp-section-header__title-gradient"]}>
-              A Comfortable Wearable Medical <br /> Device for Daily Use
+              Comfortable Enough to Wear All Day. <br /> Smart Enough to Make a Difference.
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
               Designed for all-day wear, Vital Buddy stands out among
@@ -239,15 +238,12 @@ export default function HomePage() {
             </p>
             <p className={styles["hp-section-header__subtitle"]}>
               Beneath its simple design lies professional medical technology:
-              FDA- Cleared (510(k)) monitoring functions, patented medical-grade
-              sensors, plus a platform enabling communication between caregivers
-              and users. <br /> Our patented medical-grade technology is
-              eligible for reimbursement via Medicare and most private insurance
-              plans*.
+              FDA-cleared (510(k)) monitoring functions and wrist-worn sensor technology, plus a platform enabling communication between caregivers
+              and users. May be eligible for reimbursement through Medicare RPM programs and certain private insurance plans when applicable requirements are met.
             </p>
             <div className={styles["hp-buddi__image-wrap"]}>
               <Image
-                src="images/BUDDI-series.png"
+                src="images/buddy-hippa.png"
                 alt="VitalFriend platform product snapshot"
                 width={693}
                 height={525}
@@ -256,17 +252,9 @@ export default function HomePage() {
               />
             </div>
             <div className={styles["hp-buddi__cta-row"]}>
-              <Link href="/contactUs" className={styles["hp-btn-primary"]}>
+              <Link href="/contactUs" className={styles["hp-buddi__btn"]}>
                 Get a Vital Buddy
               </Link>
-              <Image
-                src="/images/hipaa-badge.png"
-                alt="HIPAA Compliant"
-                width={120}
-                height={72}
-                className={styles["hp-buddi__hipaa-badge"]}
-                unoptimized
-              />
             </div>
           </div>
         </div>
@@ -276,67 +264,65 @@ export default function HomePage() {
           HOW VITAL BUDDY WORKS
       ═══════════════════════════════ */}
       <section className={styles["howSection"]}>
-        <div className={platformStyles.howInner}>
-          <div className={platformStyles.howHeader}>
-            <h2 className={platformStyles.howTitle}>How Vital Buddy Works</h2>
-            <p className={platformStyles.howSubtitle}>
+        <div className={styles["hp-how__inner"]}>
+          <div className={styles["hp-how__header"]}>
+            <h2 className={styles["hp-how__title"]}>How Vital Buddy Works</h2>
+            <p className={styles["hp-how__subtitle"]}>
               Clear, five-step process: From Vital Buddy on the wrist to care
-              delivered — it&apos;s completely managed by our teams to
-              streamline <br />
-              the process and close the loop on care.
+              delivered, it&apos;s completely managed by our teams to
+              streamline the process and close the loop on care.
             </p>
           </div>
 
-          <div className={platformStyles.howCards}>
+          <div className={styles["hp-how__cards"]}>
             {workSteps.map((step, index) => (
               <Fragment key={step.step}>
-                <div className={platformStyles.howCard}>
+                <div className={styles["hp-how__card"]}>
                   <div
-                    className={platformStyles.howIconBox}
+                    className={styles["hp-how__icon-box"]}
                     style={{
                       background: `linear-gradient(135deg, ${step.gradientFrom} 0%, ${step.gradientTo} 100%)`,
                     }}
                   >
                     <Image
                       src={step.iconSrc}
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                       alt=""
                       unoptimized
                     />
                   </div>
-                  <span className={platformStyles.howStep}>{step.step}</span>
-                  <h3 className={platformStyles.howCardTitle}>{step.title}</h3>
-                  <p className={platformStyles.howCardBody}>
+                  <span className={styles["hp-how__step"]}>{step.step}</span>
+                  <h3 className={styles["hp-how__card-title"]}>{step.title}</h3>
+                  <p className={styles["hp-how__card-body"]}>
                     {step.description}
                   </p>
                 </div>
                 {index < workSteps.length - 1 && (
-                  <div className={platformStyles.howConnector} />
+                  <div className={styles["hp-how__connector"]} />
                 )}
               </Fragment>
             ))}
           </div>
 
-          <div className={platformStyles.howBanner}>
-            <p className={platformStyles.howBannerLabel}>
+          <div className={styles["hp-how__banner"]}>
+            <p className={styles["hp-how__banner-label"]}>
               Integrated monitoring platform delivers
             </p>
-            <p className={platformStyles.howBannerHighlight}>
+            <p className={styles["hp-how__banner-highlight"]}>
               More Organized Data + Ongoing Review = Greater Health Data
               Transparency
             </p>
           </div>
 
-          <div className={platformStyles.howCta}>
-            <h2 className={platformStyles.howCtaTitle}>
+          <div className={styles["hp-how__cta"]}>
+            <h2 className={styles["hp-how__cta-title"]}>
               Ready to enhance senior care?
             </h2>
-            <p className={platformStyles.howCtaBody}>
-              Trusted by healthcare providers for ongoing tracking of vital
-              signs changes.
+            <p className={styles["hp-how__cta-body"]}>
+              Supporting ongoing review of vital sign changes by healthcare providers.
             </p>
-            <Link href="/contactUs" className={platformStyles.howCtaBtn}>
+            <Link href="/contactUs" className={styles["hp-how__cta-btn"]}>
               Get Started with Vital Buddy
             </Link>
           </div>
@@ -361,8 +347,7 @@ export default function HomePage() {
                 <Image
                   src={section.imageSrc}
                   alt={section.imageAlt}
-                  width={607}
-                  height={477}
+                  fill
                   style={{ objectFit: "cover" }}
                   unoptimized
                 />
@@ -377,35 +362,37 @@ export default function HomePage() {
                   {section.badge}
                 </span>
 
-                <div className={styles["hp-audience__heading"]}>
-                  <h2 className={styles["hp-audience__heading-gradient"]}>
-                    {section.headingGradient}
-                  </h2>
-                  <h3 className={styles["hp-audience__heading-black"]}>
-                    {section.headingBlack}
-                  </h3>
+                <div className={styles["hp-audience__text-group"]}>
+                  <div className={styles["hp-audience__heading"]}>
+                    <h2 className={styles["hp-audience__heading-gradient"]}>
+                      {section.headingGradient}
+                    </h2>
+                    <h3 className={styles["hp-audience__heading-black"]}>
+                      {section.headingBlack}
+                    </h3>
+                  </div>
+
+                  <p className={styles["hp-audience__description"]}>
+                    {section.description}
+                  </p>
+
+                  <ul className={styles["hp-audience__features"]}>
+                    {section.features.map((f, fi) => (
+                      <li key={fi} className={styles["hp-audience__feature"]}>
+                        <span className={styles["hp-audience__feature-icon"]}>
+                          <FeatureCheck />
+                        </span>
+                        <span className={styles["hp-audience__feature-text"]}>
+                          {f.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link href={section.href} className={styles["hp-audience__btn"]}>
+                    Learn More
+                  </Link>
                 </div>
-
-                <p className={styles["hp-audience__description"]}>
-                  {section.description}
-                </p>
-
-                <ul className={styles["hp-audience__features"]}>
-                  {section.features.map((f, fi) => (
-                    <li key={fi} className={styles["hp-audience__feature"]}>
-                      <span className={styles["hp-audience__feature-icon"]}>
-                        <FeatureCheck />
-                      </span>
-                      <span className={styles["hp-audience__feature-text"]}>
-                        {f.text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link href={section.href} className={styles["hp-btn-outline"]}>
-                  Learn More
-                </Link>
               </div>
             </div>
           </div>
@@ -424,14 +411,15 @@ export default function HomePage() {
               Vital Buddy vs. Conventional Monitoring Equipment
             </span>
             <h2 className={styles["hp-section-header__title-black"]}>
-              Side-by-Side Comparison.
+              All-in-One Design
             </h2>
             <h2 className={styles["hp-section-header__title-black"]}>
-              All-in-One Wrist-Worn Design
+              Side-by-Side Comparison
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
-              Vital Buddy gives care teams, physicians, and families access to
-              all the data they need, all at one wrist.
+              Vital Buddy replaces a cart of single-purpose instruments with one
+              connected stream of vitals so staff, families, and physicians get
+              the visibility they need, exactly when they need it.
             </p>
           </div>
 
@@ -451,15 +439,10 @@ export default function HomePage() {
                   <Image
                     src="/images/watch-02.svg"
                     alt="Watch icon representing Vital Buddy"
-                    width={30}
-                    height={30}
-                    style={{
-                      marginRight: 8,
-                      display: "inline",
-                      verticalAlign: "middle",
-                    }}
+                    width={28}
+                    height={46}
                   />
-                  Vital Buddy
+                  <span>Vital Buddy</span>
                 </div>
               </div>
               <div
@@ -470,15 +453,10 @@ export default function HomePage() {
                   <Image
                     src="/images/cardiogram-01.svg"
                     alt="Cardiogram icon representing conventional medical equipment"
-                    width={30}
-                    height={30}
-                    style={{
-                      marginRight: 8,
-                      display: "inline",
-                      verticalAlign: "middle",
-                    }}
+                    width={23}
+                    height={22}
                   />
-                  Conventional Medical Equipment
+                  <span>Conventional Medical Equipment</span>
                 </div>
               </div>
             </div>
@@ -525,7 +503,7 @@ export default function HomePage() {
           THE VITALFRIEND DIFFERENCE
       ═══════════════════════════════ */}
       <section
-        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]}`}
+        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]} ${styles["hp-section--difference"]}`}
       >
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
@@ -556,7 +534,7 @@ export default function HomePage() {
           PLATFORM / PRODUCT SNAPSHOT
       ═══════════════════════════════ */}
       <section
-        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
+        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]} ${styles["hp-section--platform"]}`}
       >
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
@@ -565,8 +543,9 @@ export default function HomePage() {
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
               VitalFriend&apos;s unique ability to collect a steady stream of
-              real-time vitals, day and night, providing a comprehensive health
-              picture of a senior or patient anywhere in the world.
+              real-time vitals, day and night, is unparalleled in its ability to
+              provide a comprehensive health picture of a senior or patient
+              anywhere in the world.
             </p>
             {/* <Link href="/scheduleDemo" className={styles["hp-btn-outline"]}>
               Watch a Demo
@@ -599,7 +578,7 @@ export default function HomePage() {
       ═══════════════════════════════ */}
 
       <section
-        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]}`}
+        className={`${styles["hp-section"]} ${styles["hp-section--green-bg"]} ${styles["hp-section--cta"]}`}
       >
         <div className={styles["hp-section__inner"]}>
           <div className={styles["hp-section-header"]}>
@@ -616,9 +595,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section
-        className={`${styles["hp-section"]} ${styles["hp-section--white-bg"]}`}
-      ></section>
     </div>
   );
 }

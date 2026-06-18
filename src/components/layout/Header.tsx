@@ -33,42 +33,23 @@ export default function Header() {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 w-full">
-      <div className="h-[50px] bg-white">
-        <div className="mx-auto flex h-[50px] w-full max-w-[1344px] items-center justify-end gap-[41px] px-5 lg:px-12">
-          <Link
-            href="/support"
-            className="flex h-[50px] w-[54px] items-center text-[#18181B] transition-colors hover:text-[#E15D77]"
-            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px", letterSpacing: 0 }}
-          >
-            Support
-          </Link>
-          <a
-            href="tel:+18557427300"
-            className="flex h-[50px] w-[146px] items-center whitespace-nowrap text-[#18181B] transition-colors hover:text-[#E15D77]"
-            style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px", letterSpacing: 0 }}
-          >
-            Call: 1 (855) 742 7300
-          </a>
-        </div>
-      </div>
-
-      <div className="rounded-b-lg bg-[#FFFFFFE3] px-2.5 py-4 backdrop-blur-[10px]">
-        <div className="mx-auto flex h-[65.510902px] w-full max-w-[1344px] items-center justify-between px-5 lg:px-12">
+      <div className="rounded-md bg-[#FFFFFFE3] px-[7.5px] py-3 backdrop-blur-[7.5px]">
+        <div className="mx-auto flex h-[49.134px] w-full max-w-356.25 items-center justify-between px-4 lg:px-35.5">
           {/* Logo */}
-          <Link href="/" className="flex h-[65.510902px] w-[220px] shrink-0 items-center lg:w-[300px]">
+          <Link href="/" className="flex h-[49.134px] w-56.25 shrink-0 items-center">
             <Image
               src="/images/full-logo.svg"
               alt="VitalFriend"
-              width={300}
-              height={66}
+              width={225}
+              height={49}
               className="h-auto w-full"
               priority
             />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden h-[50px] w-[834px] items-center justify-between gap-11 lg:flex">
-            <div className="flex h-[50px] w-[608px] items-center gap-6">
+          <nav className="hidden h-[37.5px] w-156.75 items-center gap-8.25 lg:flex">
+            <div className="flex h-[37.5px] w-114.25 items-center gap-4.5">
               {navLinks.map((link) => {
                 const isActive =
                   link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -76,10 +57,10 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative flex h-[50px] items-center whitespace-nowrap border-b-2 transition-colors ${
+                    className={`relative flex h-[37.5px] items-center whitespace-nowrap border-b-2 transition-colors ${
                       isActive ? "border-[#E15D77] text-[#E15D77]" : "border-transparent text-[#18181B] hover:text-[#E15D77]"
                     }`}
-                    style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px", letterSpacing: 0 }}
+                    style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, lineHeight: "18px", letterSpacing: 0 }}
                   >
                     {link.label}
                   </Link>
@@ -90,8 +71,8 @@ export default function Header() {
             {/* Get a Vital Buddy button */}
             <button
               onClick={() => setModalOpen(true)}
-              className="flex h-[50px] w-[182px] items-center justify-center whitespace-nowrap rounded-lg border-2 border-[#E15D77] px-5 py-4 text-[#E15D77] transition-colors hover:bg-[#E15D77] hover:text-white"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px", letterSpacing: 0 }}
+              className="flex h-[37.5px] w-34.25 items-center justify-center whitespace-nowrap rounded-md border-[1.5px] border-[#E15D77] px-4.5 py-3 text-[#E15D77] transition-colors hover:bg-[#E15D77] hover:text-white"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, lineHeight: "18px", letterSpacing: 0 }}
             >
               Get a Vital Buddy
             </button>
@@ -118,7 +99,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="absolute left-2.5 right-2.5 top-[147.510902px] flex flex-col rounded-b-lg border-t border-border bg-white px-6 pb-5 pt-3 shadow-lg lg:hidden">
+        <div className="absolute left-[7.5px] right-[7.5px] top-18.25 flex flex-col rounded-b-lg border-t border-border bg-white px-6 pb-5 pt-3 shadow-lg lg:hidden">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -137,7 +118,7 @@ export default function Header() {
             );
           })}
           <div className="mt-4 flex flex-col gap-3">
-            <Link
+            {/* <Link
               href="/support"
               className="text-[#374151]"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
@@ -151,7 +132,7 @@ export default function Header() {
               style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 400, lineHeight: "24px" }}
             >
               Call: 1 (855) 742 7300
-            </a>
+            </a> */}
             <button
               className="border-2 border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
               style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px" }}

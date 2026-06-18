@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
+const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta-sans" });
 
 export const metadata: Metadata = {
   title: {
-    default: "VitalFriend® | Remote Health Monitoring for Senior Care",
-    template: "%s | VitalFriend®",
+    default: "VitalFriend | Remote Health Monitoring for Senior Care",
+    template: "%s | VitalFriend",
   },
   description:
-    "VitalFriend® is an AI-powered vitals monitoring platform built for Assisted Living Facilities. Real-time insights for better senior care outcomes.",
+    "VitalFriend is an AI-powered vitals monitoring platform built for Assisted Living Facilities. Real-time insights for better senior care outcomes.",
   keywords: [
     "remote health monitoring",
     "vitals monitoring",
@@ -26,29 +27,37 @@ export const metadata: Metadata = {
   creator: "VitalFriend, Inc",
   metadataBase: new URL("https://vitalfriend.com"),
   alternates: { canonical: "https://vitalfriend.com" },
+  icons: {
+    icon: [
+      { url: "/images/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/images/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://vitalfriend.com",
-    siteName: "VitalFriend®",
-    title: "VitalFriend® | Remote Health Monitoring for Senior Care",
+    siteName: "VitalFriend",
+    title: "VitalFriend | Remote Health Monitoring for Senior Care",
     description:
       "AI-powered vitals monitoring platform built for Assisted Living Facilities.",
     images: [
       {
-        url: "/images/full-logo.svg",
-        width: 800,
-        height: 200,
-        alt: "VitalFriend®",
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "VitalFriend",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "VitalFriend® | Remote Health Monitoring for Senior Care",
+    title: "VitalFriend | Remote Health Monitoring for Senior Care",
     description:
       "AI-powered vitals monitoring platform built for Assisted Living Facilities.",
-    images: ["/images/full-logo.svg",],
+    images: ["/images/og-image.png"],
   },
 };
 
@@ -89,10 +98,10 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${manrope.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
+        className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
       >
         <Header />
-        <main className="flex-1 pt-[147.510902px]">{children}</main>
+        <main className="flex-1 pt-[73.134px]">{children}</main>
         <Footer />
       </body>
     </html>
