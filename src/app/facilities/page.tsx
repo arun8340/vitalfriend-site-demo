@@ -24,22 +24,26 @@ export default function FacilitiesPage() {
           <div className={s.heroBadge}>
             <span className={s.heroBadgeText}>For Senior Care Facilities</span>
           </div>
-          <h1 className={s.heroTitle}>
-            <span className={s.heroTitleGradient}>Continuous Health Monitoring</span>
-            <br />
-            <span className={s.heroTitleGradient}>Across Senior Care</span>
-          </h1>
-          <p className={s.heroSubtitle}>
-            The Vital Buddy wearable monitors vitals across all levels of senior care, giving staff, families, and physicians timely visibility into resident health data.
-          </p>
-          <div className={s.heroBtns}>
-            <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
-              Schedule a Free Demo
-            </Link>
+          <div className={s.heroHeadingGroup}>
+            <h1 className={s.heroTitle}>
+              <span className={s.heroTitleGradient}>Continuous Health Monitoring</span>
+              <br />
+              <span className={s.heroTitleGradient}>Across Senior Care</span>
+            </h1>
+            <p className={s.heroSubtitle}>
+              The Vital Buddy wearable monitors vitals across all levels of senior care, giving staff, families, and physicians timely visibility into resident health data.
+            </p>
           </div>
-          <p className={s.heroFinePrint}>
-            Eligible for reimbursement under Medicare RPM codes
-          </p>
+          <div className={s.heroCTAGroup}>
+            <div className={s.heroBtns}>
+              <Link href="/scheduleDemo" className={s.heroBtnPrimary}>
+                Schedule a Free Demo
+              </Link>
+            </div>
+            <p className={s.heroFinePrint}>
+              Eligible for reimbursement under Medicare RPM codes
+            </p>
+          </div>
           <div className={s.heroImageWrapper}>
             <Image
               src="/images/facilities_sleepingWomen.png"
@@ -56,14 +60,12 @@ export default function FacilitiesPage() {
       {/* ── Vital Buddy Works Across ── */}
       <section className={s.tabsSection} id="care-levels">
         <div className={s.tabsInner}>
-          <div className={s.tabsBadgeWrapper}>
+          <div className={s.tabsHeaderGroup}>
             <span className={s.tabsBadge}>Find Your Facility Type</span>
+            <h2 className={s.tabsHeading}>
+              Vital Buddy works across every level of care.
+            </h2>
           </div>
-          <h2 className={s.tabsHeading}>
-            <span className={s.tabsHeadingGradient}>Vital Buddy works across</span><span className={s.tabsHeadingBlack}> every</span>
-            <br />
-            <span className={s.tabsHeadingBlack}> level of care.</span>
-          </h2>
           <FacilitiesTabs />
         </div>
       </section>
@@ -90,7 +92,7 @@ export default function FacilitiesPage() {
                       <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.9"/>
                     </svg>
                   </div>
-                  <div>
+                  <div className={s.testimonialNameGroup}>
                     <p className={s.testimonialName}>{t.name}</p>
                     <p className={s.testimonialRole}>{t.role}</p>
                     <p className={s.testimonialFacility}>{t.facility}</p>
@@ -127,7 +129,7 @@ export default function FacilitiesPage() {
           {/* Right: heading + body */}
           <div className={s.certRight}>
             <h2 className={s.certHeading}>
-              <span className={s.certHeadingGradient}>Turn technology into a</span>
+              <span className={s.certHeadingGradient}>Turn Vital Buddy into a</span>
               <br />
               <strong>competitive advantage</strong>
             </h2>
@@ -146,14 +148,15 @@ export default function FacilitiesPage() {
       {/* ── Deployment Steps ── */}
       <section className={s.deploySection}>
         <div className={s.deployInner}>
-          <div className={s.deployBadgeWrapper}>
-            <span className={s.deployBadge}>Getting Started</span>
+          <div className={s.deployHeaderGroup}>
+            <div className={s.deployBadgeWrapper}>
+              <span className={s.deployBadge}>Getting Started</span>
+            </div>
+            <h2 className={s.deployHeading}>
+              <span className={s.deployHeadingGradient}>From demo to deployment</span><br />
+              <span className={s.deployHeadingGradient}>in days,</span> <strong>not months</strong>
+            </h2>
           </div>
-          <h2 className={s.deployHeading}>
-            <span className={s.deployHeadingGradient}>From demo to deployment in days,</span>
-            <br />
-            <strong>not months</strong>
-          </h2>
           <div className={s.deploySteps}>
             {deploySteps.map((step, i) => (
               <div key={i} className={s.deployStep}>
@@ -186,27 +189,31 @@ export default function FacilitiesPage() {
 
       {/* ── Final CTA ── */}
       <section className={s.finalCtaSection}>
-        <div className={s.finalCtaBadgeWrapper}>
+        <div className={s.finalCtaInner}>
           <span className={s.finalCtaBadge}>Take the Next Step</span>
-        </div>
-        <h2 className={s.finalCtaHeading}>
-          Ready to give your residents
-          <br />
-          the care they <strong className={s.finalCtaHeadingBlack}>deserve?</strong>
-        </h2>
-        <p className={s.finalCtaSubtitle}>
-          Schedule a 20-minute demo with a VitalFriend specialist. We&apos;ll walk you through the Vital Buddy
-          experience, tailored to your facility type, and answer every question your team has.
-        </p>
-        <div className={s.finalCtaBtns}>
-          <Link href="/scheduleDemo" className={s.finalCtaBtnPrimary}>
-            Schedule a Free Demo
-          </Link>
-        </div>
-        <div className={s.finalCtaFinePrint}>
-          <span>No commitment required</span>
-          <span>Insurance qualification included</span>
-          <span>Onboarding in days</span>
+          <div className={s.finalCtaContentGroup}>
+            <div className={s.finalCtaHeadingGroup}>
+              <h2 className={s.finalCtaHeading}>
+                <span className={s.finalCtaHeadingGradient}>Ready to give your residents</span>
+                <br />
+                <span className={s.finalCtaHeadingGradient}>the care they </span><strong className={s.finalCtaHeadingBlack}>deserve?</strong>
+              </h2>
+              <p className={s.finalCtaSubtitle}>
+                Schedule a 20-minute demo with a VitalFriend specialist. We&apos;ll walk you through the Vital Buddy
+                experience, tailored to your facility type, and answer every question your team has.
+              </p>
+            </div>
+            <div className={s.finalCtaBtns}>
+              <Link href="/scheduleDemo" className={s.finalCtaBtnPrimary}>
+                Schedule a Free Demo
+              </Link>
+            </div>
+            <div className={s.finalCtaFinePrint}>
+              <span>No commitment required</span>
+              <span>Insurance qualification included</span>
+              <span>Onboarding in days</span>
+            </div>
+          </div>
         </div>
       </section>
     </>

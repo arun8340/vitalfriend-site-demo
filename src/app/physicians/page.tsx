@@ -1,4 +1,3 @@
-import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -128,51 +127,53 @@ export default function PhysiciansPage() {
       ══════════════════════════ */}
       <section className={s.heroSection}>
         <div
-          className={`${s["hero__blob"]} ${s["hero__blob--blue"]}`}
+          className={`${s["hero__blob"]} ${s["hero__blob--green"]}`}
           aria-hidden="true"
         />
         <div
-          className={`${s["hero__blob"]} ${s["hero__blob--green"]}`}
+          className={`${s["hero__blob"]} ${s["hero__blob--blue"]}`}
           aria-hidden="true"
         />
         <div
           className={`${s["hero__blob"]} ${s["hero__blob--lightgreen"]}`}
           aria-hidden="true"
         />
-        <div
-          className={`${s["hero__blob"]} ${s["hero__blob--peach"]}`}
-          aria-hidden="true"
-        />
         <div className={s.heroInner}>
-          <div className={s.heroBadge}>
-            <span className={s.heroBadgeText}>
-              For Healthcare Professionals
-            </span>
+          <div className={s.heroTopGroup}>
+            <div className={s.heroBadge}>
+              <span className={s.heroBadgeText}>
+                For Healthcare Professionals
+              </span>
+            </div>
+            <h1 className={s.heroTitleGradient}>Physicians &amp; Clinicians</h1>
+            <p className={s.heroSubtitleSm}>
+              Clinical Intelligence for Automatic Patient Monitoring
+            </p>
           </div>
-          <h1 className={s.heroTitleGradient}>Physicians &amp; Clinicians</h1>
-          <p className={s.heroSubtitle}>
-            Clinical Intelligence for Automatic Patient Monitoring
-          </p>
-          <p className={s.heroSubtitle}>
-            VitalFriend&apos;s continuous healthcare monitoring platform
-            combines scheduled blood pressure measurements, heart rate, SpO₂,
-            temperature, sleep, activity, and intelligent notifications to
-            provide 24/7 visibility into patient health.
-          </p>
-          <p className={s.heroSubtitle}>
-            Our FDA-cleared Vital Buddy wearable provides data that helps
-            physicians improve outcomes, engage patients between visits, and
-            supports reimbursable RPM/RTM programs.
-          </p>
-          <div style={{ display: "flex", gap: 16 }}>
-            <Link href="/scheduleDemo" className={s.heroBtn}>
-              Schedue a Free Demo
-            </Link>
+          <div className={s.heroBottomGroup}>
+            <div className={s.heroDescGroup}>
+              <p className={s.heroSubtitleSm}>
+                VitalFriend&apos;s continuous healthcare monitoring platform
+                combines scheduled blood pressure measurements, heart rate,
+                SpO₂, temperature, sleep, activity, and intelligent
+                notifications to provide 24/7 visibility into patient health.
+              </p>
+              <p className={s.heroSubtitleSm}>
+                Our FDA-cleared Vital Buddy wearable provides data that helps
+                physicians improve outcomes, engage patients between visits, and
+                supports reimbursable RPM/RTM programs.
+              </p>
+            </div>
+            <div className={s.heroCtaGroup}>
+              <Link href="/scheduleDemo" className={s.heroBtn}>
+                Schedule a Free Demo
+              </Link>
+              <p className={s.heroCaveat}>
+                Covered by most major insurance plans · FDA-cleared BP + HR
+                monitoring
+              </p>
+            </div>
           </div>
-          <p className={s.heroCaveat}>
-            Covered by most major insurance plans · FDA-cleared BP + HR
-            monitoring
-          </p>
         </div>
       </section>
 
@@ -184,9 +185,9 @@ export default function PhysiciansPage() {
           <Image
             src="/images/doctor-visit-senior.png"
             alt="VitalFriend physician dashboard"
-            width={1024}
-            height={572}
-            style={{ width: "100%", height: "auto", borderRadius: 24 }}
+            width={768}
+            height={429}
+            style={{ width: "100%", maxWidth: 768, height: "auto", borderRadius: 18 }}
             unoptimized
           />
         </div>
@@ -201,9 +202,9 @@ export default function PhysiciansPage() {
             <Image
               src="/images/buddi-bp.png"
               alt="Vital Buddy wearable"
-              width={301}
-              height={568}
-              style={{ objectFit: "cover", width: "100%", height: "auto" }}
+              width={225}
+              height={426}
+              style={{ objectFit: "cover", width: "100%", maxWidth: 225.75, height: "auto" }}
               unoptimized
             />
           </div>

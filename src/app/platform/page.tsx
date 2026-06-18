@@ -556,9 +556,7 @@ export default function PlatformPage() {
           <div className={s.howCta}>
             <h2 className={s.howCtaTitle}>Ready to transform patient care?</h2>
             <p className={s.howCtaBody}>
-              Join healthcare providers who are catching critical events before
-              they <br />
-              become emergencies
+              Supporting ongoing review of vital sign changes by healthcare providers.
             </p>
             <Link href="/contactUs" className={s.howCtaBtn}>
               Chat with Us

@@ -30,7 +30,7 @@ export const workSteps: WorkStep[] = [
   {
     step: "STEP 3",
     title: "Clinicians Review",
-    description: "Platform tools help clinicians review vital signs trends and data deviations.",
+    description: "Trend visualization tools help clinicians review vital sign history.",
     gradientFrom: "#AD46FF",
     gradientTo: "#F6339A",
     iconSrc: "/images/platform/Vital-Buddy-Works/clinicians-interpret.svg",
@@ -78,12 +78,12 @@ export const audienceSections: AudienceSection[] = [
     badgeGradient: "linear-gradient(90deg, #2F5FF3 0%, #14AE5C 100%)",
     headingGradient: "Deliver Better Care",
     headingBlack: "and More Efficient Operations",
-    description: "We connect care teams, physicians and families on one unified platform, converting massive volumes of data into actionable insights to simplify workflows and support routine risk management.",
+    description: "We connect care teams, physicians and families on one unified platform, converting massive volumes of data into clear trend visualization for care team review, supporting routine monitoring and care coordination.",
     features: [
       { text: "Save hours of staff workload with automated monitoring" },
       { text: "Improve resident care with early notifications" },
       { text: "Keep families and physicians informed" },
-      { text: "Vital Buddy is eligible for Medicare and private insurance reimbursement*" },
+      { text: "May be eligible for Medicare RPM and certain private insurance reimbursement*" },
     ],
     imageSrc: "/images/caring-patient.png",
     imageAlt: "Nurse caring for senior patient",
@@ -99,7 +99,7 @@ export const audienceSections: AudienceSection[] = [
     description:
       "Monitor a steady stream of key vitals data on patients at risk when they’re not in the hospital, without adding to documentation or rounding burden.",
     features: [
-      { text: "Continuous visibility of vitals between visits" },
+      { text: "Ongoing visibility of vitals between visits" },
       { text: "Threshold-based notifications to support timely follow-up" },
       { text: "Reduced reliance on manual measurements" },
       { text: "Facilitates seamless care team coordination" },
@@ -116,10 +116,10 @@ export const audienceSections: AudienceSection[] = [
     headingGradient: "Get Peace of Mind",
     headingBlack: "Even When You're Not There",
     description:
-      "We deliver 24/7 vital signs tracking for your loved ones, sharing notable data changes with caregivers and clinicians for timely review.",
+      "Vital Buddy supports ongoing vital signs tracking for loved ones. Notable changes can be shared with caregivers and clinicians for review.",
     features: [
       { text: "24/7 monitoring keeps everyone informed" },
-      { text: "Vital Buddy® is easy to wear and care for" },
+      { text: "Vital Buddy is easy to wear and care for" },
       {
         text: "Threshold-based notifications for family and care teams when vital signs change",
       },
@@ -208,12 +208,12 @@ export const differenceItems: DifferenceItem[] = [
   {
     number: "1",
     description:
-      "An all-in-one platform integrating wearable devices, remote monitoring, billing and support services to improve efficiency for senior care facilities and patient care",
+      "An integrated platform combining wearable monitoring, remote data review, billing and operational support services to support senior care facility workflows and care coordination",
   },
   {
     number: "2",
     description:
-      "Revolutionary, comfortable Vital Buddy® increases adherence, eliminates the need for expensive services and medical equipment",
+      "Revolutionary, comfortable Vital Buddy increases adherence, eliminates the need for expensive services and medical equipment",
   },
   {
     number: "3",

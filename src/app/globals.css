@@ -36,8 +36,35 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
 }
 
+:root {
+  --pink: #E15D77;
+  --pink-dark: #EC003F;
+  --pink-mid: #E60076;
+  --pink-light: #FCE7F3;
+  --blue: #4D9AF1;
+  --blue-light: #EEF6FF;
+  --grad-teal: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  --grad-pink: linear-gradient(90deg, #E60076 0%, #EC003F 100%);
+  --grad-purple: linear-gradient(133.92deg, #6E70FF 14.29%, #D393F1 85.29%);
+  --grad-blue-green: linear-gradient(254.89deg, #4480FB 10.78%, #E04C97 88.04%);
+  --grad-banner: linear-gradient(110.5deg, #94C155 21.84%, #4D9AF1 94.48%);
+  --neutral-900: #15171C;
+  --neutral-800: #252C32;
+  --neutral-600: #4A5565;
+  --neutral-500: #6A7282;
+  --neutral-200: #E5E7EB;
+  --neutral-100: #F3F4F6;
+  --white: #FFFFFF;
+  --max-w: 1400px;
+  --section-gap: 213px;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
@@ -46,6 +73,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Enhanced button styles */
