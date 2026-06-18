@@ -114,8 +114,8 @@
 }
 
 .heroImageWrapper {
-  width: 1024px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1024px;
   margin-top: 12px;
 }
 
@@ -737,7 +737,6 @@
   color: #000000;
   display: block;
   margin: 0 0 24px;
-  white-space: nowrap;
 }
 
 .dataDrivenBody {
@@ -1027,4 +1026,50 @@
   line-height: 100%;
   color: #5F9AE2;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 40px 16px 48px;
+  }
+  .heroTitle {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  .heroSubtitle {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .sectionHeading {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .effortlessHeading,
+  .alwaysKnowHeading,
+  .stayConnectedHeading {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .dataDrivenHeadingGradient,
+  .dataDrivenHeadingBlack {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .statsSection {
+    padding: 60px 16px 40px;
+  }
+  .statsHeading {
+    font-size: 32px;
+  }
+  .alwaysKnowSection,
+  .dataDrivenSection {
+    padding: 60px 0;
+  }
+  .ctaSection {
+    padding: 40px 16px;
+  }
+  .ctaHeading {
+    font-size: 32px;
+    line-height: 40px;
+  }
 }

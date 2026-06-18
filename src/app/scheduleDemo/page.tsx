@@ -59,7 +59,7 @@ export default function DemoPage() {
             <p className={s.bookingSubtitle}>
               No pressure. No long forms. Just a quick walkthrough tailored to your needs.
             </p>
-            <p className={s.bookingReasonsTitle}>Why Facilities Choose VitalFriend®</p>
+            <p className={s.bookingReasonsTitle}>Why Facilities Choose VitalFriend</p>
             <ul className={s.bookingReasonsList}>
               {reasons.map((reason, i) => (
                 <li key={i} className={s.bookingReasonItem}>

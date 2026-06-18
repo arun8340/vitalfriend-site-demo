@@ -92,13 +92,13 @@
 }
 
 .proImgCol {
-  flex: 0 0 606px;
+  flex: 0 1 606px;
   min-height: 999px;
   overflow: hidden;
 }
 
 .proContentCol {
-  flex: 0 0 681px;
+  flex: 0 1 681px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -319,7 +319,6 @@
   text-align: center;
   color: #000000;
   margin-bottom: 14px;
-  white-space: nowrap;
 }
 
 .dataFlowSubtitle {
@@ -536,7 +535,7 @@
 }
 
 .vitalLinkContent {
-  flex: 0 0 683px;
+  flex: 0 1 683px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -594,7 +593,7 @@
 }
 
 .vitalLinkImageCol {
-  flex: 0 0 345px;
+  flex: 0 1 345px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -631,14 +630,14 @@
 }
 
 .vitalInsightsImageCol {
-  flex: 0 0 468px;
+  flex: 0 1 468px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .vitalInsightsContent {
-  flex: 0 0 683px;
+  flex: 0 1 683px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -727,7 +726,7 @@
 }
 
 .meetBuddyInner {
-  max-width: 1344px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0 40px;
   display: flex;
@@ -736,14 +735,14 @@
 }
 
 .meetBuddyImageCol {
-  flex: 0 0 599px;
+  flex: 0 1 599px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .meetBuddyContent {
-  flex: 0 0 683px;
+  flex: 0 1 683px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -863,7 +862,6 @@
   text-align: center;
   color: #000000;
   margin: 0;
-  white-space: nowrap;
 }
 
 /* 5 cards + 4 connectors in a row — CSS Grid guarantees exact column sizes */
@@ -973,12 +971,11 @@
 
 .howBannerHighlight {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(14px, 1.6vw, 28px);
+  font-size: clamp(16px, 1.6vw, 28px);
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.37px;
   text-align: center;
-  white-space: nowrap;
   background: linear-gradient(90deg, #E60076 0%, #EC003F 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1076,7 +1073,7 @@
 }
 
 .nextLevelInner {
-  max-width: 1344px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0 40px;
   display: flex;
@@ -1172,7 +1169,7 @@
   color: rgba(255,255,255,0.85);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1140px) {
   .flowRow1 {
     flex-direction: column;
     align-items: center;
@@ -1192,5 +1189,78 @@
     max-width: 384px;
     height: auto;
     padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .heroTitle {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  .heroSubtitle {
+    font-size: 17px;
+    line-height: 28px;
+  }
+  .proTitle,
+  .vitalLinkTitle,
+  .vitalInsightsTitle,
+  .meetBuddyTitle,
+  .howTitle,
+  .nextLevelTitle,
+  .nextStepTitle {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  .proItem,
+  .vitalLinkItemText,
+  .vitalInsightsBody,
+  .meetBuddyBody,
+  .howSubtitle {
+    font-size: 16px;
+    line-height: 28px;
+  }
+  .proImgCol {
+    min-height: 300px;
+  }
+  .dataFlowTitle {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .howCard {
+    width: 100%;
+    max-width: 320px;
+  }
+  .dataFlowInner,
+  .vitalLinkInner,
+  .vitalInsightsInner,
+  .meetBuddyInner,
+  .howInner,
+  .nextLevelInner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .nextStepTrust {
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+  }
+  .howCtaTitle {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .howCtaBody {
+    font-size: 16px;
+  }
+  .howCta {
+    padding: 24px 20px;
+  }
+  .howCtaBtn {
+    width: auto;
+    padding: 14px 24px;
+    font-size: 16px;
   }
 }
