@@ -75,8 +75,8 @@
 .heroHeading {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 64px;
-  line-height: 87px;
+  font-size: 55px;
+  line-height: 70px;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -87,8 +87,8 @@
 .heroBody {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 35px;
+  font-size: 16px;
+  line-height: 28px;
   letter-spacing: 0px;
   color: #000000;
   margin: 0;
@@ -185,7 +185,7 @@
 .statsHeading {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 50px;
+  font-size: 37px;
   line-height: 1.2;
   color: #15171C;
   text-align: center;
@@ -220,7 +220,7 @@
 .statNumber {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 59px;
+  font-size: 37px;
   line-height: 100%;
   letter-spacing: -0.04em;
   color: #15171C;
@@ -229,8 +229,8 @@
 .statLabel {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 18px;
+  line-height: 25px;
   letter-spacing: 0%;
   color: #000000;
 }
@@ -287,9 +287,9 @@
 
 .sectionHeading {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37px;
   font-weight: 800;
-  line-height: 64px;
+  line-height: 50px;
   text-align: center;
   color: #000000;
   margin-bottom: 10px;
@@ -321,9 +321,9 @@
 
 .teamHeading {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37px;
   font-weight: 800;
-  line-height: 64px;
+  line-height: 48px;
   text-align: center;
   color: #000000;
   margin-bottom: 12px;
@@ -524,7 +524,7 @@
 .cardBio {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 170%;
   color: #000000;
   margin: 0;
@@ -553,9 +553,9 @@
 
 .advisorsHeading {
   font-family: 'Inter', sans-serif;
-  font-size: 56px;
+  font-size: 37px;
   font-weight: 800;
-  line-height: 87px;
+  line-height: 48px;
   letter-spacing: -0.5px;
   text-align: center;
   color: #000000;
@@ -1080,8 +1080,8 @@
 .earlyAccessHeading {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 50px;
-  line-height: 64px;
+  font-size: 48px;
+  line-height: 58px;
   text-align: center;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
@@ -1093,8 +1093,8 @@
 .earlyAccessBody {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 20px;
-  line-height: 35px;
+  font-size: 16px;
+  line-height: 25px;
   text-align: center;
   color: #2B2B2B;
   margin: 0;

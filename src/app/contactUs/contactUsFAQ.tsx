@@ -37,7 +37,7 @@ export default function ContactUsFAQ() {
               <span
                 style={{
                   fontFamily: "Inter, sans-serif",
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: isOpen ? 600 : 500,
                   lineHeight: "140%",
                   letterSpacing: "0%",

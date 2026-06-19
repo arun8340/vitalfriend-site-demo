@@ -28,7 +28,7 @@ export default function AboutPage() {
               <span className={s.heroBadgeText}>About Us</span>
             </div>
             <h1 className={s.heroHeading}>
-              Technology Designed to Make Life Better
+              Technology Designed to <br/> Make Life Better
             </h1>
             <p className={s.heroBody}>
               At VitalFriend, we believe everyone deserves thoughtful,

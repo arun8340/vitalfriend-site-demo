@@ -64,9 +64,9 @@
 
 .heroTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 60px;
+  font-size: 55px;
   font-weight: 800;
-  line-height: 1.0;
+  line-height: 1.2;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -76,7 +76,7 @@
 
 .heroSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 25px;
   color: #393939;
@@ -135,7 +135,7 @@
 /* ── Form ── */
 .formTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 45px;
+  font-size: 37px;
   font-weight: 800;
   line-height: 1.2;
   color: #232323;
@@ -273,7 +273,7 @@
 /* ── Get In Touch ── */
 .infoTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 45px;
+  font-size: 37px;
   font-weight: 800;
   line-height: 1.2;
   color: #232323;
@@ -282,7 +282,7 @@
 
 .infoDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 35px;
   color: #374151;
@@ -371,9 +371,9 @@
 
 .infoBlockTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 25px;
   letter-spacing: 0px;
   color: #111827;
   margin: 0;
@@ -415,7 +415,7 @@
 
 .otherHeading {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37px;
   font-weight: 800;
   line-height: 1.2;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
@@ -428,7 +428,7 @@
 
 .otherSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 35px;
   color: #393939;
@@ -488,7 +488,7 @@
 
 .otherCardDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   letter-spacing: 0px;
@@ -562,7 +562,7 @@
 
 .faqTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37px;
   font-weight: 800;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 30%);
   -webkit-background-clip: text;
@@ -574,7 +574,7 @@
 
 .faqSubtext {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: #15171C;
   letter-spacing: 0.02em;
@@ -592,7 +592,7 @@
   background: transparent;
   border-radius: 9999px;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   margin-bottom: 28px;
