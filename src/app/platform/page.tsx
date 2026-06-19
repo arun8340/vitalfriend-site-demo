@@ -48,12 +48,12 @@ export default function PlatformPage() {
         <section className={s.heroSection}>
           <div className={s.heroInner}>
             <h1 className={s.heroTitle}>
-              The Remote Vitals Monitoring Platform
+              The Remote Senior Monitoring Platform
             </h1>
             <p className={s.heroSubtitle}>
-              The only health data platform that connects patients, doctors,
-              care facilities and families, all enhanced with AI and covered by
-              insurance
+              A health data platform that connects patients, doctors, care
+              facilities and families through continuous vital signs monitoring
+              and clinician review.
             </p>
           </div>
         </section>
@@ -380,10 +380,10 @@ export default function PlatformPage() {
             </h2>
             <p className={s.nextLevelBody}>
               Our platform doesn&apos;t just collect data. It learns the
-              user&apos;s unique baselines. Our AI-assisted tools help
-              clinicians identify a trend or a deviation from an established
-              baseline, and can send a customizable notifications to clinicians,
-              caregivers and family.
+              user&apos;s unique baselines. Tools help clinicians review vital
+              sign trends and data deviations from an established baseline, and
+              can send customizable notifications to clinicians, caregivers and
+              family.
             </p>
           </div>
           <Image
@@ -403,9 +403,12 @@ export default function PlatformPage() {
           <div className={s.howHeader}>
             <h2 className={s.howTitle}>How Vital Buddy Works</h2>
             <p className={s.howSubtitle}>
-              Data flows automatically from Vital Buddy through our platform where it is reviewed by our clinicians using vital trend review tools.
+              Data flows automatically from Vital Buddy through our platform
+              where it is reviewed by our clinicians using vital trend review
+              tools.
               <br />
-              It provides real-time updates to physicians, caregivers and family members, who can act early.
+              It provides real-time updates to physicians, caregivers and family
+              members, who can act early.
             </p>
           </div>
 
@@ -572,7 +575,9 @@ export default function PlatformPage() {
               height={452}
               style={{
                 objectFit: "contain",
-                maxWidth: "100%",
+                maxWidth: "449.25px",
+                width: "100%",
+                height: "auto",
                 display: "block",
               }}
             />
@@ -615,7 +620,9 @@ export default function PlatformPage() {
               height={337}
               style={{
                 objectFit: "contain",
-                maxWidth: "100%",
+                maxWidth: "350.81px",
+                width: "100%",
+                height: "auto",
                 display: "block",
               }}
             />
@@ -674,8 +681,8 @@ export default function PlatformPage() {
                 <li key={i} className={s.proItem}>
                   <svg
                     className={s.proCheckIcon}
-                    width="22"
-                    height="22"
+                    width="18"
+                    height="18"
                     viewBox="0 0 22 22"
                     fill="none"
                   >
@@ -738,8 +745,8 @@ export default function PlatformPage() {
                 <div key={i} className={s.vitalLinkItem}>
                   <svg
                     className={s.proCheckIcon}
-                    width="22"
-                    height="22"
+                    width="18"
+                    height="18"
                     viewBox="0 0 22 22"
                     fill="none"
                   >
@@ -785,11 +792,13 @@ export default function PlatformPage() {
             <Image
               src="/images/platform/iphone-medication_1-removebg-preview.png"
               alt="Vital Link medication reminder app on iPhone"
-              width={345}
-              height={708}
+              width={259}
+              height={531}
               style={{
                 objectFit: "contain",
-                maxWidth: "100%",
+                maxWidth: "258.78px",
+                width: "100%",
+                height: "auto",
                 display: "block",
               }}
             />
@@ -800,39 +809,28 @@ export default function PlatformPage() {
       {/* ── Take the Next Step ── */}
       <section className={s.nextStepSection}>
         <div className={s.nextStepInner}>
-          {/* Badge */}
-          <div className={s.nextStepBadge}>
-            <span className={s.nextStepBadgeText}>Take the Next Step</span>
-          </div>
-
-          {/* Title */}
-          <h2 className={s.nextStepTitle}>
-            Are you a MedTech, RPM or Device vendor
-            <br />
-            looking to partner with VitalFriend?
-          </h2>
-
-          {/* Description */}
-          <p className={s.nextStepBody}>
-            Schedule a meeting with a VitalFriend partner specialist. We&apos;ll
-            walk you through the Vital Buddy
-            <br />
-            experience, tailored to your facility type, and answer every
-            question your team has.
-          </p>
-
-          {/* CTA button */}
-          <Link href="/contactUs" className={s.nextStepBtn}>
-            Let&apos;s Chat
-          </Link>
-
-          {/* Trust badges */}
-          <div className={s.nextStepTrust}>
-            <span className={s.nextStepTrustItem}>No commitment required</span>
-            <span className={s.nextStepTrustItem}>
-              Insurance verification included
-            </span>
-            <span className={s.nextStepTrustItem}>Onboarding in days</span>
+          <span className={s.nextStepBadge}>Take the Next Step</span>
+          <div className={s.nextStepContentGroup}>
+            <div className={s.nextStepHeadingGroup}>
+              <h2 className={s.nextStepTitle}>
+                Are you a MedTech, RPM or Device vendor
+                <br />
+                looking to partner with VitalFriend?
+              </h2>
+              <p className={s.nextStepBody}>
+                Schedule a meeting with a VitalFriend partner specialist. We&apos;ll walk you through the Vital Buddy experience, tailored to your facility type, and answer every question your team has.
+              </p>
+            </div>
+            <div className={s.nextStepBtns}>
+              <Link href="/contactUs" className={s.nextStepBtn}>
+                Let&apos;s Chat
+              </Link>
+            </div>
+            <div className={s.nextStepTrust}>
+              <span>No commitment required</span>
+              <span>Insurance verification included</span>
+              <span>Onboarding in days</span>
+            </div>
           </div>
         </div>
       </section>

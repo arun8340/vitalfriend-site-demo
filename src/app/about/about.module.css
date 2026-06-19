@@ -705,17 +705,13 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #F0F0F0;
+  background: #0A66C2;
   text-decoration: none;
   flex-shrink: 0;
   transition: background 0.2s;
 }
 
-.advisorLinkedin:hover {
-  background: #0A66C2;
-}
-
-.advisorLinkedin:hover svg path {
+.advisorLinkedin svg path {
   fill: #ffffff;
 }
 

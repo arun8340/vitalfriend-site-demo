@@ -80,41 +80,42 @@
 ════════════════════════════════════════ */
 .proSection {
   background: #ffffff;
-  padding: 80px 0;
+  padding: 20px 0 10px;
   overflow: hidden;
 }
 
 .proInner {
-  max-width: 1346px;
+  max-width: 1009.5px;
   margin: 0 auto;
   display: flex;
   align-items: stretch;
-  gap: 62px;
+  gap: 46.5px;
 }
 
 .proImgCol {
-  flex: 0 1 606px;
-  min-height: 999px;
+  flex: 0 0 454.5px;
+  height: 749.25px;
   overflow: hidden;
+  margin-top: 2%;
 }
 
 .proContentCol {
-  flex: 0 1 681px;
+  flex: 0 1 510.75px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 60px 40px 60px 0;
+  gap: 0;
+  padding: 28px 0;
   justify-content: center;
 }
 
 .proTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 30px;
 }
 
 .proList {
@@ -131,9 +132,9 @@
   align-items: flex-start;
   gap: 12px;
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
 }
@@ -144,7 +145,9 @@
 
 .proCheckIcon {
   flex-shrink: 0;
-  margin-top: 6px;
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
 }
 
 @media (max-width: 1100px) {
@@ -155,7 +158,7 @@
   .proImgCol {
     flex: unset;
     width: 100%;
-    min-height: 400px;
+    min-height: 300px;
   }
   .proContentCol {
     flex: unset;
@@ -168,42 +171,63 @@
 ════════════════════════════════════════ */
 .nextStepSection {
   background: #ffffff;
-  padding: 80px 24px;
+  min-height: 336px;
+  padding: 24px 24px 48px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nextStepInner {
-  max-width: 1116px;
-  margin: 0 auto;
+  max-width: 837px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .nextStepBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  border-radius: 60px;
-  background: #DEEAFD;
-}
-
-.nextStepBadgeText {
+  width: 137px;
+  height: 30px;
+  padding: 7.5px 15px;
+  border-radius: 45px;
+  background: #ffffff;
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -0.25px;
+  letter-spacing: -0.19px;
   color: #000000;
+  box-sizing: border-box;
+}
+
+.nextStepContentGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.nextStepHeadingGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
 .nextStepTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 64px;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   text-align: center;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
@@ -214,35 +238,44 @@
 
 .nextStepBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
   text-align: center;
   color: #393939;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 686.25px;
+}
+
+.nextStepBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .nextStepBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 154px;
-  height: 53px;
+  width: 115px;
+  height: 40px;
   padding: 7px 16px;
-  border-radius: 32px;
-  border: 1px solid #E15D77;
   background: #E15D77;
+  color: #ffffff;
+  border: 0.75px solid #E15D77;
+  border-radius: 24px;
   font-family: 'Work Sans', 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 13.5px;
   font-weight: 600;
   line-height: 140%;
   letter-spacing: 0%;
   text-align: center;
-  color: #ffffff;
   text-decoration: none;
-  transition: opacity 0.2s;
   box-sizing: border-box;
-  margin-top: 8px;
+  transition: opacity 0.2s;
 }
 
 .nextStepBtn:hover {
@@ -252,17 +285,14 @@
 .nextStepTrust {
   display: flex;
   align-items: center;
-  gap: 48px;
-  margin-top: 8px;
-}
-
-.nextStepTrustItem {
+  justify-content: center;
+  gap: 31.5px;
+  flex-wrap: wrap;
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
-  letter-spacing: -0.25px;
-  text-align: center;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
   color: #6A6969;
 }
 
@@ -520,56 +550,57 @@
 ════════════════════════════════════════ */
 .vitalLinkSection {
   background: #F9FBFF;
-  padding: 80px 0;
+  padding: 15px 264px 20px 264px;
 }
 
 .vitalLinkInner {
-  max-width: 1217px;
+  max-width: 912.75px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 62px;
+  gap: 46.5px;
 }
 
 .vitalLinkContent {
-  flex: 0 1 683px;
+  flex: 0 1 512.25px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 0;
 }
 
 .vitalLinkTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 20px;
 }
 
 .vitalLinkSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 7.5px;
 }
 
 .vitalLinkPoints {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 7.5px;
+  margin-bottom: 18px;
 }
 
 .vitalLinkIntro {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
   margin: 0;
@@ -583,15 +614,15 @@
 
 .vitalLinkItemText {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
 }
 
 .vitalLinkImageCol {
-  flex: 0 1 345px;
+  flex: 0 0 258.78px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -599,14 +630,21 @@
 }
 
 @media (max-width: 1100px) {
+  .vitalLinkSection {
+    padding: 24px 40px;
+  }
   .vitalLinkInner {
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
   }
   .vitalLinkContent,
   .vitalLinkImageCol {
     flex: unset;
     width: 100%;
+  }
+  .vitalLinkImageCol {
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -615,43 +653,45 @@
 ════════════════════════════════════════ */
 .vitalInsightsSection {
   background: #F9FBFF;
-  padding: 80px 0;
+  padding: 20px 0 30px;
 }
 
 .vitalInsightsInner {
-  max-width: 1217px;
+  max-width: 912.75px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 62px;
+  gap: 46.5px;
 }
 
 .vitalInsightsImageCol {
-  flex: 0 1 468px;
+  flex: 0 1 350.81px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .vitalInsightsContent {
-  flex: 0 1 683px;
+  flex: 0 1 512.25px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 0;
 }
 
 .vitalInsightsTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 20px;
 }
 
 .vitalInsightsGradient {
+  display: block;
+  line-height: 65.25px;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -660,36 +700,36 @@
 
 .vitalInsightsSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 10px;
 }
 
 .vitalInsightsBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 30px;
 }
 
 .vitalInsightsBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 165px;
-  height: 53px;
+  width: 124px;
+  height: 40px;
   padding: 7px 16px;
-  border-radius: 32px;
-  border: 1px solid #E15D77;
+  border-radius: 24px;
+  border: 0.75px solid #E15D77;
   background: #E15D77;
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 13.5px;
   font-weight: 400;
   line-height: 140%;
   letter-spacing: 0%;
@@ -720,7 +760,7 @@
 ════════════════════════════════════════ */
 .meetBuddySection {
   background: #ffffff;
-  padding: 20px 0 80px;
+  padding: 40px 0 20px;
 }
 
 .meetBuddyInner {
@@ -729,65 +769,65 @@
   padding: 0 40px;
   display: flex;
   align-items: center;
-  gap: 62px;
+  gap: 46.5px;
 }
 
 .meetBuddyImageCol {
-  flex: 0 1 599px;
+  flex: 0 1 449.25px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .meetBuddyContent {
-  flex: 0 1 683px;
+  flex: 0 1 512.25px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 0;
 }
 
 .meetBuddyTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 30px;
 }
 
 .meetBuddySubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 35px;
+  line-height: 24px;
   letter-spacing: 0px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 7.5px;
 }
 
 .meetBuddyBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
-  margin: 0;
+  margin: 0 0 26px;
 }
 
 .meetBuddyBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 187px;
-  height: 53px;
+  width: 140px;
+  height: 40px;
   padding: 7px 16px;
-  border-radius: 32px;
-  border: 1px solid #E15D77;
+  border-radius: 24px;
+  border: 0.75px solid #E15D77;
   background: #E15D77;
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 13.5px;
   font-weight: 400;
   line-height: 140%;
   letter-spacing: 0%;
@@ -804,11 +844,13 @@
 @media (max-width: 1100px) {
   .meetBuddyInner {
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
+    padding: 0 24px;
   }
   .meetBuddyImageCol {
     flex: unset;
     width: 100%;
+    justify-content: center;
   }
   .meetBuddyContent {
     flex: unset;
@@ -821,7 +863,7 @@
 ════════════════════════════════════════ */
 .howSection {
   background: #F9FBFF;
-  padding: 20px 0 0;
+  padding: 20px 0 20px;
 }
 
 .howInner {
@@ -1062,7 +1104,7 @@
 ════════════════════════════════════════ */
 .nextLevelSection {
   background: #ffffff;
-  padding: 40px 0 0px;
+  padding: 40px 0 40px;
 }
 
 .nextLevelInner {
@@ -1187,81 +1229,241 @@
 }
 
 @media (max-width: 768px) {
+  /* ── Hero ── */
   .heroSection {
     padding-top: 40px;
     padding-bottom: 40px;
   }
   .heroTitle {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 28px;
+    line-height: 36px;
   }
   .heroSubtitle {
     font-size: 14px;
-    line-height: 24px;
+    line-height: 22px;
   }
+
+  /* ── Section titles ── */
   .proTitle,
   .vitalLinkTitle,
   .vitalInsightsTitle,
   .meetBuddyTitle,
   .howTitle,
   .nextStepTitle {
-    font-size: 32px;
-    line-height: 1.2;
+    font-size: 26px;
+    line-height: 1.25;
   }
   .nextLevelTitle {
-    font-size: 26px;
+    font-size: 22px;
     line-height: 1.3;
   }
+  .dataFlowTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  /* ── Body text ── */
   .proItem,
   .vitalLinkItemText,
   .vitalInsightsBody,
-  .meetBuddyBody,
-  .howSubtitle {
-    font-size: 16px;
-    line-height: 28px;
+  .meetBuddyBody {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  /* ── Section paddings ── */
+  .dataFlowTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .howSection {
+    padding: 24px 16px;
+  }
+  .howInner {
+    padding: 0;
+  }
+  .nextLevelSection {
+    padding: 32px 0;
+  }
+  .nextLevelInner {
+    padding: 0 16px;
+  }
+  .vitalLinkSection {
+    padding: 24px 16px;
+  }
+  .vitalLinkInner {
+    padding: 0;
+  }
+  .vitalInsightsSection {
+    padding: 24px 0;
+  }
+  .vitalInsightsInner {
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .vitalInsightsImageCol,
+  .vitalInsightsContent {
+    flex: unset;
+    width: 100%;
+  }
+  .meetBuddySection {
+    padding: 32px 0 20px;
+  }
+  .meetBuddyInner {
+    padding: 0 16px;
+    gap: 24px;
+  }
+  .proSection {
+    padding: 24px 0 20px;
+  }
+  .proInner {
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 16px;
   }
   .proImgCol {
-    min-height: 300px;
+    flex: unset;
+    width: 100%;
+    height: 280px;
+    margin-top: 0;
   }
-  .dataFlowTitle {
-    font-size: 28px;
-    line-height: 36px;
+  .proContentCol {
+    flex: unset;
+    padding: 0;
+  }
+  .nextStepSection {
+    padding: 32px 16px;
+    min-height: unset;
+  }
+  .nextStepInner {
+    gap: 12px;
+  }
+
+  /* ── Flow diagram: vertical stack ── */
+  .dataFlowSection {
+    padding: 24px 16px 20px;
+  }
+  .dataFlowInner {
+    padding: 0;
+  }
+  .flowRow1 {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  /* Convert horizontal arrows to vertical without rotation */
+  .arrowWrap {
+    transform: none;
+    padding-top: 0;
+    margin: 6px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  .arrowLine {
+    width: 3px;
+    height: 32px;
+    background: linear-gradient(180deg, #00D5BE 0%, #00BBA7 100%);
+  }
+  .arrowTipRight {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 12px solid #BAD1CE;
+    border-bottom: none;
+  }
+  .flowCol {
+    flex: unset;
+    width: 100%;
+    max-width: 360px;
+    align-items: flex-start;
+  }
+  .flowCard {
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+  }
+  /* Show vArrowCenter, hide only the complex SVG overlay */
+  .connectorsSection {
+    position: static;
+    min-height: unset;
+    overflow: visible;
+    flex-direction: column;
+    margin: 0;
+  }
+  .intConnSvg {
+    display: none;
+  }
+  .vArrowCenter {
+    position: static;
+    margin: 6px 0;
+  }
+  .flowRow2 {
+    margin-top: 0;
+  }
+  .flowInsightsCol {
+    width: 100%;
+    max-width: 360px;
+  }
+  /* Hide T-connector SVG between Vital Insights and blue cards */
+  .tConnSvg {
+    display: none;
+  }
+  .flowRow3 {
+    margin-top: 16px;
+    padding: 0;
+  }
+  .blueCard {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    padding-bottom: 24px;
+  }
+
+  /* ── How Vital Buddy Works ── */
+  .howSubtitle {
+    white-space: normal;
+    font-size: 13px;
+    line-height: 22px;
   }
   .howCard {
     width: 100%;
     max-width: 320px;
   }
-  .dataFlowSection {
-    padding-left: 16px;
-    padding-right: 16px;
+  .howBanner {
+    padding: 20px 16px 16px;
   }
-  .dataFlowInner,
-  .vitalLinkInner,
-  .vitalInsightsInner,
-  .meetBuddyInner,
-  .howInner,
-  .nextLevelInner {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .nextStepTrust {
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-  }
-  .howCtaTitle {
-    font-size: 26px;
-    line-height: 32px;
-  }
-  .howCtaBody {
-    font-size: 16px;
+  .howBannerHighlight {
+    font-size: 18px;
   }
   .howCta {
     padding: 24px 20px;
+    border-radius: 12px;
+  }
+  .howCtaTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .howCtaBody {
+    font-size: 14px;
+    line-height: 22px;
   }
   .howCtaBtn {
     width: auto;
-    padding: 14px 24px;
-    font-size: 16px;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  /* ── Next step trust row ── */
+  .nextStepTrust {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  /* ── Vital Insights gradient line-height fix ── */
+  .vitalInsightsGradient {
+    line-height: 1.3;
   }
 }

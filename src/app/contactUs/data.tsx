@@ -102,19 +102,19 @@ export interface FAQ {
 
 export const faqs: FAQ[] = [
   {
-    q: "my readings are off",
+    q: "My readings are off",
     a: "If your readings seem off, make sure the Vital Buddy wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
   },
   {
-    q: "what if Vital Buddy isn't worn?",
+    q: "What if Vital Buddy isn't worn?",
     a: "Yes, you can conveniently monitor the status of your order or service progress within a few hours. Your order will track.",
   },
   {
-    q: "who sees the data?",
+    q: "Who sees the data?",
     a: "Your health data is shared only with the clinicians, care facility staff, and family members you authorize. All data is stored in a HIPAA-secure cloud environment and is never sold or shared with third parties.",
   },
   {
-    q: "is my information secure?",
+    q: "Is my information secure?",
     a: "Absolutely. VitalFriend uses enterprise-grade encryption and is fully HIPAA compliant. All data transmissions are encrypted end-to-end and stored in secure, certified cloud infrastructure.",
   },
   {

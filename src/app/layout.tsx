@@ -100,6 +100,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${workSans.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
+        suppressHydrationWarning
       >
         <Header />
         <main className="flex-1 pt-[73.134px]">{children}</main>
