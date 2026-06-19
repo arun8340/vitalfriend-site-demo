@@ -324,7 +324,7 @@
 
 .howSection {
   background: #ffffff;
-  padding: 60px 0 0;
+  padding: 40px 0 0;
 }
 
 /* ── Homepage-specific How Vital Buddy Works layout ── */
@@ -1212,6 +1212,8 @@
   border-radius: 8px;
   flex-shrink: 0;
   object-fit: contain;
+  display: block;
+  margin-left: auto;
 }
 
 .hp-buddi__btn {

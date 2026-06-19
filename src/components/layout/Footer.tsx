@@ -3,9 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const informationLinks = [
-  { href: "/support", label: "Support" },
-  // { href: "/faq", label: "FAQ" },
+// const informationLinks = [
+//   { href: "/support", label: "Support" },
+//   // { href: "/faq", label: "FAQ" },
+// ];
+
+const policiesLinks = [
+  { href: "/terms", label: "Terms" },
 ];
 
 const companyLinks = [
@@ -90,12 +94,30 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Information and Company */}
+          {/* Company, Policies (Information commented out) */}
           <div className="flex w-full gap-[91.5px] lg:w-[231.5px]">
+            {/* Information column — commented out, add back later
             <div className="flex flex-col gap-6">
               <p style={sectionHeadingStyle}>Information</p>
               <div className="flex flex-col gap-2.25">
                 {informationLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    style={navLinkStyle}
+                    className="transition-colors hover:text-[#E15D77]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            */}
+
+            <div className="flex flex-col gap-6">
+              <p style={sectionHeadingStyle}>Policies</p>
+              <div className="flex flex-col gap-2.25">
+                {policiesLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}

@@ -241,14 +241,24 @@ export default function HomePage() {
               and users. May be eligible for reimbursement through Medicare RPM programs and certain private insurance plans when applicable requirements are met.
             </p>
             <div className={styles["hp-buddi__image-wrap"]}>
-              <Image
-                src="images/buddy-hippa.png"
-                alt="VitalFriend platform product snapshot"
-                width={693}
-                height={525}
-                style={{ maxWidth: "100%", height: "auto", borderRadius: 12 }}
-                unoptimized
-              />
+              <div className={styles["hp-buddi__image-container"]}>
+                <Image
+                  src="images/buddies-new-style.jpg"
+                  alt="VitalFriend platform product snapshot"
+                  width={693}
+                  height={525}
+                  style={{ maxWidth: "100%", height: "auto", borderRadius: 12, display: "block" }}
+                  unoptimized
+                />
+                <Image
+                  src="/images/hipaa-badge.png"
+                  alt="HIPAA Compliant"
+                  width={130}
+                  height={78}
+                  className={styles["hp-buddi__hipaa-badge"]}
+                  unoptimized
+                />
+              </div>
             </div>
             <div className={styles["hp-buddi__cta-row"]}>
               <Link href="/contactUs" className={styles["hp-buddi__btn"]}>
