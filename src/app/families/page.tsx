@@ -21,18 +21,20 @@ export default function FamiliesPage() {
         <div className={s.heroBlobRight} />
         <div className={s.heroBlobLeft} />
         <div className={s.heroInner}>
-          <div className={s.heroBadge}>
-            <span className={s.heroBadgeText}>For Families & Caregivers</span>
+          <div className={s.heroTextGroup}>
+            <div className={s.heroBadge}>
+              <span className={s.heroBadgeText}>For Families & Caregivers</span>
+            </div>
+            <h1 className={s.heroTitle}>
+              <span className={s.heroTitleGradient}>Families</span>
+            </h1>
+            <p className={s.heroSubtitle}>
+              Loving someone from a distance is hard. When they&apos;re managing
+              health issues, that distance can feel even greater. Having your
+              loved one wearing Vital Buddy closes that gap and gives the whole
+              family peace of mind.
+            </p>
           </div>
-          <h1 className={s.heroTitle}>
-            <span className={s.heroTitleGradient}>Families</span>
-          </h1>
-          <p className={s.heroSubtitle}>
-            Loving someone from a distance is hard. When they&apos;re managing
-            health issues, that distance can feel even greater. Having your
-            loved one wearing Vital Buddy closes that gap and gives the whole
-            family peace of mind.
-          </p>
           <Link href="/physicians" className={s.heroBtnPrimary}>
             See How It Works
           </Link>
@@ -40,22 +42,23 @@ export default function FamiliesPage() {
             <Image
               src="/images/families/hero-section.png"
               alt="Family using VitalFriend"
-              width={1024}
-              height={572}
+              width={768}
+              height={429}
               className={s.heroImage}
               priority
             />
           </div>
         </div>
       </section>
+      <div className={s.remainingBody}>
       {/* ── Data-Driven Peace of Mind ── */}
       <section className={s.dataDrivenSection}>
         <div className={s.dataDrivenInner}>
           <Image
             src="/images/families/Patients-Family.png"
             alt="Families accessing loved one vitals"
-            width={574}
-            height={540}
+            width={430}
+            height={330}
             className={s.dataDrivenImage}
           />
           <div className={s.dataDrivenContent}>
@@ -64,60 +67,62 @@ export default function FamiliesPage() {
                 For Patients &amp; Family
               </span>
             </div>
-            <h2>
-              <span className={s.dataDrivenHeadingGradient}>
-                Data-Driven Peace of Mind
-              </span>
-              <span className={s.dataDrivenHeadingBlack}>
+            <div className={s.dataDrivenContentGroup}>
+              <h2 className={s.dataDrivenHeading}>
+                <span className={s.dataDrivenHeadingGradient}>
+                  Data-Driven Peace of Mind
+                </span>
+              </h2>
+              <p className={s.dataDrivenSubheading}>
                 Even When You&apos;re Miles Away
-              </span>
-            </h2>
-            <p className={s.dataDrivenBody}>
-              Families of residents or patients wearing Vital Buddy can access
-              their loved one&apos;s real-time vitals through the Family
-              Dashboard. Having up to date, accurate information lets them:
-            </p>
-            <ul className={s.dataDrivenList}>
-              {stayConnectedContent.map((point, i) => (
-                <li key={i} className={s.dataDrivenItem}>
-                  <svg
-                    className={s.dataDrivenCheckIcon}
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                  >
-                    <defs>
-                      <linearGradient
-                        id={`ddcg${i}`}
-                        x1="0"
-                        y1="0"
-                        x2="1"
-                        y2="1"
-                      >
-                        <stop offset="14.29%" stopColor="#6E70FF" />
-                        <stop offset="85.29%" stopColor="#D393F1" />
-                      </linearGradient>
-                    </defs>
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="10"
-                      stroke={`url(#ddcg${i})`}
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M7 11.5l2.5 2.5 5.5-6"
-                      stroke={`url(#ddcg${i})`}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  {point}
-                </li>
-              ))}
-            </ul>
+              </p>
+              <p className={s.dataDrivenBody}>
+                Families of residents or patients wearing Vital Buddy can access
+                their loved one&apos;s real-time vitals through the Family
+                Dashboard. Having up to date, accurate information lets them:
+              </p>
+              <ul className={s.dataDrivenList}>
+                {stayConnectedContent.map((point, i) => (
+                  <li key={i} className={s.dataDrivenItem}>
+                    <svg
+                      className={s.dataDrivenCheckIcon}
+                      width="18"
+                      height="18"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                    >
+                      <defs>
+                        <linearGradient
+                          id={`ddcg${i}`}
+                          x1="0"
+                          y1="0"
+                          x2="1"
+                          y2="1"
+                        >
+                          <stop offset="14.29%" stopColor="#6E70FF" />
+                          <stop offset="85.29%" stopColor="#D393F1" />
+                        </linearGradient>
+                      </defs>
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="10"
+                        stroke={`url(#ddcg${i})`}
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M7 11.5l2.5 2.5 5.5-6"
+                        stroke={`url(#ddcg${i})`}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <Link href="/physicians" className={s.dataDrivenLearnBtn}>
               Learn more
             </Link>
@@ -461,6 +466,7 @@ export default function FamiliesPage() {
           </Button>
         </div>
       </section>
+      </div>
     </>
   );
 }

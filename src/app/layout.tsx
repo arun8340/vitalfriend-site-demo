@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Manrope, Plus_Jakarta_Sans, Work_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -7,6 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta-sans" });
+const workSans = Work_Sans({ subsets: ["latin"], variable: "--font-work-sans" });
 
 export const metadata: Metadata = {
   title: {
@@ -98,7 +99,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
+        className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${workSans.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
       >
         <Header />
         <main className="flex-1 pt-[73.134px]">{children}</main>

@@ -5,7 +5,7 @@
   position: relative;
   overflow: hidden;
   background: #ffffff;
-  padding: 60px 24px 48px;
+  padding: 60px 24px 60px;
   text-align: center;
 }
 
@@ -36,44 +36,54 @@
 .heroInner {
   position: relative;
   z-index: 10;
-  max-width: 860px;
+  max-width: 842px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 17px;
+}
+
+.heroTextGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .heroBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 230px;
-  height: 39px;
-  padding: 10px 20px;
-  gap: 10px;
+  width: 172px;
+  height: 30px;
+  padding: 7.5px 15px;
+  gap: 7.5px;
   background: #F8E7F2;
-  border-radius: 60px;
+  border-radius: 45px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 .heroBadgeText {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -0.25px;
+  letter-spacing: -0.19px;
   color: #E15D77;
 }
 
 .heroTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 74px;
+  font-size: 55.5px;
   font-weight: 800;
-  line-height: 87px;
-  letter-spacing: -0.25px;
+  line-height: 65.25px;
+  letter-spacing: -0.19px;
+  text-align: center;
   color: #000000;
-  margin: 0;
+  margin: 0 0 10px;
+  width: 100%;
 }
 
 .heroTitleGradient {
@@ -85,44 +95,64 @@
 
 .heroSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
+  text-align: center;
   color: #393939;
   margin: 0;
-  max-width: 820px;
+  width: 100%;
 }
 
 .heroBtnPrimary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 166px;
+  height: 40px;
   background: #E15D77;
   color: #ffffff;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-work-sans), 'Work Sans', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 12px 28px;
-  border-radius: 9999px;
+  font-size: 13.5px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  padding: 7px 16px;
+  border-radius: 24px;
+  border: 0.75px solid #E15D77;
   text-decoration: none;
+  box-sizing: border-box;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .heroBtnPrimary:hover {
   background: #c94d68;
+  border-color: #c94d68;
   transform: translateY(-2px);
+}
+
+.remainingBody {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  width: 100%;
 }
 
 .heroImageWrapper {
   width: 100%;
-  max-width: 1024px;
-  margin-top: 12px;
+  max-width: 1009.5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
 }
 
 .heroImage {
-  border-radius: 24px;
-  width: 100%;
-  height: auto;
+  border-radius: 18px;
+  width: 768px;
+  max-width: 100%;
+  height: 429px;
+  object-fit: cover;
   display: block;
 }
 
@@ -277,7 +307,7 @@
 
 .sectionWhite {
   background: #ffffff;
-  padding: 80px 0;
+  padding: 50px 0;
 }
 
 .sectionBody {
@@ -294,8 +324,7 @@
 ════════════════════════════════════════ */
 .simpleTechSection {
   background: #ffffff;
-  padding: 80px 0;
-  min-height: 590px;
+  padding: 0;
   display: flex;
   align-items: center;
 }
@@ -304,7 +333,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 50px 80px;
   display: grid;
   grid-template-columns: 616px 1fr;
   gap: 62px;
@@ -315,7 +344,7 @@
   .simpleTechInner {
     grid-template-columns: 1fr;
     gap: 48px;
-    padding: 60px 24px;
+    padding: 50px 24px;
   }
 }
 
@@ -390,7 +419,7 @@
   position: relative;
   overflow: hidden;
   background: #F5F5F5;
-  padding: 90px 24px;
+  padding: 0 24px;
   text-align: center;
 }
 
@@ -423,6 +452,7 @@
   z-index: 1;
   max-width: 1100px;
   margin: 0 auto;
+  padding: 50px 0;
 }
 
 .vitalsHeading {
@@ -517,7 +547,7 @@
 ════════════════════════════════════════ */
 .alwaysKnowSection {
   background: #ffffff;
-  padding: 100px 24px;
+  padding: 0 24px;
 }
 
 .alwaysKnowInner {
@@ -528,6 +558,7 @@
   flex-direction: column;
   align-items: center;
   gap: 56px;
+  padding: 50px 0;
 }
 
 .alwaysKnowHeading {
@@ -563,7 +594,7 @@
 ════════════════════════════════════════ */
 .stayConnectedSection {
   background: #ffffff;
-  padding: 100px 80px;
+  padding: 0 80px;
 }
 
 .stayConnectedInner {
@@ -573,15 +604,17 @@
   grid-template-columns: 1fr 616px;
   gap: 62px;
   align-items: center;
+  padding: 50px 0;
 }
 
 @media (max-width: 1100px) {
   .stayConnectedInner {
     grid-template-columns: 1fr;
     gap: 48px;
+    padding: 50px 0;
   }
   .stayConnectedSection {
-    padding: 80px 24px;
+    padding: 0 24px;
   }
 }
 
@@ -654,18 +687,16 @@
 ════════════════════════════════════════ */
 .dataDrivenSection {
   background: #ffffff;
-  padding: 80px 0;
+  padding: 0 24px;
 }
 
 .dataDrivenInner {
-  width: 1345px;
-  max-width: 100%;
-  min-height: 604px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0;
   display: grid;
-  grid-template-columns: 574px 1fr;
-  gap: 90px;
+  grid-template-columns: 430.5px 1fr;
+  gap: 67.5px;
   align-items: center;
 }
 
@@ -673,15 +704,14 @@
   .dataDrivenInner {
     grid-template-columns: 1fr;
     gap: 40px;
-    padding: 0 24px;
     width: auto;
   }
 }
 
 .dataDrivenImage {
-  width: 574px;
-  height: 540px;
-  border-radius: 32px;
+  width: 430.5px;
+  height: 330px;
+  border-radius: 24px;
   object-fit: cover;
   display: block;
   max-width: 100%;
@@ -691,61 +721,73 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 15px;
 }
 
 .dataDrivenBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 262px;
-  height: 47px;
-  padding: 10px 20px;
-  gap: 10px;
+  width: 197px;
+  height: 35px;
+  padding: 7.5px 15px;
+  gap: 7.5px;
   background: linear-gradient(90deg, #A14DFB 0%, #D12779 100%);
-  border-radius: 60px;
+  border-radius: 45px;
   box-sizing: border-box;
-  margin-bottom: 24px;
 }
 
 .dataDrivenBadgeText {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 16.5px;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -0.25px;
+  letter-spacing: -0.19px;
   color: #ffffff;
+}
+
+.dataDrivenContentGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.dataDrivenHeading {
+  margin: 0;
 }
 
 .dataDrivenHeadingGradient {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 66px;
+  line-height: 49.5px;
+  letter-spacing: -0.19px;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
-  margin: 0;
 }
 
-.dataDrivenHeadingBlack {
+.dataDrivenSubheading {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 34.5px;
   font-weight: 800;
-  line-height: 66px;
+  line-height: 100%;
+  letter-spacing: -0.19px;
   color: #000000;
-  display: block;
-  margin: 0 0 24px;
+  margin: 0;
 }
 
 .dataDrivenBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
   color: #393939;
-  margin: 0 0 20px;
+  margin: 0;
 }
 
 .dataDrivenList {
@@ -760,35 +802,39 @@
 .dataDrivenItem {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   color: #000000;
 }
 
 .dataDrivenCheckIcon {
   flex-shrink: 0;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .dataDrivenLearnBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #E15D77;
+  width: 124px;
+  height: 40px;
+  border: 0.75px solid #E15D77;
   color: #E15D77;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-work-sans), 'Work Sans', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 10px 28px;
-  border-radius: 9999px;
+  font-size: 13.5px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  padding: 7px 16px;
+  border-radius: 24px;
   text-decoration: none;
-  background: transparent;
+  background: #ffffff;
+  box-sizing: border-box;
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  margin-top: 16px;
 }
 
 .dataDrivenLearnBtn:hover {
@@ -886,12 +932,13 @@
 ════════════════════════════════════════ */
 .testimonialsSection {
   background: #ffffff;
-  padding: 48px 24px;
+  padding: 0 24px;
 }
 
 .testimonialsInner {
   max-width: 1343px;
   margin: 0 auto;
+  padding: 50px 0;
 }
 
 .testimonialsHeaderLeft {
@@ -1030,15 +1077,15 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    padding: 40px 16px 48px;
+    padding: 40px 16px 60px;
   }
   .heroTitle {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 32px;
+    line-height: 40px;
   }
   .heroSubtitle {
-    font-size: 16px;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 24px;
   }
   .sectionHeading {
     font-size: 28px;
@@ -1050,10 +1097,9 @@
     font-size: 30px;
     line-height: 40px;
   }
-  .dataDrivenHeadingGradient,
-  .dataDrivenHeadingBlack {
-    font-size: 30px;
-    line-height: 40px;
+  .dataDrivenHeadingGradient {
+    font-size: 28px;
+    line-height: 36px;
   }
   .statsSection {
     padding: 60px 16px 40px;
@@ -1063,10 +1109,10 @@
   }
   .alwaysKnowSection,
   .dataDrivenSection {
-    padding: 60px 0;
+    padding: 0;
   }
   .ctaSection {
-    padding: 40px 16px;
+    padding: 0 16px;
   }
   .ctaHeading {
     font-size: 32px;

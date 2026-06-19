@@ -26,7 +26,7 @@
   width: 100%;
   background: #fdfeff;
   overflow: hidden;
-  padding: 40px 0 35px;
+  padding: 60px 0 30px;
 }
 
 .hp-hero__blob {
@@ -80,9 +80,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 0;
   flex: 1;
   min-width: 0;
+}
+
+/* badge → heading div: 12px CSS ≈ 20px visual */
+.hp-hero__content > div:first-of-type {
+  margin-top: 12px;
 }
 
 .hp-hero__badge {
@@ -92,7 +97,7 @@
   background: #deeafd;
   border-radius: 60px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 100%;
   letter-spacing: -0.25px;
   color: #000000;
@@ -127,6 +132,7 @@
   color: #393939;
   max-width: 818px;
   margin: 0;
+  margin-top: 20px;
 }
 
 .hp-hero__ctas {
@@ -134,6 +140,7 @@
   flex-direction: row;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .hp-btn-primary {
@@ -229,11 +236,11 @@
 ══════════════════════════════════════════ */
 .hp-section {
   width: 100%;
-  padding: 35px 0;
+  padding: 60px 0 0;
   overflow-x: hidden;
 }
 .hp-section--green-bg { background: #f9fef9; }
-.hp-section--no-pb { padding-bottom: 0; }
+.hp-section--no-pb { padding-bottom: 0; overflow: hidden; }
 .hp-section--cta { padding: 35px 0 50px; margin-top: -90px; position: relative; z-index: 1; }
 .hp-section--cta .hp-section-header { margin-bottom: 0; gap: 8px; }
 
@@ -272,8 +279,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
-  margin-bottom: 45px;
+  gap: 12px;
+  margin-bottom: 0;
   text-align: center;
 }
 
@@ -308,6 +315,7 @@
   color: #000000;
   max-width: 1140px;
   margin: 0;
+  margin-top: 8px;
 }
 
 /* ══════════════════════════════════════════
@@ -316,7 +324,7 @@
 
 .howSection {
   background: #ffffff;
-  padding: 0 0 35px;
+  padding: 60px 0 0;
 }
 
 /* ── Homepage-specific How Vital Buddy Works layout ── */
@@ -328,14 +336,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 52.5px;
+  gap: 20px;
 }
 
 .hp-how__header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
+  gap: 0;
   max-width: 1008px;
 }
 
@@ -360,6 +368,7 @@
   color: #000000;
   max-width: 880.5px;
   margin: 0;
+  margin-top: 20px;
 }
 
 .hp-how__cards {
@@ -696,6 +705,15 @@
 /* ══════════════════════════════════════════
    AUDIENCE SECTIONS
 ══════════════════════════════════════════ */
+
+/* Per-section padding overrides (idx 0 = Assisted Living, 1 = Physicians, 2 = Patients) */
+/* idx 0: add bottom so gap to Physicians = 30 (0 bottom) + 30 (1 top) = 60px */
+.hp-audience-section--0 { padding-bottom: 30px; }
+/* idx 1: reduce top to 30px (external gap = 30 AL-bottom + 30 here = 60px), add bottom for space below Learn More */
+.hp-audience-section--1 { padding: 30px 0 30px; }
+/* idx 2: reduce top to 30px so gap from Physicians bottom 30px = 60px total */
+.hp-audience-section--2 { padding-top: 30px; }
+
 .hp-audience {
   display: flex;
   flex-direction: row;
@@ -720,7 +738,7 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  gap: 15px;
+  gap: 0;
 }
 
 .hp-audience__badge {
@@ -740,7 +758,8 @@
 .hp-audience__text-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
+  margin-top: 12px;
 }
 
 .hp-audience__btn {
@@ -751,6 +770,7 @@
   width: 124px;
   height: 40px;
   padding: 7px 16px;
+  margin-top: 20px;
   border-radius: 24px;
   border: 0.75px solid #E15D77;
   background: #FFFFFF;
@@ -801,12 +821,14 @@
   line-height: 26px;
   color: #000000;
   margin: 0;
+  margin-top: 20px;
 }
 
 .hp-audience__features {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -841,7 +863,7 @@
    COMPARISON TABLE
 ══════════════════════════════════════════ */
 .hp-compare {
-  padding: 35px 0;
+  padding: 60px 0 30px;
 }
 
 .hp-compare__badge {
@@ -879,8 +901,8 @@
 
 /* ── Compare section header overrides ── */
 .hp-compare .hp-section-header {
-  gap: 18px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .hp-compare .hp-section-header__subtitle {
@@ -1045,11 +1067,11 @@
    THE VITALFRIEND DIFFERENCE
 ══════════════════════════════════════════ */
 .hp-section--difference {
-  padding: 40px 0 30px;
+  padding: 30px 0 30px;
 }
 
 .hp-section--difference .hp-section-header {
-  margin-bottom: 18.75px;
+  margin-bottom: 20px;
 }
 
 .hp-difference__grid {
@@ -1109,12 +1131,12 @@
    PRODUCT SNAPSHOT / PLATFORM SECTION
 ══════════════════════════════════════════ */
 .hp-section--platform {
-  padding: 35px 0 0;
+  padding: 30px 0 0;
 }
 
 .hp-section--platform .hp-section__inner {
   max-width: 1008px;
-  gap: 33.75px;
+  gap: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1164,8 +1186,8 @@
 .hp-buddi__image-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 24px;
+  margin-top: 12px;
+  margin-bottom: 0;
 }
 
 .hp-buddi__image-wrap img {
@@ -1336,7 +1358,7 @@
 
   /* How It Works – stack cards vertically, reduce gaps */
   .howSection { padding: 16px 0 36px; }
-  .hp-how__inner { padding: 0 16px; gap: 24px; }
+  .hp-how__inner { padding: 0 16px; gap: 16px; }
   .hp-how__title { font-size: 22px; line-height: 30px; }
   .hp-how__subtitle { font-size: 13px; line-height: 20px; }
   .hp-how__cards { flex-wrap: wrap; justify-content: center; gap: 12px; }

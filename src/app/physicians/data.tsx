@@ -356,7 +356,7 @@ export interface DashboardTab {
   panelHeading: string;
   rows: DashboardTabRow[];
   /** Optional blue info note beneath the table */
-  note?: { primary: string; secondary?: string };
+  note?: { primary: string; secondary?: ReactNode };
 }
 
 export const dashboardTabs: DashboardTab[] = [
@@ -372,7 +372,15 @@ export const dashboardTabs: DashboardTab[] = [
     ],
     note: {
       primary: "Requires integration with 3rd party device",
-      secondary: "Check our Platform page for details",
+      secondary: (
+        <>
+          Check our{" "}
+          <a href="/platform" style={{ color: "inherit", textDecoration: "underline" }}>
+            Platform page
+          </a>{" "}
+          for details
+        </>
+      ),
     },
   },
   {

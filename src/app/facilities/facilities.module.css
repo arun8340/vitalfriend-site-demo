@@ -5,7 +5,7 @@
   position: relative;
   overflow: hidden;
   background: #ffffff;
-  padding: 55px 24px 20px;
+  padding: 60px 24px 0;
   text-align: center;
 }
 
@@ -41,7 +41,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 0;
 }
 
 .heroBadge {
@@ -71,6 +71,7 @@
   align-items: center;
   gap: 12px;
   width: 100%;
+  margin-top: 12px;
 }
 
 .heroTitle {
@@ -101,6 +102,7 @@
   text-align: center;
   color: #393939;
   margin: 0;
+  margin-top: 8px;
   max-width: 686.25px;
 }
 
@@ -110,6 +112,7 @@
   align-items: center;
   gap: 12px;
   width: 100%;
+  margin-top: 20px;
 }
 
 .heroBtns {
@@ -183,7 +186,7 @@
 .heroImageWrapper {
   width: 100%;
   max-width: 768px;
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .heroImage {
@@ -200,7 +203,7 @@
 ════════════════════════════════════════ */
 .tabsSection {
   background: #ffffff;
-  padding: 20px 24px 35;
+  padding: 60px 24px 0;
 }
 
 .tabsInner {
@@ -209,7 +212,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 30px;
 }
 
 .tabsBadgeWrapper {
@@ -221,7 +224,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   width: 519px;
 }
 
@@ -446,10 +449,10 @@
 ════════════════════════════════════════ */
 .ctaBannerOuter {
   background: #ffffff;
-  padding: 0 24px;
+  padding: 30px 24px 30px;
   display: flex;
   justify-content: center;
-  margin-top: -10px;
+  margin-top: 0;
 }
 
 .ctaBannerCard {
@@ -539,10 +542,10 @@
 ════════════════════════════════════════ */
 .vitalsSection {
   position: relative;
-  padding: 40px 24px 48px;
+  padding: 30px 24px 30px;
   text-align: center;
   align-self: stretch;
-  margin-top: -15px;
+  margin-top: 0;
   box-sizing: border-box;
 }
 
@@ -705,9 +708,9 @@
 ════════════════════════════════════════ */
 .insuranceOuter {
   background: #ffffff;
-  padding: 40px 24px;
-  margin-top: 8px;
-  margin-bottom: 24px;
+  padding: 30px 24px 30px;
+  margin-top: 0;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
 }
@@ -716,12 +719,12 @@
   position: relative;
   width: 1140px;
   max-width: 100%;
-  height: 320px;
+  min-height: 320px;
   border-top-left-radius: 37.5px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  padding: 48px 86.25px 40px 36.75px;
+  padding: 16px 86.25px 0 36.75px;
   background: linear-gradient(270.09deg, #FFE8F3 12.45%, #E7FDFF 98.11%);
   box-sizing: border-box;
   overflow: hidden;
@@ -849,7 +852,7 @@
 ════════════════════════════════════════ */
 .statsSection {
   position: relative;
-  padding: 24px 0 24px;
+  padding: 30px 0 30px;
   margin-top: 0;
   box-sizing: border-box;
 }
@@ -972,7 +975,7 @@
 ════════════════════════════════════════ */
 .testimonialsSection {
   background: #ffffff;
-  padding: 0px 24px 8px;
+  padding: 60px 24px 30px;
 }
 
 .testimonialsInner {
@@ -1153,7 +1156,7 @@
 ════════════════════════════════════════ */
 .certSection {
   background: #ffffff;
-  padding: 8px 24px 24px;
+  padding: 10px 24px 0;
 }
 
 .certInner {
@@ -1312,7 +1315,7 @@
 ════════════════════════════════════════ */
 .deploySection {
   background: #ffffff;
-  padding: 24px 24px 0px;
+  padding: 60px 24px 0;
 }
 
 .deployInner {
@@ -1329,7 +1332,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   max-width: 755.25px;
 }
 
@@ -1499,7 +1502,7 @@
 ════════════════════════════════════════ */
 .finalCtaSection {
   background: #ffffff;
-  padding: 24px 24px 48px;
+  padding: 60px 24px 60px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -1511,7 +1514,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .finalCtaBadge {
@@ -1535,7 +1538,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 31.5px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -1543,7 +1546,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -1725,8 +1728,14 @@
   .tabCardsGrid {
     grid-template-columns: 1fr;
   }
+  .tabsTabsAndCards {
+    gap: 20px;
+  }
 
   /* CTA Banner */
+  .ctaBannerOuter {
+    padding: 10px 16px 30px;
+  }
   .ctaBannerCard {
     flex-direction: column;
     align-items: flex-start;
@@ -1752,13 +1761,13 @@
 
   /* Insurance */
   .insuranceOuter {
-    padding: 24px 16px;
-    margin-top: 16px;
+    padding: 0 16px 30px;
+    margin-top: 0;
   }
   .insuranceCard {
     width: 100%;
-    height: auto;
-    padding: 32px 20px;
+    min-height: auto;
+    padding: 24px 20px;
     flex-direction: column;
   }
   .insuranceHeading {
@@ -1810,6 +1819,11 @@
   }
   .testimonialsGrid {
     grid-template-columns: 1fr;
+  }
+  .testimonialCard {
+    justify-content: flex-start;
+    gap: 16px;
+    min-height: unset;
   }
 
   /* Certification */

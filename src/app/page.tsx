@@ -142,7 +142,7 @@ export default function HomePage() {
           {/* Text column */}
           <div className={styles["hp-hero__content"]}>
             <span className={styles["hp-hero__badge"]}>
-              FDA-Cleared (510(k)) | Eligible for Medicare & Most Private
+              FDA-Cleared (510(k)) | May be Eligible for Medicare & Most Private
               Insurance*
             </span>
 
@@ -175,8 +175,7 @@ export default function HomePage() {
               step in early.
             </p>
             <p className={styles["hp-hero__description"]}>
-              Automated Continuous Monitoring. Support timely care with ongoing
-              vital signs tracking.
+              Automated monitoring supports the next level of timely, connected care.
             </p>
 
             <div className={styles["hp-hero__ctas"]}>
@@ -335,7 +334,7 @@ export default function HomePage() {
       {audienceSections.map((section, idx) => (
         <section
           key={idx}
-          className={styles["hp-section"]}
+          className={`${styles["hp-section"]} ${styles[`hp-audience-section--${idx}`]}`}
           style={{ background: section.bgColor }}
         >
           <div className={styles["hp-section__inner"]}>
@@ -414,7 +413,7 @@ export default function HomePage() {
               All-in-One Design
             </h2>
             <h2 className={styles["hp-section-header__title-black"]}>
-              Side-by-Side Comparison
+              Key Feature Comparison
             </h2>
             <p className={styles["hp-section-header__subtitle"]}>
               Vital Buddy replaces a cart of single-purpose instruments with one

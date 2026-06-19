@@ -668,8 +668,8 @@ export default function PhysiciansPage() {
             <Image
               src="/images/physicians-data-reporting.png"
               alt="Data and reporting dashboard"
-              width={603}
-              height={461}
+              width={452}
+              height={346}
               style={{ width: "100%", height: "auto", borderRadius: 16 }}
               unoptimized
             />
@@ -682,7 +682,7 @@ export default function PhysiciansPage() {
       ══════════════════════════ */}
       <section className={s.testimonialSection}>
         <div className={s.testimonialInner}>
-          <div className={s.testimonialHeader}>
+          <div className={s.testimonialHeaderLeft}>
             <span className={s.testimonialBadge}>
               What Care Teams Are Saying
             </span>
@@ -692,43 +692,32 @@ export default function PhysiciansPage() {
           </div>
           <div className={s.testimonialGrid}>
             {testimonials.map((t, i) => (
-              <div key={i} className={s.testimonialCard}>
+              <div
+                key={i}
+                className={`${s.testimonialCard} ${
+                  i === 0
+                    ? s.testimonialCardGreen
+                    : i === 2
+                    ? s.testimonialCardPink
+                    : s.testimonialCardNeutral
+                }`}
+              >
                 <p className={s.testimonialQuote}>{t.quote}</p>
-                <div className={s.testimonialProfile}>
+                <div className={s.testimonialAuthor}>
                   <div className={s.testimonialAvatar}>
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="20"
-                        fill="rgba(77,154,241,0.4)"
-                      />
-                      <circle
-                        cx="20"
-                        cy="20"
-                        r="20"
-                        stroke="#4D9AF1"
-                        strokeWidth="1.5"
-                        fill="none"
-                      />
-                      <circle
-                        cx="20"
-                        cy="15"
-                        r="5"
-                        stroke="#4D9AF1"
-                        strokeWidth="1.5"
-                        fill="white"
-                      />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="8" r="4" fill="#fff" opacity="0.9" />
                       <path
-                        d="M8.5 35c0-6.3 5.2-10 11.5-10s11.5 3.7 11.5 10"
-                        stroke="#4D9AF1"
-                        strokeWidth="1.5"
+                        d="M4 20c0-4 3.6-7 8-7s8 3 8 7"
+                        stroke="#fff"
+                        strokeWidth="1.8"
                         strokeLinecap="round"
                         fill="none"
+                        opacity="0.9"
                       />
                     </svg>
                   </div>
-                  <div className={s.testimonialMeta}>
+                  <div className={s.testimonialNameGroup}>
                     <p className={s.testimonialName}>{t.name}</p>
                     <p className={s.testimonialRole}>{t.role}</p>
                     <p className={s.testimonialLocation}>{t.location}</p>
@@ -756,7 +745,7 @@ export default function PhysiciansPage() {
           </div>
           <div className={s.proContent}>
             <h2 className={s.proHeading}>
-              Healthcare Professionals Prefer VitalFriend
+              Healthcare <br />Professionals <br />Prefer VitalFriend
             </h2>
             <ul className={s.proList}>
               {proPoints.map((point, i) => (
@@ -789,17 +778,21 @@ export default function PhysiciansPage() {
       ══════════════════════════ */}
       <section className={s.insightsSection}>
         <div className={s.insightsInner}>
-          <h2 className={s.insightsHeading}>
-            Critical Insights <br /> Without Clinical Overload
-          </h2>
-          <p className={s.insightsSubtitle}>
-            Get continuous vitals data for patients with chronic conditions
-          </p>
-          {/* <div className={s.insightsCta}>
-            <Link href="/contact" className={s.insightsCtaPrimary}>
-              Download Product Sheet
-            </Link>
-          </div> */}
+          <div className={s.insightsTopGroup}>
+            <div className={s.insightsHeadText}>
+              <h2 className={s.insightsHeading}>
+                Critical Insights <br /> Without Clinical Overload
+              </h2>
+              <p className={s.insightsSubtitle}>
+                Get continuous vitals data for patients with chronic conditions
+              </p>
+            </div>
+            {/* <div className={s.insightsCta}>
+              <Link href="/contact" className={s.insightsCtaPrimary}>
+                Download Product Sheet
+              </Link>
+            </div> */}
+          </div>
           <div className={s.insightsGrid}>
             {insightCards.map((card, i) => (
               <div key={i} className={s.insightCard}>
@@ -816,11 +809,13 @@ export default function PhysiciansPage() {
           CTA
       ══════════════════════════ */}
       <section className={s.ctaSection}>
-        <h2 className={s.ctaHeading}>Ready to Transform Patient Care?</h2>
-        <p className={s.ctaSubtitle}>
-          Join thousands of healthcare professionals who trust VitalFriend for
-          continuous patient monitoring
-        </p>
+        <div className={s.ctaHeadGroup}>
+          <h2 className={s.ctaHeading}>Ready to Transform Patient Care?</h2>
+          <p className={s.ctaSubtitle}>
+            Join thousands of healthcare professionals who trust VitalFriend for
+            continuous patient monitoring
+          </p>
+        </div>
         <div className={s.ctaBtns}>
           <Link href="/scheduleDemo" className={s.ctaBtnPrimary}>
             Schedule a Demo

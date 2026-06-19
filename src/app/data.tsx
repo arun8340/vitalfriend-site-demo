@@ -208,22 +208,22 @@ export const differenceItems: DifferenceItem[] = [
   {
     number: "1",
     description:
-      "An integrated platform combining wearable monitoring, remote data review, billing and operational support services to support senior care facility workflows and care coordination",
+      "An integrated platform combining wearable monitoring, remote data review, billing and operational support services to support senior care facility workflows and care coordination.",
   },
   {
     number: "2",
     description:
-      "Revolutionary, comfortable Vital Buddy increases adherence, eliminates the need for expensive services and medical equipment",
+      "Convenient, comfortable Vital Buddy increases adherence, eliminates the need for expensive services and medical equipment.",
   },
   {
     number: "3",
     description:
-      "We manage support, monitoring, clinical notes and insurance billing",
+      "We manage support, monitoring, clinical notes and insurance billing.",
   },
   {
     number: "4",
     description:
-      "Monitor and manage patient data, individually and collectively, to drive better outcomes at lower costs",
+      "Monitor and manage patient data, individually and collectively, to drive better outcomes at lower costs.",
   },
 ];
 
