@@ -1,0 +1,258 @@
+/* ════════════════════════════════════════
+   HERO SECTION
+════════════════════════════════════════ */
+.heroSection {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.blobTopRight {
+  pointer-events: none;
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: #D0E0F9;
+  filter: blur(90px);
+}
+
+.blobBottomLeft {
+  pointer-events: none;
+  position: absolute;
+  top: 80px;
+  left: 40px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: #DFFFEE;
+  filter: blur(70px);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  min-height: 480px;
+  margin: 0 auto;
+  padding: 10px 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.heroContent {
+  flex: 0 0 auto;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heroHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 62px;
+  line-height: 73px;
+  letter-spacing: -0.25px;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.heroBody {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 28px;
+  letter-spacing: -0.25px;
+  color: #393939;
+  margin: 0;
+}
+
+.heroImageCol {
+  flex-shrink: 0;
+  margin-right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.heroImage {
+  width: 335px;
+  height: 502px;
+  object-fit: contain;
+  margin-top: 24px;
+}
+
+/* ════════════════════════════════════════
+   CONTENT SECTION
+════════════════════════════════════════ */
+.contentSection {
+  background: #ffffff;
+  padding: 0 0 35px;
+}
+
+.contentInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* About VitalFriend unnumbered block */
+.aboutBlock {
+  margin-bottom: 16px;
+  padding-bottom: 0;
+}
+
+.aboutHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.449219px;
+  color: #15171C;
+  margin: 0 0 9px 0;
+}
+
+/* Numbered legal sections */
+.legalSection {
+  margin-top: 40px;
+}
+
+.sectionHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.449219px;
+  color: #15171C;
+  margin: 0 0 9px 0;
+}
+
+/* Body text — shared across hero intro and content */
+.bodyText {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  color: #000000;
+  margin: 0 0 9px 0;
+}
+
+.bodyText:last-child {
+  margin-bottom: 0;
+}
+
+/* Sub-item list (1.1, 1.2 …) */
+.subList {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 24px;
+}
+
+.subItem {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.subItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Sub-sub-item list (1.3.1, 1.3.2 …) */
+.subSubList {
+  list-style: none;
+  margin: 9px 0 0 0;
+  padding: 0 0 0 24px;
+}
+
+.subSubItem {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.subSubItem:last-child {
+  margin-bottom: 0;
+}
+
+/* ════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .heroInner {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: unset;
+    padding: 28px 24px;
+    gap: 32px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .heroHeading {
+    font-size: 42px;
+    line-height: 56px;
+  }
+
+  .heroImageCol {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contentInner {
+    padding: 0 24px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .heroHeading {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .heroBody {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .contentSection {
+    padding: 24px 0;
+  }
+
+  .contentInner {
+    padding: 0 24px;
+  }
+
+  .legalSection {
+    margin-top: 32px;
+  }
+
+  .aboutBlock {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroImage {
+    width: 240px;
+    height: 360px;
+  }
+}

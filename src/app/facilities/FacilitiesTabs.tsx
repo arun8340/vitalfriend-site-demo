@@ -65,7 +65,7 @@ export default function FacilitiesTabs() {
       </div>{/* end tabsTabsAndCards */}
 
       {/* CTA Banner — changes per tab */}
-      <div className={s.ctaBannerOuter}>
+      <div className={s.ctaBannerOuter} style={{ padding: "40px 0 40px" }}>
         <div className={s.ctaBannerCard}>
           <div className={s.ctaBannerLeft}>
             <p className={s.ctaBannerQuote}>&ldquo;{tab.ctaQuote}&rdquo;</p>
@@ -171,7 +171,7 @@ export default function FacilitiesTabs() {
       </div>
 
       {/* Insurance Section — changes per tab */}
-      <div className={s.insuranceOuter}>
+      <div className={s.insuranceOuter} style={{ padding: "16px 0 0" }}>
         <div className={s.insuranceCard}>
           <div className={s.insuranceContent}>
             <div className={s.insuranceBadge}>

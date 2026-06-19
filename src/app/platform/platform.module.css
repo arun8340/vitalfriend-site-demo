@@ -41,12 +41,12 @@
 .heroSection {
   position: relative;
   z-index: 1;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 .heroInner {
-  max-width: 860px;
+  max-width: 677.25px;
   margin: 0 auto;
   padding: 0 24px;
   text-align: center;
@@ -54,22 +54,23 @@
 
 .heroTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 74px;
+  font-size: 55.5px;
   font-weight: 800;
-  line-height: 87px;
-  letter-spacing: -0.25px;
+  line-height: 65.25px;
+  letter-spacing: -0.19px;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .heroSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
   color: #393939;
   margin-bottom: 0;
 }
@@ -270,13 +271,13 @@
 ════════════════════════════════════════ */
 .dataFlowSection {
   background: #F9FBFF;
-  padding: 72px 0 88px;
+  padding: 30px 53.63px 20px;
 }
 
 .dataFlowInner {
-  max-width: 1120px;
+  max-width: 1008px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -285,51 +286,46 @@
 .techBadge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   background: #FFE5EA;
-  border-radius: 9999px;
-  padding: 4px 14px;
-  margin-bottom: 22px;
+  border-radius: 12582900px;
+  padding: 8.63px 12px 6.37px 12px;
+  margin-bottom: 18px;
 }
 
 .techDot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #000000;
-  flex-shrink: 0;
+  display: none;
 }
 
 .techBadgeText {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 10.5px;
   font-weight: 600;
-  line-height: 20px;
-  letter-spacing: -0.15px;
+  line-height: 15px;
+  letter-spacing: -0.11px;
+  text-align: center;
   color: #E15D77;
 }
 
 .dataFlowTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 700;
-  line-height: 46px;
-  letter-spacing: 0.35px;
+  line-height: 36px;
+  letter-spacing: 0.26px;
   text-align: center;
   color: #000000;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .dataFlowSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 28px;
-  letter-spacing: -0.45px;
+  line-height: 21px;
+  letter-spacing: -0.34px;
   text-align: center;
   color: #000000;
-  margin-bottom: 42px;
+  margin-bottom: 30px;
 }
 
 .flowDiagram {
@@ -352,8 +348,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  flex: 0 0 320px;
+  gap: 12px;
+  flex: 0 0 288px;
 }
 
 .arrowWrap {
@@ -385,8 +381,9 @@
   align-items: center;
   gap: 6px;
   background: #FFE5EA;
-  border-radius: 9999px;
-  padding: 4px 12px;
+  border-radius: 12582900px;
+  height: 18px;
+  padding: 3px 12px;
 }
 
 .stepDot {
@@ -400,34 +397,34 @@
 
 .stepLabel {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0.45px;
   color: #E15D77;
   text-transform: uppercase;
 }
 
 /* Flow card */
 .flowCard {
-  width: 320px;
-  min-height: 118px;
-  padding: 20px 20px 18px;
-  border-radius: 14px;
-  border: 2px solid #96F7E4;
+  width: 288px;
+  padding: 19.5px 19.5px 16px 19.5px;
+  border-radius: 12px;
+  border: 1.5px solid #96F7E4;
   background: #ffffff;
-  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
+  box-shadow: 0px 3px 4.5px -3px rgba(0,0,0,0.10), 0px 7.5px 11.25px -2.25px rgba(0,0,0,0.10);
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
 }
 
 .cardIconBox {
   flex-shrink: 0;
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #00BBA7 0%, #009689 100%);
-  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
+  box-shadow: 0px 3px 4.5px -3px rgba(0,0,0,0.10), 0px 7.5px 11.25px -2.25px rgba(0,0,0,0.10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -435,16 +432,16 @@
 
 .cardTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 700;
   color: #00A896;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   line-height: 1.2;
 }
 
 .cardBody {
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
   line-height: 1.55;
   color: #374151;
@@ -484,7 +481,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 12px;
+  width: 288px;
 }
 
 /* Wrapper holding the Vital Link connector + the Integrations overlay SVG */
@@ -722,7 +720,7 @@
 ════════════════════════════════════════ */
 .meetBuddySection {
   background: #ffffff;
-  padding: 80px 0;
+  padding: 20px 0 80px;
 }
 
 .meetBuddyInner {
@@ -823,32 +821,33 @@
 ════════════════════════════════════════ */
 .howSection {
   background: #F9FBFF;
-  padding: 60px 0;
+  padding: 20px 0 0;
 }
 
 .howInner {
-  max-width: 1338px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
+  gap: 20px;
 }
 
 .howHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 0;
+  max-width: 1008px;
 }
 
 .howTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.25px;
+  line-height: 48px;
+  letter-spacing: -0.19px;
   text-align: center;
   color: #15171C;
   margin: 0;
@@ -856,52 +855,53 @@
 
 .howSubtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 32px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
   text-align: center;
   color: #000000;
+  white-space: nowrap;
   margin: 0;
+  margin-top: 8px;
 }
 
-/* 5 cards + 4 connectors in a row — CSS Grid guarantees exact column sizes */
 .howCards {
-  display: grid;
-  grid-template-columns: 240px 20px 240px 20px 240px 20px 240px 20px 240px;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: stretch;
   width: 100%;
 }
 
 .howCard {
-  width: 240px;
-  min-height: 240px;
-  border-radius: 16px;
-  border: 1px solid #E5E7EB;
+  width: 180px;
   background: #ffffff;
-  box-shadow: 0px 4px 6px -4px rgba(0,0,0,0.10), 0px 10px 15px -3px rgba(0,0,0,0.10);
-  padding: 20px;
+  border: 0.75px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0px 3px 4.5px -3px rgba(0,0,0,0.10), 0px 7.5px 11.25px -2.25px rgba(0,0,0,0.10);
+  padding: 18.75px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 8px;
   box-sizing: border-box;
 }
 
-/* Small connecting line — aligns with icon centre (25px top + 32px half = 57px) */
 .howConnector {
   align-self: start;
-  width: 20px;
+  width: 18px;
   height: 2px;
-  margin-top: 57px;
+  margin-top: 43px;
+  flex-shrink: 0;
   border-radius: 999px;
   background: linear-gradient(90deg, #2B7FFF 0%, #00B8DB 100%);
 }
 
 .howIconBox {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -910,33 +910,30 @@
 
 .howStep {
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
-  line-height: 16px;
-  letter-spacing: 0.6px;
+  line-height: 14px;
+  letter-spacing: 0.5px;
   color: #6A7282;
   text-transform: uppercase;
 }
 
 .howCardTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 28px;
-  letter-spacing: -0.45px;
+  line-height: 18px;
+  letter-spacing: -0.3px;
   color: #101828;
   margin: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .howCardBody {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 400;
-  line-height: 22.75px;
-  letter-spacing: -0.15px;
+  line-height: 17px;
+  letter-spacing: -0.11px;
   color: #4A5565;
   margin: 0;
 }
@@ -944,26 +941,25 @@
 /* Outcomes banner */
 .howBanner {
   width: 100%;
-  max-width: 1296px;
-  min-height: 140px;
-  border-radius: 16px;
-  border: 2px solid #DDDDDD;
-  border-top: 2px solid #DDDDDD;
+  max-width: 972px;
+  min-height: 105px;
+  border-radius: 12px;
+  border: 1.5px solid #DDDDDD;
   background: #ffffff;
-  padding: 34px 34px 2px;
+  padding: 25.5px 25.5px 1.5px 25.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   box-sizing: border-box;
 }
 
 .howBannerLabel {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 24px;
-  letter-spacing: -0.31px;
+  line-height: 21px;
+  letter-spacing: -0.28px;
   text-align: center;
   color: #4A5565;
   margin: 0;
@@ -971,10 +967,10 @@
 
 .howBannerHighlight {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(16px, 1.6vw, 28px);
+  font-size: 22px;
   font-weight: 700;
   line-height: 1.3;
-  letter-spacing: 0.37px;
+  letter-spacing: 0.3px;
   text-align: center;
   background: linear-gradient(90deg, #E60076 0%, #EC003F 100%);
   -webkit-background-clip: text;
@@ -986,26 +982,26 @@
 /* CTA block */
 .howCta {
   width: 100%;
-  max-width: 1306px;
-  min-height: 214px;
-  border-radius: 24px;
+  max-width: 1116px;
+  min-height: 160.5px;
+  border-radius: 18px;
   background: linear-gradient(90deg, #E15D77 0%, #E85370 100%);
-  box-shadow: 0px 25px 50px -12px rgba(246, 51, 154, 0.20);
-  padding: 29px 48px;
+  box-shadow: 0px 18.75px 37.5px -9px rgba(246, 51, 154, 0.20);
+  padding: 21.75px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 10.5px;
   box-sizing: border-box;
 }
 
 .howCtaTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  line-height: 40px;
-  letter-spacing: 0.37px;
+  line-height: 36px;
+  letter-spacing: 0.3px;
   text-align: center;
   color: #ffffff;
   margin: 0;
@@ -1013,10 +1009,10 @@
 
 .howCtaBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 28px;
-  letter-spacing: -0.45px;
+  line-height: 24px;
+  letter-spacing: -0.3px;
   text-align: center;
   color: #FDF2F8;
   margin: 0;
@@ -1026,41 +1022,38 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 316px;
-  height: 60px;
-  padding: 16px 40px;
+  padding: 12px 28px;
   background: #ffffff;
   border-radius: 9999px;
   box-shadow: 0px 8px 10px -6px rgba(0,0,0,0.10), 0px 20px 25px -5px rgba(0,0,0,0.10);
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 28px;
-  letter-spacing: -0.44px;
+  line-height: 22px;
+  letter-spacing: -0.35px;
   text-align: center;
   color: #E60076;
   text-decoration: none;
   transition: opacity 0.2s;
-  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .howCtaBtn:hover {
   opacity: 0.9;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1140px) {
   .howCards {
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
   }
   .howConnector {
     display: none;
   }
   .howCard {
-    width: 240px;
-    min-width: 0;
+    width: calc(50% - 6px);
+    max-width: none;
   }
 }
 
@@ -1069,31 +1062,32 @@
 ════════════════════════════════════════ */
 .nextLevelSection {
   background: #ffffff;
-  padding: 60px 0 40px;
+  padding: 40px 0 0px;
 }
 
 .nextLevelInner {
-  max-width: 1140px;
+  max-width: 1008px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 116px;
+  gap: 30px;
 }
 
 .nextLevelText {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 9px;
 }
 
 .nextLevelTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 50px;
+  font-size: 37.5px;
   font-weight: 800;
-  line-height: 66px;
+  line-height: 49.5px;
+  letter-spacing: -0.19px;
   text-align: center;
   color: #15171C;
   margin: 0;
@@ -1101,13 +1095,13 @@
 
 .nextLevelBody {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 26.25px;
   letter-spacing: 0px;
   text-align: center;
   color: #000000;
-  max-width: 860px;
+  max-width: 880.5px;
   margin: 0;
 }
 
@@ -1130,12 +1124,12 @@
 }
 
 .blueCard {
-  width: 320px;
-  height: 178px;
+  width: 288px;
+  height: 165px;
   padding: 24px 24px 0;
-  border-radius: 14px;
+  border-radius: 12px;
   background: linear-gradient(110.5deg, #94C1FF 21.84%, #4D9AF1 94.48%);
-  box-shadow: 0px 8px 10px -6px rgba(0,0,0,0.10), 0px 20px 25px -5px rgba(0,0,0,0.10);
+  box-shadow: 0px 6px 7.5px -4.5px rgba(0,0,0,0.10), 0px 15px 18.75px -3.75px rgba(0,0,0,0.10);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1186,34 +1180,37 @@
   }
   .blueCard {
     width: 100%;
-    max-width: 384px;
+    max-width: 288px;
     height: auto;
-    padding-bottom: 32px;
+    padding-bottom: 24px;
   }
 }
 
 @media (max-width: 768px) {
   .heroSection {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   .heroTitle {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 32px;
+    line-height: 40px;
   }
   .heroSubtitle {
-    font-size: 17px;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 24px;
   }
   .proTitle,
   .vitalLinkTitle,
   .vitalInsightsTitle,
   .meetBuddyTitle,
   .howTitle,
-  .nextLevelTitle,
   .nextStepTitle {
     font-size: 32px;
     line-height: 1.2;
+  }
+  .nextLevelTitle {
+    font-size: 26px;
+    line-height: 1.3;
   }
   .proItem,
   .vitalLinkItemText,
@@ -1233,6 +1230,10 @@
   .howCard {
     width: 100%;
     max-width: 320px;
+  }
+  .dataFlowSection {
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .dataFlowInner,
   .vitalLinkInner,

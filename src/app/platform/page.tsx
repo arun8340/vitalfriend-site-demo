@@ -48,14 +48,12 @@ export default function PlatformPage() {
         <section className={s.heroSection}>
           <div className={s.heroInner}>
             <h1 className={s.heroTitle}>
-              The Remote Senior
-              <br />
-              Monitoring Platform
+              The Remote Vitals Monitoring Platform
             </h1>
             <p className={s.heroSubtitle}>
-              A health data platform that connects patients, doctors, care
-              facilities and families through continuous vital signs monitoring
-              and clinician review.
+              The only health data platform that connects patients, doctors,
+              care facilities and families, all enhanced with AI and covered by
+              insurance
             </p>
           </div>
         </section>
@@ -90,8 +88,8 @@ export default function PlatformPage() {
                   <div className={s.cardIconBox}>
                     <img
                       src="/images/platform/Data-flows-svg/vital-buddy.svg"
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                       alt=""
                     />
                   </div>
@@ -121,8 +119,8 @@ export default function PlatformPage() {
                   <div className={s.cardIconBox}>
                     <img
                       src="/images/platform/Data-flows-svg/vital-link.svg"
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                       alt=""
                     />
                   </div>
@@ -152,8 +150,8 @@ export default function PlatformPage() {
                   <div className={s.cardIconBox}>
                     <img
                       src="/images/platform/Data-flows-svg/integrations.svg"
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                       alt=""
                     />
                   </div>
@@ -233,8 +231,8 @@ export default function PlatformPage() {
                   <div className={s.cardIconBox}>
                     <img
                       src="/images/platform/Data-flows-svg/vital-insights.svg"
-                      width={32}
-                      height={32}
+                      width={24}
+                      height={24}
                       alt=""
                     />
                   </div>
@@ -382,10 +380,10 @@ export default function PlatformPage() {
             </h2>
             <p className={s.nextLevelBody}>
               Our platform doesn&apos;t just collect data. It learns the
-              user&apos;s unique baselines. Tools help clinicians review vital
-              sign trends and data deviations from an established baseline, and
-              can send customizable notifications to clinicians, caregivers and
-              family.
+              user&apos;s unique baselines. Our AI-assisted tools help
+              clinicians identify a trend or a deviation from an established
+              baseline, and can send a customizable notifications to clinicians,
+              caregivers and family.
             </p>
           </div>
           <Image
@@ -393,7 +391,7 @@ export default function PlatformPage() {
             alt="VitalFriend platform across tablet, watch and phone"
             width={1116}
             height={866}
-            style={{ objectFit: "contain", maxWidth: "100%", display: "block" }}
+            style={{ objectFit: "contain", maxWidth: "836.65px", width: "100%", height: "auto", display: "block" }}
           />
         </div>
       </section>
@@ -405,12 +403,9 @@ export default function PlatformPage() {
           <div className={s.howHeader}>
             <h2 className={s.howTitle}>How Vital Buddy Works</h2>
             <p className={s.howSubtitle}>
-              Data flows automatically from Vital Buddy through our platform
-              where it is reviewed by our clinicians using vital trend review
-              tools.
+              Data flows automatically from Vital Buddy through our platform where it is reviewed by our clinicians using vital trend review tools.
               <br />
-              It provides real-time updates to physicians, caregivers and family
-              members, who can act early.
+              It provides real-time updates to physicians, caregivers and family members, who can act early.
             </p>
           </div>
 
@@ -427,8 +422,8 @@ export default function PlatformPage() {
               >
                 <img
                   src="/images/platform/Vital-Buddy-Works/vital-buddy-captures.svg"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
                   alt=""
                 />
               </div>
@@ -453,8 +448,8 @@ export default function PlatformPage() {
               >
                 <img
                   src="/images/platform/Vital-Buddy-Works/data-uploads.svg"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
                   alt=""
                 />
               </div>
@@ -478,8 +473,8 @@ export default function PlatformPage() {
               >
                 <img
                   src="/images/platform/Vital-Buddy-Works/clinicians-interpret.svg"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
                   alt=""
                 />
               </div>
@@ -504,8 +499,8 @@ export default function PlatformPage() {
               >
                 <img
                   src="/images/platform/Vital-Buddy-Works/caregivers-notified.svg"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
                   alt=""
                 />
               </div>
@@ -529,8 +524,8 @@ export default function PlatformPage() {
               >
                 <img
                   src="/images/platform/Vital-Buddy-Works/care-provided.svg"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
                   alt=""
                 />
               </div>
