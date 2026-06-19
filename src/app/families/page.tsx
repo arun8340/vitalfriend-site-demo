@@ -21,18 +21,20 @@ export default function FamiliesPage() {
         <div className={s.heroBlobRight} />
         <div className={s.heroBlobLeft} />
         <div className={s.heroInner}>
-          <div className={s.heroBadge}>
-            <span className={s.heroBadgeText}>For Families & Caregivers</span>
+          <div className={s.heroTextGroup}>
+            <div className={s.heroBadge}>
+              <span className={s.heroBadgeText}>For Families & Caregivers</span>
+            </div>
+            <h1 className={s.heroTitle}>
+              <span className={s.heroTitleGradient}>Families</span>
+            </h1>
+            <p className={s.heroSubtitle}>
+              Loving someone from a distance is hard. When they&apos;re managing
+              health issues, that distance can feel even greater. Having your
+              loved one wearing Vital Buddy closes that gap and gives the whole
+              family peace of mind.
+            </p>
           </div>
-          <h1 className={s.heroTitle}>
-            <span className={s.heroTitleGradient}>Families</span>
-          </h1>
-          <p className={s.heroSubtitle}>
-            Loving someone from a distance is hard. When they&apos;re managing
-            health issues, that distance can feel even greater. Having your
-            loved one wearing Vital Buddy closes that gap and gives the whole
-            family peace of mind.
-          </p>
           <Link href="/physicians" className={s.heroBtnPrimary}>
             See How It Works
           </Link>
@@ -40,22 +42,23 @@ export default function FamiliesPage() {
             <Image
               src="/images/families/hero-section.png"
               alt="Family using VitalFriend"
-              width={1024}
-              height={572}
+              width={768}
+              height={429}
               className={s.heroImage}
               priority
             />
           </div>
         </div>
       </section>
+      <div className={s.remainingBody}>
       {/* ── Data-Driven Peace of Mind ── */}
       <section className={s.dataDrivenSection}>
         <div className={s.dataDrivenInner}>
           <Image
             src="/images/families/Patients-Family.png"
             alt="Families accessing loved one vitals"
-            width={574}
-            height={540}
+            width={430}
+            height={330}
             className={s.dataDrivenImage}
           />
           <div className={s.dataDrivenContent}>
@@ -64,80 +67,84 @@ export default function FamiliesPage() {
                 For Patients &amp; Family
               </span>
             </div>
-            <h2>
-              <span className={s.dataDrivenHeadingGradient}>
-                Data-Driven Peace of Mind
-              </span>
-              <span className={s.dataDrivenHeadingBlack}>
+            <div className={s.dataDrivenContentGroup}>
+              <h2 className={s.dataDrivenHeading}>
+                <span className={s.dataDrivenHeadingGradient}>
+                  Data-Driven Peace of Mind
+                </span>
+              </h2>
+              <p className={s.dataDrivenSubheading}>
                 Even When You&apos;re Miles Away
-              </span>
-            </h2>
-            <p className={s.dataDrivenBody}>
-              Families of residents or patients wearing Vital Buddy can access
-              their loved one&apos;s real-time vitals through the Family
-              Dashboard. Having up to date, accurate information lets them:
-            </p>
-            <ul className={s.dataDrivenList}>
-              {stayConnectedContent.map((point, i) => (
-                <li key={i} className={s.dataDrivenItem}>
-                  <svg
-                    className={s.dataDrivenCheckIcon}
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                  >
-                    <defs>
-                      <linearGradient
-                        id={`ddcg${i}`}
-                        x1="0"
-                        y1="0"
-                        x2="1"
-                        y2="1"
-                      >
-                        <stop offset="14.29%" stopColor="#6E70FF" />
-                        <stop offset="85.29%" stopColor="#D393F1" />
-                      </linearGradient>
-                    </defs>
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="10"
-                      stroke={`url(#ddcg${i})`}
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M7 11.5l2.5 2.5 5.5-6"
-                      stroke={`url(#ddcg${i})`}
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  {point}
-                </li>
-              ))}
-            </ul>
+              </p>
+              <p className={s.dataDrivenBody}>
+                Families of residents or patients wearing Vital Buddy can access
+                their loved one&apos;s real-time vitals through the Family
+                Dashboard. Having up to date, accurate information lets them:
+              </p>
+              <ul className={s.dataDrivenList}>
+                {stayConnectedContent.map((point, i) => (
+                  <li key={i} className={s.dataDrivenItem}>
+                    <svg
+                      className={s.dataDrivenCheckIcon}
+                      width="18"
+                      height="18"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                    >
+                      <defs>
+                        <linearGradient
+                          id={`ddcg${i}`}
+                          x1="0"
+                          y1="0"
+                          x2="1"
+                          y2="1"
+                        >
+                          <stop offset="14.29%" stopColor="#6E70FF" />
+                          <stop offset="85.29%" stopColor="#D393F1" />
+                        </linearGradient>
+                      </defs>
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="10"
+                        stroke={`url(#ddcg${i})`}
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M7 11.5l2.5 2.5 5.5-6"
+                        stroke={`url(#ddcg${i})`}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <Link href="/physicians" className={s.dataDrivenLearnBtn}>
               Learn more
             </Link>
           </div>
         </div>
       </section>
-      {/* ── Critical Vitals ── */}
+      {/* ── Continuously Monitor ── */}
       <section className={s.vitalsSection}>
         <div className={s.vitalsBlobLeft} />
         <div className={s.vitalsBlobRight} />
         <div className={s.vitalsInner}>
-          <h2 className={s.vitalsHeading}>
-            Continuously Monitor
-            <br />
-            Critical Physiological Parameters
-          </h2>
-          <p className={s.vitalsSubtitle}>
-            Vital Buddy automatically monitors multiple vitals and bio markers
-            while providing critical health reminders and alerts:
-          </p>
+          <div className={s.vitalsHeadingGroup}>
+            <h2 className={s.vitalsHeading}>
+              Continuously Monitor
+              <br />
+              Critical Physiological Parameters
+            </h2>
+            <p className={s.vitalsSubtitle}>
+              Vital Buddy automatically monitors multiple vitals and bio markers
+              while providing critical health reminders and alerts:
+            </p>
+          </div>
           <div className={s.vitalsGrid}>
             {[
               {
@@ -218,21 +225,23 @@ export default function FamiliesPage() {
       {/* ── Stay Connected ── */}
       <section className={s.stayConnectedSection}>
         <div className={s.stayConnectedInner}>
-          <div>
+          <div className={s.stayConnectedLeft}>
             <h2 className={s.stayConnectedHeading}>
               Stay Connected to What Matters Most
             </h2>
-            <p className={s.stayConnectedBody}>
-              Doctor visits are tough to coordinate, updates are sporadic, and
-              too often you&apos;re left wondering how they&apos;re really
-              doing. Vital Buddy changes the game. When your loved one wears
-              their Vital Buddy, you see their vital health information in real
-              time, and so do their doctors and care team. Everyone stays
-              connected and informed.
-            </p>
-            <p className={s.stayConnectedBody}>
-              Peace of mind for you. Better care for the person you love.
-            </p>
+            <div className={s.stayConnectedDescGroup}>
+              <p className={s.stayConnectedBody}>
+                Doctor visits are tough to coordinate, updates are sporadic, and
+                too often you&apos;re left wondering how they&apos;re really
+                doing. Vital Buddy changes the game. When your loved one wears
+                their Vital Buddy, you see their vital health information in real
+                time, and so do their doctors and care team. Everyone stays
+                connected and informed.
+              </p>
+              <p className={s.stayConnectedBody}>
+                Peace of mind for you. Better care for the person you love.
+              </p>
+            </div>
             <ul className={s.stayConnectedList}>
               {[
                 {
@@ -249,8 +258,8 @@ export default function FamiliesPage() {
                 <li key={i} className={s.stayConnectedItem}>
                   <svg
                     className={s.stayConnectedCheckIcon}
-                    width="22"
-                    height="22"
+                    width="18"
+                    height="18"
                     viewBox="0 0 22 22"
                     fill="none"
                   >
@@ -302,38 +311,44 @@ export default function FamiliesPage() {
       {/* ── Always Know How They Are Doing ── */}
       <section className={s.alwaysKnowSection}>
         <div className={s.alwaysKnowInner}>
-          <h2 className={s.alwaysKnowHeading}>
-            Always Know How They Are Doing
-          </h2>
-          <p className={s.alwaysKnowSubtitle}>
-            Family Dashboard lets you view your loved one&apos;s health in real
-            time,
-            <br />
-            so you can see how they&apos;re doing without having to call or
-            visit.
-          </p>
+          <div className={s.alwaysKnowHeadingGroup}>
+            <h2 className={s.alwaysKnowHeading}>
+              Always Know How They Are Doing
+            </h2>
+            <p className={s.alwaysKnowSubtitle}>
+              Family Dashboard lets you view your loved one&apos;s health in real time,
+              so you can see how they&apos;re doing without having to call or visit.
+            </p>
+          </div>
           <Image
             src="/images/families/familiy-dashboard.jpg"
             alt="Family Dashboard showing patient health data"
-            width={997}
-            height={762}
+            width={748}
+            height={572}
             className={s.alwaysKnowImage}
           />
         </div>
       </section>
-      <section className={s.sectionWhite}>
+      {/* ── Effortless Health Confidence ── */}
+      <section className={s.effortlessSection}>
         <div className={s.whyInner}>
-          <h2 className={s.effortlessHeading}>Effortless Health Confidence</h2>
-          <p className={s.effortlessSubtitle}>
-            With VitalFriend you get a level of information and knowledge that
-            no other care platform can deliver.
-          </p>
+          <div className={s.effortlessHeadingGroup}>
+            <h2 className={s.effortlessHeading}>Effortless Health Confidence</h2>
+            <p className={s.effortlessSubtitle}>
+              With VitalFriend you get a level of information and knowledge that
+              no other care platform can deliver.
+            </p>
+          </div>
           <div className={s.cardsGrid}>
             {benefitCards.map((card, i) => (
               <div key={i} className={s.card}>
-                <div className={s.cardIcon}>{card.icon}</div>
-                <h3 className={s.cardTitle}>{card.title}</h3>
-                <p className={s.cardDesc}>{card.description}</p>
+                <div className={s.cardContentGroup}>
+                  <div className={s.cardIcon}>{card.icon}</div>
+                  <div className={s.cardTextGroup}>
+                    <h3 className={s.cardTitle}>{card.title}</h3>
+                    <p className={s.cardDesc}>{card.description}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -345,8 +360,8 @@ export default function FamiliesPage() {
           <Image
             src="/images/families/All-hands.png"
             alt="Vital Buddy wearable on multiple wrists"
-            width={616}
-            height={590}
+            width={462}
+            height={442}
             className={s.simpleTechImage}
           />
           <div className={s.simpleTechContent}>
@@ -365,8 +380,8 @@ export default function FamiliesPage() {
                 <li key={i} className={s.simpleTechItem}>
                   <svg
                     className={s.simpleTechCheckIcon}
-                    width="22"
-                    height="22"
+                    width="18"
+                    height="18"
                     viewBox="0 0 22 22"
                     fill="none"
                   >
@@ -426,7 +441,7 @@ export default function FamiliesPage() {
                 <p className={s.testimonialQuote}>{t.quote}</p>
                 <div className={s.testimonialAuthor}>
                   <div className={s.testimonialAvatar}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="8" r="4" fill="#fff" opacity="0.9" />
                       <path
                         d="M4 20c0-4 3.6-7 8-7s8 3 8 7"
@@ -438,7 +453,7 @@ export default function FamiliesPage() {
                       />
                     </svg>
                   </div>
-                  <div>
+                  <div className={s.testimonialNameGroup}>
                     <p className={s.testimonialName}>{t.name}</p>
                     <p className={s.testimonialRole}>{t.role}</p>
                     <p className={s.testimonialFacility}>{t.facility}</p>
@@ -449,18 +464,20 @@ export default function FamiliesPage() {
           </div>
         </div>
       </section>
-      <section className={s.sectionWhite}>
-        <h2 className={s.sectionHeading}>Ready to Support Your Loved One?</h2>
-        <p className={s.sectionSubtitle}>
-          Join hundreds of families who trust VitalFriend to support their loved
-          ones&apos; health and wellness
-        </p>
-        <div className={s.ctaBtns}>
+      <section className={s.ctaSection}>
+        <div className={s.ctaSectionInner}>
+          <div className={s.ctaHeadingGroup}>
+            <h2 className={s.ctaHeading}>Ready to Protect Your Loved One?</h2>
+            <p className={s.ctaSubtitle}>
+              Join hundreds of families who trust VitalFriend to keep their loved ones safe and healthy
+            </p>
+          </div>
           <Button href="/physicians" className={s.dataDrivenLearnBtn}>
             Learn More
           </Button>
         </div>
       </section>
+      </div>
     </>
   );
 }

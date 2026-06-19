@@ -191,15 +191,6 @@ export default function Footer() {
               ))}
             </div> */}
 
-            {/* Terms link */}
-            <Link
-              href="/terms"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 10.5, fontWeight: 400, lineHeight: "100%", color: "#404655" }}
-              className="transition-colors hover:text-[#E15D77]"
-            >
-              Terms
-            </Link>
-
             {/* Social icons */}
             <div className="flex items-center gap-2">
               {socialLinks.map(({ label, href, svg }) => (

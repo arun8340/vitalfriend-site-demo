@@ -334,7 +334,7 @@ export default function HomePage() {
       {audienceSections.map((section, idx) => (
         <section
           key={idx}
-          className={styles["hp-section"]}
+          className={`${styles["hp-section"]} ${styles[`hp-audience-section--${idx}`]}`}
           style={{ background: section.bgColor }}
         >
           <div className={styles["hp-section__inner"]}>

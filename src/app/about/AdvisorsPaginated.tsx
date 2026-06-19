@@ -28,22 +28,24 @@ export default function AdvisorsGrid({ advisors }: { advisors: Advisor[] }) {
             </div>
           )}
           <div className={s.advisorInfo}>
-            <p className={s.advisorName}>{advisor.name}</p>
+            <div className={s.advisorNameRow}>
+              <p className={s.advisorName}>{advisor.name}</p>
+              {advisor.linkedin && (
+                <a
+                  href={advisor.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={s.advisorLinkedin}
+                  aria-label={`${advisor.name} on LinkedIn`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.94 5a2 2 0 1 1-4-.002A2 2 0 0 1 6.94 5zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" fill="#000000"/>
+                  </svg>
+                </a>
+              )}
+            </div>
             {advisor.bio && <p className={s.advisorRole}>{advisor.bio}</p>}
           </div>
-          {advisor.linkedin && (
-            <a
-              href={advisor.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={s.advisorLinkedin}
-              aria-label={`${advisor.name} on LinkedIn`}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.94 5a2 2 0 1 1-4-.002A2 2 0 0 1 6.94 5zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" fill="#000000"/>
-              </svg>
-            </a>
-          )}
         </div>
       ))}
     </div>

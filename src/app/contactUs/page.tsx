@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div className={s.heroBadge}>
             <span className={s.heroBadgeText}>We&apos;re Here to Help</span>
           </div>
-          <h1 className={s.heroTitle}>Contact US</h1>
+          <h1 className={s.heroTitle}>Contact Us</h1>
           <p className={s.heroSubtitle}>
             Have questions about VitalFriend? We&apos;re here to help. Reach out to our team and we&apos;ll get back to you as soon as possible.
           </p>
@@ -112,8 +112,9 @@ export default function ContactPage() {
               <Image
                 src="/images/aboutUs-faqs.png"
                 alt="FAQ support"
-                fill
-                style={{ objectFit: "cover" }}
+                width={1722}
+                height={1096}
+                className={s.faqImage}
               />
             </div>
           </div>

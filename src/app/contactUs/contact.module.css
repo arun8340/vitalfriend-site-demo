@@ -36,7 +36,7 @@
   z-index: 10;
   max-width: 903px;
   margin: 0 auto;
-  padding: 120px 24px 140px;
+  padding: 30px 24px 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 60px;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.0;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -78,7 +78,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 400;
-  line-height: 35px;
+  line-height: 25px;
   color: #393939;
   margin: 0;
   max-width: 780px;
@@ -111,7 +111,7 @@
 ════════════════════════════════════════ */
 .contactSection {
   background: #ffffff;
-  padding: 100px 0;
+  padding: 52px 0 47px;
 }
 
 .contactInner {
@@ -119,15 +119,15 @@
   margin: 0 auto;
   padding: 0 24px;
   display: grid;
-  grid-template-columns: 660px 1fr;
-  gap: 51px;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
   align-items: start;
 }
 
 @media (max-width: 1100px) {
   .contactInner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 30px;
     padding: 0 24px;
   }
 }
@@ -137,21 +137,28 @@
   font-family: 'Inter', sans-serif;
   font-size: 45px;
   font-weight: 800;
-  line-height: 87px;
+  line-height: 1.2;
   color: #232323;
-  margin: 0;
+  margin: 0 0 14px;
 }
 
 .formBody {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 }
 
 .formGroup {
@@ -268,30 +275,32 @@
   font-family: 'Inter', sans-serif;
   font-size: 45px;
   font-weight: 800;
-  line-height: 87px;
+  line-height: 1.2;
   color: #232323;
-  margin: 0 0 16px;
+  margin: 0 0 8px;
 }
 
 .infoDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 35px;
   color: #374151;
-  margin: 0 0 36px;
+  margin: 0 0 20px;
 }
 
 .infoBlocks {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 
 /* Phone field with +00 prefix */
 .phoneField {
   display: flex;
   align-items: center;
+  height: 48px;
+  box-sizing: border-box;
   border: 1px solid #E2E8F0;
   border-radius: 8px;
   overflow: hidden;
@@ -304,8 +313,7 @@
 }
 
 .phonePrefixInput {
-  width: 60px;
-  padding: 7px 10px;
+  width: 45px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -329,7 +337,8 @@
   background: #ffffff;
   border: none;
   outline: none;
-  padding: 14px 16px;
+  padding: 0 16px;
+  height: 100%;
   flex: 1;
   min-width: 0;
 }
@@ -362,7 +371,7 @@
 
 .infoBlockTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   line-height: 28px;
   letter-spacing: 0px;
@@ -372,7 +381,7 @@
 
 .infoBlockText {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 28px;
   letter-spacing: 0px;
@@ -382,7 +391,7 @@
 
 .infoBlockMuted {
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 28px;
   letter-spacing: 0px;
@@ -395,7 +404,7 @@
 ════════════════════════════════════════ */
 .otherSection {
   background: #FAFBFC;
-  padding: 80px 24px;
+  padding: 0 24px 21px;
 }
 
 .otherInner {
@@ -406,14 +415,15 @@
 
 .otherHeading {
   font-family: 'Inter', sans-serif;
-  font-size: 64px;
+  font-size: 50px;
   font-weight: 800;
-  line-height: 87px;
+  line-height: 1.2;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0 0 8px;
+  padding-top: 10px;
 }
 
 .otherSubtitle {
@@ -422,13 +432,13 @@
   font-weight: 400;
   line-height: 35px;
   color: #393939;
-  margin: 0 0 48px;
+  margin: 0 0 20px;
 }
 
 .otherCards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
 }
 
@@ -515,7 +525,7 @@
 ════════════════════════════════════════ */
 .faqSection {
   background: #ffffff;
-  padding: 80px 24px;
+  padding: 30px 24px 60px;
 }
 
 .faqInner {
@@ -523,11 +533,11 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 30px;
   align-items: flex-start;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 640px) {
   .faqInner {
     flex-direction: row;
     align-items: flex-start;
@@ -535,13 +545,14 @@
 }
 
 .faqLeft {
-  flex: 0 0 380px;
-  max-width: 380px;
+  /* flex: 0 0 380px;
+  max-width: 380px; */
+  flex:1;
   display: flex;
   flex-direction: column;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 640px) {
   .faqLeft {
     flex: unset;
     max-width: 100%;
@@ -551,9 +562,12 @@
 
 .faqTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 56px;
+  font-size: 50px;
   font-weight: 800;
-  color: #111827;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 30%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   margin-bottom: 12px;
 }
@@ -564,7 +578,7 @@
   font-weight: 400;
   color: #15171C;
   letter-spacing: 0.02em;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .faqReadMore {
@@ -591,13 +605,25 @@
 }
 
 .faqImageWrapper {
-  position: relative;
   width: 100%;
-  height: 240px;
   border-radius: 16px;
   overflow: hidden;
+  margin-top: 20px;
+}
+
+.faqImage {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .faqRight {
   flex: 1;
+  margin-top: 25px;
+}
+@media (max-width: 900px) {
+  .faqRight {
+   flex: 1;
+   margin-top: 0;
+  }
 }

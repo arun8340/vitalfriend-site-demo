@@ -63,7 +63,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Our Vision ── */}
-      <Section background="white" className="pt-6! pb-10!">
+      <Section background="white" className="pt-0! pb-10!">
         <div className={s.sectionInner}>
           <h2 className={s.sectionHeading}>Our Vision</h2>
           <p className={s.sectionBody}>
@@ -78,7 +78,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ── Our Mission ── */}
-      <Section background="white" className="pt-4! pb-20!">
+      <Section background="white" className="pt-1.5! pb-13!">
         <div className={s.sectionInner}>
           <h2 className={s.sectionHeading}>Our Mission</h2>
           <p className={s.sectionBody}>
@@ -132,7 +132,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Executive Team ── */}
-      <Section background="white" className="pt-8! lg:pt-10! pb-8! lg:pb-10!">
+      <Section background="white" className="pt-12! lg:pt-14! pb-8! lg:pb-10!">
         <div className="text-center">
           <p className={s.teamEyebrow}>WHO WE ARE</p>
           <h2 className={s.teamHeading}>The Team</h2>
@@ -183,7 +183,7 @@ export default function AboutPage() {
       </Section>
 
       {/* ── Strategic Advisors ── */}
-      <Section background="white" className="pt-8! lg:pt-10! pb-16! lg:pb-20!">
+      <Section background="white" className="pt-1! lg:pt-1! pb-8! lg:pb-10!">
         <div className="text-center">
           <h2 className={s.advisorsHeading}>Our Strategic Advisors</h2>
           <p className={s.advisorsDesc}>
@@ -214,7 +214,7 @@ export default function AboutPage() {
           <Link className={s.earlyAccessButton} href="/contactUs">
             Get Early Access &amp; Updates
           </Link>
-          <div className={s.earlyAccessEmailWrapper}>
+          {/* <div className={s.earlyAccessEmailWrapper}>
             <input
               type="email"
               placeholder="Enter your email address"
@@ -223,7 +223,7 @@ export default function AboutPage() {
             <p className={s.earlyAccessEmailNote}>
               Preview our device prototypes early
             </p>
-          </div>
+          </div> */}
         </div>
       </section>
 
