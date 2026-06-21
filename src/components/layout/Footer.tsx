@@ -9,7 +9,7 @@ import Image from "next/image";
 // ];
 
 const policiesLinks = [
-  { href: "/terms", label: "Terms" },
+  { href: "/terms", label: "Terms and Conditions" },
 ];
 
 const companyLinks = [
@@ -152,24 +152,43 @@ export default function Footer() {
             <p style={{ fontFamily: "var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif", fontSize: 13.5, fontWeight: 600, lineHeight: "100%", color: "#20232B" }}>
               Keep in Touch
             </p>
-            <div className="flex items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#DCEBFF]">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4D9AF1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+            <div className="flex flex-col gap-3">
+              {/* Email */}
+              <div className="flex items-start gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4D9AF1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div className="flex flex-col">
+                  <a
+                    href="mailto:support@vitalfriend.com"
+                    style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 400, lineHeight: "19.5px", color: "#404655" }}
+                    className="transition-colors hover:text-[#E15D77]"
+                  >
+                    support@vitalfriend.com
+                  </a>
+                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 9, fontWeight: 400, lineHeight: "21px", color: "#7B7777" }}>
+                    We&apos;ll respond within 24 hours
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-col">
+
+              {/* Phone */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4D9AF1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </div>
                 <a
-                  href="mailto:support@vitalfriend.com"
+                  href="tel:+18557427300"
                   style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 400, lineHeight: "19.5px", color: "#404655" }}
                   className="transition-colors hover:text-[#E15D77]"
                 >
-                  support@vitalfriend.com
+                  1 (855) 742 7300
                 </a>
-                <span style={{ fontFamily: "Inter, sans-serif", fontSize: 9, fontWeight: 400, lineHeight: "21px", color: "#7B7777" }}>
-                  We&apos;ll respond within 24 hours
-                </span>
               </div>
             </div>
           </div>
@@ -193,12 +212,12 @@ export default function Footer() {
           </div>
 
           {/* Terms + Social: grouped together */}
-          <div className="flex w-full items-center justify-between sm:w-auto sm:gap-5">
+          <div className="flex w-full items-center justify-center sm:w-auto sm:justify-end sm:gap-5">
 
             {/* Terms / Privacy / Cookies */}
             {/* <div className="flex items-center gap-5">
               {[
-                { href: "/terms", label: "Terms" },
+                { href: "/terms", label: "Terms and Conditions" },
                 { href: "/privacy", label: "Privacy" },
                 { href: "/cookies", label: "Cookies" },
               ].map(({ href, label }) => (
@@ -214,13 +233,13 @@ export default function Footer() {
             </div> */}
 
             {/* Terms link */}
-            <Link
+            {/* <Link
               href="/terms"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 10.5, fontWeight: 400, lineHeight: "100%", color: "#404655" }}
+              style={navLinkStyle}
               className="transition-colors hover:text-[#E15D77]"
             >
               Terms
-            </Link>
+            </Link> */}
 
             {/* Social icons */}
             <div className="flex items-center gap-2">

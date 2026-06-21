@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-// import BookingModal from "./BookingModal";
+import BookingModal from "./BookingModal";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -18,7 +18,7 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  // const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -47,16 +47,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden h-[37.5px] items-center gap-4.5 lg:flex">
-            {/* Get a Vital Buddy button — commented out, add back later
-            <button
-              onClick={() => setModalOpen(true)}
-              className="flex h-[37.5px] w-34.25 items-center justify-center whitespace-nowrap rounded-md border-[1.5px] border-[#E15D77] px-4.5 py-3 text-[#E15D77] transition-colors hover:bg-[#E15D77] hover:text-white"
-              style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, lineHeight: "18px", letterSpacing: 0 }}
-            >
-              Get a Vital Buddy
-            </button>
-            */}
+          <nav className="hidden items-center gap-4.5 lg:flex">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
@@ -67,12 +58,19 @@ export default function Header() {
                   className={`relative flex h-[37.5px] items-center whitespace-nowrap border-b-2 transition-colors ${
                     isActive ? "border-[#E15D77] text-[#E15D77]" : "border-transparent text-[#18181B] hover:text-[#E15D77]"
                   }`}
-                  style={{ fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 600, lineHeight: "18px", letterSpacing: 0 }}
+                  style={{ fontFamily: "Inter, sans-serif", fontSize: 15, fontWeight: 600, lineHeight: "18px", letterSpacing: 0 }}
                 >
                   {link.label}
                 </Link>
               );
             })}
+            <button
+              onClick={() => setModalOpen(true)}
+              className="flex h-11 w-44 shrink-0 items-center justify-center whitespace-nowrap rounded-lg border-2 border-[#E15D77] px-5 py-3 text-[#E15D77] transition-colors hover:bg-[#E15D77] hover:text-white"
+              style={{ fontFamily: "Inter, sans-serif", fontSize: 16, fontWeight: 600, lineHeight: "24px", letterSpacing: 0 }}
+            >
+              Get a Vital Buddy
+            </button>
           </nav>
 
           {/* Mobile hamburger */}
@@ -114,7 +112,6 @@ export default function Header() {
               </Link>
             );
           })}
-          {/* Get a Vital Buddy button (mobile) — commented out, add back later
           <div className="mt-4 flex flex-col gap-3">
             <button
               className="border-2 border-[#E5476C] text-[#E5476C] rounded-md px-5 py-2.5 text-center transition-colors hover:bg-[#E5476C] hover:text-white"
@@ -124,11 +121,10 @@ export default function Header() {
               Get a Vital Buddy
             </button>
           </div>
-          */}
         </div>
       )}
 
-      {/* <BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} /> */}
+      <BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </header>
   );
 }
