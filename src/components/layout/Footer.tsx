@@ -80,7 +80,7 @@ export default function Footer() {
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:items-start lg:gap-x-8">
 
           {/* Logo and description */}
-          <div className="flex w-full flex-col gap-4 border-b border-[#E1E3E8] pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
+          <div className="flex w-full flex-col gap-4 border-b border-[#E1E3E8] pb-6 lg:border-b-0 lg:pb-0 lg:pr-6">
             <Link href="/">
               <Image
                 src="/images/full-logo.svg"
