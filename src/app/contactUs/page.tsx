@@ -78,7 +78,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── Other Ways to Get Support ── */}
-      <section className={s.otherSection}>
+      {/* <section className={s.otherSection}>
         <div className={s.otherInner}>
           <h2 className={s.otherHeading}>Other Ways to Get Support</h2>
           <p className={s.otherSubtitle}>
@@ -97,7 +97,7 @@ export default function ContactPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── FAQ ── */}
       <section className={s.faqSection}>
