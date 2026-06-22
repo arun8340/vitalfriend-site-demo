@@ -9,7 +9,7 @@ import Image from "next/image";
 // ];
 
 const policiesLinks = [
-  { href: "/terms", label: "Terms and Conditions" },
+  { href: "/terms", label: "Terms & Conditions" },
 ];
 
 const companyLinks = [
@@ -77,10 +77,10 @@ export default function Footer() {
       <div className="mx-auto flex w-full max-w-356.25 flex-col gap-[26.25px] px-4 lg:px-35.5">
 
         {/* Above divider */}
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[2fr_1fr_1fr_1.5fr] lg:items-start lg:gap-x-8">
 
           {/* Logo and description */}
-          <div className="flex w-full flex-col gap-4 border-b border-[#E1E3E8] pb-6 lg:w-82 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
+          <div className="flex w-full flex-col gap-4 border-b border-[#E1E3E8] pb-6 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-6">
             <Link href="/">
               <Image
                 src="/images/full-logo.svg"
@@ -95,7 +95,7 @@ export default function Footer() {
           </div>
 
           {/* Company, Policies (Information commented out) */}
-          <div className="flex w-full gap-[91.5px] lg:w-[231.5px]">
+          <div className="flex w-full gap-16 lg:contents">
             {/* Information column — commented out, add back later
             <div className="flex flex-col gap-6">
               <p style={sectionHeadingStyle}>Information</p>
@@ -122,7 +122,7 @@ export default function Footer() {
                     key={link.label}
                     href={link.href}
                     style={navLinkStyle}
-                    className="transition-colors hover:text-[#E15D77]"
+                    className="whitespace-nowrap transition-colors hover:text-[#E15D77]"
                   >
                     {link.label}
                   </Link>
@@ -217,7 +217,7 @@ export default function Footer() {
             {/* Terms / Privacy / Cookies */}
             {/* <div className="flex items-center gap-5">
               {[
-                { href: "/terms", label: "Terms and Conditions" },
+                { href: "/terms", label: "Terms & Conditions" },
                 { href: "/privacy", label: "Privacy" },
                 { href: "/cookies", label: "Cookies" },
               ].map(({ href, label }) => (
