@@ -199,20 +199,18 @@ export default function AboutPage() {
         <div className={s.earlyAccessInner}>
           <div className={s.earlyAccessBadge}>
             <span className={s.earlyAccessBadgeText}>
-              Take the Next Step, Stay tuned.
+              Take the Next Step
             </span>
           </div>
           <h2 className={s.earlyAccessHeading}>
-            Shaping the future of health.
-            <br />
-            Vitalfriend Device preview.
+            We&apos;re shaping the future of health care for
+            seniors and everyone who needs a Buddy.
           </h2>
           <p className={s.earlyAccessBody}>
-            We are revolutionizing health monitoring with a wearable device that
-            captures vital data. Explore our vision and upcoming products.
+            We&apos;re moving at the speed of light to revolutionize health monitoring, care and outcomes. Let us know if you&apos;d like to discuss any ideas, services or products.
           </p>
           <Link className={s.earlyAccessButton} href="/contactUs">
-            Get Early Access &amp; Updates
+            Get In Touch
           </Link>
           {/* <div className={s.earlyAccessEmailWrapper}>
             <input

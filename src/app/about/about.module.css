@@ -1065,7 +1065,9 @@
   justify-content: center;
   padding: 10px 20px;
   border-radius: 60px;
-  background: transparent;
+  background: #DBE9FF;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(209, 208, 208, 0.35);
 }
 
 .earlyAccessBadgeText {
