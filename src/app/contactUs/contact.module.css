@@ -64,9 +64,9 @@
 
 .heroTitle {
   font-family: 'Inter', sans-serif;
-  font-size: 55px;
+  font-size: 56px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.16;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -540,7 +540,7 @@
 @media (min-width: 640px) {
   .faqInner {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 }
 
@@ -619,7 +619,6 @@
 
 .faqRight {
   flex: 1;
-  margin-top: 25px;
 }
 @media (max-width: 900px) {
   .faqRight {

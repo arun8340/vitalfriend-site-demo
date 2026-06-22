@@ -35,9 +35,9 @@
   position: relative;
   z-index: 10;
   max-width: 1295px;
-  min-height: 653px;
+  min-height: 550px;
   margin: 0 auto;
-  padding: 60px 40px 46px;
+  padding: 0 40px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,8 +75,8 @@
 .heroHeading {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
-  font-size: 55px;
-  line-height: 70px;
+  font-size: 56px;
+  line-height: 1.16;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -344,26 +344,26 @@
 /* ── Team card grid ── */
 .teamGrid {
   display: grid;
-  grid-template-columns: repeat(1, 394px);
+  grid-template-columns: repeat(1, 344px);
   gap: 24px;
   margin-top: 30px;
   justify-content: center;
 }
 
 @media (min-width: 860px) {
-  .teamGrid { grid-template-columns: repeat(2, 394px); }
+  .teamGrid { grid-template-columns: repeat(2, 344px); }
 }
 
 @media (min-width: 1270px) {
-  .teamGrid { grid-template-columns: repeat(3, 394px); }
+  .teamGrid { grid-template-columns: repeat(3, 344px); }
 }
 
 /* ── Team card ── */
 .teamCard {
   position: relative;
-  width: 394px;
+  width: 344px;
   max-width: 100%;
-  height: 540px;
+  height: 472px;
   border-radius: 25px;
   padding: 9px 9px 20px 9px;
   background: #F6F6F6;
@@ -393,7 +393,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   height: 100%;
   transition: opacity 0.25s ease 0.05s, transform 0.4s cubic-bezier(0.2, 0.82, 0.35, 1);
 }
@@ -446,7 +446,7 @@
 .cardName {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 26px;
+  font-size: 22px;
   line-height: 110%;
   letter-spacing: -0.04em;
   color: #15171C;
@@ -456,8 +456,8 @@
 .cardRole {
   font-family: 'Lexend Deca', sans-serif;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 170%;
+  font-size: 16px;
+  line-height: 110%;
   color: #6A758E;
   margin: 0;
 }
@@ -530,7 +530,7 @@
   margin: 0;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 8;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
 }
 
@@ -540,7 +540,7 @@
   flex-direction: column;
   gap: 8px;
   margin-top: auto;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 /* ════════════════════════════════════════
@@ -1081,7 +1081,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 48px;
-  line-height: 58px;
+  line-height: 65px;
   text-align: center;
   background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
   -webkit-background-clip: text;
@@ -1194,7 +1194,7 @@
     line-height: 40px;
   }
   .teamGrid {
-    grid-template-columns: repeat(1, minmax(0, 394px));
+    grid-template-columns: repeat(1, minmax(0, 344px));
   }
   .advisorsGrid {
     grid-template-columns: repeat(2, 1fr);

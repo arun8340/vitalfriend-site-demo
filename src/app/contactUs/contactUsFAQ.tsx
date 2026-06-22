@@ -4,7 +4,7 @@ import { useState } from "react";
 import { faqs } from "./data";
 
 export default function ContactUsFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(1);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>

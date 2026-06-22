@@ -102,23 +102,19 @@ export interface FAQ {
 
 export const faqs: FAQ[] = [
   {
-    q: "My readings are off",
-    a: "If your readings seem off, make sure the Vital Buddy wearable is properly positioned on your wrist and that the sensors are clean. Ensure the device is snug but comfortable. If readings continue to be inconsistent, contact our support team.",
+    q: "How much does Vital Buddy cost?",
+    a: "Vital Buddy may be covered by Medicare or your insurance plan, which could reduce or eliminate out-of-pocket costs. Coverage varies depending on your provider and situation. Contact us to find out what's available for you.",
   },
   {
-    q: "What if Vital Buddy isn't worn?",
-    a: "Yes, you can conveniently monitor the status of your order or service progress within a few hours. Your order will track.",
+    q: "Is my health data private and secure?",
+    a: "Your health data belongs to you. Vital Buddy uses secure encryption to protect all information, and only the people you choose, like family members or caregivers, can access your health updates through the Vital Insights platform.",
   },
   {
-    q: "Who sees the data?",
-    a: "Your health data is shared only with the clinicians, care facility staff, and family members you authorize. All data is stored in a HIPAA-secure cloud environment and is never sold or shared with third parties.",
+    q: "How long does the Vital Buddy battery last?",
+    a: "Vital Buddy is designed to last through your day on a single charge, and up to 3 days. Charging is easy, just attach the magnetic charger and it powers up quickly. We recommend charging nightly to make sure it's always ready.",
   },
   {
-    q: "Is my information secure?",
-    a: "Absolutely. VitalFriend uses enterprise-grade encryption and is fully HIPAA compliant. All data transmissions are encrypted end-to-end and stored in secure, certified cloud infrastructure.",
-  },
-  {
-    q: "Can I track my order or service progress?",
-    a: "Yes, you can conveniently monitor the status of your order or service progress within a few hours. Your order will track.",
+    q: "What health stats does Vital Buddy track?",
+    a: "Vital Buddy monitors heart rate, blood oxygen levels (SpO2), activity, sleep, and more, all from your wrist. Your data syncs automatically to the Vital Insights platform so you and your care team always have an up-to-date picture of your health.",
   },
 ];
