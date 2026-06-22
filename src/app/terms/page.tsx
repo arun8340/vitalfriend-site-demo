@@ -21,7 +21,7 @@ export default function TermsPage() {
         {/* ── Hero row: text + image ── */}
         <div className={s.heroRow}>
           <div className={s.heroContent}>
-            <h1 className={s.heroHeading}>Privacy</h1>
+            <h1 className={s.heroHeading}>Terms and Conditions</h1>
             <p className={s.heroBody}>
               These Terms and Conditions (these &ldquo;Terms and Conditions&rdquo;) set forth the
               terms and conditions that govern use of the Devices and Platform (as such terms are
