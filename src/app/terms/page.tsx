@@ -116,9 +116,9 @@ export default function TermsPage() {
                 VitalFriend to Participant.
               </li>
               <li className={s.subItem}>
-                <strong>1.10.</strong> &ldquo;Authorization Form&rdquo; means the authorization
-                form between VitalFriend and Participant into which this Agreement is incorporated
-                by reference.
+                <strong>1.10.</strong> &ldquo;VitalFriend Marks&rdquo; means the trademarks, service marks, 
+                trade dress, trade names, logos, slogans, and similar designations or source of VitalFriend used in 
+                connection with the Devices and/or Platform.
               </li>
             </ul>
           </div>
