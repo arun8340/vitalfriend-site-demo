@@ -10,7 +10,7 @@ export default function CookieConsent() {
         strategy="afterInteractive"
         onLoad={() => {
           (window as any).cookieconsent.run({
-            notice_banner_type: "headline",
+            notice_banner_type: "simple",
             consent_type: "express",
             palette: "light",
             language: "en",
@@ -21,6 +21,34 @@ export default function CookieConsent() {
             website_name: "VitalFriend.com",
             website_privacy_policy_url: "https://vitalfriend.com/privacy",
           });
+
+          const observer = new MutationObserver(() => {
+            const textEl = document.querySelector(".cc-nb-text") as HTMLElement | null;
+            if (!textEl || textEl.dataset.readMoreInit) return;
+            textEl.dataset.readMoreInit = "true";
+            observer.disconnect();
+
+            const textContent = textEl.querySelector(".cc-nb-text-content") as HTMLElement | null;
+            const target = textContent ?? textEl;
+
+            target.style.cssText +=
+              "display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;";
+
+            const readMoreLink = document.createElement("a");
+            readMoreLink.textContent = "Read more";
+            readMoreLink.href = "#";
+            readMoreLink.className = "cc-nb-read-more";
+            readMoreLink.addEventListener("click", (e) => {
+              e.preventDefault();
+              target.style.webkitLineClamp = "unset";
+              target.style.overflow = "visible";
+              readMoreLink.remove();
+            });
+
+            target.insertAdjacentElement("afterend", readMoreLink);
+          });
+
+          observer.observe(document.body, { childList: true, subtree: true });
         }}
       />
       <noscript>

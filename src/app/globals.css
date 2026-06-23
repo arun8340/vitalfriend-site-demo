@@ -163,3 +163,102 @@ body {
 .blob-accent {
   background: #dfffee;
 }
+
+/* TermsFeed cookie consent — bottom-right corner box */
+.termsfeed-com---nb-simple {
+  max-width: 420px !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  left: auto !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14) !important;
+  overflow: hidden !important;
+}
+
+.termsfeed-com---palette-light.termsfeed-com---nb {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+.termsfeed-com---nb-simple .cc-nb-main-container {
+  padding: 1.5rem !important;
+}
+
+.termsfeed-com---nb-simple .cc-nb-title {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.termsfeed-com---nb-simple .cc-nb-text {
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #475569 !important;
+  margin-bottom: 1rem !important;
+}
+
+.termsfeed-com---nb-simple .cc-nb-text a,
+.cc-nb-read-more {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  text-decoration: underline dotted !important;
+  text-underline-offset: 3px !important;
+}
+
+.cc-nb-read-more {
+  display: inline-block !important;
+  margin-top: 4px !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+
+.termsfeed-com---nb-simple .cc-nb-buttons-container {
+  display: flex !important;
+  gap: 0.5rem !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-okagree {
+  background-color: #E15D77 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.2rem !important;
+  flex: 1 !important;
+  border: none !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-okagree:hover {
+  background-color: #c94d67 !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-changep {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.2rem !important;
+  flex: 1 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-changep:hover {
+  background-color: #e2e8f0 !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-reject {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 1.2rem !important;
+  flex: 1 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.termsfeed-com---palette-light .cc-nb-reject:hover {
+  background-color: #e2e8f0 !important;
+}

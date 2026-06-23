@@ -104,7 +104,7 @@ export default function ContactPage() {
         <div className={s.faqInner}>
           <div className={s.faqLeft}>
             <h2 className={s.faqTitle}>FAQ</h2>
-            <p className={s.faqSubtext}>Frequently Asked Questions</p>
+            <p className={s.faqSubtext}>Get the most common questions answered here.</p>
             {/* <Link href="/support" className={s.faqReadMore}>
               Read More
             </Link> */}

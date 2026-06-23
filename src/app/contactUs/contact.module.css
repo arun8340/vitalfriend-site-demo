@@ -542,7 +542,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 0px;
   align-items: flex-start;
 }
 
@@ -614,7 +614,7 @@
 }
 
 .faqImageWrapper {
-  width: 100%;
+  width: 75%;
   border-radius: 16px;
   overflow: hidden;
   margin-top: 20px;
