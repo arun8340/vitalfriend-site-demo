@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { COUNTRY_CODES } from "@/lib/countryCodes";
 
 interface Props {
   isOpen: boolean;
@@ -196,22 +197,37 @@ export default function BookingModal({ isOpen, onClose }: Props) {
                 borderRadius: 10,
                 overflow: "hidden",
               }}>
-                <input
-                  type="text"
-                  value={form.countryCode}
-                  onChange={e => set("countryCode", e.target.value)}
-                  style={{
-                    width: 62,
-                    padding: "12px 10px",
-                    borderRight: "1px solid #e5e7eb",
-                    fontFamily: "Inter, sans-serif",
-                    fontSize: 14,
-                    color: "#374151",
-                    textAlign: "center",
-                    outline: "none",
-                    background: "transparent",
-                  }}
-                />
+                <div style={{ position: "relative", display: "flex", alignItems: "center", flexShrink: 0 }}>
+                  <select
+                    value={form.countryCode}
+                    onChange={e => set("countryCode", e.target.value)}
+                    style={{
+                      width: 90,
+                      height: 48,
+                      padding: "0 28px 0 12px",
+                      borderRight: "1px solid #e5e7eb",
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: 14,
+                      color: "#374151",
+                      outline: "none",
+                      background: "transparent",
+                      appearance: "none",
+                      cursor: "pointer",
+                      border: "none",
+                    }}
+                  >
+                    {COUNTRY_CODES.map(c => (
+                      <option key={`${c.name}-${c.code}`} value={c.code}>{c.code}</option>
+                    ))}
+                  </select>
+                  <svg
+                    width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    style={{ position: "absolute", right: 8, pointerEvents: "none" }}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </div>
                 <input
                   type="tel"
                   placeholder="(555) 123-4567"

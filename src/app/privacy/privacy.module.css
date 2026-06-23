@@ -1,0 +1,378 @@
+/* ════════════════════════════════════════
+   PAGE WRAPPER
+════════════════════════════════════════ */
+.pageWrapper {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.blobTopRight {
+  pointer-events: none;
+  position: absolute;
+  top: -60px;
+  right: 0;
+  width: 354px;
+  height: 354px;
+  border-radius: 50%;
+  background: #D0E0F9;
+  filter: blur(78px);
+}
+
+.blobMidRight {
+  pointer-events: none;
+  position: absolute;
+  top: 100px;
+  right: 47px;
+  width: 354px;
+  height: 354px;
+  border-radius: 50%;
+  background: #F6FDF7;
+  filter: blur(78px);
+}
+
+.blobBottomLeft {
+  pointer-events: none;
+  position: absolute;
+  top: 100px;
+  left: -9px;
+  width: 324.75px;
+  height: 324.75px;
+  border-radius: 50%;
+  background: #DFFFEE;
+  filter: blur(78px);
+}
+
+.pageInner {
+  position: relative;
+  z-index: 10;
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 60px 24px 35px;
+}
+
+.heroRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.heroContent {
+  flex: 0 0 auto;
+  max-width: 677px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heroHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 55.5px;
+  line-height: 65.25px;
+  letter-spacing: -0.19px;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.heroBody {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  letter-spacing: -0.19px;
+  color: #393939;
+  margin: 0;
+}
+
+.heroImageCol {
+  flex-shrink: 0;
+  margin-top: -40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.heroImage {
+  width: 220px;
+  height: 330px;
+  object-fit: contain;
+}
+
+/* ════════════════════════════════════════
+   CONTENT
+════════════════════════════════════════ */
+.contentInner {
+  max-width: 100%;
+  margin-top: 0px;
+}
+
+/* Content block title ("Privacy Policy" label) */
+.contentTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 0 0 4px 0;
+}
+
+/* "Last updated …" subtitle */
+.lastUpdated {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #666666;
+  margin: 0 0 16px 0;
+}
+
+/* Body text */
+.bodyText {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 0 0 16px 0;
+}
+
+.bodyText:last-child {
+  margin-bottom: 0;
+}
+
+/* Bullet list */
+.bulletList {
+  list-style: disc;
+  margin: 0;
+  padding: 0px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bulletItem {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+}
+
+/* Section heading ("Summary of Key Points") */
+.sectionHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 0 0 12px 0;
+}
+
+/* Numbered legal sections */
+.legalSection {
+  margin-top: 48px;
+  scroll-margin-top: 80px;
+}
+
+/* Q&A row (bold question + inline answer) */
+.qaBlock {
+  margin-bottom: 16px;
+}
+
+.qaBlock:last-child {
+  margin-bottom: 0;
+}
+
+/* Italic "In Short" lines */
+.inShort {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 0 0 16px 0;
+}
+
+/* Bold sub-headings within sections */
+.subHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 16px 0 8px 0;
+}
+
+/* Table of contents */
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tocLink {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #5F9AE2;
+  text-decoration: none;
+}
+
+.tocLink:hover {
+  text-decoration: underline;
+}
+
+/* Data table (section 11) */
+.tableWrapper {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e5e7eb;
+}
+
+.dataTable th {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  background: #f9fafb;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dataTable td {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+
+.dataTable tr:last-child td {
+  border-bottom: none;
+}
+
+.dataTable tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+.collectedYes {
+  color: #5F9AE2;
+  font-weight: 700;
+}
+
+.collectedNo {
+  color: #9ca3af;
+  font-weight: 700;
+}
+
+/* Address block */
+.addressBlock {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  padding-left: 24px;
+  margin: 8px 0 16px 0;
+}
+
+/* Inline link style */
+.link {
+  color: #5F9AE2;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* ════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .pageInner {
+    padding: 28px 24px 32px;
+  }
+
+  .heroRow {
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 16px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .heroHeading {
+    font-size: 42px;
+    line-height: 56px;
+  }
+
+  .heroImageCol {
+    width: 100%;
+    margin-top: 0;
+    justify-content: center;
+  }
+
+  .contentInner {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroHeading {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .heroBody {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .legalSection {
+    margin-top: 32px;
+  }
+
+  .aboutBlock {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroImage {
+    width: 170px;
+    height: 255px;
+  }
+}

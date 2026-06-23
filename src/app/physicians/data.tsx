@@ -393,11 +393,11 @@ export const dashboardTabs: DashboardTab[] = [
   },
   {
     title: "Notification",
-    panelHeading: "Alert Type",
+    panelHeading: "Notification Type",
     rows: [
       {
         left: "Threshold-based notification models",
-        right: "Non-activity alerts",
+        right: "Non-activity notifications",
       },
     ],
   },

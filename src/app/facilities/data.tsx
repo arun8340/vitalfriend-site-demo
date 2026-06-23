@@ -208,7 +208,7 @@ export const tabs: TabData[] = [
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Assisted Living",
     insuranceBody:
-      "The Vital Buddy device and continuous monitoring service may be eligible for reimbursement. In other words, residents in your facility can get the an advanced medical monitoring available with little or no out-of-pocket cost.",
+      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement by Medicare and other insurance coverage. In other words, advanced continuous vitals monitoring may be available to your facility at little or no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ALFs",
     insuranceImage: "/images/facilites-assisted-Living-man-on-phone.png",
     statsSubtitle:
@@ -243,7 +243,7 @@ export const tabs: TabData[] = [
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Independent Living",
     insuranceBody:
-      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement. An advanced continuous monitoring is available to your residents at little or no out-of-pocket cost.",
+      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement by Medicare and other insurance coverage. In other words, advanced continuous vitals monitoring may be available to your facility at little or no out-of-pocket cost.",
     insuranceButtonText: "Get Started for ILFs",
     insuranceImage: "/images/facilites-independent-Living-person.png",
     statsSubtitle:
@@ -279,7 +279,7 @@ export const tabs: TabData[] = [
     ctaAuthor: "Cindy, Assisted Living Facility Owner in Florida",
     ctaButtonText: "Get Started for Residential Home",
     insuranceBody:
-      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement and making an advanced continuous monitoring available to your facility at little orno out-of-pocket cost.",
+      "The Vital Buddy device and VitalFriend service may be eligible for reimbursement by Medicare and other insurance coverage. In other words, advanced continuous vitals monitoring may be available to your facility at little or no out-of-pocket cost.",
     insuranceButtonText: "Get Started for Residential Home",
     insuranceImage: "/images/facilites-snf-person.png",
     statsSubtitle:

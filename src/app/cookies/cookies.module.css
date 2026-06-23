@@ -1,0 +1,258 @@
+/* ════════════════════════════════════════
+   PAGE WRAPPER
+════════════════════════════════════════ */
+.pageWrapper {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.blobTopRight {
+  pointer-events: none;
+  position: absolute;
+  top: -60px;
+  right: 0;
+  width: 354px;
+  height: 354px;
+  border-radius: 50%;
+  background: #D0E0F9;
+  filter: blur(78px);
+}
+
+.blobMidRight {
+  pointer-events: none;
+  position: absolute;
+  top: 100px;
+  right: 47px;
+  width: 354px;
+  height: 354px;
+  border-radius: 50%;
+  background: #F6FDF7;
+  filter: blur(78px);
+}
+
+.blobBottomLeft {
+  pointer-events: none;
+  position: absolute;
+  top: 100px;
+  left: -9px;
+  width: 324.75px;
+  height: 324.75px;
+  border-radius: 50%;
+  background: #DFFFEE;
+  filter: blur(78px);
+}
+
+.pageInner {
+  position: relative;
+  z-index: 10;
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 60px 24px 35px;
+}
+
+.heroRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.heroContent {
+  flex: 0 0 auto;
+  max-width: 677px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heroHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 55.5px;
+  line-height: 65.25px;
+  letter-spacing: -0.19px;
+  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.heroBody {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  letter-spacing: 0px;
+  color: #393939;
+  margin: 0;
+  max-width: 677px;
+}
+
+.heroImageCol {
+  flex: 0 0 280px;
+  width: 280px;
+  margin-top: -30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.heroImage {
+  width: 180px;
+  height: 270px;
+  object-fit: contain;
+}
+
+/* ════════════════════════════════════════
+   INTRO BLOCK
+════════════════════════════════════════ */
+.introBlock {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lastUpdated {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 19.5px;
+  letter-spacing: 0px;
+  color: #666666;
+  margin: 0;
+}
+
+.heroPolicyText {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #000000;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════
+   CONTENT
+════════════════════════════════════════ */
+.contentInner {
+  max-width: 100%;
+}
+
+/* Numbered legal sections */
+.legalSection {
+  margin-top: 30px;
+}
+
+.sectionHeading {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+  color: #15171C;
+  margin: 0 0 9px 0;
+}
+
+/* Body text */
+.bodyText {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  color: #000000;
+  margin: 0 0 9px 0;
+}
+
+.bodyText:last-child {
+  margin-bottom: 0;
+}
+
+/* Sub-item list */
+.subList {
+  list-style: disc;
+  margin: 0;
+  padding: 0 0 0 24px;
+}
+
+.subItem {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26.25px;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.subItem:last-child {
+  margin-bottom: 0;
+}
+
+.subItem strong {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -0.19px;
+}
+
+/* ════════════════════════════════════════
+   MOBILE
+════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .pageInner {
+    padding: 28px 24px 32px;
+  }
+
+  .heroRow {
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 16px;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  .heroHeading {
+    font-size: 42px;
+    line-height: 56px;
+  }
+
+  .heroImageCol {
+    width: 100%;
+    margin-top: 0;
+    justify-content: center;
+  }
+
+  .contentInner {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroHeading {
+    font-size: 32px;
+    line-height: 42px;
+  }
+
+  .heroBody {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .legalSection {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroImage {
+    width: 140px;
+    height: 210px;
+  }
+}

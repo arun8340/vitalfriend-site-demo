@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import s from "./contact.module.css";
+import { COUNTRY_CODES } from "@/lib/countryCodes";
 
 interface FormState {
   firstName: string;
@@ -10,7 +11,6 @@ interface FormState {
   phoneCode: string;
   phone: string;
   role: string;
-  subject: string;
   message: string;
 }
 
@@ -20,7 +20,6 @@ interface Errors {
   email?: string;
   phone?: string;
   role?: string;
-  subject?: string;
   message?: string;
 }
 
@@ -32,11 +31,12 @@ export default function ContactForm() {
     phoneCode: "",
     phone: "",
     role: "",
-    subject: "",
     message: "",
   });
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   function update(field: keyof FormState, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -55,25 +55,48 @@ export default function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       e.email = "Enter a valid email address";
     }
-    if (!form.phoneCode.trim()) e.phone = "Country code is required";
-    else if (!/^\+\d{1,4}$/.test(form.phoneCode.trim())) e.phone = "Enter a valid country code (e.g. +1)";
-    else if (!form.phone.trim()) e.phone = "Phone number is required";
-    else if (!/^[\d\s\-().]+$/.test(form.phone.trim())) e.phone = "Phone number must contain only digits";
-    else if (form.phone.replace(/\D/g, "").length < 7) e.phone = "Enter a valid phone number";
+    if (form.phoneCode || form.phone.trim()) {
+      if (!form.phoneCode) e.phone = "Country code is required";
+      else if (!form.phone.trim()) e.phone = "Phone number is required";
+      else if (!/^[\d\s\-().]+$/.test(form.phone.trim())) e.phone = "Phone number must contain only digits";
+      else if (form.phone.replace(/\D/g, "").length < 7) e.phone = "Enter a valid phone number";
+    }
     if (!form.role) e.role = "Please select an option";
-    if (!form.subject.trim()) e.subject = "Subject is required";
     if (!form.message.trim()) e.message = "Message is required";
     return e;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+    setLoading(true);
+    setServerError("");
+    try {
+      const res = await fetch("/api/contact-us", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          fullPhone: form.phoneCode && form.phone ? `${form.phoneCode} ${form.phone}` : undefined,
+          role: form.role,
+          message: form.message,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || "Submission failed");
+      setSubmitted(true);
+    } catch {
+      setServerError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (submitted) {
@@ -136,17 +159,21 @@ export default function ContactForm() {
         </div>
         <div className={s.formGroup}>
           <label className={s.formLabel}>
-            Phone Number <span>*</span>
+            Phone Number
           </label>
           <div className={`${s.phoneField}${errors.phone ? ` ${s.inputError}` : ""}`}>
-            <input
-              type="text"
-              className={s.phonePrefixInput}
-              placeholder="+00"
+            <select
+              className={`${s.phonePrefixSelect}${form.phoneCode ? ` ${s.phonePrefixSelected}` : ""}`}
               value={form.phoneCode}
               onChange={(e) => update("phoneCode", e.target.value)}
-              maxLength={5}
-            />
+            >
+              <option value="" disabled>+1</option>
+              {COUNTRY_CODES.map((c) => (
+                <option key={`${c.name}-${c.code}`} value={c.code}>
+                  {c.code}
+                </option>
+              ))}
+            </select>
             <input
               type="tel"
               className={s.phoneInput}
@@ -181,20 +208,6 @@ export default function ContactForm() {
 
       <div className={s.formGroup}>
         <label className={s.formLabel}>
-          Subject <span>*</span>
-        </label>
-        <input
-          type="text"
-          className={`${s.formInput}${errors.subject ? ` ${s.inputError}` : ""}`}
-          placeholder="How can we help you?"
-          value={form.subject}
-          onChange={(e) => update("subject", e.target.value)}
-        />
-        {errors.subject && <span className={s.errorMsg}>{errors.subject}</span>}
-      </div>
-
-      <div className={s.formGroup}>
-        <label className={s.formLabel}>
           Messages <span>*</span>
         </label>
         <textarea
@@ -206,8 +219,9 @@ export default function ContactForm() {
         {errors.message && <span className={s.errorMsg}>{errors.message}</span>}
       </div>
 
-      <button type="submit" className={s.submitBtn}>
-        Send Message
+      {serverError && <span className={s.errorMsg}>{serverError}</span>}
+      <button type="submit" className={s.submitBtn} disabled={loading}>
+        {loading ? "Sending..." : "Send Message"}
       </button>
     </form>
   );

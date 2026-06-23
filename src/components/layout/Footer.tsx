@@ -10,6 +10,8 @@ import Image from "next/image";
 
 const policiesLinks = [
   { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/cookies", label: "Cookies Policy" },
 ];
 
 const companyLinks = [
@@ -127,6 +129,14 @@ export default function Footer() {
                     {link.label}
                   </Link>
                 ))}
+                {/* <a
+                  href="#"
+                  id="open_preferences_center"
+                  style={navLinkStyle}
+                  className="whitespace-nowrap transition-colors hover:text-[#E15D77]"
+                >
+                  Cookie Preferences
+                </a> */}
               </div>
             </div>
 

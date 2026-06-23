@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Plus_Jakarta_Sans, Work_Sans } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -102,6 +103,7 @@ export default function RootLayout({
         className={`${inter.variable} ${manrope.variable} ${plusJakartaSans.variable} ${workSans.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
         suppressHydrationWarning
       >
+        <CookieConsent />
         <Header />
         <main className="flex-1 pt-[73.134px]">{children}</main>
         <Footer />

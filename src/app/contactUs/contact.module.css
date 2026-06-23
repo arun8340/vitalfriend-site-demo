@@ -312,21 +312,30 @@
   box-shadow: 0 0 0 3px rgba(77, 154, 241, 0.12);
 }
 
-.phonePrefixInput {
-  width: 45px;
+.phonePrefixSelect {
+  width: 80px;
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-  color: #374151;
+  color: #9CA3AF;
   background: #F9FAFB;
   border: none;
   border-right: 1px solid #E2E8F0;
   border-radius: 0;
   outline: none;
   flex-shrink: 0;
-  text-align: center;
   height: 100%;
   box-sizing: border-box;
+  padding: 0 20px 0 10px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+}
+
+.phonePrefixSelected {
+  color: #374151;
 }
 
 .phoneInput {
