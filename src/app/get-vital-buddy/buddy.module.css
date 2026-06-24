@@ -1651,3 +1651,172 @@
 }
 
 .ocrErrorRetry:hover { background: #fef2f2; }
+
+.ocrBackPrompt {
+  margin: 0 16px 14px;
+  padding: 10px 12px;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  border-radius: 8px;
+}
+
+.ocrBackPromptHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ocrBackPromptTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5b21b6;
+  margin: 0 0 1px;
+}
+
+.ocrBackPromptSub {
+  font-size: 11px;
+  color: #7c3aed;
+  margin: 0;
+}
+
+.ocrBothDone {
+  margin: 0 16px 14px;
+  border: 1px solid #d1fae5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0fdf4;
+}
+
+.ocrBothDoneRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+.ocrBothDoneItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.ocrBothDoneDivider {
+  height: 1px;
+  background: #d1fae5;
+}
+
+.ocrBothDoneActions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ocrRescanBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #374151;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ocrRescanBtn input { display: none; }
+.ocrRescanBtn:hover { background: #f9fafb; }
+
+.ocrRescanBtnGreen {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ocrRescanBtnGreen input { display: none; }
+.ocrRescanBtnGreen:hover { background: #bbf7d0; }
+
+/* ── Emergency contacts ───────────────────────────────────────────────────── */
+.contactCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  background: #fafafa;
+}
+
+.contactCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.contactCardLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contactRemoveBtn {
+  background: none;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+
+.contactRemoveBtn:hover { background: #fef2f2; }
+
+.addContactBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.addContactBtn:hover {
+  border-color: #7c3aed;
+  background: #f5f3ff;
+}
+
+.reviewContactLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 10px 0 4px;
+  padding: 0 20px;
+}

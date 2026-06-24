@@ -267,6 +267,8 @@ async function buildPdf(
   const consents = (body.consents ?? {}) as Record<string, boolean>;
   const sigUrl   = (body.signatureDataUrl ?? "") as string;
   const refId    = (body.refId ?? "") as string;
+  const allContacts = (body.emergencyContacts as Array<{ name: string; phone: string; relationship: string }> | undefined)
+    ?? [{ name: form.emergencyContactName, phone: form.emergencyContactPhone, relationship: form.emergencyContactRelationship }];
 
   let s: S = { doc, page: doc.addPage([PW, PH]), bold, reg, ital, y: PH - ML };
 
@@ -395,13 +397,24 @@ async function buildPdf(
 
   // ── EMERGENCY CONTACT ──────────────────────────────────────────────────────
   s = section(s, "EMERGENCY CONTACT");
-  s = row2(
-    s,
-    { label: "Emergency Contact Name", value: form.emergencyContactName, req: true },
-    { label: "Phone Number", value: form.emergencyContactPhone, req: true },
-  );
-  s.y -= 6;
-  s = row1(s, "Relationship", form.emergencyContactRelationship, true);
+  for (let i = 0; i < allContacts.length; i++) {
+    const c = allContacts[i];
+    if (allContacts.length > 1) {
+      s = ensureY(s, 18);
+      s.page.drawText(i === 0 ? "Primary Emergency Contact" : `Emergency Contact ${i + 1}`, {
+        x: ML + 20, y: s.y, size: 10, font: bold, color: C_GRAY,
+      });
+      s.y -= 16;
+    }
+    s = row2(
+      s,
+      { label: "Name", value: c.name, req: i === 0 },
+      { label: "Phone", value: c.phone, req: i === 0 },
+    );
+    s.y -= 4;
+    s = row1(s, "Relationship", c.relationship, i === 0);
+    if (i < allContacts.length - 1) s.y -= 10;
+  }
 
   s.y -= 10;
   hRule(s);

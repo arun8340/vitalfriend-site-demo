@@ -17,6 +17,7 @@ const HEADERS = [
   "Print Name", "Signature Date",
   "RPM Consent", "HIPAA Authorization", "Billing Authorization", "Info Accuracy",
   "Documents Folder", "Drive Folder URL",
+  "Additional Emergency Contacts",
 ];
 
 function getPrivateKey(): string {
@@ -42,14 +43,23 @@ export async function POST(req: NextRequest) {
     const auth = getAuth();
     const sheets = google.sheets({ version: "v4", auth });
 
-    // Write header row if sheet is empty
+    // Write or update header row when columns change
     const meta = await sheets.spreadsheets.values.get({
       spreadsheetId: SHEET_ID,
-      range: `${SHEET_NAME}!A1:A1`,
+      range: `${SHEET_NAME}!1:1`,
     });
 
-    if (!meta.data.values?.length) {
+    const existingHeaders = (meta.data.values?.[0] ?? []) as string[];
+    if (existingHeaders.length === 0) {
       await sheets.spreadsheets.values.append({
+        spreadsheetId: SHEET_ID,
+        range: `${SHEET_NAME}!A1`,
+        valueInputOption: "USER_ENTERED",
+        requestBody: { values: [HEADERS] },
+      });
+    } else if (existingHeaders.length < HEADERS.length) {
+      // New columns were added at the end — patch the header row in place
+      await sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
         range: `${SHEET_NAME}!A1`,
         valueInputOption: "USER_ENTERED",
@@ -113,6 +123,11 @@ export async function POST(req: NextRequest) {
           body.consents?.infoAccuracy ? "Yes" : "No",
           body.driveFolderName ?? "",
           body.driveFolderUrl ?? "",
+          Array.isArray(body.additionalEmergencyContacts) && body.additionalEmergencyContacts.length > 0
+            ? (body.additionalEmergencyContacts as Record<string, string>[])
+                .map((c, i) => `Contact ${i + 2}: ${c.name || "—"} | ${c.phone || "—"} | ${c.relationship || "—"}`)
+                .join("\n")
+            : "",
         ]],
       },
     });

@@ -259,23 +259,42 @@ async function buildAuthPdf(body: Record<string, unknown>): Promise<Uint8Array> 
   s.y -= 20;
 
   const patientName = sanitize(`${form.firstName ?? ""} ${form.lastName ?? ""}`.trim());
-  const sigLinePart1 = `I, ${patientName}`;
-  const sigLinePart2 = " (patient signature), have read and understood the information above. I hereby consent to participate in the Remote Patient Monitoring Program.";
-  const combined     = sigLinePart1 + sigLinePart2;
-  const combLines    = wrapText(combined, reg, 10, CW);
 
-  s = ensureY(s, combLines.length * 13 + 70);
+  // Consent line: "I, [drawn signature] (patient signature), have read..."
+  s = ensureY(s, 80);
 
-  const p1w = reg.widthOfTextAtSize(sigLinePart1, 10);
-  s.page.drawText(sigLinePart1, { x: ML, y: s.y, size: 10, font: bold, color: C_DARK });
-  // underline the name part
-  s.page.drawLine({ start: { x: ML, y: s.y - 2 }, end: { x: ML + p1w, y: s.y - 2 }, thickness: 0.5, color: C_LINE });
-  // rest of first line after the name
-  const restFirstLine = combLines[0].slice(sigLinePart1.length);
-  s.page.drawText(restFirstLine, { x: ML + p1w, y: s.y, size: 10, font: reg, color: C_DARK });
+  const prefixText = "I, ";
+  const prefixW    = reg.widthOfTextAtSize(prefixText, 10);
+  s.page.drawText(prefixText, { x: ML, y: s.y, size: 10, font: reg, color: C_DARK });
+
+  const inlineSigW = 140;
+  const inlineSigH = 28;
+  if (sigUrl) {
+    try {
+      const b64   = sigUrl.split(",")[1];
+      const buf   = Buffer.from(b64, "base64");
+      const img   = await s.doc.embedPng(buf);
+      const scale = Math.min(inlineSigW / img.width, inlineSigH / img.height, 1);
+      const w     = img.width * scale;
+      const h     = img.height * scale;
+      s.page.drawImage(img, { x: ML + prefixW, y: s.y + 2, width: w, height: h });
+    } catch { /* skip */ }
+  }
+  s.page.drawLine({
+    start: { x: ML + prefixW, y: s.y - 3 },
+    end:   { x: ML + prefixW + inlineSigW, y: s.y - 3 },
+    thickness: 0.5, color: C_LINE,
+  });
+
+  const afterSigX  = ML + prefixW + inlineSigW + 4;
+  const afterSigW  = ML + CW - afterSigX;
+  const restText   = "(patient signature), have read and understood the information above. I hereby consent to participate in the Remote Patient Monitoring Program.";
+  const restLines  = wrapText(restText, reg, 10, afterSigW);
+
+  s.page.drawText(restLines[0], { x: afterSigX, y: s.y, size: 10, font: reg, color: C_DARK });
   s.y -= 13;
-  for (let i = 1; i < combLines.length; i++) {
-    s.page.drawText(combLines[i], { x: ML, y: s.y, size: 10, font: reg, color: C_DARK });
+  for (let i = 1; i < restLines.length; i++) {
+    s.page.drawText(restLines[i], { x: ML, y: s.y, size: 10, font: reg, color: C_DARK });
     s.y -= 13;
   }
 

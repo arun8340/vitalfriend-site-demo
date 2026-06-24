@@ -17,6 +17,12 @@ const steps = [
 ];
 
 // ── Form data shape ──────────────────────────────────────────────────────────
+interface EmergencyContact {
+  name: string;
+  phone: string;
+  relationship: string;
+}
+
 interface FormData {
   firstName: string; lastName: string; dateOfBirth: string;
   email: string; phone: string; gender: string; referredBy: string;
@@ -69,7 +75,7 @@ const initialForm: FormData = {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-function validateStep(step: number, form: FormData): FormErrors {
+function validateStep(step: number, form: FormData, emergencyContacts?: EmergencyContact[]): FormErrors {
   const e: FormErrors = {};
   if (step === 1) {
     if (!form.firstName.trim()) e.firstName = "First name is required";
@@ -88,13 +94,18 @@ function validateStep(step: number, form: FormData): FormErrors {
   }
   if (step === 4) {
     if (!form.insuranceProvider.trim()) e.insuranceProvider = "Insurance company is required";
-    if (!form.policyNumber.trim()) e.policyNumber = "Policy number is required";
+    if (!form.policyNumber.trim()) {
+      e.policyNumber = "Policy number is required";
+    } else if (!/^[A-Za-z0-9]{6,20}$/.test(form.policyNumber.trim())) {
+      e.policyNumber = "Enter a valid policy number (letters and numbers only, 6–20 characters)";
+    }
     if (!form.memberId.trim()) e.memberId = "Member ID is required";
   }
   if (step === 5) {
-    if (!form.emergencyContactName.trim()) e.emergencyContactName = "Emergency contact name is required";
-    if (!form.emergencyContactPhone.trim()) e.emergencyContactPhone = "Emergency contact phone is required";
-    if (!form.emergencyContactRelationship.trim()) e.emergencyContactRelationship = "Relationship is required";
+    const primary = emergencyContacts?.[0];
+    if (!primary?.name.trim()) e.emergencyContactName = "Emergency contact name is required";
+    if (!primary?.phone.trim()) e.emergencyContactPhone = "Emergency contact phone is required";
+    if (!primary?.relationship.trim()) e.emergencyContactRelationship = "Relationship is required";
   }
   return e;
 }
@@ -211,7 +222,7 @@ type OcrState = "idle" | "scanning" | "done" | "error";
 
 interface OcrWidgetProps {
   docType: "id" | "insurance";
-  onFill: (fields: Record<string, string>) => void;
+  onFill: (fields: Record<string, string>, fillEmptyOnly?: boolean) => void;
   onFileReady?: (file: File, docTypeName: string) => void;
 }
 
@@ -258,6 +269,8 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
   const [filledFields, setFilledFields] = useState<string[]>([]);
   const [idType, setIdType] = useState("Driving License");
   const [insSide, setInsSide] = useState("Front");
+  const [lastScanned, setLastScanned] = useState<"Front" | "Back" | null>(null);
+  const [scannedSides, setScannedSides] = useState<{ front: boolean; back: boolean }>({ front: false, back: false });
 
   const handleFile = useCallback(async (file: File, fileDocTypeName: string) => {
     setState("scanning");
@@ -275,16 +288,26 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
       const fields = Object.fromEntries(Object.entries(raw).filter(([k]) => allowed.has(k)));
       const filled = Object.entries(fields).filter(([, v]) => v?.trim()).map(([k]) => k);
       if (filled.length === 0) throw new Error("no fields found");
-      onFill(fields);
+      const fillEmptyOnly =
+        (fileDocTypeName === "Insurance Card (Back)" && scannedSides.front && !scannedSides.back) ||
+        (fileDocTypeName === "Insurance Card (Front)" && scannedSides.back && !scannedSides.front);
+      onFill(fields, fillEmptyOnly);
       setFilledFields(filled);
       setState("done");
+      if (fileDocTypeName === "Insurance Card (Front)") {
+        setLastScanned("Front");
+        setScannedSides(prev => ({ ...prev, front: true }));
+      } else if (fileDocTypeName === "Insurance Card (Back)") {
+        setLastScanned("Back");
+        setScannedSides(prev => ({ ...prev, back: true }));
+      }
       onFileReady?.(file, fileDocTypeName);
     } catch {
       setState("error");
     }
-  }, [docType, onFill, onFileReady]);
+  }, [docType, onFill, onFileReady, scannedSides]);
 
-  const reset = () => { setState("idle"); setFilledFields([]); };
+  const reset = () => { setState("idle"); setFilledFields([]); setLastScanned(null); setScannedSides({ front: false, back: false }); };
 
   const isId = docType === "id";
 
@@ -362,22 +385,125 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
       )}
 
       {state === "done" && (
-        <div className={s.ocrSuccess}>
-          <div className={s.ocrSuccessIcon}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
-              <path d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <div className={s.ocrSuccessText}>
-            <p className={s.ocrSuccessTitle}>{filledFields.length} field{filledFields.length !== 1 ? "s" : ""} auto-filled</p>
-            <div className={s.ocrSuccessTags}>
-              {filledFields.map(f => (
-                <span key={f} className={s.ocrTag}>{FIELD_LABELS[f] ?? f}</span>
-              ))}
+        <>
+          <div className={s.ocrSuccess}>
+            <div className={s.ocrSuccessIcon}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
+                <path d="M5 13l4 4L19 7" />
+              </svg>
             </div>
+            <div className={s.ocrSuccessText}>
+              <p className={s.ocrSuccessTitle}>{filledFields.length} field{filledFields.length !== 1 ? "s" : ""} auto-filled from {lastScanned ? `${lastScanned} side` : "document"}</p>
+              <div className={s.ocrSuccessTags}>
+                {filledFields.map(f => (
+                  <span key={f} className={s.ocrTag}>{FIELD_LABELS[f] ?? f}</span>
+                ))}
+              </div>
+            </div>
+            <button className={s.ocrResetBtn} onClick={reset} type="button">↺ Reset</button>
           </div>
-          <button className={s.ocrResetBtn} onClick={reset} type="button">↺ Scan again</button>
-        </div>
+
+          {/* Only front done → prompt to scan back */}
+          {!isId && scannedSides.front && !scannedSides.back && (
+            <div className={s.ocrBackPrompt}>
+              <div className={s.ocrBackPromptHeader}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2">
+                  <rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" />
+                </svg>
+                <div>
+                  <p className={s.ocrBackPromptTitle}>Scan back of card</p>
+                  <p className={s.ocrBackPromptSub}>Only empty fields will be updated</p>
+                </div>
+              </div>
+              <div className={s.ocrInsSideRow}>
+                <label className={s.ocrTileSmall}>
+                  <input type="file" accept="image/jpeg,image/png,image/webp"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Back)")} />
+                  <UploadFileIcon /> Upload Back
+                </label>
+                <label className={s.ocrTileSmallGreen}>
+                  <input type="file" accept="image/*" capture="environment"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Back)")} />
+                  <CameraIcon /> Scan Back
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Only back done → prompt to scan front */}
+          {!isId && scannedSides.back && !scannedSides.front && (
+            <div className={s.ocrBackPrompt}>
+              <div className={s.ocrBackPromptHeader}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" strokeWidth="2">
+                  <rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20" />
+                </svg>
+                <div>
+                  <p className={s.ocrBackPromptTitle}>Scan front of card</p>
+                  <p className={s.ocrBackPromptSub}>Only empty fields will be updated</p>
+                </div>
+              </div>
+              <div className={s.ocrInsSideRow}>
+                <label className={s.ocrTileSmall}>
+                  <input type="file" accept="image/jpeg,image/png,image/webp"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Front)")} />
+                  <UploadFileIcon /> Upload Front
+                </label>
+                <label className={s.ocrTileSmallGreen}>
+                  <input type="file" accept="image/*" capture="environment"
+                    onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Front)")} />
+                  <CameraIcon /> Scan Front
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Both done → summary with re-upload options */}
+          {!isId && scannedSides.front && scannedSides.back && (
+            <div className={s.ocrBothDone}>
+              <div className={s.ocrBothDoneRow}>
+                <div className={s.ocrBothDoneItem}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Front uploaded</span>
+                </div>
+                <div className={s.ocrBothDoneActions}>
+                  <label className={s.ocrRescanBtn}>
+                    <input type="file" accept="image/jpeg,image/png,image/webp"
+                      onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Front)")} />
+                    <UploadFileIcon /> Re-upload
+                  </label>
+                  <label className={s.ocrRescanBtnGreen}>
+                    <input type="file" accept="image/*" capture="environment"
+                      onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Front)")} />
+                    <CameraIcon /> Re-scan
+                  </label>
+                </div>
+              </div>
+              <div className={s.ocrBothDoneDivider} />
+              <div className={s.ocrBothDoneRow}>
+                <div className={s.ocrBothDoneItem}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Back uploaded</span>
+                </div>
+                <div className={s.ocrBothDoneActions}>
+                  <label className={s.ocrRescanBtn}>
+                    <input type="file" accept="image/jpeg,image/png,image/webp"
+                      onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Back)")} />
+                    <UploadFileIcon /> Re-upload
+                  </label>
+                  <label className={s.ocrRescanBtnGreen}>
+                    <input type="file" accept="image/*" capture="environment"
+                      onChange={e => e.target.files?.[0] && handleFile(e.target.files[0], "Insurance Card (Back)")} />
+                    <CameraIcon /> Re-scan
+                  </label>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       {state === "error" && (
@@ -654,7 +780,15 @@ function InsuranceStep({ form, onChange, errors, onFill, onFileReady }: { form: 
   );
 }
 
-function EmergencyContactStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
+function EmergencyContactStep({
+  contacts, onUpdate, onAdd, onRemove, errors,
+}: {
+  contacts: EmergencyContact[];
+  onUpdate: (index: number, field: keyof EmergencyContact, value: string) => void;
+  onAdd: () => void;
+  onRemove: (index: number) => void;
+  errors: FormErrors;
+}) {
   return (
     <div className={s.stepContent}>
       <div className={s.infoBannerAmber}>
@@ -662,43 +796,70 @@ function EmergencyContactStep({ form, onChange, errors }: { form: FormData; onCh
         <span>Please provide someone we can contact in case of an emergency. This person should not be yourself.</span>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Emergency Contact Name <span className={s.required}>*</span></label>
-        <div className={s.inputWrapper}>
-          <UserIcon />
-          <input className={s.input} type="text" placeholder="Jane Doe"
-            value={form.emergencyContactName} onChange={e => onChange("emergencyContactName", e.target.value)} />
-        </div>
-        {errors.emergencyContactName && <p style={errStyle}>{errors.emergencyContactName}</p>}
-      </div>
+      {contacts.map((contact, index) => (
+        <div key={index} className={s.contactCard}>
+          <div className={s.contactCardHeader}>
+            <span className={s.contactCardLabel}>
+              {index === 0 ? "Primary Emergency Contact" : `Emergency Contact ${index + 1}`}
+            </span>
+            {index > 0 && (
+              <button type="button" className={s.contactRemoveBtn} onClick={() => onRemove(index)}>
+                ✕ Remove
+              </button>
+            )}
+          </div>
 
-      <div className={s.fieldRow}>
-        <div className={s.fieldGroup}>
-          <label className={s.label}>Phone Number <span className={s.required}>*</span></label>
-          <div className={s.inputWrapper}>
-            <PhoneIcon />
-            <input className={s.input} type="tel" placeholder="(555) 987-6543"
-              value={form.emergencyContactPhone} onChange={e => onChange("emergencyContactPhone", e.target.value)} />
+          <div className={s.fieldGroup}>
+            <label className={s.label}>
+              Full Name {index === 0 && <span className={s.required}>*</span>}
+            </label>
+            <div className={s.inputWrapper}>
+              <UserIcon />
+              <input className={s.input} type="text" placeholder="Jane Doe"
+                value={contact.name} onChange={e => onUpdate(index, "name", e.target.value)} />
+            </div>
+            {index === 0 && errors.emergencyContactName && <p style={errStyle}>{errors.emergencyContactName}</p>}
           </div>
-          {errors.emergencyContactPhone ? <p style={errStyle}>{errors.emergencyContactPhone}</p> : <p className={s.hint}>Include area code</p>}
-        </div>
-        <div className={s.fieldGroup}>
-          <label className={s.label}>Relationship <span className={s.required}>*</span></label>
-          <div className={s.inputWrapperNoIcon}>
-            <select className={s.select}
-              value={form.emergencyContactRelationship} onChange={e => onChange("emergencyContactRelationship", e.target.value)}>
-              <option value="">Select relationship</option>
-              <option value="Spouse">Spouse</option>
-              <option value="Parent">Parent</option>
-              <option value="Child">Child</option>
-              <option value="Sibling">Sibling</option>
-              <option value="Friend">Friend</option>
-              <option value="Other">Other</option>
-            </select>
+
+          <div className={s.fieldRow}>
+            <div className={s.fieldGroup}>
+              <label className={s.label}>
+                Phone Number {index === 0 && <span className={s.required}>*</span>}
+              </label>
+              <div className={s.inputWrapper}>
+                <PhoneIcon />
+                <input className={s.input} type="tel" placeholder="(555) 987-6543"
+                  value={contact.phone} onChange={e => onUpdate(index, "phone", e.target.value)} />
+              </div>
+              {index === 0 && (errors.emergencyContactPhone
+                ? <p style={errStyle}>{errors.emergencyContactPhone}</p>
+                : <p className={s.hint}>Include area code</p>)}
+            </div>
+            <div className={s.fieldGroup}>
+              <label className={s.label}>
+                Relationship {index === 0 && <span className={s.required}>*</span>}
+              </label>
+              <div className={s.inputWrapperNoIcon}>
+                <select className={s.select}
+                  value={contact.relationship} onChange={e => onUpdate(index, "relationship", e.target.value)}>
+                  <option value="">Select relationship</option>
+                  <option value="Spouse">Spouse</option>
+                  <option value="Parent">Parent</option>
+                  <option value="Child">Child</option>
+                  <option value="Sibling">Sibling</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              {index === 0 && errors.emergencyContactRelationship && <p style={errStyle}>{errors.emergencyContactRelationship}</p>}
+            </div>
           </div>
-          {errors.emergencyContactRelationship && <p style={errStyle}>{errors.emergencyContactRelationship}</p>}
         </div>
-      </div>
+      ))}
+
+      <button type="button" className={s.addContactBtn} onClick={onAdd}>
+        + Add Another Emergency Contact
+      </button>
     </div>
   );
 }
@@ -862,9 +1023,10 @@ function ConsentCheckbox({ id, checked, onChange, children }: {
 }
 
 function ReviewStep({
-  form, onChange, docItems, consents, setConsents, signatureDataUrl, setSignatureDataUrl,
+  form, onChange, docItems, emergencyContacts, consents, setConsents, signatureDataUrl, setSignatureDataUrl,
 }: {
   form: FormData; onChange: OnChange; docItems: DocItem[];
+  emergencyContacts: EmergencyContact[];
   consents: ConsentState; setConsents: (v: ConsentState) => void;
   signatureDataUrl: string; setSignatureDataUrl: (v: string) => void;
 }) {
@@ -913,9 +1075,16 @@ function ReviewStep({
       </ReviewSection>
 
       <ReviewSection icon={<ContactIconDark />} title="Emergency Contact">
-        <ReviewRow label="Name" value={form.emergencyContactName} fallback="—" />
-        <ReviewRow label="Phone" value={form.emergencyContactPhone} fallback="—" />
-        <ReviewRow label="Relationship" value={form.emergencyContactRelationship} fallback="—" />
+        {emergencyContacts.map((c, i) => (
+          <div key={i}>
+            {emergencyContacts.length > 1 && (
+              <p className={s.reviewContactLabel}>{i === 0 ? "Primary" : `Contact ${i + 1}`}</p>
+            )}
+            <ReviewRow label="Name" value={c.name} fallback="—" />
+            <ReviewRow label="Phone" value={c.phone} fallback="—" />
+            <ReviewRow label="Relationship" value={c.relationship} fallback="—" />
+          </div>
+        ))}
       </ReviewSection>
 
       <ReviewSection icon={<UploadIcon size={24} color="#7c3aed" />} title="Documents">
@@ -1131,12 +1300,10 @@ function AuthorizationStep({
                   value={form.poaName} onChange={e => onChange("poaName", e.target.value)} />
               </div>
             </div>
-            {form.poaName.trim() && (
-              <div className={s.fieldGroup}>
-                <label className={s.label}>POA Signature</label>
-                <SignaturePad value={poaSignatureDataUrl} onChange={setPoaSignatureDataUrl} />
-              </div>
-            )}
+            <div className={s.fieldGroup}>
+              <label className={s.label}>POA Signature</label>
+              <SignaturePad value={poaSignatureDataUrl} onChange={setPoaSignatureDataUrl} />
+            </div>
           </div>
         )}
       </div>
@@ -1157,12 +1324,10 @@ function AuthorizationStep({
                   value={form.witnessName} onChange={e => onChange("witnessName", e.target.value)} />
               </div>
             </div>
-            {form.witnessName.trim() && (
-              <div className={s.fieldGroup}>
-                <label className={s.label}>Witness Signature</label>
-                <SignaturePad value={witnessSignatureDataUrl} onChange={setWitnessSignatureDataUrl} />
-              </div>
-            )}
+            <div className={s.fieldGroup}>
+              <label className={s.label}>Witness Signature</label>
+              <SignaturePad value={witnessSignatureDataUrl} onChange={setWitnessSignatureDataUrl} />
+            </div>
           </div>
         )}
       </div>
@@ -1352,18 +1517,41 @@ export default function GetAVitalBuddyPage() {
   const [authError, setAuthError] = useState("");
   const [poaSignatureDataUrl, setPoaSignatureDataUrl] = useState("");
   const [witnessSignatureDataUrl, setWitnessSignatureDataUrl] = useState("");
+  const [emergencyContacts, setEmergencyContacts] = useState<EmergencyContact[]>([
+    { name: "", phone: "", relationship: "" },
+  ]);
+
+  const updateEmergencyContact = (index: number, field: keyof EmergencyContact, value: string) => {
+    setEmergencyContacts(prev => {
+      const next = [...prev];
+      next[index] = { ...next[index], [field]: value };
+      return next;
+    });
+    if (index === 0) {
+      const formField = field === "name" ? "emergencyContactName" : field === "phone" ? "emergencyContactPhone" : "emergencyContactRelationship";
+      setErrors(prev => ({ ...prev, [formField]: undefined }));
+    }
+  };
+
+  const addEmergencyContact = () =>
+    setEmergencyContacts(prev => [...prev, { name: "", phone: "", relationship: "" }]);
+
+  const removeEmergencyContact = (index: number) =>
+    setEmergencyContacts(prev => prev.filter((_, i) => i !== index));
 
   const onChange: OnChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors(prev => ({ ...prev, [field]: undefined }));
   };
 
-  const handleOcrFill = useCallback((fields: Record<string, string>) => {
+  const handleOcrFill = useCallback((fields: Record<string, string>, fillEmptyOnly = false) => {
     setForm(prev => {
       const next = { ...prev };
       for (const [k, v] of Object.entries(fields)) {
         if (v?.trim() && k in prev) {
-          (next as Record<string, string>)[k] = v.trim();
+          if (!fillEmptyOnly || !(prev as unknown as Record<string, string>)[k]?.trim()) {
+            (next as Record<string, string>)[k] = v.trim();
+          }
         }
       }
       // Auto-set "Self" when the policy holder name matches the patient's own name
@@ -1421,7 +1609,7 @@ export default function GetAVitalBuddyPage() {
       }
       setAuthError("");
     }
-    const stepErrors = validateStep(currentStep, form);
+    const stepErrors = validateStep(currentStep, form, emergencyContacts);
     if (Object.keys(stepErrors).length > 0) {
       setErrors(stepErrors);
       return;
@@ -1472,6 +1660,7 @@ export default function GetAVitalBuddyPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             form,
+            emergencyContacts,
             consents,
             refId,
             signatureDataUrl,
@@ -1518,6 +1707,10 @@ export default function GetAVitalBuddyPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...form,
+        emergencyContactName: emergencyContacts[0]?.name ?? "",
+        emergencyContactPhone: emergencyContacts[0]?.phone ?? "",
+        emergencyContactRelationship: emergencyContacts[0]?.relationship ?? "",
+        additionalEmergencyContacts: emergencyContacts.slice(1),
         refId,
         driveFolderName,
         driveFolderUrl,
@@ -1587,7 +1780,15 @@ export default function GetAVitalBuddyPage() {
         {currentStep === 2 && <AddressStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 3 && <MedicalStep form={form} onChange={onChange} />}
         {currentStep === 4 && <InsuranceStep form={form} onChange={onChange} errors={errors} onFill={handleOcrFill} onFileReady={handleDocFileReady} />}
-        {currentStep === 5 && <EmergencyContactStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 5 && (
+          <EmergencyContactStep
+            contacts={emergencyContacts}
+            onUpdate={updateEmergencyContact}
+            onAdd={addEmergencyContact}
+            onRemove={removeEmergencyContact}
+            errors={errors}
+          />
+        )}
         {currentStep === 6 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} />}
         {currentStep === 7 && (
           <AuthorizationStep
@@ -1601,6 +1802,7 @@ export default function GetAVitalBuddyPage() {
         {currentStep === 8 && (
           <ReviewStep
             form={form} onChange={onChange} docItems={docItems}
+            emergencyContacts={emergencyContacts}
             consents={consents} setConsents={setConsents}
             signatureDataUrl={signatureDataUrl} setSignatureDataUrl={setSignatureDataUrl}
           />
