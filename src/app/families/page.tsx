@@ -358,7 +358,7 @@ export default function FamiliesPage() {
       <section className={s.simpleTechSection}>
         <div className={s.simpleTechInner}>
           <Image
-            src="/images/families/All-hands.png"
+            src="/images/families/Vitals-on-Users.png"
             alt="Vital Buddy wearable on multiple wrists"
             width={462}
             height={442}

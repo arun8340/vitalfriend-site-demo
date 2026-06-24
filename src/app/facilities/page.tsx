@@ -112,7 +112,7 @@ export default function FacilitiesPage() {
             <div className={s.certImageWrapper}>
               <Image
                 src="/images/vitalfriend-badge.png"
-                alt="VF Certified™"
+                alt="VF Certified"
                 fill
                 style={{ objectFit: "contain" }}
               />

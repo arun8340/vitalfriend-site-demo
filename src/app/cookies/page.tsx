@@ -18,41 +18,37 @@ export default function CookiesPage() {
       <div className={s.blobMidRight} />
 
       <div className={s.pageInner}>
-        {/* ── Hero row ── */}
-        <div className={s.heroRow}>
+        {/* ── Hero card ── */}
+        <div className={s.heroCard}>
           <div className={s.heroContent}>
-            <h1 className={s.heroHeading}>Cookies Policy</h1>
-            <p className={s.heroBody}>
-              This policy explains how VitalFriend uses cookies and similar technologies on
-              vitalfriend.com. By using the Site, you agree to the use of cookies as described
-              here, except where consent is required and not given.
-            </p>
+            <h1 className={s.heroHeading}>Cookies policy</h1>
+            <p className={s.heroDate}>Last updated: June 21st, 2026</p>
           </div>
 
           <div className={s.heroImageCol}>
             <Image
               src="/images/privacy-buddy.png"
               alt="VitalFriend privacy"
-              width={335}
-              height={502}
+              width={273}
+              height={324}
               className={s.heroImage}
             />
           </div>
         </div>
 
-        {/* ── Intro block ── */}
-        <div className={s.introBlock}>
-          <p className={s.lastUpdated}>Last updated: June 21st, 2026</p>
-          <p className={s.heroPolicyText}>
+        {/* ── Content ── */}
+        <div className={s.contentInner}>
+          <p className={s.bodyText}>
+            This policy explains how VitalFriend uses cookies and similar technologies on
+            vitalfriend.com. By using the Site, you agree to the use of cookies as described
+            here, except where consent is required and not given.
+          </p>
+          <p className={s.bodyText}>
             This Cookies Policy explains how VitalFriend (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or
             &ldquo;our&rdquo;) uses cookies and similar technologies on vitalfriend.com (the
             &ldquo;Site&rdquo;). By using the Site, you agree to the use of cookies as described
             in this policy, except where consent is required and not given.
           </p>
-        </div>
-
-        {/* ── Content ── */}
-        <div className={s.contentInner}>
 
           {/* What are cookies? */}
           <div className={s.legalSection}>

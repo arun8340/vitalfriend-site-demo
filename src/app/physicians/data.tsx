@@ -56,8 +56,8 @@ export const insightCards: InsightCard[] = [
         />
       </svg>
     ),
-    title: "Early Alerts",
-    desc: "Receive intelligent alerts that support faster intervention and better outcomes. Be proactive instead of reactive with timely notifications.",
+    title: "Early Notifications",
+    desc: "Receive intelligent notifications that support faster intervention and better outcomes. Be proactive instead of reactive with timely notifications.",
   },
   {
     icon: (

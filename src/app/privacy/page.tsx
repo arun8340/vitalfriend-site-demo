@@ -19,24 +19,17 @@ export default function PrivacyPage() {
 
       <div className={s.pageInner}>
         {/* Hero */}
-        <div className={s.heroRow}>
+        <div className={s.heroCard}>
           <div className={s.heroContent}>
-            <h1 className={s.heroHeading}>Privacy Policy</h1>
-            <p className={s.heroBody}>
-              These Terms and Conditions set forth the terms and conditions that govern use of the
-              Devices and Platform by any person using a Device or the Platform
-              (&ldquo;Participant&rdquo;). By accepting these Terms and Conditions, Participant
-              acknowledges and agrees that VitalFriend, Inc. (&ldquo;VitalFriend&rdquo;) has
-              developed the Device and Platform and that compliance with these Terms and Conditions
-              is a condition of continued use.
-            </p>
+            <h1 className={s.heroHeading}>Privacy policy</h1>
+            <p className={s.heroDate}>Last updated June 22, 2026</p>
           </div>
           <div className={s.heroImageCol}>
             <Image
               src="/images/privacy-buddy.png"
               alt="VitalFriend Vital Buddy device"
-              width={335}
-              height={502}
+              width={273}
+              height={324}
               className={s.heroImage}
             />
           </div>
@@ -44,9 +37,6 @@ export default function PrivacyPage() {
 
         {/* Body content */}
         <div className={s.contentInner}>
-          <h2 className={s.contentTitle}>Privacy Policy</h2>
-          <p className={s.lastUpdated}>Last updated June 22, 2026</p>
-
           <p className={s.bodyText}>
             This Privacy Notice for VitalFriend, Inc (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or
             &ldquo;our&rdquo;), describes how and why we might access, collect, store, use, and/or

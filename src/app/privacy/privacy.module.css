@@ -46,60 +46,63 @@
 .pageInner {
   position: relative;
   z-index: 10;
-  max-width: 1008px;
+  max-width: 1136px;
   margin: 0 auto;
-  padding: 60px 24px 35px;
+  padding: 80px 24px 35px;
 }
 
-.heroRow {
+.heroCard {
+  position: relative;
+  background: #F9F9FB;
+  border-radius: 20px;
+  height: 273px;
+  overflow: visible;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 32px;
+  align-items: center;
 }
 
 .heroContent {
   flex: 0 0 auto;
   max-width: 677px;
+  padding-left: 40px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
 .heroHeading {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 55.5px;
-  line-height: 65.25px;
+  line-height: 65.21px;
   letter-spacing: -0.19px;
-  background: linear-gradient(90deg, #5F9AE2 0%, #54B589 100%);
+  background: linear-gradient(90deg, #5F9AE2 0%, #5E9CDC 7.14%, #5D9FD6 14.29%, #5CA1D0 21.43%, #5AA3CA 28.57%, #5AA5C4 35.71%, #59A7BE 42.86%, #58A9B8 50%, #57ABB2 57.14%, #56ADAB 64.29%, #56AFA5 71.43%, #55B09E 78.57%, #55B297 85.71%, #54B390 92.86%, #54B589 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
 }
 
-.heroBody {
+.heroDate {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 15px;
-  line-height: 26.25px;
+  font-size: 13px;
+  line-height: 24px;
   letter-spacing: -0.19px;
-  color: #393939;
+  color: #666666;
   margin: 0;
+  padding-top: 8px;
 }
 
 .heroImageCol {
+  position: absolute;
+  right: 88px;
+  top: -61px;
   flex-shrink: 0;
-  margin-top: -40px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 
 .heroImage {
-  width: 220px;
-  height: 330px;
+  width: 273px;
+  height: 324px;
   object-fit: contain;
 }
 
@@ -107,8 +110,8 @@
    CONTENT
 ════════════════════════════════════════ */
 .contentInner {
-  max-width: 100%;
-  margin-top: 0px;
+  max-width: 1008px;
+  margin: 24px auto 0;
 }
 
 /* Content block title ("Privacy Policy" label) */
@@ -320,44 +323,50 @@
 ════════════════════════════════════════ */
 @media (max-width: 1023px) {
   .pageInner {
-    padding: 28px 24px 32px;
+    padding: 32px 24px 32px;
   }
 
-  .heroRow {
-    flex-direction: column;
-    gap: 4px;
-    padding-bottom: 16px;
+  .heroCard {
+    height: auto;
+    min-height: 160px;
+    padding: 20px 20px;
+    overflow: visible;
   }
 
   .heroContent {
-    max-width: 100%;
+    max-width: calc(100% - 120px);
+    padding-left: 0;
   }
 
   .heroHeading {
-    font-size: 42px;
-    line-height: 56px;
+    font-size: 36px;
+    line-height: 46px;
   }
 
   .heroImageCol {
-    width: 100%;
-    margin-top: 0;
-    justify-content: center;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    width: 110px;
+  }
+
+  .heroImage {
+    width: 110px;
+    height: 131px;
   }
 
   .contentInner {
     max-width: 100%;
+    margin: 24px auto 0;
   }
 }
 
 @media (max-width: 768px) {
   .heroHeading {
-    font-size: 32px;
-    line-height: 42px;
-  }
-
-  .heroBody {
-    font-size: 16px;
-    line-height: 28px;
+    font-size: 30px;
+    line-height: 38px;
   }
 
   .legalSection {
@@ -371,8 +380,28 @@
 }
 
 @media (max-width: 640px) {
+  .heroCard {
+    padding: 16px 16px;
+  }
+
+  .heroHeading {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .heroContent {
+    max-width: calc(100% - 100px);
+  }
+
+  .heroImageCol {
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90px;
+  }
+
   .heroImage {
-    width: 170px;
-    height: 255px;
+    width: 90px;
+    height: 107px;
   }
 }

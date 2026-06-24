@@ -569,7 +569,7 @@ export default function PlatformPage() {
           {/* Left image */}
           <div className={s.meetBuddyImageCol}>
             <Image
-              src="/images/platform/buddies.png"
+              src="/images/buddies-new-style.jpg"
               alt="Vital Buddy FDA-Cleared Vitals Wearable"
               width={599}
               height={452}
