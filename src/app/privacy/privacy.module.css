@@ -308,7 +308,7 @@
 /* Inline link style */
 .link {
   color: #5F9AE2;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .link:hover {

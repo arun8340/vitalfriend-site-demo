@@ -45,7 +45,7 @@ export default function PrivacyPage() {
         {/* Body content */}
         <div className={s.contentInner}>
           <h2 className={s.contentTitle}>Privacy Policy</h2>
-          <p className={s.lastUpdated}>Last updated November 25, 2025</p>
+          <p className={s.lastUpdated}>Last updated June 22, 2026</p>
 
           <p className={s.bodyText}>
             This Privacy Notice for VitalFriend, Inc (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or
@@ -74,8 +74,8 @@ export default function PrivacyPage() {
             how your personal information is processed. If you do not agree with our policies and
             practices, please do not use our Services. If you still have any questions or concerns,
             please contact us at{" "}
-            <a href="mailto:care@vitalfrnd.com" className={s.link}>
-              care@vitalfrnd.com
+            <a href="mailto:support@vitalfriend.com" className={s.link}>
+              support@vitalfriend.com
             </a>
             .
           </p>
@@ -95,15 +95,6 @@ export default function PrivacyPage() {
             </div>
             <div className={s.qaBlock}>
               <p className={s.bodyText}>
-                <strong>Do we process any sensitive personal information?</strong> Some of the
-                information may be considered &ldquo;special&rdquo; or &ldquo;sensitive&rdquo; in
-                certain jurisdictions, for example your racial or ethnic origins, sexual orientation,
-                and religious beliefs. We may process sensitive personal information when necessary
-                with your consent or as otherwise permitted by applicable law.
-              </p>
-            </div>
-            <div className={s.qaBlock}>
-              <p className={s.bodyText}>
                 <strong>Do we collect any information from third parties?</strong> We do not collect
                 any information from third parties.
               </p>
@@ -115,12 +106,6 @@ export default function PrivacyPage() {
                 fraud prevention, and to comply with law. We may also process your information for
                 other purposes with your consent. We process your information only when we have a
                 valid legal reason to do so.
-              </p>
-            </div>
-            <div className={s.qaBlock}>
-              <p className={s.bodyText}>
-                <strong>In what situations and with which parties do we share personal information?</strong>{" "}
-                We may share information in specific situations and with specific third parties.
               </p>
             </div>
             <div className={s.qaBlock}>
@@ -193,17 +178,6 @@ export default function PrivacyPage() {
               <li className={s.bulletItem}>passwords</li>
               <li className={s.bulletItem}>contact preferences</li>
               <li className={s.bulletItem}>contact or authentication data</li>
-            </ul>
-            <p className={s.bodyText} style={{ marginTop: 16 }}>
-              <strong>Sensitive Information.</strong> When necessary, with your consent or as
-              otherwise permitted by applicable law, we process the following categories of sensitive
-              information:
-            </p>
-            <ul className={s.bulletList}>
-              <li className={s.bulletItem}>health data</li>
-              <li className={s.bulletItem}>biometric data</li>
-              <li className={s.bulletItem}>data about a person&apos;s sex life or sexual orientation</li>
-              <li className={s.bulletItem}>information revealing race or ethnic origin</li>
             </ul>
             <p className={s.bodyText} style={{ marginTop: 16 }}>
               <strong>Application Data.</strong> If you use our application(s), we also may collect
@@ -302,32 +276,11 @@ export default function PrivacyPage() {
               crashes, fix bugs, save your preferences, and assist with basic site functions.
             </p>
             <p className={s.bodyText}>
-              We also permit third parties and service providers to use online tracking technologies
-              on our Services for analytics and advertising, including to help manage and display
-              advertisements, to tailor advertisements to your interests, or to send abandoned
-              shopping cart reminders (depending on your communication preferences).
-            </p>
-            <p className={s.bodyText}>
               To the extent these online tracking technologies are deemed to be a
               &ldquo;sale&rdquo;/&ldquo;sharing&rdquo; (which includes targeted advertising, as
               defined under the applicable laws) under applicable US state laws, you can opt out of
               these online tracking technologies by submitting a request as described below under
               section &ldquo;DO UNITED STATES RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?&rdquo;
-            </p>
-            <p className={s.subHeading}>Google Analytics</p>
-            <p className={s.bodyText}>
-              We may share your information with Google Analytics to track and analyze the use of the
-              Services. The Google Analytics Advertising Features that we may use include: Google
-              Analytics Demographics and Interests Reporting. To opt out of being tracked by Google
-              Analytics across the Services, visit{" "}
-              <a href="https://tools.google.com/dlpage/gaoptout" className={s.link} target="_blank" rel="noopener noreferrer">
-                https://tools.google.com/dlpage/gaoptout
-              </a>
-              . For more information on the privacy practices of Google, please visit the{" "}
-              <a href="https://policies.google.com/privacy" className={s.link} target="_blank" rel="noopener noreferrer">
-                Google Privacy &amp; Terms page
-              </a>
-              .
             </p>
           </div>
 
@@ -348,7 +301,7 @@ export default function PrivacyPage() {
             <p className={s.subHeading}>Use of AI Technologies</p>
             <p className={s.bodyText}>
               We provide the AI Products through third-party service providers (&ldquo;AI Service
-              Providers&rdquo;), including Anthropic. As outlined in this Privacy Notice, your input,
+              Providers&rdquo;), including Anthropic, Google Gemini &amp; OpenAI. As outlined in this Privacy Notice, your input,
               output, and personal information will be shared with and processed by these AI Service
               Providers to enable your use of our AI Products. You must not use the AI Products in
               any way that violates the terms or policies of any AI Service Provider.
@@ -396,8 +349,8 @@ export default function PrivacyPage() {
           <div className={s.legalSection} id="How-Do-We-Keep-Your-Information-Safe">
             <h2 className={s.sectionHeading}>7. How Do We Keep Your Information Safe?</h2>
             <p className={s.inShort}>
-              In Short: We aim to protect your personal information through a system of
-              organizational and technical security measures.
+              In Short: We protect your personal information through a system of organizational and
+              technical security measures.
             </p>
             <p className={s.bodyText}>
               We have implemented appropriate and reasonable technical and organizational security
@@ -429,8 +382,8 @@ export default function PrivacyPage() {
               deactivate the account and take reasonable measures to promptly delete such data from
               our records. If you become aware of any data we may have collected from children under
               age 18, please contact us at{" "}
-              <a href="mailto:raj@vitalfrnd.com" className={s.link}>
-                raj@vitalfrnd.com
+              <a href="mailto:support@vitalfriend.com" className={s.link}>
+                support@vitalfriend.com
               </a>
               .
             </p>
@@ -479,8 +432,8 @@ export default function PrivacyPage() {
             </p>
             <p className={s.bodyText}>
               If you have questions or comments about your privacy rights, you may email us at{" "}
-              <a href="mailto:care@vitalfrnd.com" className={s.link}>
-                care@vitalfrnd.com
+              <a href="mailto:support@vitalfriend.com" className={s.link}>
+                support@vitalfriend.com
               </a>
               .
             </p>
@@ -556,7 +509,7 @@ export default function PrivacyPage() {
                   <tr>
                     <td><strong>E. Biometric information</strong></td>
                     <td>Fingerprints and voiceprints</td>
-                    <td><span className={s.collectedYes}>YES</span></td>
+                    <td><span className={s.collectedNo}>NO</span></td>
                   </tr>
                   <tr>
                     <td><strong>F. Internet activity</strong></td>
@@ -588,11 +541,6 @@ export default function PrivacyPage() {
                     <td>Inferences drawn from any of the collected personal information listed above to create a profile or summary about, for example, an individual&apos;s preferences and characteristics</td>
                     <td><span className={s.collectedNo}>NO</span></td>
                   </tr>
-                  <tr>
-                    <td><strong>L. Sensitive personal Information</strong></td>
-                    <td>Account login information, biometric data, health data, sex life or sexual orientation and racial or ethnic origin</td>
-                    <td><span className={s.collectedYes}>YES</span></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -622,10 +570,10 @@ export default function PrivacyPage() {
             <p className={s.bodyText}>
               To exercise these rights, you can contact us by submitting a data subject access
               request, by emailing us at{" "}
-              <a href="mailto:care@vitalfrnd.com" className={s.link}>care@vitalfrnd.com</a>, by
+              <a href="mailto:support@vitalfriend.com" className={s.link}>support@vitalfriend.com</a>, by
               visiting{" "}
-              <a href="https://vitalfriend.com/scheduleDemo" className={s.link}>
-                https://vitalfriend.com/demo-page/
+              <a href="https://vitalfriend.com" className={s.link}>
+                https://vitalfriend.com
               </a>
               , or by referring to the contact details at the bottom of this document.
             </p>
@@ -640,7 +588,7 @@ export default function PrivacyPage() {
             <p className={s.bodyText}>
               Under certain US state data protection laws, if we decline to take action regarding
               your request, you may appeal our decision by emailing us at{" "}
-              <a href="mailto:care@vitalfrnd.com" className={s.link}>care@vitalfrnd.com</a>. We will
+              <a href="mailto:support@vitalfriend.com" className={s.link}>support@vitalfriend.com</a>. We will
               inform you in writing of any action taken or not taken in response to the appeal,
               including a written explanation of the reasons for the decisions. If your appeal is
               denied, you may submit a complaint to your state attorney general.
@@ -678,7 +626,7 @@ export default function PrivacyPage() {
             <h2 className={s.sectionHeading}>13. How Can You Contact Us About This Notice?</h2>
             <p className={s.bodyText}>
               If you have questions or comments about this notice, you may email us at{" "}
-              <a href="mailto:raj@vitalfrnd.com" className={s.link}>raj@vitalfrnd.com</a> or contact
+              <a href="mailto:support@vitalfriend.com" className={s.link}>support@vitalfriend.com</a> or contact
               us by post at:
             </p>
             <div className={s.addressBlock}>
