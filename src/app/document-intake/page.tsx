@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import s from "./buddy.module.css";
+import s from "./document-intake.module.css";
 
 const TOTAL_STEPS = 8;
 
@@ -1493,7 +1493,7 @@ function generateRefId() {
 }
 
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default function GetAVitalBuddyPage() {
+export default function DocumentIntakePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [consents, setConsents] = useState<ConsentState>({
     rpmConsent: false,
