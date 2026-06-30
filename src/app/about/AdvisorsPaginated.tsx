@@ -7,6 +7,7 @@ interface Advisor {
   image: string;
   linkedin?: string;
   circleBg?: boolean;
+  fillCircle?: boolean;
 }
 
 export default function AdvisorsGrid({ advisors }: { advisors: Advisor[] }) {
@@ -23,7 +24,7 @@ export default function AdvisorsGrid({ advisors }: { advisors: Advisor[] }) {
                 alt={advisor.name}
                 width={190}
                 height={190}
-                className={s.advisorPhotoDefault}
+                className={advisor.fillCircle ? s.advisorPhotoDefaultFill : s.advisorPhotoDefault}
               />
             </div>
           )}

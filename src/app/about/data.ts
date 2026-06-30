@@ -22,10 +22,10 @@ export const advisors = [
   { name: "Dr. Sheryl Neelankavil Jose",  bio: "Physician, Seasoned health care executive and entrepreneur.", image: "/images/about-us/advisors/sheryl.png",  linkedin: "https://www.linkedin.com/in/dr-sheryl-neelankavil-jose-1a563a106/"},
   { name: 'William "Will" Patterson, RN', bio: "Founder of Carerev (YCombinator Company).", image: "/images/about-us/advisors/william.png", linkedin: "https://www.linkedin.com/in/william-patterson-6ba354b6/"},
   { name: "Ole Eichhorn",                 bio: "EVP Paypal, CTO InTouch Health, CTO Teledoc, Founder Eyesfinder.", image: "/images/about-us/advisors/ole.png",     linkedin: "https://www.linkedin.com/in/oleeichhorn/"},
-  {name: "Dr. Rohan Nagar",               bio:"World renowned Ayurvedic Consultant, Educator, and Health Coach.", image: "/images/about-us/advisors/nagar.png", linkedin: "https://www.linkedin.com/in/rohan-nagar-2587a51a8/", circleBg: true},
+  {name: "Dr. Rohan Nagar",               bio:"World renowned Ayurvedic Consultant, Educator, and Health Coach.", image: "/images/about-us/advisors/Rohan-Nagar.png", linkedin: "https://www.linkedin.com/in/rohan-nagar-2587a51a8/", circleBg: true, fillCircle: true},
   {name: "David Choi",               bio:"Faculty Director Entrepreneurship Business Center - Loyola Marymount University.", image: "/images/about-us/advisors/Choi.png", linkedin: "https://www.linkedin.com/in/david-y-choi-13499/", circleBg: true},
   {name: "Donna Lee",               bio:"StartUp, Corporate and Entrepreneur Lawyer.", image: "/images/about-us/advisors/Leee.png", linkedin: "https://www.linkedin.com/in/donna-lee-69709854/", circleBg: true},
   { name: "Bob Karr",                     bio: "CEO/Founder LinkSV, angel investor, venture partner.", image: "/images/about-us/advisors/bob1.png",    linkedin: "https://www.linkedin.com/in/bobkarr/"},
-  // {name: "Gary Goldman",               bio:"Founding Partner and CEO @ Global Health Impact Network & Funds.", image: "", linkedin: "https://www.linkedin.com/in/garygoldman-md-dds-mba/"},
+  { name: "Gary Goldman",               bio: "Founding Partner and CEO @ Global Health Impact Network & Funds.", image: "/images/about-us/advisors/Gary-Goldman.png", linkedin: "https://www.linkedin.com/in/garygoldman-md-dds-mba/"},
 
 ];
