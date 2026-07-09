@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import s from "./support.module.css";
 import FaqGrid from "./FaqGrid";
 
@@ -34,6 +35,8 @@ export const metadata: Metadata = {
 };
 
 export default function SupportPage() {
+  notFound();
+
   return (
     <>
       {/* Hero */}
