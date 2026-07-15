@@ -194,18 +194,18 @@ async function drawSigRow(
 }
 
 // ── Build auth PDF ────────────────────────────────────────────────────────────
-async function buildAuthPdf(body: Record<string, unknown>): Promise<Uint8Array> {
+async function buildAuthPdf(body: Record<string, unknown>, includeSignature: boolean): Promise<Uint8Array> {
   const doc  = await PDFDocument.create();
   const bold = await doc.embedFont(StandardFonts.HelveticaBold);
   const reg  = await doc.embedFont(StandardFonts.Helvetica);
   const ital = await doc.embedFont(StandardFonts.HelveticaOblique);
 
   const form         = (body.form         ?? {}) as Record<string, string>;
-  const sigUrl       = (body.signatureDataUrl    ?? "") as string;
+  const sigUrl       = includeSignature ? ((body.signatureDataUrl    ?? "") as string) : "";
   const poaName      = (body.poaName      ?? "") as string;
-  const poaSigUrl    = (body.poaSignatureDataUrl ?? "") as string;
+  const poaSigUrl    = includeSignature ? ((body.poaSignatureDataUrl ?? "") as string) : "";
   const witnessName  = (body.witnessName  ?? "") as string;
-  const witnessSigUrl= (body.witnessSignatureDataUrl ?? "") as string;
+  const witnessSigUrl= includeSignature ? ((body.witnessSignatureDataUrl ?? "") as string) : "";
 
   let s: S = { doc, page: doc.addPage([PW, PH]), bold, reg, ital, y: PH - ML };
 
@@ -332,11 +332,13 @@ export async function POST(req: NextRequest) {
     const auth  = getAuth();
     const drive = google.drive({ version: "v3", auth });
 
-    const pdfBytes = await buildAuthPdf(body);
+    const pdfBytes      = await buildAuthPdf(body, true);
+    const pdfBytesNoSig = await buildAuthPdf(body, false);
 
     const form    = (body.form ?? {}) as Record<string, string>;
     const refId   = (body.refId ?? "") as string;
-    const pdfName = `RPM_Authorization_${form.firstName}_${form.lastName}_${refId}.pdf`;
+    const pdfName      = `RPM_Authorization_${form.firstName}_${form.lastName}_${refId}.pdf`;
+    const pdfNameNoSig = `RPM_Authorization_NoSignature_${form.firstName}_${form.lastName}_${refId}.pdf`;
 
     await drive.files.create({
       requestBody: { name: pdfName, parents: [folderId], mimeType: "application/pdf" },
@@ -344,8 +346,15 @@ export async function POST(req: NextRequest) {
       fields: "id",
     });
 
-    const pdfBase64 = Buffer.from(pdfBytes).toString("base64");
-    return NextResponse.json({ success: true, pdfName, pdfBase64 });
+    await drive.files.create({
+      requestBody: { name: pdfNameNoSig, parents: [folderId], mimeType: "application/pdf" },
+      media: { mimeType: "application/pdf", body: Readable.from(Buffer.from(pdfBytesNoSig)) },
+      fields: "id",
+    });
+
+    const pdfBase64      = Buffer.from(pdfBytes).toString("base64");
+    const pdfBase64NoSig = Buffer.from(pdfBytesNoSig).toString("base64");
+    return NextResponse.json({ success: true, pdfName, pdfBase64, pdfNameNoSig, pdfBase64NoSig });
   } catch (err) {
     console.error("Auth PDF generation error:", err);
     return NextResponse.json({ success: false, error: String(err) }, { status: 500 });

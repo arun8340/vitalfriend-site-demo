@@ -787,6 +787,36 @@
 
 .downloadBtnSecondary:hover { background: #f0eeff; }
 
+.downloadBtnGhost {
+  background: transparent;
+  color: #6b7280;
+  border: 1px dashed #d1d5db;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 10px 20px;
+}
+
+.downloadBtnGhost:hover { background: #f9fafb; color: #4b5563; }
+
+.downloadDivider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  color: #9ca3af;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.downloadDivider::before,
+.downloadDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
 /* ── Authorization step ── */
 .authTermsBox {
   border: 1px solid #e5e7eb;

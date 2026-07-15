@@ -257,6 +257,7 @@ async function buildPdf(
   body: Record<string, unknown>,
   driveFiles: { id: string; name: string; mimeType: string }[],
   drive: ReturnType<typeof google.drive>,
+  includeSignature: boolean,
 ): Promise<Uint8Array> {
   const doc  = await PDFDocument.create();
   const bold = await doc.embedFont(StandardFonts.HelveticaBold);
@@ -265,7 +266,7 @@ async function buildPdf(
 
   const form     = (body.form     ?? {}) as Record<string, string>;
   const consents = (body.consents ?? {}) as Record<string, boolean>;
-  const sigUrl   = (body.signatureDataUrl ?? "") as string;
+  const sigUrl   = includeSignature ? ((body.signatureDataUrl ?? "") as string) : "";
   const refId    = (body.refId ?? "") as string;
   const allContacts = (body.emergencyContacts as Array<{ name: string; phone: string; relationship: string }> | undefined)
     ?? [{ name: form.emergencyContactName, phone: form.emergencyContactPhone, relationship: form.emergencyContactRelationship }];
@@ -525,12 +526,14 @@ export async function POST(req: NextRequest) {
     const auth  = getAuth();
     const drive = google.drive({ version: "v3", auth });
 
-    const driveFiles = await listFolder(drive, folderId);
-    const pdfBytes   = await buildPdf(body, driveFiles, drive);
+    const driveFiles   = await listFolder(drive, folderId);
+    const pdfBytes     = await buildPdf(body, driveFiles, drive, true);
+    const pdfBytesNoSig = await buildPdf(body, driveFiles, drive, false);
 
     const form    = (body.form ?? {}) as Record<string, string>;
     const refId   = (body.refId ?? "") as string;
-    const pdfName = `RPM_Intake_Form_${form.firstName}_${form.lastName}_${refId}.pdf`;
+    const pdfName      = `RPM_Intake_Form_${form.firstName}_${form.lastName}_${refId}.pdf`;
+    const pdfNameNoSig = `RPM_Intake_Form_NoSignature_${form.firstName}_${form.lastName}_${refId}.pdf`;
 
     await drive.files.create({
       requestBody: { name: pdfName, parents: [folderId], mimeType: "application/pdf" },
@@ -538,8 +541,15 @@ export async function POST(req: NextRequest) {
       fields: "id",
     });
 
-    const pdfBase64 = Buffer.from(pdfBytes).toString("base64");
-    return NextResponse.json({ success: true, pdfName, pdfBase64 });
+    await drive.files.create({
+      requestBody: { name: pdfNameNoSig, parents: [folderId], mimeType: "application/pdf" },
+      media: { mimeType: "application/pdf", body: Readable.from(Buffer.from(pdfBytesNoSig)) },
+      fields: "id",
+    });
+
+    const pdfBase64      = Buffer.from(pdfBytes).toString("base64");
+    const pdfBase64NoSig = Buffer.from(pdfBytesNoSig).toString("base64");
+    return NextResponse.json({ success: true, pdfName, pdfBase64, pdfNameNoSig, pdfBase64NoSig });
   } catch (err) {
     console.error("PDF generation error:", err);
     return NextResponse.json({ success: false, error: String(err) }, { status: 500 });

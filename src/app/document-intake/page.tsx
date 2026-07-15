@@ -6,12 +6,12 @@ import s from "./document-intake.module.css";
 const TOTAL_STEPS = 8;
 
 const steps = [
+  { label: "Documents",     subtitle: "Upload files" },
   { label: "Personal",      subtitle: "Your basic information" },
   { label: "Address",       subtitle: "Where you live" },
   { label: "Medical",       subtitle: "Health history" },
   { label: "Insurance",     subtitle: "Coverage details" },
   { label: "Emergency",     subtitle: "Emergency contact" },
-  { label: "Documents",     subtitle: "Upload files" },
   { label: "Authorization", subtitle: "RPM agreement" },
   { label: "Review",        subtitle: "Confirm & submit" },
 ];
@@ -77,7 +77,8 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 function validateStep(step: number, form: FormData, emergencyContacts?: EmergencyContact[]): FormErrors {
   const e: FormErrors = {};
-  if (step === 1) {
+  // step 1 = Documents scan — no validation, always skippable
+  if (step === 2) {
     if (!form.firstName.trim()) e.firstName = "First name is required";
     if (!form.lastName.trim()) e.lastName = "Last name is required";
     if (!form.dateOfBirth) e.dateOfBirth = "Date of birth is required";
@@ -86,13 +87,13 @@ function validateStep(step: number, form: FormData, emergencyContacts?: Emergenc
     if (!form.phone.trim()) e.phone = "Phone number is required";
     if (!form.referredBy.trim()) e.referredBy = "Referred by is required";
   }
-  if (step === 2) {
+  if (step === 3) {
     if (!form.street.trim()) e.street = "Street address is required";
     if (!form.city.trim()) e.city = "City is required";
     if (!form.state.trim()) e.state = "State is required";
     if (!form.zip.trim()) e.zip = "ZIP is required";
   }
-  if (step === 4) {
+  if (step === 5) {
     if (!form.insuranceProvider.trim()) e.insuranceProvider = "Insurance company is required";
     if (!form.policyNumber.trim()) {
       e.policyNumber = "Policy number is required";
@@ -101,7 +102,7 @@ function validateStep(step: number, form: FormData, emergencyContacts?: Emergenc
     }
     if (!form.memberId.trim()) e.memberId = "Member ID is required";
   }
-  if (step === 5) {
+  if (step === 6) {
     const primary = emergencyContacts?.[0];
     if (!primary?.name.trim()) e.emergencyContactName = "Emergency contact name is required";
     if (!primary?.phone.trim()) e.emergencyContactPhone = "Emergency contact phone is required";
@@ -280,6 +281,7 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
       const res = await fetch("/api/extract-document", { method: "POST", body: fd });
       if (!res.ok) throw new Error("extraction failed");
       const data = await res.json();
+      if (data.error === "auto-fill-unavailable") throw new Error("unavailable");
       if (data.error) throw new Error(data.error);
       const raw: Record<string, string> = data.fields ?? {};
       const allowed = docType === "id"
@@ -511,7 +513,7 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
           </svg>
-          Couldn&apos;t read the document — try a clearer photo.
+          Auto-fill is currently unavailable — please fill in your details below.
           <button className={s.ocrErrorRetry} onClick={reset} type="button">Try again</button>
         </div>
       )}
@@ -522,10 +524,9 @@ function OcrWidget({ docType, onFill, onFileReady }: OcrWidgetProps) {
 // ── Step components ──────────────────────────────────────────────────────────
 type OnChange = (field: keyof FormData, value: string) => void;
 
-function PersonalStep({ form, onChange, errors, onFill, onFileReady }: { form: FormData; onChange: OnChange; errors: FormErrors; onFill: (fields: Record<string, string>) => void; onFileReady?: (file: File, docTypeName: string) => void }) {
+function PersonalStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
   return (
     <div className={s.stepContent}>
-      <OcrWidget docType="id" onFill={onFill} onFileReady={onFileReady} />
       <div className={s.infoBanner}>
         <InfoIcon />
         <span>Please provide your personal information exactly as it appears on your identification documents.</span>
@@ -703,10 +704,9 @@ function MedicalStep({ form, onChange }: { form: FormData; onChange: OnChange })
   );
 }
 
-function InsuranceStep({ form, onChange, errors, onFill, onFileReady }: { form: FormData; onChange: OnChange; errors: FormErrors; onFill: (fields: Record<string, string>) => void; onFileReady?: (file: File, docTypeName: string) => void }) {
+function InsuranceStep({ form, onChange, errors }: { form: FormData; onChange: OnChange; errors: FormErrors }) {
   return (
     <div className={s.stepContent}>
-      <OcrWidget docType="insurance" onFill={onFill} onFileReady={onFileReady} />
       <div className={s.infoBannerGreen}>
         <ShieldIcon size={16} color="#16a34a" />
         <span>Please have your insurance card ready. You&apos;ll need the information from both sides.</span>
@@ -866,15 +866,58 @@ function EmergencyContactStep({
 
 const OPTIONAL_DOC_TYPES = DOC_TYPES.filter(t => !REQUIRED_DOC_TYPES.includes(t));
 
-function DocumentsStep({ docItems, setDocItems, docError }: { docItems: DocItem[]; setDocItems: (items: DocItem[]) => void; docError: string }) {
+const OCR_ID_TYPES  = new Set(["Government-Issued ID"]);
+const OCR_INS_TYPES = new Set(["Insurance Card (Front)", "Insurance Card (Back)"]);
+const OCR_ALLOWED_FIELDS: Record<string, Set<string>> = {
+  id:        new Set(["firstName","lastName","dateOfBirth","gender","street","city","state","zip"]),
+  insurance: new Set(["insuranceProvider","policyNumber","groupNumber","memberId","primaryPolicyHolder"]),
+};
+
+type DocOcrStatus = "idle" | "scanning" | "done" | "error";
+
+function DocumentsStep({ docItems, setDocItems, docError, onOcrFill }: {
+  docItems: DocItem[];
+  setDocItems: (items: DocItem[]) => void;
+  docError: string;
+  onOcrFill: (fields: Record<string, string>, fillEmptyOnly?: boolean) => void;
+}) {
+  const [ocrStatus, setOcrStatus] = useState<Record<string, DocOcrStatus>>({});
+  const [ocrFilled, setOcrFilled] = useState<Record<string, string[]>>({});
+
   const renameFile = (file: File, type: string): File => {
     const ext = file.name.includes(".") ? "." + file.name.split(".").pop() : "";
     return new File([file], `${type}${ext}`, { type: file.type });
   };
 
+  const runOcr = async (file: File, docTypeName: string) => {
+    const docCat = OCR_ID_TYPES.has(docTypeName) ? "id" : "insurance";
+    const allowed = OCR_ALLOWED_FIELDS[docCat];
+    setOcrStatus(prev => ({ ...prev, [docTypeName]: "scanning" }));
+    try {
+      const fd = new globalThis.FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/extract-document", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("failed");
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const raw: Record<string, string> = data.fields ?? {};
+      const fields = Object.fromEntries(Object.entries(raw).filter(([k]) => allowed.has(k)));
+      const filled = Object.entries(fields).filter(([, v]) => v?.trim()).map(([k]) => k);
+      if (filled.length === 0) throw new Error("no fields");
+      onOcrFill(fields, docTypeName === "Insurance Card (Back)");
+      setOcrStatus(prev => ({ ...prev, [docTypeName]: "done" }));
+      setOcrFilled(prev => ({ ...prev, [docTypeName]: filled }));
+    } catch {
+      setOcrStatus(prev => ({ ...prev, [docTypeName]: "error" }));
+    }
+  };
+
   const updateRequiredFile = (type: string, file: File) => {
     const renamed = renameFile(file, type);
     setDocItems(docItems.map(d => d.type === type ? { type, file: renamed } : d));
+    const isOcrType = OCR_ID_TYPES.has(type) || OCR_INS_TYPES.has(type);
+    const isImage = ["image/jpeg","image/png","image/gif","image/webp"].includes(file.type);
+    if (isOcrType && isImage) void runOcr(file, type);
   };
 
   const updateOptionalType = (index: number, type: string) => {
@@ -897,42 +940,55 @@ function DocumentsStep({ docItems, setDocItems, docError }: { docItems: DocItem[
 
   return (
     <div className={s.stepContent}>
+      <div className={s.infoBanner}>
+        <InfoIcon />
+        <span>Upload your documents — we&apos;ll auto-fill the form from them. If auto-fill is unavailable, fill in your details on the next steps.</span>
+      </div>
       <div className={s.docList}>
-        {requiredItems.map(item => (
-          <div key={item.type} className={`${s.docCard} ${item.file ? s.docCardDone : ""}`}>
-            <div className={s.docCardLeft}>
-              <div className={s.docCardIconWrap}>
-                {item.file
-                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
-                  : <UploadIcon size={14} color="#7c3aed" />}
+        {requiredItems.map(item => {
+          const st = ocrStatus[item.type] ?? "idle";
+          const filled = ocrFilled[item.type] ?? [];
+          return (
+            <div key={item.type} className={`${s.docCard} ${item.file ? s.docCardDone : ""}`}>
+              <div className={s.docCardLeft}>
+                <div className={s.docCardIconWrap}>
+                  {st === "scanning"
+                    ? <SpinnerIcon />
+                    : item.file
+                      ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
+                      : <UploadIcon size={14} color="#7c3aed" />}
+                </div>
+                <div>
+                  <p className={s.docCardName}>{item.type} <span className={s.required}>*</span></p>
+                  {item.file && <p className={s.docCardFileName}>{item.file.name.length > 28 ? item.file.name.slice(0, 26) + "…" : item.file.name}</p>}
+                  {st === "scanning" && <p className={s.hint} style={{ color: "#7c3aed" }}>Reading document…</p>}
+                  {st === "done" && filled.length > 0 && <p className={s.hint} style={{ color: "#16a34a" }}>{filled.length} field{filled.length !== 1 ? "s" : ""} auto-filled</p>}
+                  {st === "error" && <p className={s.hint} style={{ color: "#6b7280" }}>Auto-fill unavailable — fill manually</p>}
+                </div>
               </div>
-              <div>
-                <p className={s.docCardName}>{item.type} <span className={s.required}>*</span></p>
-                {item.file && <p className={s.docCardFileName}>{item.file.name.length > 28 ? item.file.name.slice(0, 26) + "…" : item.file.name}</p>}
-              </div>
-            </div>
-            {item.file ? (
-              <label className={s.docChangeBtn}>
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
-                  onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
-                Replace
-              </label>
-            ) : (
-              <div className={s.docBtnGroup}>
-                <label className={s.docUploadBtnNew}>
+              {item.file ? (
+                <label className={s.docChangeBtn}>
                   <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
                     onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
-                  <UploadFileIcon /> Upload
+                  Replace
                 </label>
-                <label className={s.docCameraBtn}>
-                  <input type="file" accept="image/*" capture="environment" className={s.uploadInput}
-                    onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
-                  <CameraIcon /> Camera
-                </label>
-              </div>
-            )}
-          </div>
-        ))}
+              ) : (
+                <div className={s.docBtnGroup}>
+                  <label className={s.docUploadBtnNew}>
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" className={s.uploadInput}
+                      onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
+                    <UploadFileIcon /> Upload
+                  </label>
+                  <label className={s.docCameraBtn}>
+                    <input type="file" accept="image/*" capture="environment" className={s.uploadInput}
+                      onChange={e => e.target.files?.[0] && updateRequiredFile(item.type, e.target.files[0])} />
+                    <CameraIcon /> Camera
+                  </label>
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         {optionalItems.map(item => (
           <div key={item.i} className={s.docCard}>
@@ -1336,10 +1392,15 @@ function AuthorizationStep({
 }
 
 // ── Success screen ────────────────────────────────────────────────────────────
-function SuccessScreen({ email, refId, pdfBase64, pdfName, pdfAuthBase64, pdfAuthName }: {
+function SuccessScreen({
+  email, refId, pdfBase64, pdfName, pdfBase64NoSig, pdfNameNoSig,
+  pdfAuthBase64, pdfAuthName, pdfAuthBase64NoSig, pdfAuthNameNoSig,
+}: {
   email: string; refId: string;
   pdfBase64?: string; pdfName?: string;
+  pdfBase64NoSig?: string; pdfNameNoSig?: string;
   pdfAuthBase64?: string; pdfAuthName?: string;
+  pdfAuthBase64NoSig?: string; pdfAuthNameNoSig?: string;
 }) {
   const triggerDownload = (b64: string, filename: string) => {
     const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
@@ -1388,6 +1449,21 @@ function SuccessScreen({ email, refId, pdfBase64, pdfName, pdfAuthBase64, pdfAut
           <button className={`${s.downloadBtn} ${s.downloadBtnSecondary}`} onClick={() => triggerDownload(pdfAuthBase64, pdfAuthName ?? "RPM_Authorization.pdf")} type="button">
             <DownloadIcon /> Download Authorization Agreement
           </button>
+        )}
+        {(pdfBase64NoSig || pdfAuthBase64NoSig) && (
+          <>
+            <div className={s.downloadDivider}>Without signature</div>
+            {pdfBase64NoSig && (
+              <button className={`${s.downloadBtn} ${s.downloadBtnGhost}`} onClick={() => triggerDownload(pdfBase64NoSig, pdfNameNoSig ?? "RPM_Intake_Form_NoSignature.pdf")} type="button">
+                <DownloadIcon /> Intake Form (No Signature)
+              </button>
+            )}
+            {pdfAuthBase64NoSig && (
+              <button className={`${s.downloadBtn} ${s.downloadBtnGhost}`} onClick={() => triggerDownload(pdfAuthBase64NoSig, pdfAuthNameNoSig ?? "RPM_Authorization_NoSignature.pdf")} type="button">
+                <DownloadIcon /> Authorization Agreement (No Signature)
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -1511,8 +1587,12 @@ export default function DocumentIntakePage() {
   const [docError, setDocError] = useState("");
   const [pdfBase64, setPdfBase64] = useState("");
   const [pdfName, setPdfName] = useState("");
+  const [pdfBase64NoSig, setPdfBase64NoSig] = useState("");
+  const [pdfNameNoSig, setPdfNameNoSig] = useState("");
   const [pdfAuthBase64, setPdfAuthBase64] = useState("");
   const [pdfAuthName, setPdfAuthName] = useState("");
+  const [pdfAuthBase64NoSig, setPdfAuthBase64NoSig] = useState("");
+  const [pdfAuthNameNoSig, setPdfAuthNameNoSig] = useState("");
   const [authAgreed, setAuthAgreed] = useState(false);
   const [authError, setAuthError] = useState("");
   const [poaSignatureDataUrl, setPoaSignatureDataUrl] = useState("");
@@ -1593,7 +1673,7 @@ export default function DocumentIntakePage() {
   }, []);
 
   const goNext = () => {
-    if (currentStep === 6) {
+    if (currentStep === 1) {
       const uploadedTypes = docItems.filter(d => d.file).map(d => d.type);
       const missing = REQUIRED_DOC_TYPES.filter(t => !uploadedTypes.includes(t));
       if (missing.length > 0) {
@@ -1684,6 +1764,8 @@ export default function DocumentIntakePage() {
       if (pdfResult.status === "fulfilled") {
         if (pdfResult.value.pdfBase64) setPdfBase64(pdfResult.value.pdfBase64);
         if (pdfResult.value.pdfName) setPdfName(pdfResult.value.pdfName);
+        if (pdfResult.value.pdfBase64NoSig) setPdfBase64NoSig(pdfResult.value.pdfBase64NoSig);
+        if (pdfResult.value.pdfNameNoSig) setPdfNameNoSig(pdfResult.value.pdfNameNoSig);
       } else {
         console.error("Intake PDF generation failed:", pdfResult.reason);
       }
@@ -1691,6 +1773,8 @@ export default function DocumentIntakePage() {
       if (authResult.status === "fulfilled") {
         if (authResult.value.pdfBase64) setPdfAuthBase64(authResult.value.pdfBase64);
         if (authResult.value.pdfName) setPdfAuthName(authResult.value.pdfName);
+        if (authResult.value.pdfBase64NoSig) setPdfAuthBase64NoSig(authResult.value.pdfBase64NoSig);
+        if (authResult.value.pdfNameNoSig) setPdfAuthNameNoSig(authResult.value.pdfNameNoSig);
       } else {
         console.error("Authorization PDF generation failed:", authResult.reason);
       }
@@ -1731,7 +1815,9 @@ export default function DocumentIntakePage() {
           <SuccessScreen
             email={form.email} refId={refId}
             pdfBase64={pdfBase64} pdfName={pdfName}
+            pdfBase64NoSig={pdfBase64NoSig} pdfNameNoSig={pdfNameNoSig}
             pdfAuthBase64={pdfAuthBase64} pdfAuthName={pdfAuthName}
+            pdfAuthBase64NoSig={pdfAuthBase64NoSig} pdfAuthNameNoSig={pdfAuthNameNoSig}
           />
         </div>
       </main>
@@ -1748,12 +1834,12 @@ export default function DocumentIntakePage() {
         <div className={s.stepHeader}>
           <div className={s.stepHeaderLeft}>
             <div className={s.stepIconBox}>
-              {currentStep === 1 && <PersonIcon />}
-              {currentStep === 2 && <MapPinIcon size={20} color="white" />}
-              {currentStep === 3 && <HeartIcon size={20} color="white" />}
-              {currentStep === 4 && <ShieldIcon size={20} color="white" />}
-              {currentStep === 5 && <ContactIcon />}
-              {currentStep === 6 && <UploadIcon size={20} color="white" />}
+              {currentStep === 1 && <UploadIcon size={20} color="white" />}
+              {currentStep === 2 && <PersonIcon />}
+              {currentStep === 3 && <MapPinIcon size={20} color="white" />}
+              {currentStep === 4 && <HeartIcon size={20} color="white" />}
+              {currentStep === 5 && <ShieldIcon size={20} color="white" />}
+              {currentStep === 6 && <ContactIcon />}
               {currentStep === 7 && <FileTextIcon />}
               {currentStep === 8 && <CircleCheckIcon />}
             </div>
@@ -1776,11 +1862,12 @@ export default function DocumentIntakePage() {
           ))}
         </div>
 
-        {currentStep === 1 && <PersonalStep form={form} onChange={onChange} errors={errors} onFill={handleOcrFill} onFileReady={handleDocFileReady} />}
-        {currentStep === 2 && <AddressStep form={form} onChange={onChange} errors={errors} />}
-        {currentStep === 3 && <MedicalStep form={form} onChange={onChange} />}
-        {currentStep === 4 && <InsuranceStep form={form} onChange={onChange} errors={errors} onFill={handleOcrFill} onFileReady={handleDocFileReady} />}
-        {currentStep === 5 && (
+        {currentStep === 1 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} onOcrFill={handleOcrFill} />}
+        {currentStep === 2 && <PersonalStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 3 && <AddressStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 4 && <MedicalStep form={form} onChange={onChange} />}
+        {currentStep === 5 && <InsuranceStep form={form} onChange={onChange} errors={errors} />}
+        {currentStep === 6 && (
           <EmergencyContactStep
             contacts={emergencyContacts}
             onUpdate={updateEmergencyContact}
@@ -1789,7 +1876,6 @@ export default function DocumentIntakePage() {
             errors={errors}
           />
         )}
-        {currentStep === 6 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} />}
         {currentStep === 7 && (
           <AuthorizationStep
             agreed={authAgreed} setAgreed={setAuthAgreed}
