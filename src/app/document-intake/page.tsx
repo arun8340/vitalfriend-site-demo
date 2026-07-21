@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import s from "./document-intake.module.css";
 
 const TOTAL_STEPS = 8;
@@ -60,6 +60,60 @@ const REQUIRED_DOC_TYPES = [
   "Insurance Card (Front)",
   "Insurance Card (Back)",
   "Government-Issued ID",
+];
+
+interface ChronicCondition {
+  name: string;
+  code: string | null;
+  isOther?: boolean;
+}
+
+const CHRONIC_CONDITIONS: ChronicCondition[] = [
+  { name: "Essential (primary) hypertension", code: "I10" },
+  { name: "Atherosclerotic heart disease of native coronary artery without angina pectoris", code: "I25.10" },
+  { name: "Hypertensive heart disease without heart failure", code: "I11.9" },
+  { name: "Hypertensive chronic kidney disease with stage 1-4 CKD", code: "I12.9" },
+  { name: "Heart failure, unspecified", code: "I50.9" },
+  { name: "Atrial fibrillation, unspecified", code: "I48.91" },
+  { name: "Chronic ischemic heart disease, unspecified", code: "I25.9" },
+  { name: "Type 2 diabetes mellitus without complications", code: "E11.9" },
+  { name: "Type 2 diabetes mellitus with hyperglycemia", code: "E11.65" },
+  { name: "Type 2 diabetes mellitus with diabetic chronic kidney disease", code: "E11.22" },
+  { name: "Hypothyroidism, unspecified", code: "E03.9" },
+  { name: "Obesity, unspecified", code: "E66.9" },
+  { name: "Hyperlipidemia, unspecified", code: "E78.5" },
+  { name: "Mixed hyperlipidemia", code: "E78.2" },
+  { name: "Pure hypercholesterolemia, unspecified", code: "E78.00" },
+  { name: "Chronic obstructive pulmonary disease, unspecified", code: "J44.9" },
+  { name: "Chronic obstructive pulmonary disease with acute exacerbation", code: "J44.1" },
+  { name: "Asthma, unspecified", code: "J45.9" },
+  { name: "Obstructive sleep apnea (adult) (pediatric)", code: "G47.33" },
+  { name: "Chronic kidney disease, stage 3 unspecified", code: "N18.30" },
+  { name: "Chronic kidney disease, stage 4 (severe)", code: "N18.4" },
+  { name: "End stage renal disease", code: "N18.6" },
+  { name: "Gastro-esophageal reflux disease without esophagitis", code: "K21.9" },
+  { name: "Constipation, unspecified", code: "K59.00" },
+  { name: "Age-related osteoporosis without current pathological fracture", code: "M81.0" },
+  { name: "Unspecified osteoarthritis, unspecified site", code: "M19.90" },
+  { name: "Panniculitis, unspecified", code: "M79.3" },
+  { name: "Anxiety disorder, unspecified", code: "F41.9" },
+  { name: "Major depressive disorder, single episode, unspecified", code: "F32.9" },
+  { name: "Major depressive disorder, recurrent, unspecified", code: "F33.9" },
+  { name: "Vitamin D deficiency, unspecified", code: "E55.9" },
+  { name: "Iron deficiency anemia, unspecified", code: "D50.9" },
+  { name: "Gestational hypertension without significant proteinuria", code: "O13.9" },
+  { name: "Unspecified diabetes mellitus in pregnancy", code: "O24.919" },
+  { name: "Encounter for antineoplastic chemotherapy", code: "Z51.11" },
+  { name: "Personal history of nicotine dependence", code: "Z87.891" },
+  { name: "Presence of aortocoronary bypass graft", code: "Z95.1" },
+  { name: "Personal history of pulmonary embolism", code: "Z87.11" },
+  { name: "Venous insufficiency (chronic) (peripheral)", code: "I87.2" },
+  { name: "Urinary tract infection, site not specified", code: "N39.0" },
+  { name: "Alzheimer's Disease", code: null },
+  { name: "Dementia", code: null },
+  { name: "ADHD", code: null },
+  { name: "Autism Spectrum Disorder", code: null },
+  { name: "Other", code: null, isOther: true },
 ];
 
 const initialForm: FormData = {
@@ -176,6 +230,11 @@ const UserIcon = () => (
     <circle cx="12" cy="8" r="4" /><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
   </svg>
 );
+const ChevronDownIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
 const InfoIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" />
@@ -191,8 +250,8 @@ const ArrowRight = () => (
     <path d="M5 12h14M12 5l7 7-7 7" />
   </svg>
 );
-const SpinnerIcon = () => (
-  <svg className={s.spinner} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+const SpinnerIcon = ({ color = "white" }: { color?: string }) => (
+  <svg className={s.spinner} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5">
     <circle cx="12" cy="12" r="10" strokeOpacity="0.3" />
     <path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round" />
   </svg>
@@ -660,7 +719,89 @@ function AddressStep({ form, onChange, errors }: { form: FormData; onChange: OnC
   );
 }
 
-function MedicalStep({ form, onChange }: { form: FormData; onChange: OnChange }) {
+function chronicConditionLabel(c: ChronicCondition): string {
+  return c.code ? `${c.name} - ${c.code}` : c.name;
+}
+
+function ChronicConditionsField({
+  selected, onToggle, otherText, onOtherTextChange,
+}: {
+  selected: string[];
+  onToggle: (name: string) => void;
+  otherText: string;
+  onOtherTextChange: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const selectedConditions = CHRONIC_CONDITIONS.filter(c => selected.includes(c.name));
+  const isOtherSelected = selected.includes("Other");
+
+  return (
+    <div className={s.fieldGroup}>
+      <label className={s.label}>Chronic Conditions</label>
+      <div className={s.multiSelectWrapper} ref={wrapperRef}>
+        <button type="button" className={s.multiSelectTrigger} onClick={() => setOpen(o => !o)}>
+          <span className={s.multiSelectTriggerText}>
+            {selected.length === 0 ? "Select chronic conditions..." : `${selected.length} selected`}
+          </span>
+          <ChevronDownIcon />
+        </button>
+        {open && (
+          <div className={s.multiSelectPanel}>
+            {CHRONIC_CONDITIONS.map(c => (
+              <label key={c.name} className={s.multiSelectOption}>
+                <input type="checkbox" className={s.certifyCheck}
+                  checked={selected.includes(c.name)}
+                  onChange={() => onToggle(c.name)} />
+                <span>{chronicConditionLabel(c)}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {selectedConditions.length > 0 && (
+        <div className={s.multiSelectChips}>
+          {selectedConditions.map(c => (
+            <span key={c.name} className={s.multiSelectChip}>
+              {chronicConditionLabel(c)}
+              <button type="button" aria-label={`Remove ${c.name}`} onClick={() => onToggle(c.name)}>×</button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {isOtherSelected && (
+        <div className={s.inputWrapperNoIcon}>
+          <input className={s.input} type="text" placeholder="Please specify the other condition"
+            value={otherText} onChange={e => onOtherTextChange(e.target.value)} />
+        </div>
+      )}
+      <p className={s.hint}>Select all chronic conditions that apply</p>
+    </div>
+  );
+}
+
+function MedicalStep({
+  form, onChange, chronicConditions, onToggleChronicCondition, otherConditionText, onOtherConditionTextChange,
+}: {
+  form: FormData;
+  onChange: OnChange;
+  chronicConditions: string[];
+  onToggleChronicCondition: (name: string) => void;
+  otherConditionText: string;
+  onOtherConditionTextChange: (value: string) => void;
+}) {
   return (
     <div className={s.stepContent}>
       <div className={s.infoBannerPink}>
@@ -677,13 +818,10 @@ function MedicalStep({ form, onChange }: { form: FormData; onChange: OnChange })
         <p className={s.hint}>Optional - Name of your regular doctor</p>
       </div>
 
-      <div className={s.fieldGroup}>
-        <label className={s.label}>Medical Conditions</label>
-        <textarea className={s.textarea} rows={4}
-          placeholder="Please list any chronic conditions, previous surgeries, or ongoing health issues..."
-          value={form.medicalConditions} onChange={e => onChange("medicalConditions", e.target.value)} />
-        <p className={s.hint}>Include conditions like diabetes, hypertension, asthma, etc.</p>
-      </div>
+      <ChronicConditionsField
+        selected={chronicConditions} onToggle={onToggleChronicCondition}
+        otherText={otherConditionText} onOtherTextChange={onOtherConditionTextChange}
+      />
 
       <div className={s.fieldGroup}>
         <label className={s.label}>Current Medications</label>
@@ -1116,7 +1254,7 @@ function ReviewStep({
 
       <ReviewSection icon={<HeartIcon size={24} />} title="Medical History">
         <ReviewRow label="Primary Care Physician" value={form.primaryCarePhysician} fallback="Not provided" />
-        <ReviewRow label="Medical Conditions" value={form.medicalConditions} fallback="None listed" />
+        <ReviewRow label="Chronic Conditions" value={form.medicalConditions} fallback="None listed" />
         <ReviewRow label="Medications" value={form.medications} fallback="None listed" />
         <ReviewRow label="Allergies" value={form.allergies} fallback="None listed" />
       </ReviewSection>
@@ -1393,14 +1531,11 @@ function AuthorizationStep({
 
 // ── Success screen ────────────────────────────────────────────────────────────
 function SuccessScreen({
-  email, refId, pdfBase64, pdfName, pdfBase64NoSig, pdfNameNoSig,
-  pdfAuthBase64, pdfAuthName, pdfAuthBase64NoSig, pdfAuthNameNoSig,
+  refId, pdfsReady, pdfBase64, pdfName, pdfBase64NoSig, pdfNameNoSig,
 }: {
-  email: string; refId: string;
+  refId: string; pdfsReady: boolean;
   pdfBase64?: string; pdfName?: string;
   pdfBase64NoSig?: string; pdfNameNoSig?: string;
-  pdfAuthBase64?: string; pdfAuthName?: string;
-  pdfAuthBase64NoSig?: string; pdfAuthNameNoSig?: string;
 }) {
   const triggerDownload = (b64: string, filename: string) => {
     const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
@@ -1426,44 +1561,30 @@ function SuccessScreen({
         We&apos;ll review everything and get back to you shortly.
       </p>
 
-      <div className={s.successEmailBox}>
-        <p className={s.successEmailLabel}>Confirmation sent to</p>
-        <div className={s.successEmailRow}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F39F6" strokeWidth="1.8">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <path d="M2 7l10 7 10-7" />
-          </svg>
-          {email && <span className={s.successEmailText}>{email}</span>}
-        </div>
-      </div>
-
       <p className={s.successRefId}>Reference ID: {refId}</p>
 
       <div className={s.downloadGroup}>
-        {pdfBase64 && (
-          <button className={s.downloadBtn} onClick={() => triggerDownload(pdfBase64, pdfName ?? "RPM_Intake_Form.pdf")} type="button">
-            <DownloadIcon /> Download Intake Form
+        {!pdfsReady && (
+          <div className={s.preparingBox}>
+            <SpinnerIcon color="#4F39F6" />
+            <span>Preparing your documents for download…</span>
+          </div>
+        )}
+        {pdfsReady && pdfBase64 && (
+          <button className={s.downloadBtn} onClick={() => triggerDownload(pdfBase64, pdfName ?? "RPM_Form.pdf")} type="button">
+            <DownloadIcon /> Download Form
           </button>
         )}
-        {pdfAuthBase64 && (
-          <button className={`${s.downloadBtn} ${s.downloadBtnSecondary}`} onClick={() => triggerDownload(pdfAuthBase64, pdfAuthName ?? "RPM_Authorization.pdf")} type="button">
-            <DownloadIcon /> Download Authorization Agreement
-          </button>
-        )}
-        {(pdfBase64NoSig || pdfAuthBase64NoSig) && (
+        {pdfsReady && pdfBase64NoSig && (
           <>
             <div className={s.downloadDivider}>Without signature</div>
-            {pdfBase64NoSig && (
-              <button className={`${s.downloadBtn} ${s.downloadBtnGhost}`} onClick={() => triggerDownload(pdfBase64NoSig, pdfNameNoSig ?? "RPM_Intake_Form_NoSignature.pdf")} type="button">
-                <DownloadIcon /> Intake Form (No Signature)
-              </button>
-            )}
-            {pdfAuthBase64NoSig && (
-              <button className={`${s.downloadBtn} ${s.downloadBtnGhost}`} onClick={() => triggerDownload(pdfAuthBase64NoSig, pdfAuthNameNoSig ?? "RPM_Authorization_NoSignature.pdf")} type="button">
-                <DownloadIcon /> Authorization Agreement (No Signature)
-              </button>
-            )}
+            <button className={`${s.downloadBtn} ${s.downloadBtnGhost}`} onClick={() => triggerDownload(pdfBase64NoSig, pdfNameNoSig ?? "RPM_Form_NoSignature.pdf")} type="button">
+              <DownloadIcon /> Form (No Signature)
+            </button>
           </>
+        )}
+        {pdfsReady && !pdfBase64 && (
+          <p className={s.pdfUnavailable}>Your documents couldn&apos;t be prepared for download. Please contact support for a copy.</p>
         )}
       </div>
     </div>
@@ -1589,10 +1710,7 @@ export default function DocumentIntakePage() {
   const [pdfName, setPdfName] = useState("");
   const [pdfBase64NoSig, setPdfBase64NoSig] = useState("");
   const [pdfNameNoSig, setPdfNameNoSig] = useState("");
-  const [pdfAuthBase64, setPdfAuthBase64] = useState("");
-  const [pdfAuthName, setPdfAuthName] = useState("");
-  const [pdfAuthBase64NoSig, setPdfAuthBase64NoSig] = useState("");
-  const [pdfAuthNameNoSig, setPdfAuthNameNoSig] = useState("");
+  const [pdfsReady, setPdfsReady] = useState(false);
   const [authAgreed, setAuthAgreed] = useState(false);
   const [authError, setAuthError] = useState("");
   const [poaSignatureDataUrl, setPoaSignatureDataUrl] = useState("");
@@ -1600,6 +1718,21 @@ export default function DocumentIntakePage() {
   const [emergencyContacts, setEmergencyContacts] = useState<EmergencyContact[]>([
     { name: "", phone: "", relationship: "" },
   ]);
+  const [chronicConditions, setChronicConditions] = useState<string[]>([]);
+  const [otherConditionText, setOtherConditionText] = useState("");
+
+  const toggleChronicCondition = (name: string) => {
+    setChronicConditions(prev =>
+      prev.includes(name) ? prev.filter(n => n !== name) : [...prev, name]);
+  };
+
+  useEffect(() => {
+    const summary = CHRONIC_CONDITIONS
+      .filter(c => chronicConditions.includes(c.name))
+      .map(c => (c.isOther ? (otherConditionText.trim() ? `Other - ${otherConditionText.trim()}` : "Other") : chronicConditionLabel(c)))
+      .join("; ");
+    setForm(prev => (prev.medicalConditions === summary ? prev : { ...prev, medicalConditions: summary }));
+  }, [chronicConditions, otherConditionText]);
 
   const updateEmergencyContact = (index: number, field: keyof EmergencyContact, value: string) => {
     setEmergencyContacts(prev => {
@@ -1732,10 +1865,10 @@ export default function DocumentIntakePage() {
     }
 
     const generatePdfs = async () => {
-      if (!driveFolderId) return;
+      if (!driveFolderId) { setPdfsReady(true); return; }
 
-      const [pdfResult, authResult] = await Promise.allSettled([
-        fetch("/api/generate-intake-pdf", {
+      try {
+        const res = await fetch("/api/generate-intake-pdf", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -1744,39 +1877,19 @@ export default function DocumentIntakePage() {
             consents,
             refId,
             signatureDataUrl,
-            folderId: driveFolderId,
-          }),
-        }).then(res => res.json()),
-        fetch("/api/generate-authorization-pdf", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            form,
-            signatureDataUrl,
             poaSignatureDataUrl,
             witnessSignatureDataUrl,
-            refId,
             folderId: driveFolderId,
           }),
-        }).then(res => res.json()),
-      ]);
+        });
+        const data = await res.json();
 
-      if (pdfResult.status === "fulfilled") {
-        if (pdfResult.value.pdfBase64) setPdfBase64(pdfResult.value.pdfBase64);
-        if (pdfResult.value.pdfName) setPdfName(pdfResult.value.pdfName);
-        if (pdfResult.value.pdfBase64NoSig) setPdfBase64NoSig(pdfResult.value.pdfBase64NoSig);
-        if (pdfResult.value.pdfNameNoSig) setPdfNameNoSig(pdfResult.value.pdfNameNoSig);
-      } else {
-        console.error("Intake PDF generation failed:", pdfResult.reason);
-      }
-
-      if (authResult.status === "fulfilled") {
-        if (authResult.value.pdfBase64) setPdfAuthBase64(authResult.value.pdfBase64);
-        if (authResult.value.pdfName) setPdfAuthName(authResult.value.pdfName);
-        if (authResult.value.pdfBase64NoSig) setPdfAuthBase64NoSig(authResult.value.pdfBase64NoSig);
-        if (authResult.value.pdfNameNoSig) setPdfAuthNameNoSig(authResult.value.pdfNameNoSig);
-      } else {
-        console.error("Authorization PDF generation failed:", authResult.reason);
+        if (data.pdfBase64) setPdfBase64(data.pdfBase64);
+        if (data.pdfName) setPdfName(data.pdfName);
+        if (data.pdfBase64NoSig) setPdfBase64NoSig(data.pdfBase64NoSig);
+        if (data.pdfNameNoSig) setPdfNameNoSig(data.pdfNameNoSig);
+      } finally {
+        setPdfsReady(true);
       }
     };
 
@@ -1813,11 +1926,9 @@ export default function DocumentIntakePage() {
       <main className={s.page}>
         <div className={s.card}>
           <SuccessScreen
-            email={form.email} refId={refId}
+            refId={refId} pdfsReady={pdfsReady}
             pdfBase64={pdfBase64} pdfName={pdfName}
             pdfBase64NoSig={pdfBase64NoSig} pdfNameNoSig={pdfNameNoSig}
-            pdfAuthBase64={pdfAuthBase64} pdfAuthName={pdfAuthName}
-            pdfAuthBase64NoSig={pdfAuthBase64NoSig} pdfAuthNameNoSig={pdfAuthNameNoSig}
           />
         </div>
       </main>
@@ -1865,7 +1976,13 @@ export default function DocumentIntakePage() {
         {currentStep === 1 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} onOcrFill={handleOcrFill} />}
         {currentStep === 2 && <PersonalStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 3 && <AddressStep form={form} onChange={onChange} errors={errors} />}
-        {currentStep === 4 && <MedicalStep form={form} onChange={onChange} />}
+        {currentStep === 4 && (
+          <MedicalStep
+            form={form} onChange={onChange}
+            chronicConditions={chronicConditions} onToggleChronicCondition={toggleChronicCondition}
+            otherConditionText={otherConditionText} onOtherConditionTextChange={setOtherConditionText}
+          />
+        )}
         {currentStep === 5 && <InsuranceStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 6 && (
           <EmergencyContactStep

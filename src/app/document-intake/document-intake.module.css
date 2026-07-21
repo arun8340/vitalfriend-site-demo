@@ -714,37 +714,27 @@
   margin: 0 0 28px;
 }
 
-.successEmailBox {
+.successRefId {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0 0 24px;
+}
+
+.preparingBox {
   width: 100%;
   background: #eff6ff;
   border-radius: 12px;
-  padding: 18px 24px;
-  margin-bottom: 24px;
+  padding: 16px 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-}
-
-.successEmailLabel {
-  font-size: 13px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.successEmailRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.successEmailText {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 500;
   color: #4F39F6;
 }
 
-.successRefId {
+.pdfUnavailable {
   font-size: 13px;
   color: #9ca3af;
   margin: 0;
@@ -1140,6 +1130,111 @@
   color: #1f2937;
 }
 
+/* ── Chronic conditions multi-select ── */
+.multiSelectWrapper {
+  position: relative;
+}
+
+.multiSelectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 48px;
+  background: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.multiSelectTrigger:hover,
+.multiSelectTrigger:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+.multiSelectTriggerText {
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.multiSelectTrigger svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.multiSelectPanel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+}
+
+.multiSelectOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.multiSelectOption:hover {
+  background: #f5f3ff;
+}
+
+.multiSelectOption input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.multiSelectChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.multiSelectChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f5f3ff;
+  color: #6d28d9;
+  border-radius: 999px;
+  padding: 5px 8px 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.multiSelectChip button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: none;
+  color: #6d28d9;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
 /* ── Consent section ── */
 .consentSection {
   display: flex;
@@ -1327,7 +1422,7 @@
   /* Success screen */
   .successWrapper { padding: 32px 20px 28px; }
   .successTitle { font-size: 22px; }
-  .successEmailBox { padding: 14px 16px; }
+  .preparingBox { padding: 14px 16px; }
 
   /* Auth terms */
   .authTermsBox { max-height: 240px; padding: 14px 14px; }
