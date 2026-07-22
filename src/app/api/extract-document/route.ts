@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI, ApiError } from "@google/genai";
+import sharp from "sharp";
 
-const client = new Anthropic();
+const MODEL = "gemini-2.5-flash";
+
+const client = new GoogleGenAI({
+  vertexai: true,
+  apiKey: process.env.GOOGLE_VERTEX_API_KEY,
+});
 
 const EXTRACTION_PROMPT = `You are a document data extractor. Look at this document image and extract the fields listed below.
 
@@ -57,36 +63,38 @@ export async function POST(req: NextRequest) {
     }
 
     const bytes = await file.arrayBuffer();
-    const base64 = Buffer.from(bytes).toString("base64");
-    const mediaType = file.type as "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+    const resized = await sharp(Buffer.from(bytes))
+      .resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 85 })
+      .toBuffer();
+    const base64 = resized.toString("base64");
 
-    const response = await client.messages.create({
-      model: "claude-opus-4-8",
-      max_tokens: 1024,
-      messages: [
+    const response = await client.models.generateContent({
+      model: MODEL,
+      contents: [
         {
           role: "user",
-          content: [
-            {
-              type: "image",
-              source: { type: "base64", media_type: mediaType, data: base64 },
-            },
-            { type: "text", text: EXTRACTION_PROMPT },
+          parts: [
+            { inlineData: { mimeType: "image/jpeg", data: base64 } },
+            { text: EXTRACTION_PROMPT },
           ],
         },
       ],
+      config: {
+        maxOutputTokens: 2048,
+        responseMimeType: "application/json",
+        thinkingConfig: { thinkingBudget: 0 },
+      },
     });
 
-    const raw = response.content[0].type === "text" ? response.content[0].text : "";
-    console.log("=== CLAUDE VISION RESPONSE ===\n", raw, "\n==============================");
+    const raw = response.text ?? "";
+    console.log("=== GEMINI VISION RESPONSE ===\n", raw, "\n==============================");
 
     const parsed = JSON.parse(raw.trim());
     console.log("=== PARSED ===\n", JSON.stringify(parsed, null, 2));
     return NextResponse.json(parsed);
   } catch (err: unknown) {
-    const isAuthError =
-      err instanceof Error &&
-      (err.message.includes("401") || err.message.toLowerCase().includes("auth") || err.constructor?.name === "AuthenticationError");
+    const isAuthError = err instanceof ApiError && (err.status === 401 || err.status === 403);
     if (isAuthError) {
       return NextResponse.json({ error: "auto-fill-unavailable" }, { status: 200 });
     }

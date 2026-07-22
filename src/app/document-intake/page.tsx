@@ -1011,43 +1011,21 @@ const OCR_ALLOWED_FIELDS: Record<string, Set<string>> = {
   insurance: new Set(["insuranceProvider","policyNumber","groupNumber","memberId","primaryPolicyHolder"]),
 };
 
-type DocOcrStatus = "idle" | "scanning" | "done" | "error";
+type DocOcrStatus = "idle" | "scanning" | "done" | "error" | "skipped";
 
-function DocumentsStep({ docItems, setDocItems, docError, onOcrFill }: {
+function DocumentsStep({ docItems, setDocItems, docError, ocrStatus, ocrFilled, runOcr, isOcrBusy, onSkipAll }: {
   docItems: DocItem[];
   setDocItems: (items: DocItem[]) => void;
   docError: string;
-  onOcrFill: (fields: Record<string, string>, fillEmptyOnly?: boolean) => void;
+  ocrStatus: Record<string, DocOcrStatus>;
+  ocrFilled: Record<string, string[]>;
+  runOcr: (file: File, docTypeName: string) => void;
+  isOcrBusy: boolean;
+  onSkipAll: () => void;
 }) {
-  const [ocrStatus, setOcrStatus] = useState<Record<string, DocOcrStatus>>({});
-  const [ocrFilled, setOcrFilled] = useState<Record<string, string[]>>({});
-
   const renameFile = (file: File, type: string): File => {
     const ext = file.name.includes(".") ? "." + file.name.split(".").pop() : "";
     return new File([file], `${type}${ext}`, { type: file.type });
-  };
-
-  const runOcr = async (file: File, docTypeName: string) => {
-    const docCat = OCR_ID_TYPES.has(docTypeName) ? "id" : "insurance";
-    const allowed = OCR_ALLOWED_FIELDS[docCat];
-    setOcrStatus(prev => ({ ...prev, [docTypeName]: "scanning" }));
-    try {
-      const fd = new globalThis.FormData();
-      fd.append("file", file);
-      const res = await fetch("/api/extract-document", { method: "POST", body: fd });
-      if (!res.ok) throw new Error("failed");
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      const raw: Record<string, string> = data.fields ?? {};
-      const fields = Object.fromEntries(Object.entries(raw).filter(([k]) => allowed.has(k)));
-      const filled = Object.entries(fields).filter(([, v]) => v?.trim()).map(([k]) => k);
-      if (filled.length === 0) throw new Error("no fields");
-      onOcrFill(fields, docTypeName === "Insurance Card (Back)");
-      setOcrStatus(prev => ({ ...prev, [docTypeName]: "done" }));
-      setOcrFilled(prev => ({ ...prev, [docTypeName]: filled }));
-    } catch {
-      setOcrStatus(prev => ({ ...prev, [docTypeName]: "error" }));
-    }
   };
 
   const updateRequiredFile = (type: string, file: File) => {
@@ -1055,7 +1033,7 @@ function DocumentsStep({ docItems, setDocItems, docError, onOcrFill }: {
     setDocItems(docItems.map(d => d.type === type ? { type, file: renamed } : d));
     const isOcrType = OCR_ID_TYPES.has(type) || OCR_INS_TYPES.has(type);
     const isImage = ["image/jpeg","image/png","image/gif","image/webp"].includes(file.type);
-    if (isOcrType && isImage) void runOcr(file, type);
+    if (isOcrType && isImage) runOcr(file, type);
   };
 
   const updateOptionalType = (index: number, type: string) => {
@@ -1082,6 +1060,13 @@ function DocumentsStep({ docItems, setDocItems, docError, onOcrFill }: {
         <InfoIcon />
         <span>Upload your documents — we&apos;ll auto-fill the form from them. If auto-fill is unavailable, fill in your details on the next steps.</span>
       </div>
+      {isOcrBusy && (
+        <div className={s.docOcrStatusBar}>
+          <SpinnerIcon color="#7c3aed" />
+          <span className={s.docOcrStatusBarText}>Reading your documents…</span>
+          <button type="button" className={s.docOcrSkipAllBtn} onClick={onSkipAll}>Skip auto-fill</button>
+        </div>
+      )}
       <div className={s.docList}>
         {requiredItems.map(item => {
           const st = ocrStatus[item.type] ?? "idle";
@@ -1102,6 +1087,7 @@ function DocumentsStep({ docItems, setDocItems, docError, onOcrFill }: {
                   {st === "scanning" && <p className={s.hint} style={{ color: "#7c3aed" }}>Reading document…</p>}
                   {st === "done" && filled.length > 0 && <p className={s.hint} style={{ color: "#16a34a" }}>{filled.length} field{filled.length !== 1 ? "s" : ""} auto-filled</p>}
                   {st === "error" && <p className={s.hint} style={{ color: "#6b7280" }}>Auto-fill unavailable — fill manually</p>}
+                  {st === "skipped" && <p className={s.hint} style={{ color: "#6b7280" }}>Auto-fill skipped — fill manually</p>}
                 </div>
               </div>
               {item.file ? (
@@ -1700,6 +1686,9 @@ export default function DocumentIntakePage() {
   });
   const [form, setForm] = useState<FormData>(initialForm);
   const [docItems, setDocItems] = useState<DocItem[]>(REQUIRED_DOC_TYPES.map(type => ({ type, file: null })));
+  const [ocrStatus, setOcrStatus] = useState<Record<string, DocOcrStatus>>({});
+  const [ocrFilled, setOcrFilled] = useState<Record<string, string[]>>({});
+  const ocrAbortControllers = useRef<Record<string, AbortController>>({});
   const [signatureDataUrl, setSignatureDataUrl] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -1782,6 +1771,46 @@ export default function DocumentIntakePage() {
       return next;
     });
   }, []);
+
+  const runOcr = useCallback(async (file: File, docTypeName: string) => {
+    const docCat = OCR_ID_TYPES.has(docTypeName) ? "id" : "insurance";
+    const allowed = OCR_ALLOWED_FIELDS[docCat];
+    const controller = new AbortController();
+    ocrAbortControllers.current[docTypeName] = controller;
+    setOcrStatus(prev => ({ ...prev, [docTypeName]: "scanning" }));
+    try {
+      const fd = new globalThis.FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/extract-document", { method: "POST", body: fd, signal: controller.signal });
+      if (!res.ok) throw new Error("failed");
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const raw: Record<string, string> = data.fields ?? {};
+      const fields = Object.fromEntries(Object.entries(raw).filter(([k]) => allowed.has(k)));
+      const filled = Object.entries(fields).filter(([, v]) => v?.trim()).map(([k]) => k);
+      if (filled.length === 0) throw new Error("no fields");
+      handleOcrFill(fields, docTypeName === "Insurance Card (Back)");
+      setOcrStatus(prev => ({ ...prev, [docTypeName]: "done" }));
+      setOcrFilled(prev => ({ ...prev, [docTypeName]: filled }));
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      setOcrStatus(prev => ({ ...prev, [docTypeName]: "error" }));
+    } finally {
+      delete ocrAbortControllers.current[docTypeName];
+    }
+  }, [handleOcrFill]);
+
+  const skipAllOcr = useCallback(() => {
+    const pending = Object.keys(ocrAbortControllers.current);
+    pending.forEach(type => ocrAbortControllers.current[type]?.abort());
+    setOcrStatus(prev => {
+      const next = { ...prev };
+      for (const type of pending) next[type] = "skipped";
+      return next;
+    });
+  }, []);
+
+  const isOcrBusy = Object.values(ocrStatus).some(st => st === "scanning");
 
   const handleDocFileReady = useCallback((file: File, docTypeName: string) => {
     setDocItems(prev => {
@@ -1973,7 +2002,13 @@ export default function DocumentIntakePage() {
           ))}
         </div>
 
-        {currentStep === 1 && <DocumentsStep docItems={docItems} setDocItems={setDocItems} docError={docError} onOcrFill={handleOcrFill} />}
+        {currentStep === 1 && (
+          <DocumentsStep
+            docItems={docItems} setDocItems={setDocItems} docError={docError}
+            ocrStatus={ocrStatus} ocrFilled={ocrFilled} runOcr={runOcr}
+            isOcrBusy={isOcrBusy} onSkipAll={skipAllOcr}
+          />
+        )}
         {currentStep === 2 && <PersonalStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 3 && <AddressStep form={form} onChange={onChange} errors={errors} />}
         {currentStep === 4 && (
@@ -2019,9 +2054,9 @@ export default function DocumentIntakePage() {
             <ArrowLeft /> Previous
           </button>
           <button
-            className={`${s.navBtn} ${s.nextBtn} ${(currentStep === TOTAL_STEPS && !canSubmit) || submitting ? s.navBtnDisabled : ""}`}
+            className={`${s.navBtn} ${s.nextBtn} ${(currentStep === TOTAL_STEPS && !canSubmit) || submitting || (currentStep === 1 && isOcrBusy) ? s.navBtnDisabled : ""}`}
             onClick={currentStep === TOTAL_STEPS ? handleSubmit : goNext}
-            disabled={(currentStep === TOTAL_STEPS && !canSubmit) || submitting}
+            disabled={(currentStep === TOTAL_STEPS && !canSubmit) || submitting || (currentStep === 1 && isOcrBusy)}
           >
             {currentStep === TOTAL_STEPS
               ? submitting ? "Submitting…" : "Submit Application"
