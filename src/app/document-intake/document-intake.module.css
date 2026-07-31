@@ -1569,6 +1569,7 @@
   /* Nav buttons */
   .nav { padding: 0 16px 20px; }
   .navBtn { padding: 11px 20px; font-size: 13px; }
+  .submitStatusBar { margin: 0 16px 14px; padding: 10px 12px; }
 
   /* Form grids → single column */
   .fieldRow { grid-template-columns: 1fr; gap: 14px; }
@@ -1937,6 +1938,24 @@
 }
 
 .ocrErrorRetry:hover { background: #fef2f2; }
+
+.submitStatusBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 0 32px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.submitStatusBarText {
+  flex: 1;
+}
 
 .docOcrStatusBar {
   display: flex;

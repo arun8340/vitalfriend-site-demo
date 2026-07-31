@@ -1687,6 +1687,7 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
   const [signatureDataUrl, setSignatureDataUrl] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitStage, setSubmitStage] = useState("");
   const [refId] = useState(generateRefId);
   const [errors, setErrors] = useState<FormErrors>({});
   const [docError, setDocError] = useState("");
@@ -1878,6 +1879,7 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
     const uploadableFiles = docItems.filter(d => d.file !== null).map(d => d.file as File);
     const hasAnything = uploadableFiles.length > 0 || signatureDataUrl !== "";
     if (hasAnything) {
+      setSubmitStage("Uploading your documents…");
       const fd = new FormData();
       fd.append("patientName", `${form.firstName} ${form.lastName}`.trim());
       fd.append("refId", refId);
@@ -1892,6 +1894,8 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
       driveFolderUrl  = driveData.folderUrl  ?? "";
       driveFolderId   = driveData.folderId   ?? "";
     }
+
+    setSubmitStage("Creating your intake document…");
 
     const generatePdfs = async () => {
       if (!driveFolderId) { setPdfsReady(true); return; }
@@ -1945,6 +1949,7 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
       }),
     });
 
+    setSubmitStage("");
     setSubmitted(true);
   };
 
@@ -2049,6 +2054,13 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
             consents={consents} setConsents={setConsents}
             signatureDataUrl={signatureDataUrl} setSignatureDataUrl={setSignatureDataUrl}
           />
+        )}
+
+        {submitting && (
+          <div className={s.submitStatusBar}>
+            <SpinnerIcon color="#7c3aed" />
+            <span className={s.submitStatusBarText}>{submitStage || "Submitting your application…"} This may take a minute — please don&apos;t close this page.</span>
+          </div>
         )}
 
         <div className={s.nav}>
