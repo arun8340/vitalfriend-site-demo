@@ -1861,7 +1861,10 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
     setCurrentStep(s => Math.max(s - 1, 1));
   };
 
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
   const handleLogout = async () => {
+    setShowLogoutConfirm(false);
     await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
     onLogout();
   };
@@ -1994,7 +1997,7 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
-            <button type="button" className={s.logoutBtn} onClick={handleLogout}>
+            <button type="button" className={s.logoutBtn} onClick={() => setShowLogoutConfirm(true)}>
               <LogoutIcon /> Log out
             </button>
             <div className={s.stepCounter}>
@@ -2084,7 +2087,38 @@ function IntakeWizard({ onLogout }: { onLogout: () => void }) {
           </button>
         </div>
       </div>
+
+      {showLogoutConfirm && (
+        <ConfirmModal
+          title="Confirm Log out?"
+          message="Are you sure you want to log out? Any unsaved progress will be lost."
+          confirmLabel="Log out"
+          onConfirm={handleLogout}
+          onCancel={() => setShowLogoutConfirm(false)}
+        />
+      )}
     </main>
+  );
+}
+
+// ── Confirm modal ────────────────────────────────────────────────────────────
+function ConfirmModal({
+  title, message, confirmLabel, onConfirm, onCancel,
+}: {
+  title: string; message: string; confirmLabel: string;
+  onConfirm: () => void; onCancel: () => void;
+}) {
+  return (
+    <div className={s.modalOverlay} onClick={onCancel}>
+      <div className={s.modalCard} onClick={e => e.stopPropagation()}>
+        <h3 className={s.modalTitle}>{title}</h3>
+        <p className={s.modalMessage}>{message}</p>
+        <div className={s.modalActions}>
+          <button type="button" className={s.modalCancelBtn} onClick={onCancel}>Cancel</button>
+          <button type="button" className={s.modalConfirmBtn} onClick={onConfirm}>{confirmLabel}</button>
+        </div>
+      </div>
+    </div>
   );
 }
 
