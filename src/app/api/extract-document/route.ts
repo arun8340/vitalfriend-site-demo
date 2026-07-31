@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI, ApiError } from "@google/genai";
 import sharp from "sharp";
+import { verifyIntakeSession } from "@/lib/intakeAuth";
 
 const MODEL = "gemini-2.5-flash";
 
@@ -51,6 +52,10 @@ Rules:
 - Return only the raw JSON with no backticks and no code fences.`;
 
 export async function POST(req: NextRequest) {
+  if (!(await verifyIntakeSession(req))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;

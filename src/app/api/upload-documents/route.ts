@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import { Readable } from "stream";
 import https from "https";
+import { verifyIntakeSession } from "@/lib/intakeAuth";
 
 export const maxDuration = 60;
 
@@ -46,6 +47,10 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
 }
 
 export async function POST(req: NextRequest) {
+  if (!(await verifyIntakeSession(req))) {
+    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const formData = await req.formData();
     const patientName = formData.get("patientName") as string;

@@ -49,17 +49,17 @@ interface DocItem {
 }
 
 const DOC_TYPES = [
+  "Government-Issued ID",
   "Insurance Card (Front)",
   "Insurance Card (Back)",
-  "Government-Issued ID",
   "Insurance Coverage Document",
   "Other",
 ];
 
 const REQUIRED_DOC_TYPES = [
+  "Government-Issued ID",
   "Insurance Card (Front)",
   "Insurance Card (Back)",
-  "Government-Issued ID",
 ];
 
 interface ChronicCondition {
@@ -149,11 +149,6 @@ function validateStep(step: number, form: FormData, emergencyContacts?: Emergenc
   }
   if (step === 5) {
     if (!form.insuranceProvider.trim()) e.insuranceProvider = "Insurance company is required";
-    if (!form.policyNumber.trim()) {
-      e.policyNumber = "Policy number is required";
-    } else if (!/^[A-Za-z0-9]{6,20}$/.test(form.policyNumber.trim())) {
-      e.policyNumber = "Enter a valid policy number (letters and numbers only, 6–20 characters)";
-    }
     if (!form.memberId.trim()) e.memberId = "Member ID is required";
   }
   if (step === 6) {
@@ -861,7 +856,7 @@ function InsuranceStep({ form, onChange, errors }: { form: FormData; onChange: O
           {errors.insuranceProvider ? <p style={errStyle}>{errors.insuranceProvider}</p> : <p className={s.hint}>As shown on your insurance card</p>}
         </div>
         <div className={s.fieldGroup}>
-          <label className={s.label}>Policy Number <span className={s.required}>*</span></label>
+          <label className={s.label}>Policy Number</label>
           <div className={s.inputWrapperNoIcon}>
             <input className={s.input} type="text" placeholder="ABC123456789"
               value={form.policyNumber} onChange={e => onChange("policyNumber", e.target.value)} />
@@ -1676,7 +1671,7 @@ function generateRefId() {
 }
 
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default function DocumentIntakePage() {
+function IntakeWizard({ onLogout }: { onLogout: () => void }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [consents, setConsents] = useState<ConsentState>({
     rpmConsent: false,
@@ -1865,6 +1860,11 @@ export default function DocumentIntakePage() {
     setCurrentStep(s => Math.max(s - 1, 1));
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+    onLogout();
+  };
+
   const allConsentsChecked = Object.values(consents).every(Boolean);
   const canSubmit = allConsentsChecked && form.printName.trim() !== "" && signatureDataUrl !== "";
 
@@ -1988,9 +1988,14 @@ export default function DocumentIntakePage() {
               <p className={s.stepSubtitle}>{step.subtitle}</p>
             </div>
           </div>
-          <div className={s.stepCounter}>
-            <span className={s.stepCurrent}>{currentStep}</span>
-            <span className={s.stepTotal}>of {TOTAL_STEPS}</span>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
+            <button type="button" className={s.logoutBtn} onClick={handleLogout}>
+              <LogoutIcon /> Log out
+            </button>
+            <div className={s.stepCounter}>
+              <span className={s.stepCurrent}>{currentStep}</span>
+              <span className={s.stepTotal}>of {TOTAL_STEPS}</span>
+            </div>
           </div>
         </div>
 
@@ -2069,4 +2074,136 @@ export default function DocumentIntakePage() {
       </div>
     </main>
   );
+}
+
+// ── Login gate ───────────────────────────────────────────────────────────────
+const LockIcon = ({ size = 18, color = "currentColor" }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8">
+    <rect x="5" y="11" width="14" height="10" rx="2" />
+    <path d="M8 11V7a4 4 0 018 0v4" />
+  </svg>
+);
+
+const LogoutIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+    <polyline points="16 17 21 12 16 7" />
+    <line x1="21" y1="12" x2="9" y2="12" />
+  </svg>
+);
+
+function LoginGate({ onSuccess }: { onSuccess: () => void }) {
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ identifier, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Unable to log in. Please try again.");
+        return;
+      }
+      onSuccess();
+    } catch {
+      setError("Unable to log in. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <main className={s.page}>
+      <div className={s.loginCard}>
+        <div className={s.loginBrandPanel}>
+          <div className={s.loginBrandLogo}>
+            <img src="/images/full-logo.svg" alt="VitalFriend" />
+          </div>
+          <img src="/images/about-us/hero-buddy.png" alt="VitalFriend Buddy" className={s.loginBuddyImg} />
+          <p className={s.loginBrandTitle}>Hey, welcome back!</p>
+          <p className={s.loginBrandSubtitle}>Sign in to securely manage patient document intake.</p>
+        </div>
+
+        <div className={s.loginFormPanel}>
+          <div>
+            <p className={s.loginTitle}>Admin Login</p>
+            <p className={s.loginSubtitle}>Sign in to access the document intake tool</p>
+          </div>
+
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop: "24px" }}>
+            <div className={s.infoBanner}>
+              <InfoIcon />
+              <span>This page is restricted to authorized staff. Sign in with your admin account to continue.</span>
+            </div>
+
+            <div className={s.fieldGroup}>
+              <label className={s.label}>Email or Phone <span className={s.required}>*</span></label>
+              <div className={s.inputWrapper}>
+                <UserIcon />
+                <input className={s.input} type="text" placeholder="you@vitalfrnd.com" autoComplete="username"
+                  value={identifier} onChange={e => setIdentifier(e.target.value)} required />
+              </div>
+            </div>
+
+            <div className={s.fieldGroup}>
+              <label className={s.label}>Password <span className={s.required}>*</span></label>
+              <div className={s.inputWrapper}>
+                <LockIcon />
+                <input className={s.input} type="password" placeholder="••••••••" autoComplete="current-password"
+                  value={password} onChange={e => setPassword(e.target.value)} required />
+              </div>
+            </div>
+
+            {error && <p style={errStyle}>{error}</p>}
+
+            <button type="submit" className={`${s.navBtn} ${s.nextBtn}`} disabled={submitting}
+              style={{ justifyContent: "center" }}>
+              {submitting ? "Signing in…" : "Sign In"}
+              {submitting ? <SpinnerIcon /> : <ArrowRight />}
+            </button>
+
+            <p className={s.loginFooterNote}>Trouble signing in? Contact your system administrator.</p>
+          </form>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+// ── Top-level page: auth gate in front of the wizard ────────────────────────
+export default function DocumentIntakePage() {
+  const [authState, setAuthState] = useState<"checking" | "authed" | "unauthed">("checking");
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/auth/session")
+      .then(res => { if (!cancelled) setAuthState(res.ok ? "authed" : "unauthed"); })
+      .catch(() => { if (!cancelled) setAuthState("unauthed"); });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (authState === "checking") {
+    return (
+      <main className={s.page}>
+        <div className={s.card} style={{ padding: "64px 32px", display: "flex", justifyContent: "center" }}>
+          <SpinnerIcon color="#7c3aed" />
+        </div>
+      </main>
+    );
+  }
+
+  if (authState === "unauthed") {
+    return <LoginGate onSuccess={() => setAuthState("authed")} />;
+  }
+
+  return <IntakeWizard onLogout={() => setAuthState("unauthed")} />;
 }

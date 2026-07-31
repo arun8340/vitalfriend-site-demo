@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import { DateTime } from "luxon";
+import { getIntakeSession } from "@/lib/intakeAuth";
 
 const SHEET_ID = process.env.GOOGLE_SHEET_ID!;
 const SHEET_NAME = "Submissions";
 
 const HEADERS = [
-  "Submitted At", "Reference ID",
+  "Submitted At", "Reference ID", "Submitted By",
   "First Name", "Last Name", "Date of Birth", "Email", "Phone", "Gender", "Referred By",
   "Street Address", "City", "State", "ZIP",
   "Primary Care Physician", "Medical Conditions",
@@ -38,6 +39,11 @@ function getAuth() {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getIntakeSession(req);
+  if (!session) {
+    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await req.json();
     const auth = getAuth();
@@ -91,6 +97,7 @@ export async function POST(req: NextRequest) {
             return dt.toFormat("MMM d, yyyy h:mm a") + " " + tzAbbr;
           })(),
           body.refId ?? "",
+          session.identifier,
           body.firstName ?? "",
           body.lastName ?? "",
           body.dateOfBirth ?? "",

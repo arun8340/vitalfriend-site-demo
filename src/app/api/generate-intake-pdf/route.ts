@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { PDFDocument, PDFPage, PDFFont, rgb, StandardFonts } from "pdf-lib";
 import { google } from "googleapis";
 import { Readable } from "stream";
+import { verifyIntakeSession } from "@/lib/intakeAuth";
 
 export const maxDuration = 60;
 
@@ -747,6 +748,10 @@ async function buildPdf(
 
 // ── Route ─────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
+  if (!(await verifyIntakeSession(req))) {
+    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body     = await req.json() as Record<string, unknown>;
     const folderId = body.folderId as string;
