@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
   // Bad credentials and "valid credentials but not admin" both collapse to
   // the same generic error — distinguishing them would tell an attacker
   // guessing passwords the moment they've found a working one.
-  if (!token || role !== "admin") {
+  if (!token || (role !== "admin" && role !== "ops_admin")) {
     recordFailedAttempt(rateLimitKey);
     return NextResponse.json({ error: GENERIC_ERROR }, { status: 401 });
   }
