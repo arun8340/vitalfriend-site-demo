@@ -75,6 +75,7 @@ export async function POST(req: NextRequest) {
             parents: [PARENT_FOLDER_ID],
           },
           fields: "id",
+          supportsAllDrives: true,
         },
         { agent: freshAgent() },
       )
@@ -99,6 +100,7 @@ export async function POST(req: NextRequest) {
               body: Readable.from(buffer),
             },
             fields: "id",
+            supportsAllDrives: true,
           },
           { agent: freshAgent() },
         )

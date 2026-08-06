@@ -328,7 +328,10 @@ async function drawSigRow(
 
 // ── Drive helpers ─────────────────────────────────────────────────────────────
 async function downloadFile(drive: ReturnType<typeof google.drive>, id: string): Promise<Buffer> {
-  const res = await drive.files.get({ fileId: id, alt: "media" }, { responseType: "arraybuffer" });
+  const res = await drive.files.get(
+    { fileId: id, alt: "media", supportsAllDrives: true },
+    { responseType: "arraybuffer" },
+  );
   return Buffer.from(res.data as ArrayBuffer);
 }
 
@@ -337,6 +340,8 @@ async function listFolder(drive: ReturnType<typeof google.drive>, folderId: stri
     q: `'${folderId}' in parents and trashed = false`,
     fields: "files(id, name, mimeType)",
     pageSize: 50,
+    supportsAllDrives: true,
+    includeItemsFromAllDrives: true,
   });
   return (res.data.files ?? []) as { id: string; name: string; mimeType: string }[];
 }
@@ -776,12 +781,14 @@ export async function POST(req: NextRequest) {
       requestBody: { name: pdfName, parents: [folderId], mimeType: "application/pdf" },
       media: { mimeType: "application/pdf", body: Readable.from(Buffer.from(pdfBytes)) },
       fields: "id",
+      supportsAllDrives: true,
     });
 
     await drive.files.create({
       requestBody: { name: pdfNameNoSig, parents: [folderId], mimeType: "application/pdf" },
       media: { mimeType: "application/pdf", body: Readable.from(Buffer.from(pdfBytesNoSig)) },
       fields: "id",
+      supportsAllDrives: true,
     });
 
     const pdfBase64      = Buffer.from(pdfBytes).toString("base64");
